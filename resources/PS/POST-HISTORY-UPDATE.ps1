@@ -13,7 +13,7 @@ $Date = Get-Date -Format "yyyy-MM-dd HH:mm:ss"
 $conn = New-Object System.Data.SqlClient.SqlConnection $connStr
 $conn.Open()
 $SqlCmd = New-Object System.Data.SqlClient.SqlCommand
-$SqlCmd.CommandText = "exec [cusip_ActiveTicketsTest]"
+$SqlCmd.CommandText = "exec [cusip_ActiveTicketsTracking]"
 $SqlCmd.Connection = $conn
 $SqlAdapter = New-Object System.Data.SqlClient.SqlDataAdapter
 $SqlAdapter.SelectCommand = $SqlCmd
@@ -52,4 +52,3 @@ $SqlUpdateCmd.CommandText = "INSERT INTO [tblCusiMetricsActiveTickets] (ActiveTi
 $SqlUpdateCmd.Connection = $conn
 $SqlUpdateCmd.ExecuteNonQuery()
 $conn.Close()
-
