@@ -1,0 +1,6 @@
+﻿[Environment]::SetEnvironmentVariable("DASHBOARD_URL", "YOUR_URL_HERE", "User")
+[Environment]::SetEnvironmentVariable("DASHBOARD_AUTH_TOKEN", "YOUR_TOKEN_HERE", "User")
+[Environment]::SetEnvironmentVariable("DASHBOARD_SQL_INSTANCE", "YOUR_INSTANCE_HERE", "User")
+[Environment]::SetEnvironmentVariable("DASHBOARD_DATABASE_NAME", "YOUR_DATABASE_HERE", "User")
+[Environment]::SetEnvironmentVariable("DASHBOARD_DATABASE_USERNAME", "YOUR_USERNAME_HERE", "User")
+[Environment]::SetEnvironmentVariable("DASHBOARD_DATABASE_PASSWORD", "YOUR_PASSWORD_HERE", "User")
