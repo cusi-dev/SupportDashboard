@@ -4,3 +4,4 @@
 history.yml
 tmp
 .env
+SET-ENV-VARS.ps1
