@@ -1,3 +1,4 @@
+config.ru
 *.swp
 *.log
 *DS_STORE
