@@ -13,7 +13,7 @@
 // ----------------------------------------------------------------------------
 $background-color: #00C176;//#000000;
 $value-color: #FFFFFF;
-$title-color: rgba(255, 255, 255, 0.7);
+#4e2a00$title-color: rgba(255, 255, 255, 0.7);
 $updated-at-color: rgba(0, 0, 0, 0.3);
 
 // ----------------------------------------------------------------------------
@@ -38,12 +38,12 @@ $updated-at-color: rgba(0, 0, 0, 0.3);
 
 }
 
-.hotness0 { background-color: #00C176; }
-.hotness1 { background-color: #88C100; }
-.hotness2 { background-color: #FABE28; }
-.hotness3 { background-color: #FF8A00; }
+.hotness0 { background-color: #00C176; color: #ffffff;}
+.hotness1 { background-color: #88C100; color: #354b00; }
+.hotness2 { background-color: #FABE28; color: #493402; }
+.hotness3 { background-color: #FF8A00; color: #4e2a00; }
 //.hotness4 { background-color: #FF003C; }
-.hotness4 { background-color: #FF0000; }
+.hotness4 { background-color: #FF0000; color: #ffffff; }
 
 // // More colour-blind friendly palette
 // .hotness0 { background-color: #046D8B; }
