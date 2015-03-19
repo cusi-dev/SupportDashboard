@@ -59,7 +59,7 @@ class Dashing.Fullpie extends Dashing.Widget
       .attr('x', 0)
       .attr('dy', 15)
       .attr('font-size', '90%')
-      .text((d,i) -> Math.round(data[i].value/sum * 100) + '%').attr('font-size', '24px')
+      .text((d,i) -> Math.round(data[i].value/sum * 100) + '%')
                               
                               
                                
