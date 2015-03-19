@@ -54,7 +54,7 @@ class Dashing.Fullpie extends Dashing.Widget
       d.outerRadius = radius
       "translate(" + arc.centroid(d) + ")")
       .attr('fill', "#fff")
-      .attr("text-anchor", "middle").text((d, i) -> data[i].label).attr('font-size', '24px')
+      .attr("text-anchor", "middle").text((d, i) -> data[i].label).attr('font-size', '28px')
       .append('svg:tspan')
       .attr('x', 0)
       .attr('dy', 25)
