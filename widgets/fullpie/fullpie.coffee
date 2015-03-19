@@ -57,7 +57,7 @@ class Dashing.Fullpie extends Dashing.Widget
       .attr("text-anchor", "middle").text((d, i) -> data[i].label).attr('font-size', '24px')
       .append('svg:tspan')
       .attr('x', 0)
-      .attr('dy', 15)
+      .attr('dy', 25)
       .attr('font-size', '90%')
       .text((d,i) -> data[i].value + ' (' + Math.round(data[i].value/sum * 100) + '%)')
                               
