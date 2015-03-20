@@ -51,14 +51,22 @@ $(function() {
 	<li data-row="1" data-col="1" data-sizex="1" data-sizey="1">
 		<div data-id="unhandled" data-view="Hotness" data-title="Open Tickets" data-moreinfo="Tickets not in progess" data-cool="5" data-warm="10"></div>
 	</li>
-
+<!--
     <li data-row="1" data-col="1" data-sizex="1" data-sizey="1">
 		<div data-id="umsopentickets" data-view="List" data-unordered="true" data-title="UMS Tickets" data-moreinfo="Open tickets by SLA" style="background-color:#444433;"></div>
     </li>
-
+-->
+	<li data-row="1" data-col="1" data-sizex="1" data-sizey="1">
+		<div data-id="umsopentickets" data-view="Fullpie" style="background-color:#444433;" data-moreinfo="UMS SLA status" data-title="UMS Tickets"></div>
+	</li>
+<!--
     <li data-row="1" data-col="1" data-sizex="1" data-sizey="1">
 		<div data-id="cbswopentickets" data-view="List" data-unordered="true" data-title="CBSW Tickets" data-moreinfo="Open tickets by SLA" style="background-color:#444433;"></div>
     </li>
+-->
+	<li data-row="1" data-col="1" data-sizex="1" data-sizey="1">
+		<div data-id="cbswopentickets" data-view="Fullpie" style="background-color:#444433;" data-moreinfo="CBSW SLA status" data-title="CBSW Tickets"></div>
+	</li>
 <!--
     <li data-row="1" data-col="1" data-sizex="1" data-sizey="1">
 		<div data-id="inbound" data-view="Number" data-title="Inbound Resolutions" data-moreinfo="Ticket counts resolved inbound" style="background-color:#444433;"></div>
