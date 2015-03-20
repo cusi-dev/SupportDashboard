@@ -27,7 +27,7 @@ class Dashing.Testpie extends Dashing.Widget
       #.range( ['#222222','#333333','#444444','#555555','#666666','#777777','#888888','#999999','#aaaaaa'] )
       #.range( ['#4e4eb1','#4eb14e','#b14e4e','#2727d8','#27d827','#d82727','#0000ff','#00ff00','#ff0000'] )
       #.range( ['#0000ff','#00ff00','#ff0000'] )
-      .range( ['#4444ee','#44ee44','#ee4444'] )
+      .range( ['#ee4444','#44ee44','#4444ee'] )
 
     $(@node).children("svg").remove();
 
