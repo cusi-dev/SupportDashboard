@@ -24,7 +24,7 @@ class Dashing.Testpie extends Dashing.Widget
       .domain([1,10])
       #.range( ['#222222','#555555','#777777','#999999','#bbbbbb','#dddddd','#ffffff'] )
       #.range( ['#222222','#333333','#444444','#555555','#666666','#777777','#888888','#999999','#aaaaaa'] )
-      .range( ['#4e4eb1','#3b3bc4','#2727d8','#555555','#666666','#777777','#888888','#999999','#aaaaaa'] )
+      .range( ['#4e4eb1','#3b3bc4','#3131ce','#2727d8','#1d1de2','#1414eb','#oaoaf5','#0000ff','#ffffff'] )
 
     $(@node).children("svg").remove();
 
