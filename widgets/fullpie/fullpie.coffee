@@ -75,7 +75,7 @@ class Dashing.Fullpie extends Dashing.Widget
       .text((d,i) -> data[i].value + ' (' + percent_val + '%)')
 
     getpercentval: (x) ->
-      if _.isNan(Math.round(x.value/sum * 100))
+      if isNan(Math.round(x.value/sum * 100))
         0
       else 
         Math.round(x.value/sum * 100)
