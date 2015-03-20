@@ -63,9 +63,9 @@ class Dashing.Fullpie extends Dashing.Widget
 
     arcs.append("svg:text").attr("transform", (d, i) -> 
       percent_val = Math.round(data[i].value/sum * 100)
-	  if _.isNan(percent_val)
+	  if .isNan(percent_val)
 		percent_val = 0
-	  if _.isNan(data[i].value)
+	  if .isNan(data[i].value)
 	    data[i].val = 0
       d.innerRadius = (radius * (100-percent_val)/100) - 45  #45=max text size/2
       d.outerRadius = radius
