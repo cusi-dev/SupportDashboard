@@ -47,8 +47,8 @@ class Dashing.Fullpie extends Dashing.Widget
     sum=0
     for val in data  
       sum += val.value
-	if isNaN(sum)
-	  sum = 0
+	if isNaN(sum) or sum == 0
+	  sum = 1
 
     arcs.append("svg:text").attr("transform", (d, i) -> 
       procent_val = Math.round(data[i].value/sum * 100)
