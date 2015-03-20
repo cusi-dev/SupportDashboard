@@ -62,7 +62,7 @@ class Dashing.Fullpie extends Dashing.Widget
 #      .text((d,i) -> data[i].value + ' (' + Math.round(data[i].value/sum * 100) + '%)')
 
     arcs.append("svg:text").attr("transform", (d, i) -> 
-      percent_val = if _.isNan(Math.round(data[i].value/sum * 100)) then 0 else Math.round(data[i].value/sum * 100)
+      percent_val = getpercentval()
       d.innerRadius = (radius * (100-percent_val)/100) - 45  #45=max text size/2
       d.outerRadius = radius
       "translate(" + arc.centroid(d) + ")")
@@ -73,3 +73,9 @@ class Dashing.Fullpie extends Dashing.Widget
       .attr('dy', 25)
       .attr('font-size', '90%')
       .text((d,i) -> data[i].value + ' (' + percent_val + '%)')
+
+    getpercentval: ->
+      if _.isNan(Math.round(data[i].value/sum * 100))
+        0
+      else 
+        Math.round(data[i].value/sum * 100)
