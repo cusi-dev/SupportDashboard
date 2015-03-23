@@ -57,6 +57,8 @@ class Dashing.Testpie extends Dashing.Widget
     arcs.append("svg:text").attr("transform", (d, i) -> 
       procent_val = Math.round(data[i].value/sum * 100)
       d.innerRadius = (radius * (100-procent_val)/100) - 45  #45=max text size/2
+      if !d.innerRadius
+        d.innerRadius = radius * .333
       d.outerRadius = radius
       "translate(" + arc.centroid(d) + ")")
       .attr('fill', "#fff")
