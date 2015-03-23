@@ -63,7 +63,7 @@ class Dashing.Testpie extends Dashing.Widget
         "translate(" + arc.centroid(d) + ")")
         .attr('fill', "#fff")
         .attr("text-anchor", "middle").text((d, i) -> 
-          if data[i] != 0
+          if data[i].value != 0
             data[i].label
         ).attr('font-size', '28px')
         .append('svg:tspan')
