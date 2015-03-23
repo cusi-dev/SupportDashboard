@@ -63,9 +63,7 @@ class Dashing.Fullpie extends Dashing.Widget
 #      .attr('dy', 25)
 #      .attr('font-size', '90%')
 #      .text((d,i) -> data[i].value + ' (' + Math.round(data[i].value/sum * 100) + '%)')
-    sum=0
-    for val in data  
-      sum += val.value
+
     if !sum
       arcs.append("svg:text")
         .attr('fill', "#fff")
