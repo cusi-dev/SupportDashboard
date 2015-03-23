@@ -73,7 +73,7 @@ class Dashing.Testpie extends Dashing.Widget
         .text((d,i) -> 
           if data[i].value != 0
             data[i].value + ' (' + Math.round(data[i].value/sum * 100) + '%)'
-		)
+        )
 
 # mod
 #	arcs.append("svg:text").attr("transform", (d, i) -> 
