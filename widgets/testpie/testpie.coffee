@@ -62,7 +62,7 @@ class Dashing.Testpie extends Dashing.Widget
         d.outerRadius = radius
         "translate(" + arc.centroid(d) + ")")
         .attr('fill', "#fff")
-        .attr("text-anchor", "middle").text(f1: (d, i) -> 
+        .attr("text-anchor", "middle").text((d, i) -> 
           if data[i] != 0
             data[i].label
         ).attr('font-size', '28px')
