@@ -68,8 +68,8 @@ class Dashing.Testpie extends Dashing.Widget
         ).attr('font-size', '28px')
         .append('svg:tspan')
         .attr('x', 0)
-        .attr('dy', 25)
-        .attr('font-size', '90%')
+        .attr('dy', .9em)
+        .attr('font-size', '80%')
         .text((d,i) -> 
           if data[i].value != 0
             data[i].value + ' (' + Math.round(data[i].value/sum * 100) + '%)'
