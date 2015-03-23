@@ -74,6 +74,7 @@ class Dashing.Testpie extends Dashing.Widget
           if data[i].value != 0
             data[i].value
         )
+        .append('svg:tspan')
         .attr('x', 0)
         .attr('dy', 1em)
         .attr('font-size', '70%')
