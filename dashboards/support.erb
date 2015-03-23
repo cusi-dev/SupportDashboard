@@ -6,12 +6,8 @@ $(function() {
   Dashing.numColumns = 4
 });
 </script>
-<script type="text/javascript" src="https://www.google.com/jsapi"></script>
-<script type="text/javascript">
-	google.load("visualization", "1", {packages:["corechart"]});
-</script>
 
-<% content_for :title do %>Tech Support Information Dashboard<% end %>
+<% content_for :title do %>Tech Support Metrics Dashboard<% end %>
 
 <div class="gridster">
   <ul>
@@ -44,9 +40,12 @@ $(function() {
     <li data-row="1" data-col="1" data-sizex="1" data-sizey="1">
 		<div data-view="Text" data-title="NEC" data-moreinfo="Phone block" style="background-color:#000000"></div>
     </li>
--->
 	<li data-row="1" data-col="1" data-sizex="1" data-sizey="1">
 		<div data-id="testpie" data-view="Testpie" style="background-color:#222;" data-moreinfo="Pie test" data-title="Pie test"></div>
+	</li>
+-->
+	<li data-row="1" data-col="1" data-sizex="1" data-sizey="1">
+		<div data-id="newtickets" data-view="Text" data-title="Today's New Tickets" data-moreinfo="Tickets created today" style="background-color:#222"></div>
 	</li>
 
 	<li data-row="1" data-col="1" data-sizex="1" data-sizey="1">
