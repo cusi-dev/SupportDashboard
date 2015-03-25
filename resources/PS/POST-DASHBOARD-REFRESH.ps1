@@ -9,5 +9,5 @@ $body = "{
     ""event"" : ""reload""
 }"
 
-#Invoke-RestMethod -Method Post -Uri $url -Body $body -DisableKeepAlive
-(Invoke-WebRequest -Uri $url -Method Post -Body $json).content | ConvertFrom-Json
+Invoke-RestMethod -Method Post -Uri $url -Body $body -DisableKeepAlive
+#(Invoke-WebRequest -Uri $url -Method Post -Body $json).content | ConvertFrom-Json
