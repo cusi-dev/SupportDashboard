@@ -1,0 +1,20 @@
+<script type='text/javascript'>
+$(function() {
+  // These settings override the defaults set in application.coffee. You can do this on a per dashboard basis.
+  Dashing.gridsterLayout('[{"col":1,"row":1},{"col":1,"row":2},{"col":1,"row":3},{"col":2,"row":1},{"col":2,"row":2},{"col":2,"row":3},{"col":3,"row":1},{"col":3,"row":2},{"col":3,"row":3},{"col":4,"row":1},{"col":4,"row":2},{"col":4,"row":3}]')
+  Dashing.widget_base_dimensions = [460, 340]
+  Dashing.numColumns = 4
+});
+</script>
+
+<% content_for :title do %>Tech Support Agent Metrics Dashboard<% end %>
+
+<div class="gridster">
+  <ul>
+	
+    <li data-row="1" data-col="1" data-sizex="1" data-sizey="1">
+		<div data-view="Text" data-title="NEC" data-moreinfo="Phone block" style="background-color:#222"></div>
+    </li>
+
+  </ul>
+</div>
