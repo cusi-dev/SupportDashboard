@@ -41,7 +41,7 @@ class Dashing.CusiProgressBars extends Dashing.Widget
         elem = rowsContainer.find("."+normalizedItemName+" .inner-progress-bar")
         if elem.length
           @animateProgressBarContent(elem[0], parseFloat(elem[0].style.width),
-                                    parseFloat(item.progress), item.value, 1000)
+                                    parseFloat(item.progress), item.value, 500)#1000)
         ++counter
 
       # Remove any nodes that were not in the new data, these will be the rows
