@@ -120,7 +120,7 @@ class Dashing.CusiProgressBars extends Dashing.Widget
 
       # Every x milliseconds, the function should run.
 #      stepInterval = 16.667
-      stepInterval = 1.667
+      stepInterval = 166.667
 
       # Change the duration based on the distance between points.
       duration = baseDuration + Math.abs(endpointDifference) * 25
