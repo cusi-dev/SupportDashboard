@@ -62,7 +62,7 @@ foreach ($row in $rows)
     }
 }
 $pb1 += "]"
-$url = "$($dashboardURL)/widgets/progress_bars"
+$url = "$($dashboardURL)/widgets/cusi_progress_bars"
 $json = "{
     ""auth_token"" : ""$($authToken)"",
     ""progress_items"" : $pb1
