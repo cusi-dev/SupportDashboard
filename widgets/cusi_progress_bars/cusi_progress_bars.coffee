@@ -40,7 +40,7 @@ class Dashing.CusiProgressBars extends Dashing.Widget
 
         elem = rowsContainer.find("."+normalizedItemName+" .inner-progress-bar")
         if elem.length
-          @animateProgressBarContent(elem[0], parseFloat(elem[0].style.width),
+          @animateProgressBarContent(elem[0], parseFloat(elem[0].style.width / 100),
                                     parseFloat(item.progress), item.value, 250)#1000)
         ++counter
 
