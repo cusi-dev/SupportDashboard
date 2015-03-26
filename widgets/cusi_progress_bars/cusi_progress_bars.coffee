@@ -145,13 +145,13 @@ class Dashing.CusiProgressBars extends Dashing.Widget
   # @element - element to be set
   # @value - the numeric value to set the element to. This can be a float.
   # /
-  setProgressBarValue = (element, barvalue, value) ->
+  setProgressBarValue = (element, value, barvalue) ->
     if (barvalue > 100) 
       barvalue = 100
     else if (barvalue < 0) 
       barvalue = 0
 #    element.textContent = Math.floor(value) + "%"
-    element.textContent = Math.floor(barvalue)
+    element.textContent = Math.floor(value)
     element.style.width = barvalue + "%"
 
   #***/
