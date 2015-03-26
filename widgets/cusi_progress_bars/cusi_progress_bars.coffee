@@ -90,7 +90,8 @@ class Dashing.CusiProgressBars extends Dashing.Widget
 
     innerProgressBar = $("<div/>")
       .attr("class", "inner-progress-bar")
-      .text("0%")
+      .text("0")
+#      .text("0%")
     innerProgressBar.css("width", "0%")
 
     # Put it all together.
