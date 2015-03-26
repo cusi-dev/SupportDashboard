@@ -5,7 +5,7 @@
 // row-size is a magic number used for scaling. It will make things bigger
 // or smaller but always in proportion with each other. Feel free to change
 // this to reflect your personal needs.
-$row-size: 0.7em;
+$row-size: 1.2em;//0.7em;
 
 $blue: #2db4d4;
 $white: #ffffff;
@@ -66,7 +66,7 @@ $text-color:       $base-color-lightest;
 
   .project-name {
     display:inline-block;
-    width:35%;
+    width: 20%;//35%;
     padding-right: $row-size;
     text-align: left;
     vertical-align: middle;
@@ -77,7 +77,7 @@ $text-color:       $base-color-lightest;
 
   .outer-progress-bar {
     display:inline-block;
-    width: 65%;
+    width: 80%;//65%;
     vertical-align: middle;
     border: ($row-size / 3) solid $base-color-dark;
     border-radius: 2 * $row-size;
