@@ -150,7 +150,7 @@ class Dashing.CusiProgressBars extends Dashing.Widget
       barvalue = 100
     else if (barvalue < 0) 
       barvalue = 0
-	  value = 0
+      value = 0
 #    element.textContent = Math.floor(value) + "%"
     element.textContent = Math.floor(value)
     element.style.width = barvalue + "%"
