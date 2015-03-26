@@ -53,6 +53,7 @@ foreach ($row in $rows)
     "
         {
           ""name"" : ""$($row[0])"",
+          ""value"" : $($row[2]),
           ""progress"" : $($val)
         }
     "
@@ -103,6 +104,6 @@ $json = "{
     ""points"" : $pb2
 }"
 #Write-Host $url
-Write-Host $json
+#Write-Host $json
 
 (Invoke-WebRequest -Uri $url -Method Post -Body $json).content | ConvertFrom-Json

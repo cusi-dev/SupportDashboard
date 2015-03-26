@@ -41,7 +41,7 @@ class Dashing.CusiProgressBars extends Dashing.Widget
         elem = rowsContainer.find("."+normalizedItemName+" .inner-progress-bar")
         if elem.length
           @animateProgressBarContent(elem[0], parseFloat(elem[0].style.width),
-                                    parseFloat(item.progress), 1000)
+                                    parseFloat(item.progress), item.value, 1000)
         ++counter
 
       # Remove any nodes that were not in the new data, these will be the rows
@@ -111,7 +111,7 @@ class Dashing.CusiProgressBars extends Dashing.Widget
   # @to - the value that the element is going to.
   # @baseDuration - the minimum time the animation will perform.
   # /
-  animateProgressBarContent: (element, from, to, baseDuration) ->
+  animateProgressBarContent: (element, from, to, value, baseDuration) ->
     endpointDifference = (to-from)
 
     if endpointDifference != 0
@@ -130,10 +130,10 @@ class Dashing.CusiProgressBars extends Dashing.Widget
         ->
           currentValue += valueIncrement
           if Math.abs(currentValue - from) >= Math.abs(endpointDifference)
-            setProgressBarValue(element, to)
+            setProgressBarValue(element, value, to)
             clearInterval(interval)
           else
-            setProgressBarValue(element, currentValue)
+            setProgressBarValue(element, value, currentValue)
         stepInterval)
 
       @addInterval(interval)
@@ -145,14 +145,14 @@ class Dashing.CusiProgressBars extends Dashing.Widget
   # @element - element to be set
   # @value - the numeric value to set the element to. This can be a float.
   # /
-  setProgressBarValue = (element, value) ->
-    if (value > 100) 
-      value = 100
-    else if (value < 0) 
-      value = 0
+  setProgressBarValue = (element, barvalue, value) ->
+    if (barvalue > 100) 
+      barvalue = 100
+    else if (barvalue < 0) 
+      barvalue = 0
 #    element.textContent = Math.floor(value) + "%"
-    element.textContent = Math.floor(value)
-    element.style.width = value + "%"
+    element.textContent = Math.floor(barvalue)
+    element.style.width = barvalue + "%"
 
   #***/
   # Applies a percentage-based row height to the list of rows passed in.
