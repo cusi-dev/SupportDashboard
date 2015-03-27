@@ -68,18 +68,19 @@ $text-color:       $base-color-lightest;
 
   .project-name {
     display:inline-block;
-    width: 25%;//35%;
+    width: 30%;//35%;
     padding-right: $row-size;
     text-align: left;
     vertical-align: middle;
     text-overflow: ellipsis;
     overflow:hidden;
     white-space: nowrap;
-  }
+	text-shadow: 2px 2px #222222;
+}
 
   .outer-progress-bar {
     display:inline-block;
-    width: 75%;//65%;
+    width: 70%;//65%;
     vertical-align: middle;
     border: ($row-size / 3) solid $base-color-dark;
     border-radius: 2 * $row-size;
@@ -95,7 +96,4 @@ $text-color:       $base-color-lightest;
   .zebra-stripe {
     background-color: $base-color-light;
   }
-
-
-
 }
