@@ -1,10 +1,10 @@
-class Dashing.FullpieAgent extends Dashing.Widget
+class Dashing.Fullpie extends Dashing.Widget
   @accessor 'value'
 
   onData: (data) ->
     $(@node).fadeOut().fadeIn()
     @render(data.value)
-
+  
   render: (data) ->
     if !data
       data = @get("value")
@@ -50,6 +50,20 @@ class Dashing.FullpieAgent extends Dashing.Widget
     for val in data  
       sum += val.value
 
+# Core
+#    arcs.append("svg:text").attr("transform", (d, i) -> 
+#      procent_val = Math.round(data[i].value/sum * 100)
+#      d.innerRadius = (radius * (100-procent_val)/100) - 45  #45=max text size/2
+#      d.outerRadius = radius
+#      "translate(" + arc.centroid(d) + ")")
+#      .attr('fill', "#fff")
+#      .attr("text-anchor", "middle").text((d, i) -> data[i].label).attr('font-size', '28px')
+#      .append('svg:tspan')
+#      .attr('x', 0)
+#      .attr('dy', 25)
+#      .attr('font-size', '90%')
+#      .text((d,i) -> data[i].value + ' (' + Math.round(data[i].value/sum * 100) + '%)')
+
     if !sum
       arcs.append("svg:text")
         .attr('fill', "#fff")
@@ -72,5 +86,5 @@ class Dashing.FullpieAgent extends Dashing.Widget
         .text((d,i) -> 
           if data[i].value != 0
             data[i].value + ' (' + Math.round(data[i].value/sum * 100) + '%)'
-        )
+		)
 
