@@ -16,7 +16,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
     $(@node).children(".updated-at").text(@get('updatedAtMessage'))
 
     mFontSize = 28
-    width = 450 #width
+    width = 750 #width
     height = 450 #height
     radiuso = 200 #outer radius
     radiusi = 100 #inner radius
