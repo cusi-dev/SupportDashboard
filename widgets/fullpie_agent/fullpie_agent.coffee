@@ -19,7 +19,8 @@ class Dashing.FullpieAgent extends Dashing.Widget
     width = 750 #width
     height = 450 #height
     radiuso = 150 #outer radius
-    radiusi = 60 #inner radius
+    radiusi = 100 #inner radius
+    labelRadius = 180
 
     color = d3.scale.ordinal()
       #.domain([1,10])
@@ -87,7 +88,6 @@ class Dashing.FullpieAgent extends Dashing.Widget
         .text(sum)
         .attr("filter","url(#dropshadow)")
 
-      labelr = 120
       arcs.append("svg:text").attr("transform", (d, i) -> 
         #procent_val = Math.round(data[i].value/sum * 100)
         #d.innerRadius = (radiuso * (100-procent_val)/100) - radiuso/2 #45  #45=max text size/2
@@ -98,7 +98,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
         x = c[0]
         y = c[1]
         h = Math.sqrt(x*x + y*y)
-        return "translate(" + (x/h * labelr) + "," + (y/h * labelr) + ")"
+        return "translate(" + (x/h * labelRadius) + "," + (y/h * labelRadius) + ")"
         )
         .attr('fill', "#fff")
         .attr("text-anchor", "middle").text((d, i) -> 
