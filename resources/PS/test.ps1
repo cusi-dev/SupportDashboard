@@ -129,14 +129,7 @@ foreach ($row in $rows)
         $pb3 += ","
     }
 }
-
 $pb3 += "]"
-
-#fakedata
-$pb3 = "[
-    {""label"":""AsdfQwerty"",""value"":50},
-    {""label"":""ItsaReallyLongName"",""value"":50}
-]"
 
 $url = "$($dashboardURL)/widgets/mypie"
 $json = "{
