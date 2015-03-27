@@ -62,11 +62,14 @@ class Dashing.FullpieAgent extends Dashing.Widget
     else
       arcs.append("svg:text")
         .attr('fill', "#fff")
-        .attr("text-anchor", "middle").attr("alignment-baseline", "central").text(sum).attr('font-size', radiusi + 'px')
+        .attr("text-anchor", "middle")
+        .attr("alignment-baseline", "central")
+        .attr('font-size', radiusi + 'px')
+        .text(sum)
       arcs.append("svg:text").attr("transform", (d, i) -> 
         procent_val = Math.round(data[i].value/sum * 100)
         #d.innerRadius = (radiuso * (100-procent_val)/100) - radiuso/2 #45  #45=max text size/2
-        d.innerRadius = radiusi #(radiuso * (100-procent_val)/100) - radiuso/2 #45  #45=max text size/2
+        d.innerRadius = radiuso#i #(radiuso * (100-procent_val)/100) - radiuso/2 #45  #45=max text size/2
         d.outerRadius = radiuso
         "translate(" + arc.centroid(d) + ")")
         .attr('fill', "#fff")
