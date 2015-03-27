@@ -9,9 +9,8 @@ class Dashing.FullpieAgent extends Dashing.Widget
     if !data
       data = @get("value")
     if !data
-       return
-    #console.log "FullPie new"
-# this is a fix because data binding seems otherwise not work 
+      return
+
     $(@node).children(".title").text($(@node).attr("data-title"))
     $(@node).children(".more-info").text($(@node).attr("data-moreinfo"))
     $(@node).children(".updated-at").text(@get('updatedAtMessage'))
@@ -21,7 +20,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
     width = 400 #width
     height = 400 #height
     radiuso = 200 #outer radius
-    radiusi = 0 #inner radius
+    radiusi = 100 #inner radius
 
     color = d3.scale.ordinal()
       #.domain([1,10])
