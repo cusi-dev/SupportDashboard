@@ -59,7 +59,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
         .attr("id","dropshadow")
     filter.append("feGaussianBlur")
         .attr("in","SourceAlpha")
-        .attr("stdDeviation","4")
+        .attr("stdDeviation","1")
         .attr("result","blur")
     filter.append("feOffset")
         .attr("in","blur")
