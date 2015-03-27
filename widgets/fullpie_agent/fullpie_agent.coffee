@@ -16,6 +16,8 @@ class Dashing.FullpieAgent extends Dashing.Widget
     $(@node).children(".more-info").text($(@node).attr("data-moreinfo"))
     $(@node).children(".updated-at").text(@get('updatedAtMessage'))
 
+    mFontSize = 28
+	
     width = 400 #width
     height = 400 #height
     radius = 200 #radius
@@ -50,20 +52,6 @@ class Dashing.FullpieAgent extends Dashing.Widget
     for val in data  
       sum += val.value
 
-# Core
-#    arcs.append("svg:text").attr("transform", (d, i) -> 
-#      procent_val = Math.round(data[i].value/sum * 100)
-#      d.innerRadius = (radius * (100-procent_val)/100) - 45  #45=max text size/2
-#      d.outerRadius = radius
-#      "translate(" + arc.centroid(d) + ")")
-#      .attr('fill', "#fff")
-#      .attr("text-anchor", "middle").text((d, i) -> data[i].label).attr('font-size', '28px')
-#      .append('svg:tspan')
-#      .attr('x', 0)
-#      .attr('dy', 25)
-#      .attr('font-size', '90%')
-#      .text((d,i) -> data[i].value + ' (' + Math.round(data[i].value/sum * 100) + '%)')
-
     if !sum
       arcs.append("svg:text")
         .attr('fill', "#fff")
@@ -78,7 +66,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
         .attr("text-anchor", "middle").text((d, i) -> 
           if data[i].value != 0
             data[i].label
-        ).attr('font-size', '28px')
+        ).attr('font-size', mFontSize + 'px')
         .append('svg:tspan')
         .attr('x', 0)
         .attr('dy', '.9em')
@@ -87,4 +75,3 @@ class Dashing.FullpieAgent extends Dashing.Widget
           if data[i].value != 0
             data[i].value + ' (' + Math.round(data[i].value/sum * 100) + '%)'
 		)
-
