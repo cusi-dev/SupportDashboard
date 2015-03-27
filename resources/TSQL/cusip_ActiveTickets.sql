@@ -1,6 +1,6 @@
 USE [Footprints]
 GO
-/****** Object:  StoredProcedure [dbo].[cusip_ActiveTickets]    Script Date: 3/25/2015 8:09:03 AM ******/
+/****** Object:  StoredProcedure [dbo].[cusip_ActiveTickets]    Script Date: 3/27/2015 7:29:16 AM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -8,13 +8,6 @@ GO
 ALTER PROCEDURE [dbo].[cusip_ActiveTickets]
 AS
 BEGIN
-	--SELECT TOP (20)
-	--	ActiveTickets
-	--FROM
-	--	[tblCusiMetricsActiveTickets]
-	--ORDER BY
-	--	[DateCaptured]
-	--DESC
 
 	SELECT 
 		COUNT(*) AS CurrentTickets
