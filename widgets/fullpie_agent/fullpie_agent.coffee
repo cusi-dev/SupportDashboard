@@ -114,7 +114,8 @@ class Dashing.FullpieAgent extends Dashing.Widget
         .attr('fill', "#fff")
         .attr("text-anchor", "middle").text((d, i) -> 
           if data[i].value != 0
-            data[i].label
+            #data[i].label
+            data[i].label + " - " + data[i].value
         ).attr('font-size', mFontSize + 'px')
         .attr("filter","url(#dropshadow)")
         .append('svg:tspan')
@@ -123,5 +124,6 @@ class Dashing.FullpieAgent extends Dashing.Widget
         .attr('font-size', '70%')
         .text((d,i) -> 
           if data[i].value != 0
-            data[i].value + ' (' + Math.round(data[i].value/sum * 100) + '%)'
+            #data[i].value + ' (' + Math.round(data[i].value/sum * 100) + '%)'
+            '(' + Math.round(data[i].value/sum * 100) + '%)'
         )
