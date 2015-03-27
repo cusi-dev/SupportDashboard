@@ -82,6 +82,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
         .attr("text-anchor", "middle")
         .attr("alignment-baseline", "central")
         .attr('font-size', radiusi + 'px')
+        .attr('font-weight', 'bold')
         .text(sum)
         .attr("filter","url(#dropshadow)")
 
