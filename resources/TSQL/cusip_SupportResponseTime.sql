@@ -1,6 +1,6 @@
 USE [Footprints]
 GO
-/****** Object:  StoredProcedure [dbo].[cusip_SupportResponseTime]    Script Date: 3/25/2015 8:07:36 AM ******/
+/****** Object:  StoredProcedure [dbo].[cusip_SupportResponseTime]    Script Date: 3/27/2015 7:31:05 AM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -22,15 +22,18 @@ INNER JOIN
 ON
 	m.mrid=ma.mrID
 WHERE
-	m.mrSTATUS IN ('_REQUEST_','Open','Contact__bAttempted') AND m.mrASSIGNEES LIKE 'Support%'
+	m.mrSTATUS IN ('_REQUEST_','Open','Contact__bAttempted') 
+AND 
+	m.mrASSIGNEES LIKE 'Support%'
 AND
+(
+	Scheduled__bCall IS NULL 
+OR
 	(
-		Scheduled__bCall IS NULL 
-	OR
-		(
-			Scheduled__bCall >= @StartTime
-		AND 
-			Scheduled__bCall <= @EndTime
-		)
+		Scheduled__bCall >= @StartTime
+	AND 
+		Scheduled__bCall <= @EndTime
 	)
+)
+
 END
