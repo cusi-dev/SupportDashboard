@@ -97,6 +97,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
           if data[i].value != 0
             data[i].label
         ).attr('font-size', mFontSize + 'px')
+        .attr("filter","url(#dropshadow)")
         .append('svg:tspan')
         .attr('x', 0)
         .attr('dy', '.9em')
@@ -105,3 +106,4 @@ class Dashing.FullpieAgent extends Dashing.Widget
           if data[i].value != 0
             data[i].value + ' (' + Math.round(data[i].value/sum * 100) + '%)'
         )
+        .attr("filter","url(#dropshadow)")
