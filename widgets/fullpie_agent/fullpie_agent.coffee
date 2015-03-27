@@ -67,10 +67,10 @@ class Dashing.FullpieAgent extends Dashing.Widget
         .attr('font-size', radiusi + 'px')
         .text(sum)
       arcs.append("svg:text").attr("transform", (d, i) -> 
-        procent_val = Math.round(data[i].value/sum * 100)
+        #procent_val = Math.round(data[i].value/sum * 100)
         #d.innerRadius = (radiuso * (100-procent_val)/100) - radiuso/2 #45  #45=max text size/2
-        #d.innerRadius = radiuso - 10#i #(radiuso * (100-procent_val)/100) - radiuso/2 #45  #45=max text size/2
-        #d.outerRadius = radiuso
+        d.innerRadius = radiuso - 10 #i #(radiuso * (100-procent_val)/100) - radiuso/2 #45  #45=max text size/2
+        d.outerRadius = radiuso
         "translate(" + arc.centroid(d) + ")")
         .attr('fill', "#fff")
         .attr("text-anchor", "middle").text((d, i) -> 
