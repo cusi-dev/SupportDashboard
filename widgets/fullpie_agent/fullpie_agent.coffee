@@ -65,7 +65,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
         .attr("text-anchor", "middle")
         .attr("alignment-baseline", "central")
         .attr('font-size', radiusi + 'px')
-        .attr("text-shadow", "2px 2px #222222")
+        .attr("-webkit-filter", "drop-shadow( 2px 2px -2px #222222)")
         .text(sum)
       arcs.append("svg:text").attr("transform", (d, i) -> 
         #procent_val = Math.round(data[i].value/sum * 100)
