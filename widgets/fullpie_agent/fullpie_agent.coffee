@@ -101,7 +101,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
         mx = 1.2
         my = 1.2
         h = Math.sqrt(x*x + y*y)
-        r = 100
+        r = labelRadius
         if x <= 0
             r = -r
         #return "translate(" + (x/h * labelRadius) + "," + (y/h * labelRadius) + ")"
