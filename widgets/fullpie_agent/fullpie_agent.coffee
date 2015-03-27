@@ -106,4 +106,3 @@ class Dashing.FullpieAgent extends Dashing.Widget
           if data[i].value != 0
             data[i].value + ' (' + Math.round(data[i].value/sum * 100) + '%)'
         )
-        .attr("filter","url(#dropshadow)")
