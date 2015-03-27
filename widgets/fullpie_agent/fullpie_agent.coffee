@@ -20,7 +20,8 @@ class Dashing.FullpieAgent extends Dashing.Widget
 	
     width = 400 #width
     height = 400 #height
-    radius = 200 #radius
+    radiuso = 200 #outer radius
+    radiusi = 200 #inner radius
 
     color = d3.scale.ordinal()
       #.domain([1,10])
@@ -36,9 +37,12 @@ class Dashing.FullpieAgent extends Dashing.Widget
         .attr("width", width)
         .attr("height", height)
       .append("svg:g")
-        .attr("transform", "translate(" + radius + "," + 100 + ")") 
+        .attr("transform", "translate(" + radiuso + "," + radiuso + ")") 
 
-    arc = d3.svg.arc().outerRadius(radius)
+    arc = d3.svg.arc()
+      .outerRadius(radiuso)
+      .innerRadius(radiusi)
+
     pie = d3.layout.pie().value((d) -> d.value)
 
     arcs = vis.selectAll("g.slice")
@@ -59,9 +63,9 @@ class Dashing.FullpieAgent extends Dashing.Widget
     else
       arcs.append("svg:text").attr("transform", (d, i) -> 
         procent_val = Math.round(data[i].value/sum * 100)
-#        d.innerRadius = (radius * (100-procent_val)/100) - radius/2 #45  #45=max text size/2
-        d.innerRadius = (radius * (100-procent_val)/100) - radius/2 #45  #45=max text size/2
-        d.outerRadius = radius
+#        d.innerRadius = (radiuso * (100-procent_val)/100) - radiuso/2 #45  #45=max text size/2
+        d.innerRadius = (radiuso * (100-procent_val)/100) - radiuso/2 #45  #45=max text size/2
+        d.outerRadius = radiuso
         "translate(" + arc.centroid(d) + ")")
         .attr('fill', "#fff")
         .attr("text-anchor", "middle").text((d, i) -> 
