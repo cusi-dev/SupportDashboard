@@ -16,9 +16,9 @@ class Dashing.FullpieAgent extends Dashing.Widget
     $(@node).children(".more-info").text($(@node).attr("data-moreinfo"))
     $(@node).children(".updated-at").text(@get('updatedAtMessage'))
 
-    width = 350 #width
-    height = 350 #height
-    radius = 175 #radius
+    width = 260 #width
+    height = 260 #height
+    radius = 130 #radius
 
     color = d3.scale.ordinal()
       #.domain([1,10])
