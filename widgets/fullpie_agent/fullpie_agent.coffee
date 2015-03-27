@@ -88,8 +88,6 @@ class Dashing.FullpieAgent extends Dashing.Widget
         .attr("filter","url(#dropshadow)")
 
       arcs.append("svg:text").attr("transform", (d, i) -> 
-        #procent_val = Math.round(data[i].value/sum * 100)
-        #d.innerRadius = (radiuso * (100-procent_val)/100) - radiuso/2 #45  #45=max text size/2
         d.innerRadius = radiuso - 50 #i #(radiuso * (100-procent_val)/100) - radiuso/2 #45  #45=max text size/2
         d.outerRadius = radiuso
         "translate(" + arc.centroid(d) + ")")
@@ -107,3 +105,5 @@ class Dashing.FullpieAgent extends Dashing.Widget
           if data[i].value != 0
             data[i].value + ' (' + Math.round(data[i].value/sum * 100) + '%)'
         )
+        #procent_val = Math.round(data[i].value/sum * 100)
+        #d.innerRadius = (radiuso * (100-procent_val)/100) - radiuso/2 #45  #45=max text size/2
