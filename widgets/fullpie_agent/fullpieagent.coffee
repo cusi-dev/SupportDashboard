@@ -1,4 +1,4 @@
-class Dashing.Fullpie extends Dashing.Widget
+class Dashing.FullpieAgent extends Dashing.Widget
   @accessor 'value'
 
   onData: (data) ->
