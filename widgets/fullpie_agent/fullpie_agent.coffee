@@ -36,7 +36,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
         .attr("width", width)
         .attr("height", height)
       .append("svg:g")
-        .attr("transform", "translate(" + radius + "," + radius + ")") 
+        .attr("transform", "translate(" + radius + "," + 100 + ")") 
 
     arc = d3.svg.arc().outerRadius(radius)
     pie = d3.layout.pie().value((d) -> d.value)
@@ -51,7 +51,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
     sum=0
     for val in data  
       sum += val.value
-
+    textRadiusInc = Math.Round(sum / data.count)
     if !sum
       arcs.append("svg:text")
         .attr('fill', "#fff")
@@ -59,6 +59,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
     else
       arcs.append("svg:text").attr("transform", (d, i) -> 
         procent_val = Math.round(data[i].value/sum * 100)
+#        d.innerRadius = (radius * (100-procent_val)/100) - radius/2 #45  #45=max text size/2
         d.innerRadius = (radius * (100-procent_val)/100) - radius/2 #45  #45=max text size/2
         d.outerRadius = radius
         "translate(" + arc.centroid(d) + ")")
