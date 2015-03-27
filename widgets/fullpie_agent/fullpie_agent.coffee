@@ -16,7 +16,24 @@ class Dashing.FullpieAgent extends Dashing.Widget
     $(@node).children(".updated-at").text(@get('updatedAtMessage'))
 
     mFontSize = 28
-	
+    defs = svg.append("defs")
+    filter = defs.append("filter")
+        .attr("id","dropshadow")
+    filter.append("feGaussianBlur")
+        .attr("in","SourceAlpha")
+        .attr("stdDeviation","4")
+        .attr("result","blur")
+    filter.append("feOffset")
+        .attr("in","blur")
+        .attr("dx",2)
+        .attr("dy",2)
+        .attr("result","offsetBlur")
+    feMerge = filter.append("feMerge")
+    feMerge.append("feMergeNode")
+        .attr("in","offsetBlur")
+    feMerge.append("feMergeNode")
+        .attr("in","SourceGraphic")
+  	
     width = 500 #width
     height = 500 #height
     radiuso = 200 #outer radius
@@ -65,8 +82,8 @@ class Dashing.FullpieAgent extends Dashing.Widget
         .attr("text-anchor", "middle")
         .attr("alignment-baseline", "central")
         .attr('font-size', radiusi + 'px')
-        .attr("-webkit-filter", "drop-shadow( 2px 2px -2px #222222)")
         .text(sum)
+        .attr("filter","url(#dropshadow)")
       arcs.append("svg:text").attr("transform", (d, i) -> 
         #procent_val = Math.round(data[i].value/sum * 100)
         #d.innerRadius = (radiuso * (100-procent_val)/100) - radiuso/2 #45  #45=max text size/2
