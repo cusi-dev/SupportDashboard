@@ -41,19 +41,6 @@ class Dashing.FullpieAgent extends Dashing.Widget
       .outerRadius(radiuso)
       .innerRadius(radiusi)
 
-    pie = d3.layout.pie().value((d) -> d.value)
-
-    arcs = vis.selectAll("g.slice")
-      .data(pie)
-      .enter().append("svg:g").attr("class", "slice") 
-
-    arcs.append("svg:path").attr("fill", (d, i) -> color i)
-      .attr("fill-opacity", 0.4).attr("d", arc)
-
-    sum=0
-    for val in data  
-      sum += val.value
-
     defs = arcs.append("defs")
     filter = defs.append("filter")
         .attr("id","dropshadow")
@@ -71,7 +58,20 @@ class Dashing.FullpieAgent extends Dashing.Widget
         .attr("in","offsetBlur")
     feMerge.append("feMergeNode")
         .attr("in","SourceGraphic")
-  	
+
+    pie = d3.layout.pie().value((d) -> d.value)
+
+    arcs = vis.selectAll("g.slice")
+      .data(pie)
+      .enter().append("svg:g").attr("class", "slice") 
+
+    arcs.append("svg:path").attr("fill", (d, i) -> color i)
+      .attr("fill-opacity", 0.4).attr("d", arc)
+
+    sum=0
+    for val in data  
+      sum += val.value
+
     if !sum
       arcs.append("svg:text")
         .attr('fill', "#fff")
