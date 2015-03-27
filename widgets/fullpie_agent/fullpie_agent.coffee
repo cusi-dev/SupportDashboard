@@ -98,8 +98,13 @@ class Dashing.FullpieAgent extends Dashing.Widget
         x = c[0]
         y = c[1]
         h = Math.sqrt(x*x + y*y)
+        r = 0
+        if x <= 0
+            r = -labelRadius
+        else
+            r = labelRadius
         #return "translate(" + (x/h * labelRadius) + "," + (y/h * labelRadius) + ")"
-        return "translate(" + (x >= 0 ? -labelRadius : labelRadius) + "," + y + ")"#(y/h * labelRadius) + ")"
+        return "translate(" + r + "," + y + ")"#(y/h * labelRadius) + ")"
         )
         .attr('fill', "#fff")
         .attr("text-anchor", "middle").text((d, i) -> 
