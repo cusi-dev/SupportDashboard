@@ -54,7 +54,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
     sum=0
     for val in data  
       sum += val.value
-    textRadiusInc = Math.Round(sum / data.count)
+#    textRadiusInc = Math.Round(sum / data.count)
     if !sum
       arcs.append("svg:text")
         .attr('fill', "#fff")
