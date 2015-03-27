@@ -67,6 +67,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
 
     arcs.append("svg:path").attr("fill", (d, i) -> color i)
       .attr("fill-opacity", 0.4).attr("d", arc)
+      .attr("filter","url(#dropshadow)")
 
     sum=0
     for val in data  
