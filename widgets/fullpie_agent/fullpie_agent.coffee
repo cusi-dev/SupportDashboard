@@ -36,7 +36,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
         .attr("width", width)
         .attr("height", height)
       .append("svg:g")
-        .attr("transform", "translate(" + radiuso + "," + radiuso + ")") 
+        .attr("transform", "translate(" + width/2 + "," + height/2 + ")") 
 
     arc = d3.svg.arc()
       .outerRadius(radiuso)
