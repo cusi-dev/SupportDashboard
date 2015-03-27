@@ -94,6 +94,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
         #d.innerRadius = 0 #(radiuso * (100-procent_val)/100) - radiuso/2 #45  #45=max text size/2
         #d.outerRadius = radiuso
         "translate(" + arc.centroid(d) + ")")
+
         #c = arc.centroid(d)
         #x = c[0]
         #y = c[1]
@@ -105,7 +106,8 @@ class Dashing.FullpieAgent extends Dashing.Widget
         #    r = labelRadius
         #return "translate(" + (x/h * labelRadius) + "," + (y/h * labelRadius) + ")"
         #return "translate(" + r + "," + y + ")"#(y/h * labelRadius) + ")"
-        )
+        #)
+
         .attr('fill', "#fff")
         .attr("text-anchor", "middle").text((d, i) -> 
           if data[i].value != 0
