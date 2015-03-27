@@ -99,7 +99,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
         x = c[0]
         y = c[1]
         mx = 1.2
-        my = .8
+        my = 1.1
         h = Math.sqrt(x*x + y*y)
         r = 0
         if x <= 0
