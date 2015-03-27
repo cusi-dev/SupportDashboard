@@ -79,4 +79,4 @@ class Dashing.FullpieAgent extends Dashing.Widget
         .text((d,i) -> 
           if data[i].value != 0
             data[i].value + ' (' + Math.round(data[i].value/sum * 100) + '%)'
-		)
+        )
