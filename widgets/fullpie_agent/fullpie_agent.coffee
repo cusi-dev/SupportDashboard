@@ -107,7 +107,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
         #return "translate(" + (x/h * labelRadius) + "," + (y/h * labelRadius) + ")"
         #return "translate(" + r + "," + y + ")"#(y/h * labelRadius) + ")"
         #return "translate(" + ((x/h * labelRadius)+r/4) + "," + y*my + ")"#(y/h * labelRadius) + ")"
-        return "translate(" + (x+r/2) + "," + y*my + ")"
+        return "translate(" + (x+r/2)*mx + "," + y*my + ")"
         )
 
         .attr('fill', "#fff")
