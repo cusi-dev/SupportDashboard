@@ -22,12 +22,13 @@ class Dashing.FullpieAgent extends Dashing.Widget
     radiusi = 100 #inner radius
     labelRadius = 250
 
-    color = d3.scale.ordinal()
+    #color = d3.scale.ordinal()
       #.domain([1,10])
-      .domain([0,2])
+    #  .domain([0,2])
       #.range( ['#222222','#555555','#777777','#999999','#bbbbbb','#dddddd','#ffffff'] )
       #.range( ['#222222','#333333','#444444','#555555','#666666','#777777','#888888','#999999','#aaaaaa'] )
-      .range( ['#111111','#222222','#333333','#444444','#555555','#666666','#777777','#888888','#999999','#aaaaaa','#bbbbbb','#cccccc'] )
+    #  .range( ['#111111','#222222','#333333','#444444','#555555','#666666','#777777','#888888','#999999','#aaaaaa','#bbbbbb','#cccccc'] )
+    color = d3.scale.category10()
 
     $(@node).children("svg").remove();
 
@@ -119,7 +120,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
         .append('svg:tspan')
         .attr('x', 0)
         .attr('dy', '.9em')
-        .attr('font-size', '80%')
+        .attr('font-size', '70%')
         .text((d,i) -> 
           if data[i].value != 0
             data[i].value + ' (' + Math.round(data[i].value/sum * 100) + '%)'
