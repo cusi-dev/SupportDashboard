@@ -54,7 +54,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
     for val in data  
       sum += val.value
 
-    defs = svg.append("defs")
+    defs = arcs.append("defs")
     filter = defs.append("filter")
         .attr("id","dropshadow")
     filter.append("feGaussianBlur")
