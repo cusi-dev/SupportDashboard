@@ -107,3 +107,33 @@ $json = "{
 #Write-Host $json
 
 (Invoke-WebRequest -Uri $url -Method Post -Body $json).content | ConvertFrom-Json
+
+#pie widget
+$i = 0
+$pb3 = "["
+#  {
+#    ""label"" : ""CBSW"",
+#    ""value"" : $sla30c
+#  }
+foreach ($row in $rows)
+{
+    $i += 1
+    $pb3 += "
+        { 
+            ""label"" : ""$($row[0])"",
+            ""value"" :  $($row[2])
+        }
+    "
+    if ($i -lt $rows.Count)
+    {
+        $pb3 += ","
+    }
+}
+
+$pb3 += "]"
+$url = "$($dashboardURL)/widgets/mypie"
+$json = "{
+    ""auth_token"" : ""$($authToken)"",
+    ""value"" : $pb3
+}"
+(Invoke-WebRequest -Uri $url -Method Post -Body $json).content | ConvertFrom-Json
