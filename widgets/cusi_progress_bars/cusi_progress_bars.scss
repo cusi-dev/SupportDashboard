@@ -8,8 +8,10 @@
 $row-size: 1.1em;//0.7em;
 
 $blue: #2db4d4;
+$green: #2dd4ff;
 $white: #ffffff;
-$base-color: $blue;
+//$base-color: $blue;
+$base-color: $green;
 
 $base-color-dark: darken($base-color, 10%);
 $base-color-light: lighten($base-color, 10%);
