@@ -268,18 +268,10 @@ class Dashing.FullpieAgent extends Dashing.Widget
                 v = false
                 h = false
                 if p #p is defined, i.e., there is a value stored in this node
-                    h =  ( ((p.l > d.l) && (p.l <= d.r))
-                       || ((p.r > d.l) && (p.r <= d.r)) 
-                       || ((p.l < d.l)&&(p.r >=d.r) ) ) #horizontal conflict
-                
-                    v =  ( ((p.t > d.t) && (p.t <= d.b))
-                       || ((p.b > d.t) && (p.b <= d.b))  
-                       || ((p.t < d.t)&&(p.b >=d.b) ) ) #vertical conflict
-                
-                    if (h&&v)
+                    h =  ( ((p.l > d.l) && (p.l <= d.r)) || ((p.r > d.l) && (p.r <= d.r)) || ((p.l < d.l)&&(p.r >=d.r) ) ) #horizontal conflict
+                    v =  ( ((p.t > d.t) && (p.t <= d.b)) || ((p.b > d.t) && (p.b <= d.b)) || ((p.t < d.t)&&(p.b >=d.b) ) ) #vertical conflict
+                    if h && v
                         conflicts.push(p) #add to conflict list
-                
-                     
             )
             
             if conflicts.length 
