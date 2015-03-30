@@ -99,7 +99,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
         c = arc.centroid(d)
         x = c[0]
         y = c[1]
-        mx = 1.5
+        mx = 1.6
         my = .8
         h = Math.sqrt(x*x + y*y)
         r = labelRadius
@@ -107,6 +107,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
             r = -r
         if x < 0 and y < 0 and x > -radiusi and x/y < 1
             x = x * mx
+            y = y * my
         return "translate(" + (x/h * labelRadius) + "," + (y/h * labelRadius) + ")"
         #return "translate(" + r + "," + y + ")"#(y/h * labelRadius) + ")"
         #return "translate(" + ((x/h * labelRadius)+r/4) + "," + y*my + ")"#(y/h * labelRadius) + ")"
