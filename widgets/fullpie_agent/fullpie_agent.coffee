@@ -99,16 +99,17 @@ class Dashing.FullpieAgent extends Dashing.Widget
         c = arc.centroid(d)
         x = c[0]
         y = c[1]
-        mx = 1.1
-        my = 1.3
+        mx = 1.2
+        my = 1.0
         h = Math.sqrt(x*x + y*y)
         r = labelRadius
         if x <= 0
             r = -r
-        return "translate(" + (x/h * labelRadius) + "," + (y/h * labelRadius) + ")"
+        #return "translate(" + (x/h * labelRadius) + "," + (y/h * labelRadius) + ")"
         #return "translate(" + r + "," + y + ")"#(y/h * labelRadius) + ")"
         #return "translate(" + ((x/h * labelRadius)+r/4) + "," + y*my + ")"#(y/h * labelRadius) + ")"
         #return "translate(" + (x+r/2)*mx + "," + y*my + ")"
+        return "translate(" + (x/h * labelRadius)*mx + "," + (y/h * labelRadius)*my + ")"
         )
 
         .append("svg:tspan").attr("class","cusipie-label")
