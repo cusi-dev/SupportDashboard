@@ -100,7 +100,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
         x = c[0]
         y = c[1]
         mx = 1.2
-        my = 1.2
+        my = 1.1
         h = Math.sqrt(x*x + y*y)
         r = labelRadius
         if x <= 0
