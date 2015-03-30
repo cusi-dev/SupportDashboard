@@ -107,11 +107,11 @@ class Dashing.FullpieAgent extends Dashing.Widget
             r = -r
         if x < 0 and y > 0
             x = x * mx
-        #return "translate(" + (x/h * labelRadius) + "," + (y/h * labelRadius) + ")"
+        return "translate(" + (x/h * labelRadius) + "," + (y/h * labelRadius) + ")"
         #return "translate(" + r + "," + y + ")"#(y/h * labelRadius) + ")"
         #return "translate(" + ((x/h * labelRadius)+r/4) + "," + y*my + ")"#(y/h * labelRadius) + ")"
         #return "translate(" + (x+r/2)*mx + "," + y*my + ")"
-        return "translate(" + (x/h * labelRadius)*mx + "," + (y/h * labelRadius)*my + ")"
+        #return "translate(" + (x/h * labelRadius)*mx + "," + (y/h * labelRadius)*my + ")"
         )
 
         .append("svg:tspan").attr("class","cusipie-label")
