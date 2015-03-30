@@ -99,8 +99,8 @@ class Dashing.FullpieAgent extends Dashing.Widget
         c = arc.centroid(d)
         x = c[0]
         y = c[1]
-        mx = 1.9
-        my = 1.1
+        mx = 1.5
+        my = .8
         h = Math.sqrt(x*x + y*y)
         r = labelRadius
         if x <= 0
