@@ -3,10 +3,9 @@ class Dashing.FullpieAgent extends Dashing.Widget
 
   onData: (data) ->
     $(@node).fadeOut().fadeIn()
-    #@render(data.value)
-    @update(data.value)
+    @render(data.value)
   
-  render: (data) ->
+  renderX: (data) ->
     if !data
       data = @get("value")
     if !data
@@ -136,7 +135,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
             '(' + Math.round(data[i].value/sum * 100) + '%)'
         )
 
-    update: (data) ->
+    render: (data) ->
         #console.log("update pie", data);
 
 #        that = this;
