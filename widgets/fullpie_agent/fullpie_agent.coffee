@@ -111,7 +111,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
         return "translate(" + (x+r/2)*mx + "," + y*my + ")"
         )
 
-        .append("div").attr("class","cusipie-div")
+        .append("text").append("div").attr("class","cusipie-div")
 
         .attr('fill', "#fff")
         .attr("text-anchor", "middle").text((d, i) -> 
