@@ -105,6 +105,8 @@ class Dashing.FullpieAgent extends Dashing.Widget
         r = labelRadius
         if x <= 0
             r = -r
+        if x < 0 and y > 0
+            x = x * mx
         #return "translate(" + (x/h * labelRadius) + "," + (y/h * labelRadius) + ")"
         #return "translate(" + r + "," + y + ")"#(y/h * labelRadius) + ")"
         #return "translate(" + ((x/h * labelRadius)+r/4) + "," + y*my + ")"#(y/h * labelRadius) + ")"
