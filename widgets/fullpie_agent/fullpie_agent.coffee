@@ -135,7 +135,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
             '(' + Math.round(data[i].value/sum * 100) + '%)'
         )
 
-    render: (data) ->
+  render: (data) ->
         #console.log("update pie", data);
 
 #        that = this;
