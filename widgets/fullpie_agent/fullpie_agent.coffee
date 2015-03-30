@@ -15,7 +15,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
     $(@node).children(".more-info").text($(@node).attr("data-moreinfo"))
     $(@node).children(".updated-at").text(@get('updatedAtMessage'))
 
-    mFontSize = 28
+    #mFontSize = 28
     width = 750 #width
     height = 450 #height
     radiuso = 200 #outer radius
@@ -76,14 +76,14 @@ class Dashing.FullpieAgent extends Dashing.Widget
       sum += val.value
 
     if !sum
-      arcs.append("svg:text")
+      arcs.append("svg:text").attr("class","cusipie-label")
         .attr('fill', "#fff")
-        .attr("text-anchor", "middle").text("No Results").attr('font-size', mFontSize + 'px')
+        .attr("text-anchor", "middle").text("No Results")#.attr('font-size', mFontSize + 'px')
     else
-      arcs.append("svg:text")
+      arcs.append("svg:text").attr("class","cusipie-sum")
         .attr('fill', "#fff")
         .attr("text-anchor", "middle")
-        .attr("alignment-baseline", "central")
+        .attr("alignment-baseline", "mathematical")
         .attr('font-size', radiusi + 'px')
         .attr('font-weight', 'bold')
         .text(sum)
