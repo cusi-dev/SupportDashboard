@@ -144,7 +144,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
         if !data
           return
 
-        $(@node).children(".title").text($(@node).attr("data-title"))
+        $(@node).children(".title").text($(@node).attr("data-title")).attr("font-size","10px")
         $(@node).children(".more-info").text($(@node).attr("data-moreinfo"))
         $(@node).children(".updated-at").text(@get('updatedAtMessage'))
 
