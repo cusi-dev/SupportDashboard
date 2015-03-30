@@ -20,7 +20,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
     height = 450 #height
     radiuso = 120 #outer radius
     radiusi = 80 #inner radius
-    labelRadius = 150
+    labelRadius = 160
 
     #color = d3.scale.ordinal()
       #.domain([1,10])
