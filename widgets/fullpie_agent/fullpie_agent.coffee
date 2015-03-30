@@ -172,9 +172,9 @@ class Dashing.FullpieAgent extends Dashing.Widget
             .attr("transform", "translate(" + width/2 + "," + height/2 + ")") 
 
         #create a marker element if it doesn't already exist
-        defs = d3.svg.select("defs")
+        defs = svg.select("defs")
         if defs.empty() 
-            defs = d3.svg.append("defs")
+            defs = svg.append("defs")
 
         marker = defs.select("marker#circ")
         if marker.empty() 
