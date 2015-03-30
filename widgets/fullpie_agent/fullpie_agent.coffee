@@ -143,7 +143,6 @@ class Dashing.FullpieAgent extends Dashing.Widget
           data = @get("value")
         if !data
           return
-        $(@node).append("text").text("It's a test")
 
         $(@node).children(".title").text($(@node).attr("data-title"))
         $(@node).children(".more-info").text($(@node).attr("data-moreinfo"))
