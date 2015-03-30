@@ -28,7 +28,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
       #.range( ['#222222','#555555','#777777','#999999','#bbbbbb','#dddddd','#ffffff'] )
       #.range( ['#222222','#333333','#444444','#555555','#666666','#777777','#888888','#999999','#aaaaaa'] )
     #  .range( ['#111111','#222222','#333333','#444444','#555555','#666666','#777777','#888888','#999999','#aaaaaa','#bbbbbb','#cccccc'] )
-    color = d3.scale.category10()
+    color = d3.scale.category20()
 
     $(@node).children("svg").remove();
 
