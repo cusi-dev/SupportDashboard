@@ -139,16 +139,16 @@ class Dashing.FullpieAgent extends Dashing.Widget
     update: (data) ->
         console.log("update pie", data);
 
-        var that = this;
+        that = this;
 
         this.piedata = this.pie(data);
 
         //create a marker element if it doesn't already exist
-        var defs = this.svg.select("defs");
+        defs = this.svg.select("defs");
         if (defs.empty() ) {
             defs = this.svg.append("defs");            
         }
-        var marker = defs.select("marker#circ");
+        marker = defs.select("marker#circ");
         if (marker.empty() ) {
             defs.append("marker")
             .attr("id", "circ")
@@ -163,17 +163,17 @@ class Dashing.FullpieAgent extends Dashing.Widget
         }
         //Create/select <g> elements to hold the different types of graphics
         //and keep them in the correct drawing order
-        var pathGroup = this.svg.select("g.piePaths");
+        pathGroup = this.svg.select("g.piePaths");
         if (pathGroup.empty() ){
             pathGroup = this.svg.append("g")
                        .attr("class", "piePaths");
         }
-        var pointerGroup = this.svg.select("g.pointers")
+        pointerGroup = this.svg.select("g.pointers")
         if (pointerGroup.empty() ) {
             pointerGroup = this.svg.append("g")
                            .attr("class", "pointers");
         }
-        var labelGroup = this.svg.select("g.labels")
+        labelGroup = this.svg.select("g.labels")
         if (labelGroup.empty() ) {
             labelGroup = this.svg.append("g")
                          .attr("class", "labels");
@@ -198,7 +198,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
 #            .attrTween("d", that.removePieTween)
 #            .remove();
 
-        var labels = labelGroup.selectAll("text")
+        labels = labelGroup.selectAll("text")
             .data(this.piedata
                 .sort((p1,p2) -> 
                     return p1.startAngle - p2.startAngle;
@@ -211,38 +211,38 @@ class Dashing.FullpieAgent extends Dashing.Widget
             .remove();
         
         
-        var labelLayout = d3.geom.quadtree()
+        labelLayout = d3.geom.quadtree()
             .extent([[-that.width,-that.height], [that.width, that.height] ])
             .x((d) -> return d.x;)
             .y((d) -> return d.y;)
-            ([]); //create an empty quadtree to hold label positions
-        var maxLabelWidth = 0;
-        var maxLabelHeight = 0;
+            ([]); #create an empty quadtree to hold label positions
+        maxLabelWidth = 0;
+        maxLabelHeight = 0;
         
         labels.text((d) ->
-            // Set the text *first*, so we can query the size
-            // of the label with .getBBox()
+            # Set the text *first*, so we can query the size
+            # of the label with .getBBox()
             return d.value;
         )
         .each((d, i) ->
-            // Move all calculations into the each function.
-            // Position values are stored in the data object 
-            // so can be accessed later when drawing the line
+            # Move all calculations into the each function.
+            # Position values are stored in the data object 
+            # so can be accessed later when drawing the line
             
-            /* calculate the position of the center marker */
-            var a = (d.startAngle + d.endAngle) / 2 ;
+            # calculate the position of the center marker
+            a = (d.startAngle + d.endAngle) / 2 ;
             
-            //trig functions adjusted to use the angle relative
-            //to the "12 o'clock" vector:
+            #trig functions adjusted to use the angle relative
+            #to the "12 o'clock" vector:
             d.cx = Math.sin(a) * (that.radius - 75);
             d.cy = -Math.cos(a) * (that.radius - 75);
             
-            /* calculate the default position for the label,
-               so that the middle of the label is centered in the arc*/
-            var bbox = this.getBBox();
-            //bbox.width and bbox.height will 
-            //describe the size of the label text
-            var labelRadius = that.radius - 20;
+            # calculate the default position for the label,
+            #   so that the middle of the label is centered in the arc
+            bbox = this.getBBox();
+            #bbox.width and bbox.height will 
+            #describe the size of the label text
+            labelRadius = that.radius - 20;
             d.x =  Math.sin(a) * (labelRadius);
             d.l = d.x - bbox.width / 2 - 2;
             d.r = d.x + bbox.width / 2 + 2;
@@ -250,30 +250,30 @@ class Dashing.FullpieAgent extends Dashing.Widget
             d.b = d.oy = d.y + 5;
             d.t = d.y - bbox.height - 5 ;
             
-            /* check whether the default position 
-               overlaps any other labels*/
-            var conflicts = [];
+            # check whether the default position 
+            #   overlaps any other labels
+            conflicts = [];
             labelLayout.visit((node, x1, y1, x2, y2) -> 
-                //recurse down the tree, adding any overlapping 
-                //node is the node in the quadtree, 
-                //node.point is the value that we added to the tree
-                //x1,y1,x2,y2 are the bounds of the rectangle that
-                //this node covers
+                #recurse down the tree, adding any overlapping 
+                #node is the node in the quadtree, 
+                #node.point is the value that we added to the tree
+                #x1,y1,x2,y2 are the bounds of the rectangle that
+                #this node covers
                 
                 if (  (x1 > d.r + maxLabelWidth/2) 
-                        //left edge of node is to the right of right edge of label
+                        #left edge of node is to the right of right edge of label
                     ||(x2 < d.l - maxLabelWidth/2) 
-                        //right edge of node is to the left of left edge of label
+                        #right edge of node is to the left of left edge of label
                     ||(y1 > d.b + maxLabelHeight/2)
-                        //top (minY) edge of node is greater than the bottom of label
+                        #top (minY) edge of node is greater than the bottom of label
                     ||(y2 < d.t - maxLabelHeight/2 ) )
-                        //bottom (maxY) edge of node is less than the top of label
+                        #bottom (maxY) edge of node is less than the top of label
                     
-                      return true; //don't bother visiting children or checking this node
+                      return true; #don't bother visiting children or checking this node
                 
-                var p = node.point;
-                var v = false, h = false;
-                if ( p ) { //p is defined, i.e., there is a value stored in this node
+                p = node.point;
+                v = false, h = false;
+                if ( p ) { #p is defined, i.e., there is a value stored in this node
                     h =  ( ((p.l > d.l) && (p.l <= d.r))
                        || ((p.r > d.l) && (p.r <= d.r)) 
                        || ((p.l < d.l)&&(p.r >=d.r) ) ); //horizontal conflict
@@ -290,7 +290,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
             
             if (conflicts.length) {
                 console.log(d, " conflicts with ", conflicts);  
-                var rightEdge = d3.max(conflicts, (d2) ->
+                rightEdge = d3.max(conflicts, (d2) ->
                     return d2.r;
                 );
 
@@ -300,11 +300,11 @@ class Dashing.FullpieAgent extends Dashing.Widget
             }
             else console.log("no conflicts for ", d);
             
-            /* add this label to the quadtree, so it will show up as a conflict
-               for future labels.  */
+            # add this label to the quadtree, so it will show up as a conflict
+            #   for future labels.  
             labelLayout.add( d );
-            var maxLabelWidth = Math.max(maxLabelWidth, bbox.width+10);
-            var maxLabelHeight = Math.max(maxLabelHeight, bbox.height+10);
+            maxLabelWidth = Math.max(maxLabelWidth, bbox.width+10);
+            maxLabelHeight = Math.max(maxLabelHeight, bbox.height+10);
         )
         #.transition()//we can use transitions now!
         .attr("x", (d) ->
@@ -315,7 +315,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
                 );
 
 
-        var pointers = pointerGroup.selectAll("path.pointer")
+        pointers = pointerGroup.selectAll("path.pointer")
             .data(this.piedata);
         pointers.enter()
             .append("path")
