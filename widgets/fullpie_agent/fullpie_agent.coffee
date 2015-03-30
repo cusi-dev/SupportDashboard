@@ -105,7 +105,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
         r = labelRadius
         if x <= 0
             r = -r
-        if x < 0 and y < 0 and x > -radiusi and x/y < 1
+        if x < 0 and y < 0 and x > -radiusi and x/y < 1.2
             x = x * mx
             y = y * my
         return "translate(" + (x/h * labelRadius) + "," + (y/h * labelRadius) + ")"
