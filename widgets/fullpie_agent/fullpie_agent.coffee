@@ -136,3 +136,200 @@ class Dashing.FullpieAgent extends Dashing.Widget
             '(' + Math.round(data[i].value/sum * 100) + '%)'
         )
 
+    update: (data) ->
+        #console.log("update pie", data);
+
+#        that = this;
+        if !data
+          data = @get("value")
+        if !data
+          return
+
+        #create a marker element if it doesn't already exist
+        defs = d3.svg.select("defs");
+        if (defs.empty() ) {
+            defs = d3.svg.append("defs");            
+        }
+        marker = defs.select("marker#circ");
+        if (marker.empty() ) {
+            defs.append("marker")
+            .attr("id", "circ")
+            .attr("markerWidth", 6)
+            .attr("markerHeight", 6)
+            .attr("refX", 3)
+            .attr("refY", 3)
+            .append("circle")
+            .attr("cx", 3)
+            .attr("cy", 3)
+            .attr("r", 3);
+        }
+        #Create/select <g> elements to hold the different types of graphics
+        #and keep them in the correct drawing order
+        pathGroup = d3.svg.select("g.piePaths");
+        if (pathGroup.empty() ){
+            pathGroup = d3.svg.append("g")
+                       .attr("class", "piePaths");
+        }
+        pointerGroup = d3.svg.select("g.pointers")
+        if (pointerGroup.empty() ) {
+            pointerGroup = d3.svg.append("g")
+                           .attr("class", "pointers");
+        }
+        labelGroup = d3.svg.select("g.labels")
+        if (labelGroup.empty() ) {
+            labelGroup = d3.svg.append("g")
+                         .attr("class", "labels");
+        }
+        
+        d3.path = pathGroup.selectAll("path.pie")
+            .data(data);
+
+        d3.path.enter().append("path")
+            .attr("class", "pie")
+            .attr("fill", (d, i) -> 
+                return d3.color(i);
+        );
+
+#        this.path.transition()
+#            .duration(300)
+#            .attrTween("d", that.pieTween);
+
+#        this.path.exit()
+#            .transition()
+#            .duration(300)
+#            .attrTween("d", that.removePieTween)
+#            .remove();
+
+        labels = labelGroup.selectAll("text")
+            .data(data
+                .sort((p1,p2) -> 
+                    return p1.startAngle - p2.startAngle;
+                ) 
+            );
+        labels.enter()
+            .append("text")
+            .attr("text-anchor", "middle");
+        labels.exit()
+            .remove();
+        
+        labelLayout = d3.geom.quadtree()
+            .extent([[-that.width,-that.height], [that.width, that.height] ])
+            .x((d) -> return d.x;)
+            .y((d) -> return d.y;)
+            ([]); #create an empty quadtree to hold label positions
+        maxLabelWidth = 0;
+        maxLabelHeight = 0;
+        
+        labels.text((d) ->
+            # Set the text *first*, so we can query the size
+            # of the label with .getBBox()
+            return d.value;
+        )
+        .each((d, i) ->
+            # Move all calculations into the each function.
+            # Position values are stored in the data object 
+            # so can be accessed later when drawing the line
+            
+            # calculate the position of the center marker
+            a = (d.startAngle + d.endAngle) / 2 ;
+            
+            #trig functions adjusted to use the angle relative
+            #to the "12 o'clock" vector:
+            d.cx = Math.sin(a) * (that.radius - 75);
+            d.cy = -Math.cos(a) * (that.radius - 75);
+            
+            # calculate the default position for the label,
+            #   so that the middle of the label is centered in the arc
+            bbox = d3.getBBox();
+            #bbox.width and bbox.height will 
+            #describe the size of the label text
+            labelRadius = that.radius - 20;
+            d.x =  Math.sin(a) * (labelRadius);
+            d.l = d.x - bbox.width / 2 - 2;
+            d.r = d.x + bbox.width / 2 + 2;
+            d.y = -Math.cos(a) * (that.radius - 20);
+            d.b = d.oy = d.y + 5;
+            d.t = d.y - bbox.height - 5 ;
+            
+            # check whether the default position 
+            #   overlaps any other labels
+            conflicts = [];
+            labelLayout.visit((node, x1, y1, x2, y2) -> 
+                #recurse down the tree, adding any overlapping 
+                #node is the node in the quadtree, 
+                #node.point is the value that we added to the tree
+                #x1,y1,x2,y2 are the bounds of the rectangle that
+                #this node covers
+                
+                if (  (x1 > d.r + maxLabelWidth/2) 
+                        #left edge of node is to the right of right edge of label
+                    ||(x2 < d.l - maxLabelWidth/2) 
+                        #right edge of node is to the left of left edge of label
+                    ||(y1 > d.b + maxLabelHeight/2)
+                        #top (minY) edge of node is greater than the bottom of label
+                    ||(y2 < d.t - maxLabelHeight/2 ) )
+                        #bottom (maxY) edge of node is less than the top of label
+                    
+                      return true; #don't bother visiting children or checking this node
+                
+                p = node.point;
+                v = false, h = false;
+                if ( p ) { #p is defined, i.e., there is a value stored in this node
+                    h =  ( ((p.l > d.l) && (p.l <= d.r))
+                       || ((p.r > d.l) && (p.r <= d.r)) 
+                       || ((p.l < d.l)&&(p.r >=d.r) ) ); //horizontal conflict
+                
+                    v =  ( ((p.t > d.t) && (p.t <= d.b))
+                       || ((p.b > d.t) && (p.b <= d.b))  
+                       || ((p.t < d.t)&&(p.b >=d.b) ) ); //vertical conflict
+                
+                    if (h&&v)
+                        conflicts.push(p); //add to conflict list
+                }
+                     
+            );
+            
+            if (conflicts.length) {
+                console.log(d, " conflicts with ", conflicts);  
+                rightEdge = d3.max(conflicts, (d2) ->
+                    return d2.r;
+                );
+
+                d.l = rightEdge;
+                d.x = d.l + bbox.width / 2 + 5;
+                d.r = d.l + bbox.width + 10;
+            }
+            else console.log("no conflicts for ", d);
+            
+            # add this label to the quadtree, so it will show up as a conflict
+            #   for future labels.  
+            labelLayout.add( d );
+            maxLabelWidth = Math.max(maxLabelWidth, bbox.width+10);
+            maxLabelHeight = Math.max(maxLabelHeight, bbox.height+10);
+        )
+        #.transition()//we can use transitions now!
+        .attr("x", (d) ->
+                    return d.x;
+                )
+                .attr("y", (d) ->
+                    return d.y;
+                );
+
+
+        pointers = pointerGroup.selectAll("path.pointer")
+            .data(data);
+        pointers.enter()
+            .append("path")
+            .attr("class", "pointer")
+            .style("fill", "none")
+            .style("stroke", "black")
+            .attr("marker-end", "url(#circ)");
+        pointers.exit().remove();
+        
+        pointers.transition().attr("d", (d) ->
+            if (d.cx > d.l) {
+                return "M" + (d.l+2) + "," + d.b + "L" + (d.r-2) + "," + d.b + " " + d.cx + "," + d.cy;
+            } else {
+                return "M" + (d.r-2) + "," + d.b + "L" + (d.l+2) + "," + d.b + " " + d.cx + "," + d.cy;
+            }
+        );
