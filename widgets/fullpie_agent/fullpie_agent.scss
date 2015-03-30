@@ -43,6 +43,11 @@ $moreinfo-color:    rgba(255, 255, 255, 1);
   }
   
   .cusipie-label {
-	font-size:72px;
+	font-size: 28px;
+	font-weight: bold;
+  }
+  .cusipie-label-percent {
+	font-size: .7em;
+	font-weight: normal;
   }
 } 

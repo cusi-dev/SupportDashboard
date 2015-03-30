@@ -118,12 +118,13 @@ class Dashing.FullpieAgent extends Dashing.Widget
           if data[i].value != 0
             #data[i].label
             data[i].label + " - " + data[i].value
-        ).attr('font-size', mFontSize + 'px')
+        )
+        #.attr('font-size', mFontSize + 'px')
         .attr("filter","url(#dropshadow)")
-        .append('svg:tspan')
+        .append('svg:tspan').attr("class","cusipie-label-percent")
         .attr('x', 0)
         .attr('dy', '.9em')
-        .attr('font-size', '70%')
+        #.attr('font-size', '70%')
         .text((d,i) -> 
           if data[i].value != 0
             #data[i].value + ' (' + Math.round(data[i].value/sum * 100) + '%)'
