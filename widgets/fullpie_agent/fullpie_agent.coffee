@@ -18,7 +18,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
     #mFontSize = 28
     width = 750 #width
     height = 450 #height
-    radiuso = 200 #outer radius
+    radiuso = 150 #outer radius
     radiusi = 100 #inner radius
     labelRadius = 250
 
