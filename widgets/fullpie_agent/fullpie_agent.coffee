@@ -111,7 +111,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
         return "translate(" + (x+r/2)*mx + "," + y*my + ")"
         )
 
-        .append("text").append("div").attr("class","cusipie-div")
+        .append("svg:tspan").attr("class","cusipie-label")
 
         .attr('fill', "#fff")
         .attr("text-anchor", "middle").text((d, i) -> 
