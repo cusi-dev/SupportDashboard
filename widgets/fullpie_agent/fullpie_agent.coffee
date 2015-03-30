@@ -257,16 +257,12 @@ class Dashing.FullpieAgent extends Dashing.Widget
                 #x1,y1,x2,y2 are the bounds of the rectangle that
                 #this node covers
                 
-                if  (x1 > d.r + maxLabelWidth/2) 
-                        #left edge of node is to the right of right edge of label
-                    ||(x2 < d.l - maxLabelWidth/2) 
-                        #right edge of node is to the left of left edge of label
-                    ||(y1 > d.b + maxLabelHeight/2)
-                        #top (minY) edge of node is greater than the bottom of label
-                    ||(y2 < d.t - maxLabelHeight/2 )
-                        #bottom (maxY) edge of node is less than the top of label
-                    
-                      return true #don't bother visiting children or checking this node
+                #1. left edge of node is to the right of right edge of label
+                #2. right edge of node is to the left of left edge of label
+                #3. top (minY) edge of node is greater than the bottom of label
+                #4. bottom (maxY) edge of node is less than the top of label
+                if  (x1 > d.r + maxLabelWidth/2) ||(x2 < d.l - maxLabelWidth/2) ||(y1 > d.b + maxLabelHeight/2) || (y2 < d.t - maxLabelHeight/2 )
+                    return true #don't bother visiting children or checking this node
                 
                 p = node.point
                 v = false, h = false
