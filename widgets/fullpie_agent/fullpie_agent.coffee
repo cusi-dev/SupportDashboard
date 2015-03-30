@@ -144,6 +144,33 @@ class Dashing.FullpieAgent extends Dashing.Widget
         if !data
           return
 
+        $(@node).children(".title").text($(@node).attr("data-title"))
+        $(@node).children(".more-info").text($(@node).attr("data-moreinfo"))
+        $(@node).children(".updated-at").text(@get('updatedAtMessage'))
+
+        width = 750 #width
+        height = 450 #height
+        radiuso = 135 #outer radius
+        radiusi = 90 #inner radius
+        labelRadius = 180
+
+        color = d3.scale.category20()
+
+        $(@node).children("svg").remove();
+
+        pie = d3.layout.pie()
+            .sort(null)
+
+        arc = d3.svg.arc()
+          .outerRadius(radiuso)
+          .innerRadius(radiusi)
+
+        svg = d3.select(@node).append("svg:svg")
+            .attr("width", width)
+            .attr("height", height)
+            .append("svg:g")
+            .attr("transform", "translate(" + width/2 + "," + height/2 + ")") 
+
         #create a marker element if it doesn't already exist
         defs = d3.svg.select("defs")
         if defs.empty() 
@@ -164,26 +191,25 @@ class Dashing.FullpieAgent extends Dashing.Widget
         
         #Create/select <g> elements to hold the different types of graphics
         #and keep them in the correct drawing order
-        pathGroup = d3.svg.select("g.piePaths")
+        pathGroup = svg.select("g.piePaths")
         if pathGroup.empty()
-            pathGroup = d3.svg.append("g")
+            pathGroup = svg.append("g")
                        .attr("class", "piePaths")
         
-        pointerGroup = d3.svg.select("g.pointers")
+        pointerGroup = svg.select("g.pointers")
         if pointerGroup.empty()
-            pointerGroup = d3.svg.append("g")
+            pointerGroup = svg.append("g")
                            .attr("class", "pointers")
         
-        labelGroup = d3.svg.select("g.labels")
+        labelGroup = svg.select("g.labels")
         if labelGroup.empty()
-            labelGroup = d3.svg.append("g")
+            labelGroup = svg.append("g")
                          .attr("class", "labels")
         
-        
-        d3.path = pathGroup.selectAll("path.pie")
+        path = pathGroup.selectAll("path.pie")
             .data(data)
 
-        d3.path.enter().append("path")
+        path.enter().append("path")
             .attr("class", "pie")
             .attr("fill", (d, i) -> 
                 return d3.color(i)
@@ -208,7 +234,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
             .remove()
         
         labelLayout = d3.geom.quadtree()
-            .extent([[-d3.width,-d3.height], [d3.width, d3.height] ])
+            .extent([[-width,-height], [width,height] ])
             .x((d) -> return d.x)
             .y((d) -> return d.y)
             ([]) #create an empty quadtree to hold label positions
