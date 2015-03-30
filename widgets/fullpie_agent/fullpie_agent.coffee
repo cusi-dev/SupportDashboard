@@ -137,7 +137,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
         )
 
     update: (data) ->
-        console.log("update pie", data);
+        #console.log("update pie", data);
 
         that = this;
 
@@ -161,8 +161,8 @@ class Dashing.FullpieAgent extends Dashing.Widget
             .attr("cy", 3)
             .attr("r", 3);
         }
-        //Create/select <g> elements to hold the different types of graphics
-        //and keep them in the correct drawing order
+        #Create/select <g> elements to hold the different types of graphics
+        #and keep them in the correct drawing order
         pathGroup = this.svg.select("g.piePaths");
         if (pathGroup.empty() ){
             pathGroup = this.svg.append("g")
