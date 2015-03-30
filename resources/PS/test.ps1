@@ -108,13 +108,10 @@ $json = "{
 
 (Invoke-WebRequest -Uri $url -Method Post -Body $json).content | ConvertFrom-Json
 
+
 #pie resolved widget
 $i = 0
-$pb3 = ""#"["
-#  {
-#    ""label"" : ""CBSW"",
-#    ""value"" : $sla30c
-#  }
+$pb3 = "["
 foreach ($row in $rows)
 {
     $i += 1
@@ -129,17 +126,15 @@ foreach ($row in $rows)
         $pb3 += ","
     }
 }
-#$pb3 += "]"
+$pb3 += "]"
 
-#$rows.GetEnumerator() | sort -Property $rows[2]
+$url = "$($dashboardURL)/widgets/resolved"
+$json = "{
+    ""auth_token"" : ""$($authToken)"",
+    ""value"" : $pb3
+}"
 
-#$url = "$($dashboardURL)/widgets/mypie"
-#$json = "{
-#    ""auth_token"" : ""$($authToken)"",
-#    ""value"" : $pb3
-#}"
-
-#(Invoke-WebRequest -Uri $url -Method Post -Body $json).content | ConvertFrom-Json
+(Invoke-WebRequest -Uri $url -Method Post -Body $json).content | ConvertFrom-Json
 
 #pie assigned widget
 $i = 0
@@ -160,7 +155,7 @@ foreach ($row in $rows)
 }
 $pb4 += "]"
 
-$url = "$($dashboardURL)/widgets/mypie"
+$url = "$($dashboardURL)/widgets/assigned"
 $json = "{
     ""auth_token"" : ""$($authToken)"",
     ""value"" : $pb4
