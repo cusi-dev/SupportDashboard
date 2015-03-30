@@ -201,11 +201,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
 #            .remove();
 
         labels = labelGroup.selectAll("text")
-            .data(data
-                .sort((p1,p2) -> 
-                    return p1.startAngle - p2.startAngle
-                ) 
-            )
+            .data(data.sort((p1,p2) -> return p1.startAngle - p2.startAngle))
         labels.enter()
             .append("text")
             .attr("text-anchor", "middle")
