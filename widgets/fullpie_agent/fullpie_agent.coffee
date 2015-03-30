@@ -261,7 +261,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
             
             # calculate the default position for the label,
             #   so that the middle of the label is centered in the arc
-            bbox = getBBox()
+            bbox = this.getBBox()
             #bbox.width and bbox.height will 
             #describe the size of the label text
             labelRadius = radius - 20
