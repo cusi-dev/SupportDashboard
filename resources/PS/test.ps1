@@ -42,36 +42,36 @@ foreach ($row in $rows)
 
 $pb1Count = $rows.Count
 
-$i = 0
-$pb1 = "["
-foreach ($row in $rows)
-{
-    $i += 1
-    $val = [math]::round(($row[2]/$pb1max)*100)
-    #Write-Host $row[0]
-    $pb1 += 
-    "
-        {
-          ""name"" : ""$($row[0])"",
-          ""value"" : $($row[2]),
-          ""progress"" : $($val)
-        }
-    "
-    if ($i -lt $pb1Count)
-    {
-        $pb1 += ","
-    }
-}
-$pb1 += "]"
-$url = "$($dashboardURL)/widgets/cusi_progress_bars"
-$json = "{
-    ""auth_token"" : ""$($authToken)"",
-    ""progress_items"" : $pb1
-}"
+#$i = 0
+#$pb1 = "["
+#foreach ($row in $rows)
+#{
+#    $i += 1
+#    $val = [math]::round(($row[2]/$pb1max)*100)
+#    #Write-Host $row[0]
+#    $pb1 += 
+#    "
+#        {
+#          ""name"" : ""$($row[0])"",
+#          ""value"" : $($row[2]),
+#          ""progress"" : $($val)
+#        }
+#    "
+#    if ($i -lt $pb1Count)
+#    {
+#        $pb1 += ","
+#    }
+#}
+#$pb1 += "]"
+#$url = "$($dashboardURL)/widgets/cusi_progress_bars"
+#$json = "{
+#    ""auth_token"" : ""$($authToken)"",
+#    ""progress_items"" : $pb1
+#}"
 #Write-Host $url
 #Write-Host $json
 
-(Invoke-WebRequest -Uri $url -Method Post -Body $json).content | ConvertFrom-Json
+#(Invoke-WebRequest -Uri $url -Method Post -Body $json).content | ConvertFrom-Json
 
 
 
@@ -108,7 +108,7 @@ $json = "{
 
 (Invoke-WebRequest -Uri $url -Method Post -Body $json).content | ConvertFrom-Json
 
-#pie widget
+#pie resolved widget
 $i = 0
 $pb3 = ""#"["
 #  {
@@ -131,7 +131,7 @@ foreach ($row in $rows)
 }
 #$pb3 += "]"
 
-$rows.GetEnumerator() | sort -Property $rows[2]
+#$rows.GetEnumerator() | sort -Property $rows[2]
 
 #$url = "$($dashboardURL)/widgets/mypie"
 #$json = "{
@@ -140,3 +140,30 @@ $rows.GetEnumerator() | sort -Property $rows[2]
 #}"
 
 #(Invoke-WebRequest -Uri $url -Method Post -Body $json).content | ConvertFrom-Json
+
+#pie assigned widget
+$i = 0
+$pb4 = "["
+foreach ($row in $rows)
+{
+    $i += 1
+    $pb4 += "
+        { 
+            ""label"" : ""$($row[0])"",
+            ""value"" :  $($row[4])
+        }
+    "
+    if ($i -lt $rows.Count)
+    {
+        $pb4 += ","
+    }
+}
+$pb4 += "]"
+
+$url = "$($dashboardURL)/widgets/mypie"
+$json = "{
+    ""auth_token"" : ""$($authToken)"",
+    ""value"" : $pb4
+}"
+
+(Invoke-WebRequest -Uri $url -Method Post -Body $json).content | ConvertFrom-Json
