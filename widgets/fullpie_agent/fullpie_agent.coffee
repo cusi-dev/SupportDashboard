@@ -18,9 +18,9 @@ class Dashing.FullpieAgent extends Dashing.Widget
     #mFontSize = 28
     width = 750 #width
     height = 450 #height
-    radiuso = 150 #outer radius
-    radiusi = 100 #inner radius
-    labelRadius = 175
+    radiuso = 120 #outer radius
+    radiusi = 80 #inner radius
+    labelRadius = 150
 
     #color = d3.scale.ordinal()
       #.domain([1,10])
