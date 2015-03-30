@@ -265,7 +265,8 @@ class Dashing.FullpieAgent extends Dashing.Widget
                     return true #don't bother visiting children or checking this node
                 
                 p = node.point
-                v = false, h = false
+                v = false
+                h = false
                 if p #p is defined, i.e., there is a value stored in this node
                     h =  ( ((p.l > d.l) && (p.l <= d.r))
                        || ((p.r > d.l) && (p.r <= d.r)) 
