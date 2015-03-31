@@ -351,7 +351,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
             # check whether the default position 
             #   overlaps any other labels
             conflicts = []
-            #labelLayout.visit( (node, x1, y1, x2, y2) -> 
+            labelLayout.visit( (node, x1, y1, x2, y2) -> 
                 #recurse down the tree, adding any overlapping 
                 #node is the node in the quadtree, 
                 #node.point is the value that we added to the tree
