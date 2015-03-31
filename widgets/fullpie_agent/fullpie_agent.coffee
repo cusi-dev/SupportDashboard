@@ -285,7 +285,8 @@ class Dashing.FullpieAgent extends Dashing.Widget
             .attrTween("d", (d,i) -> 
                 console.log("d",d)
                 console.log("i",i)
-                i = d3.interpolate({startAngle: 0, endAngle: 0}, {startAngle: d.startAngle, endAngle: d.endAngle})
+                #i = d3.interpolate({startAngle: 0, endAngle: 0}, {startAngle: d.startAngle, endAngle: d.endAngle})
+                i = d3.interpolate({startAngle: 0, endAngle: 0}, {startAngle: piedata[i].startAngle, endAngle: piedata[i].endAngle})
                 return (t) -> 
                     b = i(t)
                     return arc(b)
