@@ -149,7 +149,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
             b = i(t);
             return $(@node).arc(b)
 
-  renderX2: (data) ->
+  render: (data) ->
         #console.log("update pie", data);
 
         if !data
@@ -182,16 +182,16 @@ class Dashing.FullpieAgent extends Dashing.Widget
           .outerRadius(radiuso)
           .innerRadius(radiusi)
 
-        #svg = d3.select(@node).append("svg:svg")
-        #    .attr("width", width)
-        #    .attr("height", height)
-        #    .append("svg:g")
-        #    .attr("transform", "translate(" + width/2 + "," + height/2 + ")") 
-        svg = d3.select(@node).append("svg")
+        svg = d3.select(@node).append("svg:svg")
             .attr("width", width)
             .attr("height", height)
-            .append("g")
+            .append("svg:g")
             .attr("transform", "translate(" + width/2 + "," + height/2 + ")") 
+        #svg = d3.select(@node).append("svg")
+        #    .attr("width", width)
+        #    .attr("height", height)
+        #    .append("g")
+        #    .attr("transform", "translate(" + width/2 + "," + height/2 + ")") 
 
         # end Build pie
         #console.log("update pie", data);
@@ -377,7 +377,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
                 return "M" + (d.r-2) + "," + d.b + "L" + (d.l+2) + "," + d.b + " " + d.cx + "," + d.cy
             
         )
-  render: (data) ->
+  renderX3: (data) ->
 
         if !data
           data = @get("value")
