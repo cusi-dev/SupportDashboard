@@ -278,7 +278,15 @@ class Dashing.FullpieAgent extends Dashing.Widget
         path.enter().append("path")
             .attr("class", "pie")
             .attr("fill",(d, i) -> return color i)
-            .data(piedata)
+        #    .data(piedata)
+
+        arcs = svg.selectAll("g.slice")
+            .data(pie)
+            .enter().append("svg:g").attr("class", "slice") 
+
+        arcs.append("svg:path").attr("fill", (d, i) -> color i)
+            .attr("fill-opacity", 0.4).attr("d", arc)
+
         #path.transition()
         #    .duration(1500)
         #    #.attrTween("d", pieTween)
