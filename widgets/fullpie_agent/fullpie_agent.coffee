@@ -173,6 +173,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
       a = (d.startAngle + d.endAngle) / 2
       #trig functions adjusted to use the angle relative
       #to the "12 o'clock" vector:
+      console.log 'ts: a', a
       d.cx = Math.sin(a) * (that.radius - 75)
       d.cy = -Math.cos(a) * (that.radius - 75)
 
