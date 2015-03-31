@@ -308,7 +308,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
         labels.exit()
             .remove()
 
-        window.labelLayout = d3.geom.quadtree()
+        labelLayout = d3.geom.quadtree()
             .extent([[-width,-height], [width,height] ])
             .x((d) -> return d.x)
             .y((d) -> return d.y)
