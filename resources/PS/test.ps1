@@ -148,13 +148,13 @@ $pb3 = "
 ]
 "
 
-$url = "$($dashboardURL)/widgets/resolved"
-$json = "{
+$url3 = "$($dashboardURL)/widgets/resolved"
+$json3 = "{
     ""auth_token"" : ""$($authToken)"",
     ""data"" : $pb3
 }"
 
-(Invoke-WebRequest -Uri $url -Method Post -Body $json).content | ConvertFrom-Json
+(Invoke-WebRequest -Uri $url3 -Method Post -Body $json3).content | ConvertFrom-Json
 
 #pie assigned widget
 $i = 0
