@@ -309,7 +309,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
             # check whether the default position 
             #   overlaps any other labels
             conflicts = []
-            labelLayout.visit( (node, x1, y1, x2, y2) -> 
+            #labelLayout.visit( (node, x1, y1, x2, y2) -> 
                 #recurse down the tree, adding any overlapping 
                 #node is the node in the quadtree, 
                 #node.point is the value that we added to the tree
@@ -320,18 +320,18 @@ class Dashing.FullpieAgent extends Dashing.Widget
                 #2. right edge of node is to the left of left edge of label
                 #3. top (minY) edge of node is greater than the bottom of label
                 #4. bottom (maxY) edge of node is less than the top of label
-                if  (x1 > d.r + maxLabelWidth/2) or (x2 < d.l - maxLabelWidth/2) or (y1 > d.b + maxLabelHeight/2) or (y2 < d.t - maxLabelHeight/2 )
-                    return true #don't bother visiting children or checking this node
+            #    if  (x1 > d.r + maxLabelWidth/2) or (x2 < d.l - maxLabelWidth/2) or (y1 > d.b + maxLabelHeight/2) or (y2 < d.t - maxLabelHeight/2 )
+            #        return true #don't bother visiting children or checking this node
                 
-                p = node.point
-                v = false
-                h = false
-                if p #p is defined, i.e., there is a value stored in this node
-                    h =  ( ((p.l > d.l) and (p.l <= d.r)) or ((p.r > d.l) and (p.r <= d.r)) or ((p.l < d.l) and (p.r >=d.r) ) ) #horizontal conflict
-                    v =  ( ((p.t > d.t) and (p.t <= d.b)) or ((p.b > d.t) and (p.b <= d.b)) or ((p.t < d.t) and (p.b >=d.b) ) ) #vertical conflict
-                    if h and v
-                        conflicts.push(p) #add to conflict list
-            )
+            #    p = node.point
+            #    v = false
+            #    h = false
+            #    if p #p is defined, i.e., there is a value stored in this node
+            #        h =  ( ((p.l > d.l) and (p.l <= d.r)) or ((p.r > d.l) and (p.r <= d.r)) or ((p.l < d.l) and (p.r >=d.r) ) ) #horizontal conflict
+            #        v =  ( ((p.t > d.t) and (p.t <= d.b)) or ((p.b > d.t) and (p.b <= d.b)) or ((p.t < d.t) and (p.b >=d.b) ) ) #vertical conflict
+            #        if h and v
+            #            conflicts.push(p) #add to conflict list
+            #)
             
             if conflicts.length 
                 console.log(d, " conflicts with ", conflicts);  
