@@ -191,13 +191,15 @@ class Dashing.FullpieAgent extends Dashing.Widget
         arcs.append("svg:path").attr("fill", (d, i) -> color i)
           .attr("fill-opacity", 0.4).attr("d", arc)
 
-  renderX5: (data) ->
+  render: (data) ->
         #console.log("update pie", data);
 
         if !data
           data = @get("value")
         if !data
           return
+
+        piedata = [data]
 
         $(@node).children(".title").text($(@node).attr("data-title"))
         $(@node).children(".more-info").text($(@node).attr("data-moreinfo"))
@@ -279,7 +281,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
         
         path = pathGroup.selectAll("path.pie")
             #.data(data)
-            .data([data])
+            .data(piedata)
 
         path.enter().append("path")
             .attr("class", "pie")
@@ -307,7 +309,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
             .remove()
 
         labels = labelGroup.selectAll("text")
-            .data([data].sort((p1,p2) -> return p1.startAngle - p2.startAngle))
+            .data(piedata.sort((p1,p2) -> return p1.startAngle - p2.startAngle))
         labels.enter()
             .append("text")
             .attr("text-anchor", "middle")
@@ -410,7 +412,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
 
 
         pointers = pointerGroup.selectAll("path.pointer")
-            .data([data])
+            .data(piedata)
         pointers.enter()
             .append("path")
             .attr("class", "pointer")
@@ -426,7 +428,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
                 return "M" + (d.r-2) + "," + d.b + "L" + (d.l+2) + "," + d.b + " " + d.cx + "," + d.cy
             
         )
-  render: (data) ->
+  renderX5: (data) ->
         #console.log("update pie", data);
 
         if !data
