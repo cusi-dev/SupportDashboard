@@ -141,7 +141,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
 
         return (t) -> 
             b = i(t);
-            return $(@node).arc(b)
+            return arc(b)
 
   renderX3: (data) ->
 
