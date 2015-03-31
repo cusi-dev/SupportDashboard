@@ -272,13 +272,19 @@ class Dashing.FullpieAgent extends Dashing.Widget
         if labelGroup.empty()
             labelGroup = svg.append("g").attr("class", "labels")
         
+        #path = pathGroup.selectAll("path.pie")
+        #    .data(piedata)
+
+        #path.enter().append("path")
+        #    .attr("class", "pie")
+        #    .attr("fill",(d, i) -> return color i)
+
         path = pathGroup.selectAll("path.pie")
             .data(piedata)
+            .enter().append("g").attr("class","slice")
 
-        path.enter().append("path")
-            .attr("class", "pie")
-            .attr("fill",(d, i) -> return color i)
-        #    .data(piedata)
+        path.append("path")
+            .attr("fill",(d, i) -> return color i),attr("d",arc)
 
         #arcs = svg.selectAll("g.slice")
         #    .data(pie)
@@ -286,6 +292,18 @@ class Dashing.FullpieAgent extends Dashing.Widget
 
         #arcs.append("svg:path").attr("fill", (d, i) -> color i)
         #    .attr("fill-opacity", 0.4).attr("d", arc)
+
+        
+
+        #path.transition()
+        #    .duration(1500)
+        #    .attrTween("d", @pieTween);
+
+        #path.exit()
+        #    .transition()
+        #    .duration(300)
+        #    .attrTween("d", @removePieTween)
+        #    .remove();
 
         #path.transition()
         #    .duration(1500)
@@ -310,16 +328,6 @@ class Dashing.FullpieAgent extends Dashing.Widget
         #            return arc(b)
         #    )
         #    .remove()
-        path.transition()
-            .duration(1500)
-            .attrTween("d", @pieTween);
-
-        path.exit()
-            .transition()
-            .duration(300)
-            .attrTween("d", @removePieTween)
-            .remove();
-
         labels = labelGroup.selectAll("text")
             .data(piedata.sort((p1,p2) -> return p1.startAngle - p2.startAngle))
         labels.enter()
