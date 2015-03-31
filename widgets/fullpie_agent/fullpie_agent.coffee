@@ -267,12 +267,14 @@ class Dashing.FullpieAgent extends Dashing.Widget
             .attr("text-anchor", "middle")
         labels.exit()
             .remove()
+        console.log("post-labels")
         
         labelLayout = d3.geom.quadtree()
             .extent([[-width,-height], [width,height] ])
             .x((d) -> return d.x)
             .y((d) -> return d.y)
             ([]) #create an empty quadtree to hold label positions
+        console.log("post-labelLayout")
 
         maxLabelWidth = 0
         maxLabelHeight = 0
