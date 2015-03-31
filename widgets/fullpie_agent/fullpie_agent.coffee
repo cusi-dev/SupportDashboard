@@ -116,25 +116,25 @@ class Dashing.FullpieAgent extends Dashing.Widget
     path.transition()
         .duration(1000)
         #.attrTween("d", pieTween)
-        .attrTween("d", (d,i) -> 
-            #console.log("d",d)
-            #console.log("i",i)
-            i = d3.interpolate({startAngle: 0, endAngle: 0}, {startAngle: d.startAngle, endAngle: d.endAngle})
-            return (t) -> 
-                b = i(t)
-                return arc(b)
-        )
+        #.attrTween("d", (d,i) -> 
+        #    #console.log("d",d)
+        #    #console.log("i",i)
+        #    i = d3.interpolate({startAngle: 0, endAngle: 0}, {startAngle: d.startAngle, endAngle: d.endAngle})
+        #    return (t) -> 
+        #        b = i(t)
+        #        return arc(b)
+        #)
 
     #@path.exit().transition().duration(300).attrTween('d', that.removePieTween).remove()
     path.exit()
         .transition()
         .duration(300)
-        .attrTween("d", (d,i) -> 
-            i = d3.interpolate({startAngle: d.startAngle,endAngle: d.endAngle},{startAngle: 2 * Math.PI,endAngle: 2 * Math.PI})
-            return (t) -> 
-                b = i(t)
-                return arc(b)
-        )
+        #.attrTween("d", (d,i) -> 
+        #    i = d3.interpolate({startAngle: d.startAngle,endAngle: d.endAngle},{startAngle: 2 * Math.PI,endAngle: 2 * Math.PI})
+        #    return (t) -> 
+        #        b = i(t)
+        #        return arc(b)
+        #)
         .remove()
 
     labels = labelGroup.selectAll('text').data(piedata.sort((p1, p2) ->
