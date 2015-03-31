@@ -114,11 +114,12 @@ $json = "{
 #Write-Host $url
 #Write-Host $json
 
-(Invoke-WebRequest -Uri $url -Method Post -Body $json).content | ConvertFrom-Json
+#(Invoke-WebRequest -Uri $url -Method Post -Body $json).content | ConvertFrom-Json
 
 
 #pie resolved widget
 $i = 0
+<#
 $pb3 = "["
 foreach ($row in $rows)
 {
@@ -135,7 +136,7 @@ foreach ($row in $rows)
     }
 }
 $pb3 += "]"
-
+#>
 $pb3 = "
 [
     { 
@@ -180,4 +181,4 @@ $json = "{
     ""value"" : $pb4
 }"
 
-(Invoke-WebRequest -Uri $url -Method Post -Body $json).content | ConvertFrom-Json
+#(Invoke-WebRequest -Uri $url -Method Post -Body $json).content | ConvertFrom-Json
