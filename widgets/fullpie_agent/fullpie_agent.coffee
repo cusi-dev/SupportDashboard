@@ -224,7 +224,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
 
         pie = d3.layout.pie()
             .sort(null)
-            .value((d) -> d.value)
+            #.value((d) -> d.value)
 
         window.arc = d3.svg.arc()
           .outerRadius(radiuso)
