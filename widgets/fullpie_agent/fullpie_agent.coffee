@@ -210,11 +210,6 @@ class Dashing.FullpieAgent extends Dashing.Widget
 
         $(@node).children("svg").remove();
 
-        #svg = d3.select(@node).append("svg:svg")
-        #    .attr("width", width)
-        #    .attr("height", height)
-        #    .append("svg:g")
-        #    .attr("transform", "translate(" + width/2 + "," + height/2 + ")") 
         svg = d3.select(@node).append("svg")
             .attr("width", width)
             .attr("height", height)
@@ -230,17 +225,9 @@ class Dashing.FullpieAgent extends Dashing.Widget
           .innerRadius(radiusi)
 
         piedata = pie(data[0].label)
-        console.log("update pie", piedata)
-
-        #arcs = svg.selectAll("g.slice")
-        #    .data(pie)
-        #    .enter().append("svg:g").attr("class", "slice") 
-
-        #arcs.append("svg:path").attr("fill", (d, i) -> color i)
-        #    .attr("fill-opacity", 0.4).attr("d", arc)
+        #console.log("update pie", piedata)
 
         # end Build pie
-        #console.log("update pie", data);
 
         #create a marker element if it doesn't already exist
         defs = svg.select("defs")
@@ -276,27 +263,10 @@ class Dashing.FullpieAgent extends Dashing.Widget
         
         path = pathGroup.selectAll("path.pie")
             .data(piedata)
-        console.log("path",path.empty())
 
-        #path.enter().append("path")
-        #    .attr("class", "pie")
-        #    .attr("fill",(d, i) -> return color i)
-
-        path = pathGroup.selectAll("path.pie")
-            .data(piedata)
-            .enter().append("g").attr("class","slice")
-
-        path.append("path")
-            .attr("fill",(d, i) -> return color i).attr("d",arc)
-
-        #arcs = svg.selectAll("g.slice")
-        #    .data(pie)
-        #    .enter().append("svg:g").attr("class", "slice") 
-
-        #arcs.append("svg:path").attr("fill", (d, i) -> color i)
-        #    .attr("fill-opacity", 0.4).attr("d", arc)
-
-        
+        path.enter().append("path")
+            .attr("class", "pie")
+            .attr("fill",(d, i) -> return color i)
 
         #path.transition()
         #    .duration(1500)
@@ -308,29 +278,29 @@ class Dashing.FullpieAgent extends Dashing.Widget
         #    .attrTween("d", @removePieTween)
         #    .remove();
 
-        #path.transition()
-        #    .duration(1500)
-        #    #.attrTween("d", pieTween)
-        #    .attrTween("d", (d,i) -> 
-        #        console.log("d",d)
-        #        console.log("i",i)
-        #        #i = d3.interpolate({startAngle: 0, endAngle: 0}, {startAngle: d.startAngle, endAngle: d.endAngle})
-        #        i = d3.interpolate({startAngle: 0, endAngle: 0}, {startAngle: 90, endAngle: 135})
-        #        return (t) -> 
-        #            b = i(t)
-        #            return arc(b)
-        #    )
+        path.transition()
+            .duration(1500)
+            #.attrTween("d", pieTween)
+            .attrTween("d", (d,i) -> 
+                console.log("d",d)
+                console.log("i",i)
+                i = d3.interpolate({startAngle: 0, endAngle: 0}, {startAngle: d.startAngle, endAngle: d.endAngle})
+                return (t) -> 
+                    b = i(t)
+                    return arc(b)
+            )
 
-        #path.exit()
-        #    .transition()
-        #    .duration(300)
-        #    .attrTween("d", (d,i) -> 
-        #        i = d3.interpolate({startAngle: d.startAngle,endAngle: d.endAngle},{startAngle: 2 * Math.PI,endAngle: 2 * Math.PI})
-        #        return (t) -> 
-        #            b = i(t)
-        #            return arc(b)
-        #    )
-        #    .remove()
+        path.exit()
+            .transition()
+            .duration(300)
+            .attrTween("d", (d,i) -> 
+                i = d3.interpolate({startAngle: d.startAngle,endAngle: d.endAngle},{startAngle: 2 * Math.PI,endAngle: 2 * Math.PI})
+                return (t) -> 
+                    b = i(t)
+                    return arc(b)
+            )
+            .remove()
+
         labels = labelGroup.selectAll("text")
             .data(piedata.sort((p1,p2) -> return p1.startAngle - p2.startAngle))
         labels.enter()
