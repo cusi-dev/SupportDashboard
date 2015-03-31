@@ -140,8 +140,8 @@ $pb3 += "]"
 $pb3 = "
 [
     { 
-        ""label"": [""Alpha"",""Beta"",""Theta"",""Gimal"",""Dalet""],
-        ""value"": [3,5,7,11,13]
+        ""label"": [""Alpha"",""Beta"",""Theta"",""Gimal"",""DaletHe"",""HeDalet""],
+        ""value"": [3,5,7,11,13,3]
     }
 ]
 "
