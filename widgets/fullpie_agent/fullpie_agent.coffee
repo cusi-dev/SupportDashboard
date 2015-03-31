@@ -71,42 +71,42 @@ class Dashing.FullpieAgent extends Dashing.Widget
 
   update: (dataSet) ->
 
-    @width = 300
-    @height = 300
-    @radius = Math.min(@width, @height) / 2
-    @color = d3.scale.category20()
-    @pie = d3.layout.pie().sort(null)
-    @arc = d3.svg.arc().innerRadius(@radius - 100).outerRadius(@radius - 50)
-    @svg = d3.select(@node).append('svg').attr('width', @width).attr('height', @height).append('g').attr('transform', 'translate(' + @width / 2 + ',' + @height / 2 + ')')
+    width = 300
+    height = 300
+    radius = Math.min(@width, @height) / 2
+    color = d3.scale.category20()
+    pie = d3.layout.pie().sort(null)
+    arc = d3.svg.arc().innerRadius(@radius - 100).outerRadius(@radius - 50)
+    svg = d3.select(@node).append('svg').attr('width', @width).attr('height', @height).append('g').attr('transform', 'translate(' + @width / 2 + ',' + @height / 2 + ')')
 
     console.log 'update pie', dataSet
     that = this
-    @piedata = @pie(dataSet[0].value)
-    console.log 'update pie', @pieData
+    piedata = pie(dataSet[0].value)
+    console.log 'update pie', pieData
     #create a marker element if it doesn't already exist
-    defs = @svg.select('defs')
+    defs = svg.select('defs')
     if defs.empty()
-      defs = @svg.append('defs')
+      defs = svg.append('defs')
     marker = defs.select('marker#circ')
     if marker.empty()
       defs.append('marker').attr('id', 'circ').attr('markerWidth', 6).attr('markerHeight', 6).attr('refX', 3).attr('refY', 3).append('circle').attr('cx', 3).attr('cy', 3).attr 'r', 3
     #Create/select <g> elements to hold the different types of graphics
     #and keep them in the correct drawing order
-    pathGroup = @svg.select('g.piePaths')
+    pathGroup = svg.select('g.piePaths')
     if pathGroup.empty()
-      pathGroup = @svg.append('g').attr('class', 'piePaths')
-    pointerGroup = @svg.select('g.pointers')
+      pathGroup = svg.append('g').attr('class', 'piePaths')
+    pointerGroup = svg.select('g.pointers')
     if pointerGroup.empty()
-      pointerGroup = @svg.append('g').attr('class', 'pointers')
-    labelGroup = @svg.select('g.labels')
+      pointerGroup = svg.append('g').attr('class', 'pointers')
+    labelGroup = svg.select('g.labels')
     if labelGroup.empty()
-      labelGroup = @svg.append('g').attr('class', 'labels')
-    @path = pathGroup.selectAll('path.pie').data(@piedata)
+      labelGroup = svg.append('g').attr('class', 'labels')
+    path = pathGroup.selectAll('path.pie').data(piedata)
     #console.log("path",this.path.empty())
-    @path.enter().append('path').attr('class', 'pie').attr 'fill', (d, i) ->
+    path.enter().append('path').attr('class', 'pie').attr 'fill', (d, i) ->
       that.color i
     #@path.transition().duration(1500).attrTween 'd', that.pieTween
-    @path.transition()
+    path.transition()
         .duration(1500)
         #.attrTween("d", pieTween)
         .attrTween("d", (d,i) -> 
@@ -119,7 +119,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
         )
 
     #@path.exit().transition().duration(300).attrTween('d', that.removePieTween).remove()
-    @path.exit()
+    path.exit()
         .transition()
         .duration(300)
         .attrTween("d", (d,i) -> 
@@ -130,7 +130,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
         )
         .remove()
 
-    labels = labelGroup.selectAll('text').data(@piedata.sort((p1, p2) ->
+    labels = labelGroup.selectAll('text').data(piedata.sort((p1, p2) ->
       p1.startAngle - p2.startAngle
     ))
     labels.enter().append('text').attr 'text-anchor', 'middle'
@@ -236,7 +236,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
       d.x
     ).attr 'y', (d) ->
       d.y
-    pointers = pointerGroup.selectAll('path.pointer').data(@piedata)
+    pointers = pointerGroup.selectAll('path.pointer').data(piedata)
     pointers.enter().append('path').attr('class', 'pointer').style('fill', 'none').style('stroke', 'black').attr 'marker-end', 'url(#circ)'
     pointers.exit().remove()
     pointers.transition().attr 'd', (d) ->
@@ -244,5 +244,4 @@ class Dashing.FullpieAgent extends Dashing.Widget
         'M' + d.l + 2 + ',' + d.b + 'L' + d.r - 2 + ',' + d.b + ' ' + d.cx + ',' + d.cy
       else
         'M' + d.r - 2 + ',' + d.b + 'L' + d.l + 2 + ',' + d.b + ' ' + d.cx + ',' + d.cy
-    @oldPieData = @piedata
     return
