@@ -167,6 +167,11 @@ class Dashing.FullpieAgent extends Dashing.Widget
           .outerRadius(radiuso)
           .innerRadius(radiusi)
 
+        #svg = d3.select(@node).append("svg:svg")
+        #    .attr("width", width)
+        #    .attr("height", height)
+        #    .append("svg:g")
+        #    .attr("transform", "translate(" + width/2 + "," + height/2 + ")") 
         svg = d3.select(@node).append("svg:svg")
             .attr("width", width)
             .attr("height", height)
@@ -220,15 +225,15 @@ class Dashing.FullpieAgent extends Dashing.Widget
                 return color(i)
             )
 
-#        this.path.transition()
-#            .duration(300)
-#            .attrTween("d", that.pieTween);
+        #this.path.transition()
+        #    .duration(300)
+        #    .attrTween("d", that.pieTween);
 
-#        this.path.exit()
-#            .transition()
-#            .duration(300)
-#            .attrTween("d", that.removePieTween)
-#            .remove();
+        #this.path.exit()
+        #    .transition()
+        #    .duration(300)
+        #    .attrTween("d", that.removePieTween)
+        #    .remove();
 
         labels = labelGroup.selectAll("text")
             .data(data.sort((p1,p2) -> return p1.startAngle - p2.startAngle))
@@ -239,11 +244,10 @@ class Dashing.FullpieAgent extends Dashing.Widget
             .remove()
         
         labelLayout = d3.geom.quadtree()
-            .extent([[-width,-height], [width,height] ])([])
-        labelLayout
+            .extent([[-width,-height], [width,height] ])
             .x((d) -> return d.x)
             .y((d) -> return d.y)
-#            ([]) #create an empty quadtree to hold label positions
+            ([]) #create an empty quadtree to hold label positions
         maxLabelWidth = 0
         maxLabelHeight = 0
         
