@@ -305,7 +305,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
                     return arc(b)
             )
             .remove()
-###
+
         labels = labelGroup.selectAll("text")
             .data([data].sort((p1,p2) -> return p1.startAngle - p2.startAngle))
         labels.enter()
@@ -426,7 +426,6 @@ class Dashing.FullpieAgent extends Dashing.Widget
                 return "M" + (d.r-2) + "," + d.b + "L" + (d.l+2) + "," + d.b + " " + d.cx + "," + d.cy
             
         )
-###
   renderX5: (data) ->
         #console.log("update pie", data);
 
