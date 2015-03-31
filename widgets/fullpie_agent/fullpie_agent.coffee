@@ -284,7 +284,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
             .enter().append("g").attr("class","slice")
 
         path.append("path")
-            .attr("fill",(d, i) -> return color i),attr("d",arc)
+            .attr("fill",(d, i) -> return color i).attr("d",arc)
 
         #arcs = svg.selectAll("g.slice")
         #    .data(pie)
