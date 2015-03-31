@@ -4,7 +4,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
 
   onData: (data) ->
     $(@node).fadeOut().fadeIn()
-    @render(data)
+    @render(data.data)
   
   renderX: (data) ->
     if !data
@@ -192,7 +192,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
         if !data
           return
 
-        piedata = data[0].data.label
+        piedata = data.label
         console.log("update pie", piedata)
 
         $(@node).children(".title").text($(@node).attr("data-title"))
