@@ -402,7 +402,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
             maxLabelWidth = Math.max(maxLabelWidth, bbox.width+10)
             maxLabelHeight = Math.max(maxLabelHeight, bbox.height+10)
         )
-        #.transition()//we can use transitions now!
+        .transition() #we can use transitions now!
         .attr("x", (d) ->
                     return d.x
                 )
