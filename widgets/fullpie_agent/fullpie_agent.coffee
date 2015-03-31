@@ -232,19 +232,19 @@ class Dashing.FullpieAgent extends Dashing.Widget
             #.data(data)
             .data(pie(data))
 
-        path.enter().append("path")
-            .attr("class", "pie")
-            .attr("fill", "#ffffff")#(d, i) -> return color i)
-        pathGroup.attr("d", arc)
-        #path.transition()
-        #    .duration(1500)
-        #    #.attrTween("d", pieTween);
-        #    .attrTween("d", (d,i) -> 
-        #        i = d3.interpolate({startAngle: 0,endAngle: 0}, {startAngle: d.startAngle,endAngle: d.endAngle})
-        #        return (t) -> 
-        #            b = i(t);
-        #            return arc(b)
-        #    )
+        #path.enter().append("path")
+        #    .attr("class", "pie")
+        #    .attr("fill", "#ffffff")#(d, i) -> return color i)
+        #pathGroup.attr("d", arc)
+        path.transition()
+            .duration(1500)
+            #.attrTween("d", pieTween);
+            .attrTween("d", (d,i) -> 
+                i = d3.interpolate({startAngle: 0,endAngle: 0}, {startAngle: d.startAngle,endAngle: d.endAngle})
+                return (t) -> 
+                    b = i(t);
+                    return arc(b)
+            )
 
         #this.path.exit()
         #    .transition()
