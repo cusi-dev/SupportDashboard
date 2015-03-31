@@ -190,7 +190,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
       d.y = -Math.cos(a) * (that.radius - 20)
       d.b = d.oy = d.y + 5
       d.t = d.y - bbox.height - 5
-      console.log 'd', d
+      console.log 'ts: d', d
       ### check whether the default position 
          overlaps any other labels
       ###
