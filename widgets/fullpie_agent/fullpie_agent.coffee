@@ -191,7 +191,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
         arcs.append("svg:path").attr("fill", (d, i) -> color i)
           .attr("fill-opacity", 0.4).attr("d", arc)
 
-  renderX5: (data) ->
+  render: (data) ->
         #console.log("update pie", data);
 
         if !data
@@ -281,9 +281,9 @@ class Dashing.FullpieAgent extends Dashing.Widget
             #.data(data)
             .data([data])
 
-        #path.enter().append("path")
-        #    .attr("class", "pie")
-        #    .attr("fill", "#ffffff")#(d, i) -> return color i)
+        path.enter().append("path")
+            .attr("class", "pie")
+            .attr("fill", "#ffffff")#(d, i) -> return color i)
         #pathGroup.attr("d", arc)
         path.transition()
             .duration(1500)
@@ -426,7 +426,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
                 return "M" + (d.r-2) + "," + d.b + "L" + (d.l+2) + "," + d.b + " " + d.cx + "," + d.cy
             
         )
-  render: (data) ->
+  renderX5: (data) ->
         #console.log("update pie", data);
 
         if !data
