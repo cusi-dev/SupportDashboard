@@ -149,7 +149,49 @@ class Dashing.FullpieAgent extends Dashing.Widget
             b = i(t);
             return $(@node).arc(b)
 
-  render: (data) ->
+
+  renderX3: (data) ->
+
+        if !data
+          data = @get("value")
+        if !data
+          return
+
+        $(@node).children(".title").text($(@node).attr("data-title"))
+        $(@node).children(".more-info").text($(@node).attr("data-moreinfo"))
+        $(@node).children(".updated-at").text(@get('updatedAtMessage'))
+
+        # Build pie
+
+        width = 750
+        height = 450
+        radiuso = 135 #outer radius
+        radiusi = 90 #inner radius
+        radius = Math.min(width, height) / 2 #palette radius min
+        labelRadius = 180
+
+        color = d3.scale.category20()
+
+        $(@node).children("svg").remove();
+
+        arc = d3.svg.arc().outerRadius(radius)
+        pie = d3.layout.pie().value((d) -> d.value)
+	
+        svg = d3.select(@node).append("svg:svg")
+          .data([data])
+            .attr("width", width)
+            .attr("height", height)
+          .append("svg:g")
+            .attr("transform", "translate(" + radius + "," + radius + ")") 
+
+        arcs = svg.selectAll("g.slice")
+          .data(pie)
+          .enter().append("svg:g").attr("class", "slice") 
+
+        arcs.append("svg:path").attr("fill", (d, i) -> color i)
+          .attr("fill-opacity", 0.4).attr("d", arc)
+
+  renderx4: (data) ->
         #console.log("update pie", data);
 
         if !data
@@ -384,7 +426,8 @@ class Dashing.FullpieAgent extends Dashing.Widget
                 return "M" + (d.r-2) + "," + d.b + "L" + (d.l+2) + "," + d.b + " " + d.cx + "," + d.cy
             
         )
-  renderX3: (data) ->
+  render: (data) ->
+        #console.log("update pie", data);
 
         if !data
           data = @get("value")
@@ -408,19 +451,32 @@ class Dashing.FullpieAgent extends Dashing.Widget
 
         $(@node).children("svg").remove();
 
-        arc = d3.svg.arc().outerRadius(radius)
-        pie = d3.layout.pie().value((d) -> d.value)
-	
         svg = d3.select(@node).append("svg:svg")
-          .data([data])
             .attr("width", width)
             .attr("height", height)
-          .append("svg:g")
-            .attr("transform", "translate(" + radius + "," + radius + ")") 
+            .append("svg:g")
+            .attr("transform", "translate(" + width/2 + "," + height/2 + ")") 
+        #svg = d3.select(@node).append("svg")
+        #    .attr("width", width)
+        #    .attr("height", height)
+        #    .append("g")
+        #    .attr("transform", "translate(" + width/2 + "," + height/2 + ")") 
+
+        pie = d3.layout.pie()
+            .sort(null)
+            .value((d) -> d.value)
+
+        arc = d3.svg.arc()
+          .outerRadius(radiuso)
+          .innerRadius(radiusi)
 
         arcs = svg.selectAll("g.slice")
-          .data(pie)
-          .enter().append("svg:g").attr("class", "slice") 
+            .data(pie)
+            .enter().append("svg:g").attr("class", "slice") 
 
         arcs.append("svg:path").attr("fill", (d, i) -> color i)
-          .attr("fill-opacity", 0.4).attr("d", arc)
+            .attr("fill-opacity", 0.4).attr("d", arc)
+
+        # end Build pie
+        #console.log("update pie", data);
+
