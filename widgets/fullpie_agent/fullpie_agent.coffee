@@ -248,6 +248,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
             .x((d) -> return d.x)
             .y((d) -> return d.y)
             ([]) #create an empty quadtree to hold label positions
+        console.log("labelLayout",labelLayout)
         maxLabelWidth = 0
         maxLabelHeight = 0
         
