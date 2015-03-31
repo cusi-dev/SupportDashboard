@@ -226,9 +226,9 @@ class Dashing.FullpieAgent extends Dashing.Widget
                 return color(i)
             )
 
-        #this.path.transition()
-        #    .duration(300)
-        #    .attrTween("d", that.pieTween);
+        path.transition()
+            .duration(300)
+            .attrTween("d", pieTween);
 
         #this.path.exit()
         #    .transition()
