@@ -149,7 +149,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
             b = i(t);
             return $(@node).arc(b)
 
-  render: (data) ->
+  renderX2: (data) ->
         #console.log("update pie", data);
 
         if !data
@@ -377,3 +377,88 @@ class Dashing.FullpieAgent extends Dashing.Widget
                 return "M" + (d.r-2) + "," + d.b + "L" + (d.l+2) + "," + d.b + " " + d.cx + "," + d.cy
             
         )
+  render: (data) ->
+
+        if !data
+          data = @get("value")
+        if !data
+          return
+
+        $(@node).children(".title").text($(@node).attr("data-title"))
+        $(@node).children(".more-info").text($(@node).attr("data-moreinfo"))
+        $(@node).children(".updated-at").text(@get('updatedAtMessage'))
+
+        # Build pie
+
+        width = 750
+        height = 450
+        radiuso = 135 #outer radius
+        radiusi = 90 #inner radius
+        radius = Math.min(width, height) / 2 #palette radius min
+        labelRadius = 180
+
+        color = d3.scale.category20()
+
+        $(@node).children("svg").remove();
+
+        pie = d3.layout.pie()
+            .sort(null)
+            #.value((d) -> d.value)
+
+        arc = d3.svg.arc()
+          .outerRadius(radiuso)
+          .innerRadius(radiusi)
+
+        svg = d3.select(@node).append("svg")
+            .attr("width", width)
+            .attr("height", height)
+            .append("g")
+            .attr("transform", "translate(" + width/2 + "," + height/2 + ")") 
+
+        #Create/select <g> elements to hold the different types of graphics
+        #and keep them in the correct drawing order
+        pathGroup = svg.select("g.piePaths")
+        if pathGroup.empty()
+            pathGroup = svg.append("g").attr("class", "piePaths")
+        
+        pointerGroup = svg.select("g.pointers")
+        if pointerGroup.empty()
+            pointerGroup = svg.append("g").attr("class", "pointers")
+        
+        labelGroup = svg.select("g.labels")
+        if labelGroup.empty()
+            labelGroup = svg.append("g").attr("class", "labels")
+        
+        path = pathGroup.selectAll("path.pie")
+            #.data(data)
+            .data(pie(data))
+
+        path.transition()
+            .duration(1500)
+            #.attrTween("d", pieTween);
+            .attrTween("d", (d,i) -> 
+                i = d3.interpolate({startAngle: 0,endAngle: 0}, {startAngle: d.startAngle,endAngle: d.endAngle})
+                return (t) -> 
+                    b = i(t)
+                    return arc(b)
+            )
+
+        path.exit()
+            .transition()
+            .duration(300)
+            .attrTween("d", (d,i) -> 
+                i = d3.interpolate({startAngle: d.startAngle,endAngle: d.endAngle},{startAngle: 2 * Math.PI,endAngle: 2 * Math.PI})
+                return (t) -> 
+                    b = i(t)
+                    return arc(b)
+            )
+            .remove()
+
+        labels = labelGroup.selectAll("text")
+            .data(data.sort((p1,p2) -> return p1.startAngle - p2.startAngle))
+        labels.enter()
+            .append("text")
+            .attr("text-anchor", "middle")
+        labels.exit()
+            .remove()
+
