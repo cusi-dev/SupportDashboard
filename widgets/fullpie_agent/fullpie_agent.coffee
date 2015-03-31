@@ -356,7 +356,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
                 return "M" + (d.r-2) + "," + d.b + "L" + (d.l+2) + "," + d.b + " " + d.cx + "," + d.cy
             
         )
-  pieTween: (d, i) {
+  pieTween: (d, i) ->
 
         i = d3.interpolate({
             startAngle: 0,
