@@ -401,23 +401,19 @@ class Dashing.FullpieAgent extends Dashing.Widget
 
         $(@node).children("svg").remove();
 
-        svg = d3.select(@node).append("svg")
-                .attr("width", width)
-                .attr("height", height)
-            .append("g")
-                .attr("transform", "translate(" + width/2 + "," + height/2 + ")") 
+        vis = d3.select(@node).append("svg:svg")
+          .data([data])
+            .attr("width", width)
+            .attr("height", height)
+          .append("svg:g")
+            .attr("transform", "translate(" + radius + "," + radius + ")") 
 
-        arc = d3.svg.arc()
-          .outerRadius(radiuso)
-          .innerRadius(radiusi)
-
-        pie = d3.layout.pie()
-            #.sort(null)
-            .value((d) -> d.value)
-
-        arcs = svg.selectAll("g.slice")
-            .data(pie)
-            .enter().append("svg:g").attr("class", "slice") 
+        arc = d3.svg.arc().outerRadius(radius)
+        pie = d3.layout.pie().value((d) -> d.value)
+	
+        arcs = vis.selectAll("g.slice")
+          .data(pie)
+          .enter().append("svg:g").attr("class", "slice") 
 
         arcs.append("svg:path").attr("fill", (d, i) -> color i)
-            .attr("fill-opacity", 0.4).attr("d", arc)
+          .attr("fill-opacity", 0.4).attr("d", arc)
