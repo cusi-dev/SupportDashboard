@@ -235,6 +235,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
         #    .duration(300)
         #    .attrTween("d", that.removePieTween)
         #    .remove();
+        path.exit()
 
         labels = labelGroup.selectAll("text")
             .data(data.sort((p1,p2) -> return p1.startAngle - p2.startAngle))
