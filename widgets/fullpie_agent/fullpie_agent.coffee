@@ -185,7 +185,6 @@ class Dashing.FullpieAgent extends Dashing.Widget
           .attr("fill-opacity", 0.4).attr("d", arc)
 
   render: (data) ->
-        #console.log("update pie", data);
 
         if !data
           data = @get("value")
@@ -193,6 +192,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
           return
 
         piedata = [data]
+        console.log("update pie", piedata)
 
         $(@node).children(".title").text($(@node).attr("data-title"))
         $(@node).children(".more-info").text($(@node).attr("data-moreinfo"))
