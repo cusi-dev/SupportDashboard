@@ -70,6 +70,15 @@ class Dashing.FullpieAgent extends Dashing.Widget
       @arc b
 
   update: (dataSet) ->
+
+    @width = 300
+    @height = 300
+    @radius = Math.min(@width, @height) / 2
+    @color = d3.scale.category20()
+    @pie = d3.layout.pie().sort(null)
+    @arc = d3.svg.arc().innerRadius(@radius - 100).outerRadius(@radius - 50)
+    @svg = d3.select(@node).append('svg').attr('width', @width).attr('height', @height).append('g').attr('transform', 'translate(' + @width / 2 + ',' + @height / 2 + ')')
+
     console.log 'update pie', dataSet
     that = this
     @piedata = @pie(dataSet[0].value)
@@ -106,7 +115,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
             i = d3.interpolate({startAngle: 0, endAngle: 0}, {startAngle: d.startAngle, endAngle: d.endAngle})
             return (t) -> 
                 b = i(t)
-                return @arc(b)
+                return arc(b)
         )
 
     #@path.exit().transition().duration(300).attrTween('d', that.removePieTween).remove()
@@ -117,7 +126,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
             i = d3.interpolate({startAngle: d.startAngle,endAngle: d.endAngle},{startAngle: 2 * Math.PI,endAngle: 2 * Math.PI})
             return (t) -> 
                 b = i(t)
-                return @arc(b)
+                return arc(b)
         )
         .remove()
 
