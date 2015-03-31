@@ -452,6 +452,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
         $(@node).children("svg").remove();
 
         svg = d3.select(@node).append("svg:svg")
+            .data([data])
             .attr("width", width)
             .attr("height", height)
             .append("svg:g")
