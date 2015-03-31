@@ -400,7 +400,6 @@ class Dashing.FullpieAgent extends Dashing.Widget
                 .attr("y", (d) ->
                     return d.y
                 )
-        )
 
         pointers = pointerGroup.selectAll("path.pointer")
             .data(piedata)
