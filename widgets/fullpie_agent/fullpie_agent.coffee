@@ -264,7 +264,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
             .attr("text-anchor", "middle")
         labels.exit()
             .remove()
-        
+
         labelLayout = d3.geom.quadtree()
             .extent([[-width,-height], [width,height] ])
             .x((d) -> return d.x)
