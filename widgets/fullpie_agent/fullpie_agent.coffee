@@ -241,7 +241,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
             )
 
         path.transition()
-            .duration(300)
+            .duration(1500)
             #.attrTween("d", pieTween);
             .attrTween("d", (d,i) -> 
                 i = d3.interpolate({
@@ -253,7 +253,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
                 })
                 return (t) -> 
                     b = i(t);
-                    return d3.arc(b)
+                    return arc(b)
             )
 
         #this.path.exit()
