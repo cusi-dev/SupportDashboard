@@ -389,7 +389,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
             
             # add this label to the quadtree, so it will show up as a conflict
             #   for future labels.  
-            #labelLayout.add( d )
+            labelLayout.add( d )
             maxLabelWidth = Math.max(maxLabelWidth, bbox.width+10)
             maxLabelHeight = Math.max(maxLabelHeight, bbox.height+10)
         )
