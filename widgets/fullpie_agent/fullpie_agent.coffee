@@ -239,7 +239,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
             .attr("fill", (d, i) -> 
                 return color(i)
             )
-
+        console.log("pre-transition")
         path.transition()
             .duration(1500)
             #.attrTween("d", pieTween);
@@ -249,6 +249,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
                     b = i(t);
                     return arc(b)
             )
+        console.log("post-transition")
 
         #this.path.exit()
         #    .transition()
