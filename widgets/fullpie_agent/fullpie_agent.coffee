@@ -282,17 +282,17 @@ class Dashing.FullpieAgent extends Dashing.Widget
         path.transition()
             .duration(1500)
             #.attrTween("d", pieTween)
-            .attrTween("d", (d,i,a) -> 
-                x = d3.interpolate({startAngle: 0, endAngle: 0}, {startAngle: d.startAngle, endAngle: d.endAngle})
+            .attrTween("d", (d,i) -> 
+                i = d3.interpolate({startAngle: 0, endAngle: 0}, {startAngle: d.startAngle, endAngle: d.endAngle})
                 return (t) -> 
-                    b = x(t)
+                    b = i(t)
                     return arc(b)
             )
 
         path.exit()
             .transition()
             .duration(300)
-            .attrTween("d", (d,i,a) -> 
+            .attrTween("d", (d,i) -> 
                 i = d3.interpolate({startAngle: d.startAngle,endAngle: d.endAngle},{startAngle: 2 * Math.PI,endAngle: 2 * Math.PI})
                 return (t) -> 
                     b = i(t)
