@@ -71,13 +71,15 @@ class Dashing.FullpieAgent extends Dashing.Widget
 
   update: (dataSet) ->
 
-    width = 300
-    height = 300
-    radius = Math.min(@width, @height) / 2
+    width = 750
+    height = 450
+    radius = Math.min(width, height) / 2
+    radiuso = 135
+    radiusi = 90
     color = d3.scale.category20()
     pie = d3.layout.pie().sort(null)
-    arc = d3.svg.arc().innerRadius(@radius - 100).outerRadius(@radius - 50)
-    svg = d3.select(@node).append('svg').attr('width', @width).attr('height', @height).append('g').attr('transform', 'translate(' + @width / 2 + ',' + @height / 2 + ')')
+    arc = d3.svg.arc().innerRadius(radiusi).outerRadius(radiuso)#.innerRadius(radius - 100).outerRadius(radius - 50)
+    svg = d3.select(@node).append('svg').attr('width', width).attr('height', height).append('g').attr('transform', 'translate(' + width / 2 + ',' + height / 2 + ')')
 
     console.log 'update pie', dataSet
     that = this
