@@ -463,7 +463,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
         #    .attr("transform", "translate(" + width/2 + "," + height/2 + ")") 
 
         pie = d3.layout.pie()
-            .sort(null)
+            #.sort(null)
             .value((d) -> d.value)
 
         arc = d3.svg.arc()
