@@ -240,17 +240,17 @@ class Dashing.FullpieAgent extends Dashing.Widget
             .attr("fill", (d, i) -> 
                 return color(i)
             )
-        console.log("pre-transition")
-        path.transition()
-            .duration(1500)
-            #.attrTween("d", pieTween);
-            .attrTween("d", (d,i) -> 
-                i = d3.interpolate({startAngle: 0,endAngle: 0}, {startAngle: d.startAngle,endAngle: d.endAngle})
-                return (t) -> 
-                    b = i(t);
-                    return arc(b)
-            )
-        console.log("post-transition")
+            
+            .attr("d", arc)
+        #path.transition()
+        #    .duration(1500)
+        #    #.attrTween("d", pieTween);
+        #    .attrTween("d", (d,i) -> 
+        #        i = d3.interpolate({startAngle: 0,endAngle: 0}, {startAngle: d.startAngle,endAngle: d.endAngle})
+        #        return (t) -> 
+        #            b = i(t);
+        #            return arc(b)
+        #    )
 
         #this.path.exit()
         #    .transition()
@@ -258,7 +258,6 @@ class Dashing.FullpieAgent extends Dashing.Widget
         #    .attrTween("d", that.removePieTween)
         #    .remove();
         path.exit()
-        console.log("post-exit")
 
         labels = labelGroup.selectAll("text")
             .data(data.sort((p1,p2) -> return p1.startAngle - p2.startAngle))
@@ -267,7 +266,6 @@ class Dashing.FullpieAgent extends Dashing.Widget
             .attr("text-anchor", "middle")
         labels.exit()
             .remove()
-        console.log("post-labels")
         
         labelLayout = d3.geom.quadtree()
             .extent([[-width,-height], [width,height] ])
