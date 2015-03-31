@@ -218,18 +218,15 @@ class Dashing.FullpieAgent extends Dashing.Widget
         #and keep them in the correct drawing order
         pathGroup = svg.select("g.piePaths")
         if pathGroup.empty()
-            pathGroup = svg.append("g")
-                       .attr("class", "piePaths")
+            pathGroup = svg.append("g").attr("class", "piePaths")
         
         pointerGroup = svg.select("g.pointers")
         if pointerGroup.empty()
-            pointerGroup = svg.append("g")
-                           .attr("class", "pointers")
+            pointerGroup = svg.append("g").attr("class", "pointers")
         
         labelGroup = svg.select("g.labels")
         if labelGroup.empty()
-            labelGroup = svg.append("g")
-                         .attr("class", "labels")
+            labelGroup = svg.append("g").attr("class", "labels")
         
         path = pathGroup.selectAll("path.pie")
             #.data(data)
