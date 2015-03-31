@@ -135,6 +135,20 @@ class Dashing.FullpieAgent extends Dashing.Widget
             '(' + Math.round(data[i].value/sum * 100) + '%)'
         )
 
+  pieTween: (d, i) ->
+
+        i = d3.interpolate({
+            startAngle: 0,
+            endAngle: 0
+        }, {
+            startAngle: d.startAngle,
+            endAngle: d.endAngle
+        })
+
+        return (t) -> 
+            b = i(t);
+            return $(@node).arc(b)
+
   render: (data) ->
         #console.log("update pie", data);
 
@@ -356,16 +370,3 @@ class Dashing.FullpieAgent extends Dashing.Widget
                 return "M" + (d.r-2) + "," + d.b + "L" + (d.l+2) + "," + d.b + " " + d.cx + "," + d.cy
             
         )
-  pieTween: (d, i) ->
-
-        i = d3.interpolate({
-            startAngle: 0,
-            endAngle: 0
-        }, {
-            startAngle: d.startAngle,
-            endAngle: d.endAngle
-        })
-
-        return (t) -> 
-            b = i(t);
-            return $(@node).arc(b)
