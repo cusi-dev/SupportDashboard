@@ -402,7 +402,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
         $(@node).children("svg").remove();
 
         pie = d3.layout.pie()
-            .sort(null)
+            #.sort(null)
             .value((d) -> d.value)
 
         arc = d3.svg.arc()
