@@ -404,14 +404,14 @@ class Dashing.FullpieAgent extends Dashing.Widget
         arc = d3.svg.arc().outerRadius(radius)
         pie = d3.layout.pie().value((d) -> d.value)
 	
-        vis = d3.select(@node).append("svg:svg")
+        svg = d3.select(@node).append("svg:svg")
           .data([data])
             .attr("width", width)
             .attr("height", height)
           .append("svg:g")
             .attr("transform", "translate(" + radius + "," + radius + ")") 
 
-        arcs = vis.selectAll("g.slice")
+        arcs = svg.selectAll("g.slice")
           .data(pie)
           .enter().append("svg:g").attr("class", "slice") 
 
