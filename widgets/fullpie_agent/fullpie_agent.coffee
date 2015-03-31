@@ -237,12 +237,12 @@ class Dashing.FullpieAgent extends Dashing.Widget
           .outerRadius(radiuso)
           .innerRadius(radiusi)
 
-        svg = svg.selectAll("g.slice")
-            .data(pie)
-            .enter().append("svg:g").attr("class", "slice") 
+        #arcs = svg.selectAll("g.slice")
+        #    .data(pie)
+        #    .enter().append("svg:g").attr("class", "slice") 
 
-        svg.append("svg:path").attr("fill", (d, i) -> color i)
-            .attr("fill-opacity", 0.4).attr("d", arc)
+        #arcs.append("svg:path").attr("fill", (d, i) -> color i)
+        #    .attr("fill-opacity", 0.4).attr("d", arc)
 
         # end Build pie
         #console.log("update pie", data);
