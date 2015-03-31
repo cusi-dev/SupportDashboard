@@ -5,7 +5,8 @@ class Dashing.FullpieAgent extends Dashing.Widget
   onData: (data) ->
     $(@node).fadeOut().fadeIn()
     @buildPieStructure()
-    @render(data.data)
+    #@render(data.data)
+    @update(data.data)
   
   buildPieStructure: ->
     @width = 300
