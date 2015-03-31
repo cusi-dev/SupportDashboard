@@ -173,7 +173,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
       a = (d.startAngle + d.endAngle) / 2
       #trig functions adjusted to use the angle relative
       #to the "12 o'clock" vector:
-      console.log 'ts: a', a
+      #console.log 'ts: a', a
       d.cx = Math.sin(a) * (radius - 75)
       d.cy = -Math.cos(a) * (radius - 75)
 
@@ -191,7 +191,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
       d.y = -Math.cos(a) * (radius - 20)
       d.b = d.oy = d.y + 5
       d.t = d.y - bbox.height - 5
-      console.log 'ts: d', d
+      #console.log 'ts: d', d
       ### check whether the default position 
          overlaps any other labels
       ###
