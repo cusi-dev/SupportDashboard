@@ -174,7 +174,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
             .attr("transform", "translate(" + width/2 + "," + height/2 + ")") 
 
         # end Build pie
-        console.log("update pie", dataSet);
+        console.log("update pie", data);
 
         #create a marker element if it doesn't already exist
         defs = svg.select("defs")
