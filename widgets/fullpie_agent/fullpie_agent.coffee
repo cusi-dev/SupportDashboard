@@ -52,7 +52,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
       endAngle: d.endAngle)
     (t) ->
       b = i(t)
-      @arc b
+      return @arc b
 
   removePieTween: (d, i) ->
     `var i`
