@@ -451,17 +451,18 @@ class Dashing.FullpieAgent extends Dashing.Widget
 
         $(@node).children("svg").remove();
 
-        svg = d3.select(@node).append("svg:svg")
+        #svg = d3.select(@node).append("svg:svg")
+        #    .data([data])
+        #    .attr("width", width)
+        #    .attr("height", height)
+        #    .append("svg:g")
+        #    .attr("transform", "translate(" + width/2 + "," + height/2 + ")") 
+        svg = d3.select(@node).append("svg")
             .data([data])
             .attr("width", width)
             .attr("height", height)
-            .append("svg:g")
+            .append("svg")
             .attr("transform", "translate(" + width/2 + "," + height/2 + ")") 
-        #svg = d3.select(@node).append("svg")
-        #    .attr("width", width)
-        #    .attr("height", height)
-        #    .append("g")
-        #    .attr("transform", "translate(" + width/2 + "," + height/2 + ")") 
 
         pie = d3.layout.pie()
             #.sort(null)
