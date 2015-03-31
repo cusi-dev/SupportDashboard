@@ -174,14 +174,6 @@ class Dashing.FullpieAgent extends Dashing.Widget
 
         $(@node).children("svg").remove();
 
-        pie = d3.layout.pie()
-            .sort(null)
-            .value((d) -> d.value)
-
-        arc = d3.svg.arc()
-          .outerRadius(radiuso)
-          .innerRadius(radiusi)
-
         svg = d3.select(@node).append("svg:svg")
             .attr("width", width)
             .attr("height", height)
@@ -192,6 +184,14 @@ class Dashing.FullpieAgent extends Dashing.Widget
         #    .attr("height", height)
         #    .append("g")
         #    .attr("transform", "translate(" + width/2 + "," + height/2 + ")") 
+
+        pie = d3.layout.pie()
+            .sort(null)
+            .value((d) -> d.value)
+
+        arc = d3.svg.arc()
+          .outerRadius(radiuso)
+          .innerRadius(radiusi)
 
         # end Build pie
         #console.log("update pie", data);
