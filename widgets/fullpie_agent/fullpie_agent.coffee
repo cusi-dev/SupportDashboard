@@ -232,7 +232,8 @@ class Dashing.FullpieAgent extends Dashing.Widget
                          .attr("class", "labels")
         
         path = pathGroup.selectAll("path.pie")
-            .data(data)
+            #.data(data)
+            .data(pie(d))
 
         path.enter().append("path")
             .attr("class", "pie")
