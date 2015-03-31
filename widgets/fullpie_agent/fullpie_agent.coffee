@@ -147,11 +147,13 @@ class Dashing.FullpieAgent extends Dashing.Widget
         $(@node).children(".more-info").text($(@node).attr("data-moreinfo"))
         $(@node).children(".updated-at").text(@get('updatedAtMessage'))
 
-        width = 750 #width
-        height = 450 #height
+        # Build pie
+
+        width = 750
+        height = 450
         radiuso = 135 #outer radius
         radiusi = 90 #inner radius
-        radius = height / 2
+        radius = Math.min(width, height) / 2 #palette radius min
         labelRadius = 180
 
         color = d3.scale.category20()
@@ -170,6 +172,8 @@ class Dashing.FullpieAgent extends Dashing.Widget
             .attr("height", height)
             .append("svg:g")
             .attr("transform", "translate(" + width/2 + "," + height/2 + ")") 
+
+        # end Build pie
 
         #create a marker element if it doesn't already exist
         defs = svg.select("defs")
@@ -234,7 +238,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
             .remove()
         
         labelLayout = d3.geom.quadtree()
-        labellayout.extent([[-width,-height], [width,height] ])
+            .extent([[-width,-height], [width,height] ])
             .x((d) -> return d.x)
             .y((d) -> return d.y)
             #([]) #create an empty quadtree to hold label positions
