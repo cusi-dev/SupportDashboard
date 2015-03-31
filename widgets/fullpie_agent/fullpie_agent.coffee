@@ -274,7 +274,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
         
         path = pathGroup.selectAll("path.pie")
             .data(piedata)
-        console.log("path",path)
+        console.log("path",path.empty())
 
         #path.enter().append("path")
         #    .attr("class", "pie")
