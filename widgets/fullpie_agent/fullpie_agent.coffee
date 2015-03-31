@@ -192,7 +192,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
         if !data
           return
 
-        piedata = data
+        piedata = data[0]
         console.log("update pie", piedata)
 
         $(@node).children(".title").text($(@node).attr("data-title"))
