@@ -279,6 +279,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
             .attr("class", "pie")
             .attr("fill",(d, i) -> return color i)
         #path.data(piedata)
+        console.log("d",d)
         path.transition()
             .duration(1500)
             #.attrTween("d", pieTween)
