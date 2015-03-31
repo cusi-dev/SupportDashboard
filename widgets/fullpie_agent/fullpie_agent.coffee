@@ -137,18 +137,11 @@ class Dashing.FullpieAgent extends Dashing.Widget
 
   pieTween: (d, i) ->
 
-        i = d3.interpolate({
-            startAngle: 0,
-            endAngle: 0
-        }, {
-            startAngle: d.startAngle,
-            endAngle: d.endAngle
-        })
+        i = d3.interpolate({startAngle: 0,endAngle: 0}, {startAngle: d.startAngle,endAngle: d.endAngle})
 
         return (t) -> 
             b = i(t);
             return $(@node).arc(b)
-
 
   renderX3: (data) ->
 
@@ -280,22 +273,21 @@ class Dashing.FullpieAgent extends Dashing.Widget
             labelGroup = svg.append("g").attr("class", "labels")
         
         path = pathGroup.selectAll("path.pie")
-            #.data(data)
             .data(piedata)
 
         path.enter().append("path")
             .attr("class", "pie")
-            .attr("fill", "#ffffff")#(d, i) -> return color i)
-        #pathGroup.attr("d", arc)
+            .attr("fill",(d, i) -> return color i)
+
         path.transition()
             .duration(1500)
-            #.attrTween("d", pieTween);
-            .attrTween("d", (d,i) -> 
-                i = d3.interpolate({startAngle: 0,endAngle: 0}, {startAngle: d.startAngle,endAngle: d.endAngle})
-                return (t) -> 
-                    b = i(t)
-                    return arc(b)
-            )
+            .attrTween("d", pieTween)
+            #.attrTween("d", (d,i) -> 
+            #    i = d3.interpolate({startAngle: 0,endAngle: 0}, {startAngle: d.startAngle,endAngle: d.endAngle})
+            #    return (t) -> 
+            #        b = i(t)
+            #        return arc(b)
+            #)
 
         path.exit()
             .transition()
