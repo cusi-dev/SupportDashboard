@@ -351,7 +351,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
             # check whether the default position 
             #   overlaps any other labels
             conflicts = []
-            console.log("labelLayout",labelLayout)
+            #console.log("labelLayout",labelLayout)
             labelLayout.visit( (node, x1, y1, x2, y2) -> 
                 #recurse down the tree, adding any overlapping 
                 #node is the node in the quadtree, 
