@@ -23,7 +23,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
   pieTween: (d, i) ->
     `var i`
     that = this
-    theOldDataInPie = theAmazingPie.oldPieData
+    theOldDataInPie = @oldPieData
     # Interpolate the arcs in data space
     s0 = undefined
     e0 = undefined
@@ -47,7 +47,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
       endAngle: d.endAngle)
     (t) ->
       b = i(t)
-      theAmazingPie.arc b
+      @arc b
 
   removePieTween: (d, i) ->
     `var i`
@@ -62,7 +62,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
       endAngle: e0)
     (t) ->
       b = i(t)
-      theAmazingPie.arc b
+      @arc b
 
   update: (dataSet) ->
     console.log 'update pie', dataSet
