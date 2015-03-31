@@ -39,6 +39,8 @@ class Dashing.Fullpie extends Dashing.Widget
     arc = d3.svg.arc().outerRadius(radius)
     pie = d3.layout.pie().value((d) -> d.value)
 
+    pie.each((d,i) -> console.log("d",d))
+	
     arcs = vis.selectAll("g.slice")
       .data(pie)
       .enter().append("svg:g").attr("class", "slice") 
