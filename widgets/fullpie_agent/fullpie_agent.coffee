@@ -317,40 +317,40 @@ class Dashing.FullpieAgent extends Dashing.Widget
         maxLabelWidth = 0
         maxLabelHeight = 0
         
-        #labels.text((d) ->
+        labels.text((d) ->
             # Set the text *first*, so we can query the size
             # of the label with .getBBox()
-        #    return d.value
-        #)
-        #.each((d, i) ->
+            return d.value
+        )
+        .each((d, i) ->
             # Move all calculations into the each function.
             # Position values are stored in the data object 
             # so can be accessed later when drawing the line
             
             # calculate the position of the center marker
-        #    a = (d.startAngle + d.endAngle) / 2 
+            a = (d.startAngle + d.endAngle) / 2 
             
             #trig functions adjusted to use the angle relative
             #to the "12 o'clock" vector:
-        #    d.cx = Math.sin(a) * (radius - 75)
-        #    d.cy = -Math.cos(a) * (radius - 75)
+            d.cx = Math.sin(a) * (radius - 75)
+            d.cy = -Math.cos(a) * (radius - 75)
             
             # calculate the default position for the label,
             #   so that the middle of the label is centered in the arc
-        #    bbox = this.getBBox()
+            bbox = this.getBBox()
             #bbox.width and bbox.height will 
             #describe the size of the label text
-        #    labelRadius = radius - 20
-        #    d.x =  Math.sin(a) * (labelRadius)
-        #    d.l = d.x - bbox.width / 2 - 2
-        #    d.r = d.x + bbox.width / 2 + 2
-        #    d.y = -Math.cos(a) * (radius - 20)
-        #    d.b = d.oy = d.y + 5
-        #    d.t = d.y - bbox.height - 5 
+            labelRadius = radius - 20
+            d.x =  Math.sin(a) * (labelRadius)
+            d.l = d.x - bbox.width / 2 - 2
+            d.r = d.x + bbox.width / 2 + 2
+            d.y = -Math.cos(a) * (radius - 20)
+            d.b = d.oy = d.y + 5
+            d.t = d.y - bbox.height - 5 
             
             # check whether the default position 
             #   overlaps any other labels
-        #    conflicts = []
+            conflicts = []
             #labelLayout.visit( (node, x1, y1, x2, y2) -> 
                 #recurse down the tree, adding any overlapping 
                 #node is the node in the quadtree, 
@@ -362,63 +362,63 @@ class Dashing.FullpieAgent extends Dashing.Widget
                 #2. right edge of node is to the left of left edge of label
                 #3. top (minY) edge of node is greater than the bottom of label
                 #4. bottom (maxY) edge of node is less than the top of label
-            #    if  (x1 > d.r + maxLabelWidth/2) or (x2 < d.l - maxLabelWidth/2) or (y1 > d.b + maxLabelHeight/2) or (y2 < d.t - maxLabelHeight/2 )
-            #        return true #don't bother visiting children or checking this node
+                if  (x1 > d.r + maxLabelWidth/2) or (x2 < d.l - maxLabelWidth/2) or (y1 > d.b + maxLabelHeight/2) or (y2 < d.t - maxLabelHeight/2 )
+                    return true #don't bother visiting children or checking this node
                 
-            #    p = node.point
-            #    v = false
-            #    h = false
-            #    if p #p is defined, i.e., there is a value stored in this node
-            #        h =  ( ((p.l > d.l) and (p.l <= d.r)) or ((p.r > d.l) and (p.r <= d.r)) or ((p.l < d.l) and (p.r >=d.r) ) ) #horizontal conflict
-            #        v =  ( ((p.t > d.t) and (p.t <= d.b)) or ((p.b > d.t) and (p.b <= d.b)) or ((p.t < d.t) and (p.b >=d.b) ) ) #vertical conflict
-            #        if h and v
-            #            conflicts.push(p) #add to conflict list
-            #)
+                p = node.point
+                v = false
+                h = false
+                if p #p is defined, i.e., there is a value stored in this node
+                    h =  ( ((p.l > d.l) and (p.l <= d.r)) or ((p.r > d.l) and (p.r <= d.r)) or ((p.l < d.l) and (p.r >=d.r) ) ) #horizontal conflict
+                    v =  ( ((p.t > d.t) and (p.t <= d.b)) or ((p.b > d.t) and (p.b <= d.b)) or ((p.t < d.t) and (p.b >=d.b) ) ) #vertical conflict
+                    if h and v
+                        conflicts.push(p) #add to conflict list
+            )
             
-        #    if conflicts.length 
-        #        console.log(d, " conflicts with ", conflicts);  
-        #        rightEdge = d3.max(conflicts, (d2) ->
-        #            return d2.r
-        #        )
+            if conflicts.length 
+                console.log(d, " conflicts with ", conflicts);  
+                rightEdge = d3.max(conflicts, (d2) ->
+                    return d2.r
+                )
 
-        #        d.l = rightEdge
-        #        d.x = d.l + bbox.width / 2 + 5
-        #        d.r = d.l + bbox.width + 10
+                d.l = rightEdge
+                d.x = d.l + bbox.width / 2 + 5
+                d.r = d.l + bbox.width + 10
             
-        #    else console.log("no conflicts for ", d)
+            else console.log("no conflicts for ", d)
             
             # add this label to the quadtree, so it will show up as a conflict
             #   for future labels.  
             #labelLayout.add( d )
-        #    maxLabelWidth = Math.max(maxLabelWidth, bbox.width+10)
-        #    maxLabelHeight = Math.max(maxLabelHeight, bbox.height+10)
-        #)
-        #.transition() #we can use transitions now!
-        #.attr("x", (d) ->
-        #            return d.x
-        #        )
-        #        .attr("y", (d) ->
-        #            return d.y
-        #        )
+            maxLabelWidth = Math.max(maxLabelWidth, bbox.width+10)
+            maxLabelHeight = Math.max(maxLabelHeight, bbox.height+10)
+        )
+        .transition() #we can use transitions now!
+        .attr("x", (d) ->
+                    return d.x
+                )
+                .attr("y", (d) ->
+                    return d.y
+                )
 
 
-        #pointers = pointerGroup.selectAll("path.pointer")
-        #    .data(piedata)
-        #pointers.enter()
-        #    .append("path")
-        #    .attr("class", "pointer")
-        #    .style("fill", "none")
-        #    .style("stroke", "black")
-        #    .attr("marker-end", "url(#circ)")
-        #pointers.exit().remove()
+        pointers = pointerGroup.selectAll("path.pointer")
+            .data(piedata)
+        pointers.enter()
+            .append("path")
+            .attr("class", "pointer")
+            .style("fill", "none")
+            .style("stroke", "black")
+            .attr("marker-end", "url(#circ)")
+        pointers.exit().remove()
         
-        #pointers.transition().attr("d", (d) ->
-        #    if d.cx > d.l
-        #        return "M" + (d.l+2) + "," + d.b + "L" + (d.r-2) + "," + d.b + " " + d.cx + "," + d.cy
-        #    else
-        #        return "M" + (d.r-2) + "," + d.b + "L" + (d.l+2) + "," + d.b + " " + d.cx + "," + d.cy
-        #    
-        #)
+        pointers.transition().attr("d", (d) ->
+            if d.cx > d.l
+                return "M" + (d.l+2) + "," + d.b + "L" + (d.r-2) + "," + d.b + " " + d.cx + "," + d.cy
+            else
+                return "M" + (d.r-2) + "," + d.b + "L" + (d.l+2) + "," + d.b + " " + d.cx + "," + d.cy
+            
+        )
 
   renderX5: (data) ->
         #console.log("update pie", data);
