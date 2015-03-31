@@ -191,7 +191,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
         arcs.append("svg:path").attr("fill", (d, i) -> color i)
           .attr("fill-opacity", 0.4).attr("d", arc)
 
-  renderx4: (data) ->
+  render: (data) ->
         #console.log("update pie", data);
 
         if !data
@@ -229,7 +229,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
 
         pie = d3.layout.pie()
             .sort(null)
-            .value((d) -> d.value)
+            #.value((d) -> d.value)
 
         arc = d3.svg.arc()
           .outerRadius(radiuso)
@@ -279,7 +279,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
         
         path = pathGroup.selectAll("path.pie")
             #.data(data)
-            .data(pie(data))
+            .data([data])
 
         #path.enter().append("path")
         #    .attr("class", "pie")
@@ -307,7 +307,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
             .remove()
 
         labels = labelGroup.selectAll("text")
-            .data(data.sort((p1,p2) -> return p1.startAngle - p2.startAngle))
+            .data([data].sort((p1,p2) -> return p1.startAngle - p2.startAngle))
         labels.enter()
             .append("text")
             .attr("text-anchor", "middle")
@@ -410,7 +410,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
 
 
         pointers = pointerGroup.selectAll("path.pointer")
-            .data(data)
+            .data([data])
         pointers.enter()
             .append("path")
             .attr("class", "pointer")
@@ -426,7 +426,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
                 return "M" + (d.r-2) + "," + d.b + "L" + (d.l+2) + "," + d.b + " " + d.cx + "," + d.cy
             
         )
-  render: (data) ->
+  renderX5: (data) ->
         #console.log("update pie", data);
 
         if !data
