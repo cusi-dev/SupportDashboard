@@ -272,12 +272,12 @@ class Dashing.FullpieAgent extends Dashing.Widget
         if labelGroup.empty()
             labelGroup = svg.append("g").attr("class", "labels")
         
-        path = pathGroup.selectAll("path.pie")
-            .data(piedata)
+        #path = pathGroup.selectAll("path.pie")
+        #    .data(piedata)
 
-        path.enter().append("path")
-            .attr("class", "pie")
-            .attr("fill",(d, i) -> return color i)
+        #path.enter().append("path")
+        #    .attr("class", "pie")
+        #    .attr("fill",(d, i) -> return color i)
         #    .data(piedata)
 
         arcs = svg.selectAll("g.slice")
