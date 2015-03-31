@@ -241,7 +241,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
             .extent([[-width,-height], [width,height] ])
             .x((d) -> return d.x)
             .y((d) -> return d.y)
-            #([]) #create an empty quadtree to hold label positions
+            ([]) #create an empty quadtree to hold label positions
         maxLabelWidth = 0
         maxLabelHeight = 0
         
