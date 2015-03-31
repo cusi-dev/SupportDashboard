@@ -242,7 +242,19 @@ class Dashing.FullpieAgent extends Dashing.Widget
 
         path.transition()
             .duration(300)
-            .attrTween("d", pieTween);
+            #.attrTween("d", pieTween);
+            .attrTween("d", (d,i) -> 
+                i = d3.interpolate({
+                    startAngle: 0,
+                    endAngle: 0
+                }, {
+                    startAngle: d.startAngle,
+                    endAngle: d.endAngle
+                })
+                return (t) -> 
+                    b = i(t);
+                    return $(@node).arc(b)
+            )
 
         #this.path.exit()
         #    .transition()
