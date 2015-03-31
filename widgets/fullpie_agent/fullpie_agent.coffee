@@ -187,10 +187,10 @@ class Dashing.FullpieAgent extends Dashing.Widget
         #    .attr("height", height)
         #    .append("svg:g")
         #    .attr("transform", "translate(" + width/2 + "," + height/2 + ")") 
-        svg = d3.select(@node).append("svg:svg")
+        svg = d3.select(@node).append("svg")
             .attr("width", width)
             .attr("height", height)
-            .append("svg:g")
+            .append("g")
             .attr("transform", "translate(" + width/2 + "," + height/2 + ")") 
 
         # end Build pie
