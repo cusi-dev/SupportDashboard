@@ -71,6 +71,11 @@ class Dashing.FullpieAgent extends Dashing.Widget
 
   update: (dataSet) ->
 
+    if !dataSet
+        dataSet = @get("data")
+    if !dataSet
+        return
+
     width = 750
     height = 450
     radius = Math.min(width, height) / 2
