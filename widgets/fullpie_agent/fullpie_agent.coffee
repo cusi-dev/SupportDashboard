@@ -192,8 +192,6 @@ class Dashing.FullpieAgent extends Dashing.Widget
         if !data
           return
 
-        piedata = data[0].label
-        console.log("update pie", piedata)
 
         $(@node).children(".title").text($(@node).attr("data-title"))
         $(@node).children(".more-info").text($(@node).attr("data-moreinfo"))
@@ -225,11 +223,14 @@ class Dashing.FullpieAgent extends Dashing.Widget
 
         pie = d3.layout.pie()
             .sort(null)
-            .value((d) -> d.value)
+            #.value((d) -> d.value)
 
         arc = d3.svg.arc()
           .outerRadius(radiuso)
           .innerRadius(radiusi)
+
+        piedata = pie(data[0].label)
+        console.log("update pie", piedata)
 
         #arcs = svg.selectAll("g.slice")
         #    .data(pie)
