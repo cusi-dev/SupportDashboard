@@ -433,6 +433,8 @@ class Dashing.FullpieAgent extends Dashing.Widget
           data = @get("value")
         if !data
           return
+        
+        piedata = [data]
 
         $(@node).children(".title").text($(@node).attr("data-title"))
         $(@node).children(".more-info").text($(@node).attr("data-moreinfo"))
@@ -458,7 +460,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
         #    .append("svg:g")
         #    .attr("transform", "translate(" + width/2 + "," + height/2 + ")") 
         svg = d3.select(@node).append("svg")
-            .data([data])
+            .data(piedata)
             .attr("width", width)
             .attr("height", height)
             .append("g")
