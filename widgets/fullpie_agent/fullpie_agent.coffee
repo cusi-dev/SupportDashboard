@@ -410,10 +410,10 @@ class Dashing.FullpieAgent extends Dashing.Widget
           .innerRadius(radiusi)
 
         svg = d3.select(@node).append("svg")
-            .attr("width", width)
-            .attr("height", height)
+                .attr("width", width)
+                .attr("height", height)
             .append("g")
-            .attr("transform", "translate(" + width/2 + "," + height/2 + ")") 
+                .attr("transform", "translate(" + width/2 + "," + height/2 + ")") 
 
         #Create/select <g> elements to hold the different types of graphics
         #and keep them in the correct drawing order
