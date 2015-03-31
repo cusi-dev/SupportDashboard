@@ -3,7 +3,8 @@ class Dashing.FullpieAgent extends Dashing.Widget
 
   onData: (data) ->
     $(@node).fadeOut().fadeIn()
-    @render(data.value)
+    #@render(data.value)
+    @render(data.value[0])
   
   renderX: (data) ->
     if !data

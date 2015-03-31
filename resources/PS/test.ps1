@@ -136,7 +136,16 @@ foreach ($row in $rows)
 }
 $pb3 += "]"
 
-#$pb3 = "[{""value"":5},{""value"":3},{""value"":7},{""value"":1}]"
+$pb3 = "
+[
+    { 
+        ""data"": [""Alpha"",""Beta"",""Theta"",""Gimal"",""Dalet""]
+    },
+    { 
+        ""data"": [3,5,7,11,13]
+    }
+]
+"
 
 $url = "$($dashboardURL)/widgets/resolved"
 $json = "{
