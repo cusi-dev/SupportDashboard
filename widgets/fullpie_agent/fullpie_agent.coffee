@@ -242,16 +242,20 @@ class Dashing.FullpieAgent extends Dashing.Widget
             .attrTween("d", (d,i) -> 
                 i = d3.interpolate({startAngle: 0,endAngle: 0}, {startAngle: d.startAngle,endAngle: d.endAngle})
                 return (t) -> 
-                    b = i(t);
+                    b = i(t)
                     return arc(b)
             )
 
-        #this.path.exit()
-        #    .transition()
-        #    .duration(300)
-        #    .attrTween("d", that.removePieTween)
-        #    .remove();
         path.exit()
+            .transition()
+            .duration(300)
+            .attrTween("d", (d,i) -> 
+                i = d3.interpolate({startAngle: d.startAngle,endAngle: d.endAngle},{startAngle: 2 * Math.PI,endAngle: 2 * Math.PI})
+                return (t) -> 
+                    b = i(t)
+                    return arc(b)
+            )
+            .remove()
 
         labels = labelGroup.selectAll("text")
             .data(data.sort((p1,p2) -> return p1.startAngle - p2.startAngle))
