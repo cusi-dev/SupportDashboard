@@ -239,10 +239,11 @@ class Dashing.FullpieAgent extends Dashing.Widget
             .remove()
         
         labelLayout = d3.geom.quadtree()
-            .extent([[-width,-height], [width,height] ])
+            .extent([[-width,-height], [width,height] ])([])
+        labelLayout
             .x((d) -> return d.x)
             .y((d) -> return d.y)
-            ([]) #create an empty quadtree to hold label positions
+#            ([]) #create an empty quadtree to hold label positions
         maxLabelWidth = 0
         maxLabelHeight = 0
         
