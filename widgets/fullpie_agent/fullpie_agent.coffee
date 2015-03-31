@@ -223,7 +223,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
           .outerRadius(radiuso)
           .innerRadius(radiusi)
 
-        piedata = pie(data[0].label)
+        piedata = pie(data[0].value)
         #console.log("update pie", piedata)
 
         # end Build pie

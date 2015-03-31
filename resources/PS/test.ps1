@@ -137,13 +137,10 @@ foreach ($row in $rows)
 }
 $pb3 += "]"
 #>
-#        ""label"": [""Alpha"",""Beta"",""Theta"",""Gimal"",""Dalet""]
 $pb3 = "
 [
     { 
-        ""label"": [22522,33633,44744,55855,66966]
-    },
-    { 
+        ""label"": [""Alpha"",""Beta"",""Theta"",""Gimal"",""Dalet""],
         ""value"": [3,5,7,11,13]
     }
 ]
