@@ -401,38 +401,19 @@ class Dashing.FullpieAgent extends Dashing.Widget
 
         $(@node).children("svg").remove();
 
-        pie = d3.layout.pie()
-            #.sort(null)
-            .value((d) -> d.value)
-
-        arc = d3.svg.arc()
-          .outerRadius(radiuso)
-          .innerRadius(radiusi)
-
         svg = d3.select(@node).append("svg")
                 .attr("width", width)
                 .attr("height", height)
             .append("g")
                 .attr("transform", "translate(" + width/2 + "," + height/2 + ")") 
 
-        #Create/select <g> elements to hold the different types of graphics
-        #and keep them in the correct drawing order
-        pathGroup = svg.select("g.piePaths")
-        if pathGroup.empty()
-            pathGroup = svg.append("g").attr("class", "piePaths")
-        
-        pointerGroup = svg.select("g.pointers")
-        if pointerGroup.empty()
-            pointerGroup = svg.append("g").attr("class", "pointers")
-        
-        labelGroup = svg.select("g.labels")
-        if labelGroup.empty()
-            labelGroup = svg.append("g").attr("class", "labels")
-        
-        path = pathGroup.selectAll("path.pie")
-            #.data(data)
-            .data(pie(data))
+        arc = d3.svg.arc()
+          .outerRadius(radiuso)
+          .innerRadius(radiusi)
 
+        pie = d3.layout.pie()
+            #.sort(null)
+            .value((d) -> d.value)
 
         arcs = svg.selectAll("g.slice")
             .data(pie)
@@ -440,34 +421,3 @@ class Dashing.FullpieAgent extends Dashing.Widget
 
         arcs.append("svg:path").attr("fill", (d, i) -> color i)
             .attr("fill-opacity", 0.4).attr("d", arc)
-
-
-        path.transition()
-            .duration(1500)
-            #.attrTween("d", pieTween);
-            .attrTween("d", (d,i) -> 
-                i = d3.interpolate({startAngle: 0,endAngle: 0}, {startAngle: d.startAngle,endAngle: d.endAngle})
-                return (t) -> 
-                    b = i(t)
-                    return arc(b)
-            )
-
-        path.exit()
-            .transition()
-            .duration(300)
-            .attrTween("d", (d,i) -> 
-                i = d3.interpolate({startAngle: d.startAngle,endAngle: d.endAngle},{startAngle: 2 * Math.PI,endAngle: 2 * Math.PI})
-                return (t) -> 
-                    b = i(t)
-                    return arc(b)
-            )
-            .remove()
-
-        labels = labelGroup.selectAll("text")
-            .data(data.sort((p1,p2) -> return p1.startAngle - p2.startAngle))
-        labels.enter()
-            .append("text")
-            .attr("text-anchor", "middle")
-        labels.exit()
-            .remove()
-
