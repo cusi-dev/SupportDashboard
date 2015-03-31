@@ -15,7 +15,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
     @color = d3.scale.category20()
     @pie = d3.layout.pie().sort(null)
     @arc = d3.svg.arc().innerRadius(@radius - 100).outerRadius(@radius - 50)
-    @svg = d3.select('#theamazingpie').append('svg').attr('width', @width).attr('height', @height).append('g').attr('transform', 'translate(' + @width / 2 + ',' + @height / 2 + ')')
+    @svg = d3.select(@node).append('svg').attr('width', @width).attr('height', @height).append('g').attr('transform', 'translate(' + @width / 2 + ',' + @height / 2 + ')')
     return
 
   oldPieData: ''
