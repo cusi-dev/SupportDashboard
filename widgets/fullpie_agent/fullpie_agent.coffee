@@ -639,65 +639,11 @@ class Dashing.FullpieAgent extends Dashing.Widget
       maxLabelHeight = Math.max(maxLabelHeight, bbox.height + 10)
       return
     )
-    #.transition()
-    #.attr('x', (d) ->
-    #  d.x
-    #).attr 'y', (d) ->
-    #  d.y
-    .transition().duration(1500).attrTween 'x', (d,i) ->
-        `var i`
-        theOldDataInPie = oldPieData
-        # Interpolate the arcs in data space
-        s0 = undefined
-        e0 = undefined
-        if theOldDataInPie[i]
-          s0 = theOldDataInPie[i].startAngle
-          e0 = theOldDataInPie[i].endAngle
-        else if !theOldDataInPie[i] and theOldDataInPie[i - 1]
-          s0 = theOldDataInPie[i - 1].endAngle
-          e0 = theOldDataInPie[i - 1].endAngle
-        else if !theOldDataInPie[i - 1] and theOldDataInPie.length > 0
-          s0 = theOldDataInPie[theOldDataInPie.length - 1].endAngle
-          e0 = theOldDataInPie[theOldDataInPie.length - 1].endAngle
-        else
-          s0 = 0
-          e0 = 0
-        i = d3.interpolate({
-          startAngle: 0
-          endAngle: 0
-        },
-          startAngle: d.startAngle
-          endAngle: d.endAngle)
-        (t) ->
-          b = i(t)
-          return arc b
-    .attrTween 'y', (d,i) ->
-        `var i`
-        theOldDataInPie = oldPieData
-        # Interpolate the arcs in data space
-        s0 = undefined
-        e0 = undefined
-        if theOldDataInPie[i]
-          s0 = theOldDataInPie[i].startAngle
-          e0 = theOldDataInPie[i].endAngle
-        else if !theOldDataInPie[i] and theOldDataInPie[i - 1]
-          s0 = theOldDataInPie[i - 1].endAngle
-          e0 = theOldDataInPie[i - 1].endAngle
-        else if !theOldDataInPie[i - 1] and theOldDataInPie.length > 0
-          s0 = theOldDataInPie[theOldDataInPie.length - 1].endAngle
-          e0 = theOldDataInPie[theOldDataInPie.length - 1].endAngle
-        else
-          s0 = 0
-          e0 = 0
-        i = d3.interpolate({
-          startAngle: 0
-          endAngle: 0
-        },
-          startAngle: d.startAngle
-          endAngle: d.endAngle)
-        (t) ->
-          b = i(t)
-          return arc b
+    .transition().duration(1000)
+    .attr('x', (d) ->
+      d.x
+    ).attr 'y', (d) ->
+      d.y
     pointers = pointerGroup.selectAll('path.pointer').data(piedata)
     pointers.enter().append('path').attr('class', 'pointer').style('fill', 'none').style('stroke', 'black').attr 'marker-end', 'url(#circ)'
     pointers.exit().remove()
