@@ -46,7 +46,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
             defs = svg.append('defs')
         marker = defs.select('marker#circ')
         if marker.empty()
-            defs.append('marker').attr('id', 'circ').attr('markerWidth', 12).attr('markerHeight', 12).attr('refX', 6).attr('refY', 6).append('circle').attr('cx', 6).attr('cy', 6).attr 'r', 6
+            defs.append('marker').attr('id', 'circ').attr('markerWidth', 6).attr('markerHeight', 6).attr('refX', 3).attr('refY', 3).append('circle').attr('cx', 3).attr('cy', 3).attr 'r', 3
 
         # Add drop shadow filter
         filter = defs.append("filter")
@@ -259,7 +259,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
             .attr('class', 'pointer')
             .style('fill', 'none')
             .style('stroke', 'black')
-            .attr('stroke-width', 3)
+            .attr('stroke-width', 2)
             .attr('marker-end', 'url(#circ)')
         pointers.exit().remove()
         pointers.transition().attr 'd', (d) ->
