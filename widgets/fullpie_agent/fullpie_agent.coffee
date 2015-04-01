@@ -21,7 +21,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
         height = 400                            # Height of the SVG area
         radius = Math.min(width, height) / 2    # Calculated min dimension of the SVG area
         radiuso = 130                           # Outer radius of the pie
-        radiusi = 65                            # Inner radius of the pie (zero = pie, non-zero = donut)
+        radiusi = 80                            # Inner radius of the pie (zero = pie, non-zero = donut)
         color = d3.scale.category20()           # Color scale for pie slices
         dropshadowx = 2                         # X-offset for drop shadow filter
         dropshadowy = 2                         # Y-offset for drop shadow filter
