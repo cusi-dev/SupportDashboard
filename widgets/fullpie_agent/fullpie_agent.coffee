@@ -575,8 +575,10 @@ class Dashing.FullpieAgent extends Dashing.Widget
       #trig functions adjusted to use the angle relative
       #to the "12 o'clock" vector:
       #console.log 'ts: a', a
-      d.cx = Math.sin(a) * (radius - 75)
-      d.cy = -Math.cos(a) * (radius - 75)
+      #d.cx = Math.sin(a) * (radius - 75)
+      #d.cy = -Math.cos(a) * (radius - 75)
+      d.cx = Math.sin(a) * ((radiuso - radiusi) / 2)
+      d.cy = -Math.cos(a) * ((radiuso - radiusi) / 2)
       ### calculate the default position for the label,
          so that the middle of the label is centered in the arc
       ###
