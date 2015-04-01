@@ -101,7 +101,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
     path = pathGroup.selectAll('path.pie').data(piedata)
     #console.log("path",this.path.empty())
     path.enter().append('path').attr('class', 'pie').attr 'fill', (d, i) ->
-      @color i
+      color i
     #@path.transition().duration(1500).attrTween 'd', that.pieTween
     path.transition()
         .duration(1000)
