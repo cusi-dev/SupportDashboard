@@ -226,10 +226,10 @@ class Dashing.FullpieAgent extends Dashing.Widget
       return
     )
     #.transition()
-    #.attr('x', (d) ->
-    #  d.x
-    #).attr 'y', (d) ->
-    #  d.y
+    .attr('x', (d) ->
+      d.x
+    ).attr 'y', (d) ->
+      d.y
     pointers = pointerGroup.selectAll('path.pointer').data(piedata)
     pointers.enter().append('path').attr('class', 'pointer').style('fill', 'none').style('stroke', 'black').attr 'marker-end', 'url(#circ)'
     pointers.exit().remove()
