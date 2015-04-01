@@ -259,6 +259,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
             .attr('class', 'pointer')
             .style('fill', 'none')
             .style('stroke', 'black')
+            .attr('stroke-width', 3)
             .attr('marker-end', 'url(#circ)')
         pointers.exit().remove()
         pointers.transition().attr 'd', (d) ->
