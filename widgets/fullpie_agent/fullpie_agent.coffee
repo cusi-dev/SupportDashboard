@@ -334,6 +334,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
       # Set the text *first*, so we can query the size
       # of the label with .getBBox()
       #d.value
+      console.log 'ts: d', d
       d.label
     ).each((d, i) ->
       # Move all calculations into the each function.
