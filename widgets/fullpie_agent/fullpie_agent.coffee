@@ -26,11 +26,11 @@ class Dashing.FullpieAgent extends Dashing.Widget
         $(@node).children("svg").remove();
 
         width = @width
-        height = @height
-        radius = @radius
-        radiuso = @radiuso
-        radiusi = @radiusi
-        color = @color
+        height = 400                           # Height of the SVG area
+        radius = Math.min(width, height) / 2   # Calculated min dimension of the SVG area
+        radiuso = 130                          # Outer radius of the pie
+        radiusi = 65                           # Inner radius of the pie (zero = pie, non-zero = donut)
+        color = d3.scale.category20()          # Color scale for pie slices
         pie = d3.layout.pie().value((d) -> d.value)
         arc = d3.svg.arc().innerRadius(radiusi).outerRadius(radiuso)
         svg = d3.select(@node).append('svg').attr('width', width).attr('height', height).append('g').attr('transform', 'translate(' + width / 2 + ',' + height / 2 + ')')
