@@ -150,19 +150,19 @@ $pb3 = "
 [
     { 
         ""label"" : ""Alpha"",
-        ""value"" : 5
-    },
-    {
-        ""label"" : ""Beta"",
-        ""value"" : 7
-    },
-    {
-        ""label"" : ""Theta"",
         ""value"" : 11
     },
     {
-        ""label"" : ""Gimel"",
+        ""label"" : ""Beta"",
         ""value"" : 13
+    },
+    {
+        ""label"" : ""Theta"",
+        ""value"" : 17
+    },
+    {
+        ""label"" : ""Gimel"",
+        ""value"" : 23
     },
     {
         ""label"" : ""DaletHe"",
