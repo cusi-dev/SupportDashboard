@@ -49,9 +49,10 @@ $moreinfo-color:    rgba(255, 255, 255, 1);
 	fill: $label-color;
   }
 
-  .cusipie-label-percent {
-	font-size: .7em;
-	font-weight: lighter;
-	display: none;
+  .labels text {
+	font-size: 60px;
+	font-weight: bold;
+	fill: $label-color;
   }
+
 } 
