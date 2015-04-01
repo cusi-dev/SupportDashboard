@@ -1,6 +1,15 @@
 class Dashing.FullpieAgent extends Dashing.Widget
   #@accessor 'value'
   @accessor 'data'
+  @width = 750
+  @height = 450
+  @radius = Math.min(width, height) / 2
+  @radiuso = 135
+  @radiusi = 90
+  @color = d3.scale.category20()
+  @pie = d3.layout.pie().value((d) -> d.value)
+  @arc = d3.svg.arc().innerRadius(radiusi).outerRadius(radiuso)
+  @svg = d3.select(@node).append('svg').attr('width', width).attr('height', height).append('g').attr('transform', 'translate(' + width / 2 + ',' + height / 2 + ')')
   onData: (data) ->
     #$(@node).fadeOut().fadeIn()
     #@buildPieStructure()
@@ -431,17 +440,26 @@ class Dashing.FullpieAgent extends Dashing.Widget
     if !dataSet
         return
     $(@node).children("svg").remove();
-    width = 750
-    height = 450
-    radius = Math.min(width, height) / 2
-    radiuso = 135
-    radiusi = 90
-    color = d3.scale.category20()
-    pie = d3.layout.pie().value((d) -> d.value)
-    arc = d3.svg.arc().innerRadius(radiusi).outerRadius(radiuso)
-    svg = d3.select(@node).append('svg').attr('width', width).attr('height', height).append('g').attr('transform', 'translate(' + width / 2 + ',' + height / 2 + ')')
+    #width = 750
+    #height = 450
+    #radius = Math.min(width, height) / 2
+    #radiuso = 135
+    #radiusi = 90
+    #color = d3.scale.category20()
+    #pie = d3.layout.pie().value((d) -> d.value)
+    #arc = d3.svg.arc().innerRadius(radiusi).outerRadius(radiuso)
+    #svg = d3.select(@node).append('svg').attr('width', width).attr('height', height).append('g').attr('transform', 'translate(' + width / 2 + ',' + height / 2 + ')')
+    width = @width
+    height = @height
+    radius = @radius
+    radiuso = @radiuso
+    radiusi = @radiusi
+    color = @color
+    pie = @pie
+    arc = @arc
+    svg = @svg
     console.log 'update pie', dataSet
-    that = this
+    #that = this
     piedata = pie(dataSet)
     console.log 'update pie', piedata
     #create a marker element if it doesn't already exist
