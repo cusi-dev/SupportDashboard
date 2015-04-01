@@ -41,7 +41,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
           defs = svg.append('defs')
         marker = defs.select('marker#circ')
         if marker.empty()
-          defs.append('marker').attr('id', 'circ').attr('markerWidth', 12).attr('markerHeight', 12).attr('refX', 3).attr('refY', 3).append('circle').attr('cx', 3).attr('cy', 3).attr 'r', 3
+          defs.append('marker').attr('id', 'circ').attr('markerWidth', 44).attr('markerHeight', 44).attr('refX', 3).attr('refY', 3).append('circle').attr('cx', 3).attr('cy', 3).attr 'r', 3
 
         #Create/select <g> elements to hold the different types of graphics
         #and keep them in the correct drawing order
