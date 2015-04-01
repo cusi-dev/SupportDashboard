@@ -159,13 +159,12 @@ class Dashing.FullpieAgent extends Dashing.Widget
             # so can be accessed later when drawing the line
             ### calculate the position of the center marker ###
             a = (d.startAngle + d.endAngle) / 2
+
             #trig functions adjusted to use the angle relative
             #to the "12 o'clock" vector:
-            #console.log 'ts: a', a
-            #d.cx = Math.sin(a) * (radius - 75)
-            #d.cy = -Math.cos(a) * (radius - 75)
             d.cx = Math.sin(a) * (radiuso - (radiuso - radiusi) / 2)
             d.cy = -Math.cos(a) * (radiuso - (radiuso - radiusi) / 2)
+
             ### calculate the default position for the label,
                so that the middle of the label is centered in the arc
             ###
@@ -173,15 +172,13 @@ class Dashing.FullpieAgent extends Dashing.Widget
             #bbox.width and bbox.height will 
             #describe the size of the label text
             labelRadius = radius - 20
-            #labelRadius = radiuso * 1.3
             d.x = Math.sin(a) * labelRadius
             d.l = d.x - bbox.width / 2 - 2
             d.r = d.x + bbox.width / 2 + 2
-            #d.y = -Math.cos(a) * (radius - 20)
             d.y = -Math.cos(a) * (labelRadius)
             d.b = d.oy = d.y + 5
             d.t = d.y - bbox.height - 5
-            #console.log 'ts: d', d
+
             ### check whether the default position 
                overlaps any other labels
             ###
@@ -208,6 +205,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
                         conflicts.push p
                     #add to conflict list
                 return
+
             if conflicts.length
                 console.log d, ' conflicts with ', conflicts
                 rightEdge = d3.max(conflicts, (d2) ->
@@ -219,7 +217,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
                 d.x = d.l + bbox.width / 2 + 5
                 d.r = d.l + bbox.width + 10
             else
-              console.log 'no conflicts for ', d
+                console.log 'no conflicts for ', d
             ### add this label to the quadtree, so it will show up as a conflict
                for future labels.  
             ###
@@ -233,6 +231,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
             d.x
         ).attr 'y', (d) ->
             d.y
+
         pointers = pointerGroup.selectAll('path.pointer').data(piedata)
         pointers.enter()
             .append('path')
@@ -246,5 +245,6 @@ class Dashing.FullpieAgent extends Dashing.Widget
                 'M' + (d.l + 2) + ',' + d.b + 'L' + (d.r - 2) + ',' + d.b + ' ' + d.cx + ',' + d.cy
             else
                 'M' + (d.r - 2) + ',' + d.b + 'L' + (d.l + 2) + ',' + d.b + ' ' + d.cx + ',' + d.cy
+
         oldPieData = piedata
         return
