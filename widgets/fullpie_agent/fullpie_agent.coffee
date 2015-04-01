@@ -466,8 +466,9 @@ class Dashing.FullpieAgent extends Dashing.Widget
     #console.log("path",this.path.empty())
     path.enter().append('path').attr('class', 'pie').attr 'fill', (d, i) ->
       color i
-    path.attr('d',arc)
-        .exit()
+    #path.attr('d',arc)
+    #    .exit()
+    
     #@path.transition().duration(1500).attrTween 'd', that.pieTween
     #path.transition().duration(1500).attrTween 'd', @pieTween
     #path.transition()
@@ -481,6 +482,37 @@ class Dashing.FullpieAgent extends Dashing.Widget
     #            b = i(t)
     #            return arc(b)
     #    )
+    path.transition().duration(1500).attrTween 'd' ->
+        `var i`
+        theOldDataInPie = @oldPieData
+        # Interpolate the arcs in data space
+        s0 = undefined
+        e0 = undefined
+        if theOldDataInPie[i]
+          s0 = theOldDataInPie[i].startAngle
+          e0 = theOldDataInPie[i].endAngle
+        else if !theOldDataInPie[i] and theOldDataInPie[i - 1]
+          s0 = theOldDataInPie[i - 1].endAngle
+          e0 = theOldDataInPie[i - 1].endAngle
+        else if !theOldDataInPie[i - 1] and theOldDataInPie.length > 0
+          s0 = theOldDataInPie[theOldDataInPie.length - 1].endAngle
+          e0 = theOldDataInPie[theOldDataInPie.length - 1].endAngle
+        else
+          s0 = 0
+          e0 = 0
+        # TS
+        #s0 = 0
+        #e0 = 0
+        #  
+        i = d3.interpolate({
+          startAngle: 0
+          endAngle: 0
+        },
+          startAngle: d.startAngle
+          endAngle: d.endAngle)
+        (t) ->
+          b = i(t)
+          return arc b
     #@path.exit().transition().duration(300).attrTween('d', that.removePieTween).remove()
     path.exit()
     #    .transition()
