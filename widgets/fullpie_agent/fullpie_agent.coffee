@@ -157,7 +157,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
             # Set the text *first*, so we can query the size
             # of the label with .getBBox()
             #d.value
-            d.data.label
+            d.data.label + ": " + d.data.value
         ).each((d, i) ->
             # Move all calculations into the each function.
             # Position values are stored in the data object 
