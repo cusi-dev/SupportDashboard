@@ -14,16 +14,8 @@ $Date = Get-Date -Format d
 $conn = New-Object System.Data.SqlClient.SqlConnection $connStr
 $conn.Open()
 $SqlCmd = New-Object System.Data.SqlClient.SqlCommand
-
-
-###########################################################################
-
 #$SqlCmd.CommandText = "exec [cusip_SupportAgentMetrics] @i_Today = '2015-03-27'"#'$Date'"
 $SqlCmd.CommandText = "exec [cusip_SupportAgentMetrics] @i_Today = '$Date'"
-
-###########################################################################
-
-
 $SqlCmd.Connection = $conn
 $SqlAdapter = New-Object System.Data.SqlClient.SqlDataAdapter
 $SqlAdapter.SelectCommand = $SqlCmd
