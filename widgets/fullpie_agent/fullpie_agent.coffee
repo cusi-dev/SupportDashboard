@@ -230,13 +230,13 @@ class Dashing.FullpieAgent extends Dashing.Widget
       d.x
     ).attr 'y', (d) ->
       d.y
-    pointers = pointerGroup.selectAll('path.pointer').data(piedata)
-    pointers.enter().append('path').attr('class', 'pointer').style('fill', 'none').style('stroke', 'black').attr 'marker-end', 'url(#circ)'
-    pointers.exit().remove()
-    pointers.transition().attr 'd', (d) ->
-      console.log 'ts: d', d
-      if d.cx > d.l
-        'M' + d.l + 2 + ',' + d.b + 'L' + d.r - 2 + ',' + d.b + ' ' + d.cx + ',' + d.cy
-      else
-        'M' + d.r - 2 + ',' + d.b + 'L' + d.l + 2 + ',' + d.b + ' ' + d.cx + ',' + d.cy
+    #pointers = pointerGroup.selectAll('path.pointer').data(piedata)
+    #pointers.enter().append('path').attr('class', 'pointer').style('fill', 'none').style('stroke', 'black').attr 'marker-end', 'url(#circ)'
+    #pointers.exit().remove()
+    #pointers.transition().attr 'd', (d) ->
+    #  console.log 'ts: d', d
+    #  if d.cx > d.l
+    #    'M' + d.l + 2 + ',' + d.b + 'L' + d.r - 2 + ',' + d.b + ' ' + d.cx + ',' + d.cy
+    #  else
+    #    'M' + d.r - 2 + ',' + d.b + 'L' + d.l + 2 + ',' + d.b + ' ' + d.cx + ',' + d.cy
     return
