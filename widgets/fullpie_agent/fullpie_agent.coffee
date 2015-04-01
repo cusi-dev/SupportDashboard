@@ -7,13 +7,13 @@ class Dashing.FullpieAgent extends Dashing.Widget
     #@render(data.data)
     @update(data.data)
   buildPieStructure: ->
-    @width = 300
-    @height = 300
-    @radius = Math.min(@width, @height) / 2
+    width = 300
+    height = 300
+    radius = Math.min(width, height) / 2
     @color = d3.scale.category20()
-    @pie = d3.layout.pie().sort(null)
-    @arc = d3.svg.arc().innerRadius(@radius - 100).outerRadius(@radius - 50)
-    @svg = d3.select(@node).append('svg').attr('width', @width).attr('height', @height).append('g').attr('transform', 'translate(' + @width / 2 + ',' + @height / 2 + ')')
+    pie = d3.layout.pie().sort(null)
+    arc = d3.svg.arc().innerRadius(radius - 100).outerRadius(radius - 50)
+    svg = d3.select(@node).append('svg').attr('width', width).attr('height', height).append('g').attr('transform', 'translate(' + width / 2 + ',' + height / 2 + ')')
     return
   oldPieData: ''
   pieTween: (d, i) ->
@@ -47,7 +47,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
       endAngle: d.endAngle)
     (t) ->
       b = i(t)
-      return @arc b
+      return arc b
   removePieTween: (d, i) ->
     `var i`
     that = this
@@ -61,7 +61,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
       endAngle: e0)
     (t) ->
       b = i(t)
-      @arc b
+      arc b
   update: (dataSet) ->
     if !dataSet
         dataSet = @get("data")
@@ -74,7 +74,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
     radiusi = 90
     color = d3.scale.category20()
     pie = d3.layout.pie()#.sort(null)
-    arc = d3.svg.arc().innerRadius(radiusi).outerRadius(radiuso)#.innerRadius(radius - 100).outerRadius(radius - 50)
+    arc = d3.svg.arc().innerRadius(radiusi).outerRadius(radiuso)
     svg = d3.select(@node).append('svg').attr('width', width).attr('height', height).append('g').attr('transform', 'translate(' + width / 2 + ',' + height / 2 + ')')
     console.log 'update pie', dataSet
     that = this
@@ -132,12 +132,12 @@ class Dashing.FullpieAgent extends Dashing.Widget
     labels.exit().remove()
     labelLayout = d3.geom.quadtree().extent([
       [
-        -that.width
-        -that.height
+        -width
+        -height
       ]
       [
-        that.width
-        that.height
+        width
+        height
       ]
     ]).x((d) ->
       d.x
