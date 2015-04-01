@@ -650,10 +650,10 @@ class Dashing.FullpieAgent extends Dashing.Widget
     pointers.transition().attr 'd', (d) ->
       console.log 'ts: d', d
       if d.cx > d.l
-        console.log 'if d.cx > d.l','M' + d.l + 2 + ',' + d.b + 'L' + d.r - 2 + ',' + d.b + ' ' + d.cx + ',' + d.cy
-        'M' + d.l + 2 + ',' + d.b + 'L' + d.r - 2 + ',' + d.b + ' ' + d.cx + ',' + d.cy
+        console.log 'if d.cx > d.l','M' + (d.l + 2) + ',' + d.b + 'L' + (d.r - 2) + ',' + d.b + ' ' + d.cx + ',' + d.cy
+        'M' + (d.l + 2) + ',' + d.b + 'L' + (d.r - 2) + ',' + d.b + ' ' + d.cx + ',' + d.cy
       else
-        console.log 'else', 'M' + d.r - 2 + ',' + d.b + 'L' + d.l + 2 + ',' + d.b + ' ' + d.cx + ',' + d.cy
-        'M' + d.r - 2 + ',' + d.b + 'L' + d.l + 2 + ',' + d.b + ' ' + d.cx + ',' + d.cy
+        console.log 'else', 'M' + (d.r - 2) + ',' + d.b + 'L' + (d.l + 2) + ',' + d.b + ' ' + d.cx + ',' + d.cy
+        'M' + (d.r - 2) + ',' + d.b + 'L' + (d.l + 2) + ',' + d.b + ' ' + d.cx + ',' + d.cy
     oldPieData = piedata
     return
