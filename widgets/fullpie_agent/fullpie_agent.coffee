@@ -252,9 +252,9 @@ class Dashing.FullpieAgent extends Dashing.Widget
             else
                 'M' + (d.r - 2) + ',' + d.b + 'L' + (d.l + 2) + ',' + d.b + ' ' + d.cx + ',' + d.cy
 
-        totaltickets = 0
+        totalTickets = 0
         for pd in dataSet
-            totaltickets += pd.value
+            totalTickets += pd.value
         #console.log totaltickets
         totalLabel.append('text')
             .text(totalTickets)
