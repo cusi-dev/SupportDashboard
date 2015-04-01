@@ -6,6 +6,7 @@ $value-color:       #fff;
 
 $title-color:       rgba(255, 255, 255, 1);
 $moreinfo-color:    rgba(255, 255, 255, 1);
+$label-color:    rgba(255, 255, 255, 1);
 
 // ----------------------------------------------------------------------------
 // Widget-number styles
@@ -43,8 +44,9 @@ $moreinfo-color:    rgba(255, 255, 255, 1);
   }
   
   .labels {
-	font-size: 26px;
+	font-size: 42px;
 	font-weight: normal;
+	color: $label-color;
   }
   .cusipie-label-percent {
 	font-size: .7em;
