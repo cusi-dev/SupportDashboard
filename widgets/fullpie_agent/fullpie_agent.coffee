@@ -1,9 +1,10 @@
 class Dashing.FullpieAgent extends Dashing.Widget
 
     @accessor 'data'
-    root = exports ? this
-    root.width = 750
 
+    ready: ->
+        @width = 750
+        
     onData: (data) ->
         #$(@node).fadeOut().fadeIn()
         @update(data.data)
@@ -18,7 +19,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
         # Remove any previous svg
         $(@node).children("svg").remove();
 
-        #width = @width
+        width = @width
         height = 400
         radius = Math.min(width, height) / 2
         radiuso = 130
