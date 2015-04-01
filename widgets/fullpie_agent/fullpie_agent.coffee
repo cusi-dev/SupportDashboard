@@ -577,8 +577,8 @@ class Dashing.FullpieAgent extends Dashing.Widget
       #console.log 'ts: a', a
       #d.cx = Math.sin(a) * (radius - 75)
       #d.cy = -Math.cos(a) * (radius - 75)
-      d.cx = Math.sin(a) * ((radiuso - radiusi) / 2)
-      d.cy = -Math.cos(a) * ((radiuso - radiusi) / 2)
+      d.cx = Math.sin(a) * (radiuso - (radiuso - radiusi) / 2)
+      d.cy = -Math.cos(a) * (radiuso - (radiuso - radiusi) / 2)
       ### calculate the default position for the label,
          so that the middle of the label is centered in the arc
       ###
