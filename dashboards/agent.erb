@@ -20,21 +20,16 @@ $(function() {
 <div class="gridster">
   <ul>
 	<li data-row="1" data-col="1" data-sizex="2" data-sizey="2">
-		<div data-id="resolved" data-view="FullpieAgent" style="background-color:#119911;" data-moreinfo="It's a Pie" data-title="Resolved Pie"></div>
+		<div data-id="resolved" data-view="FullpieAgent" style="background-color:#119911;" data-moreinfo="Tickets resolved today" data-title="Resolved Tickets"></div>
 	</li>
-<!--
 	<li data-row="3" data-col="1" data-sizex="2" data-sizey="2">
-		<div data-id="cusi_progress_bars" data-view="CusiProgressBars" data-title="Resolved Today"></div>
-	</li>
--->
-	<li data-row="3" data-col="1" data-sizex="2" data-sizey="2">
-		<div data-id="assigned" data-view="FullpieAgent" style="background-color:#3333cc;" data-moreinfo="It's a Pie" data-title="Assigned Pie"></div>
+		<div data-id="assigned" data-view="FullpieAgent" style="background-color:#3333cc;" data-moreinfo="Active tickets by assignee" data-title="Assigned Tickets"></div>
 	</li>
 	<li data-row="1" data-col="3" data-sizex="2" data-sizey="2">
-		<div data-id="mychart" data-view="GoogleColumn" data-title="Progress Bars" data-is_stacked="true"></div>
+		<div data-id="pending" data-view="FullpieAgent" style="background-color:#3333cc;" data-moreinfo="Assigned tickets NOT on the log" data-title="Pending Tickets"></div>
 	</li>
 	<li data-row="3" data-col="3" data-sizex="2" data-sizey="2">
-		<div data-view="Text" data-title="AGENT" data-moreinfo="Placeholder" style="background-color:#222"></div>
+		<div data-id="contracted" data-view="FullpieAgent" style="background-color:#3333cc;" data-moreinfo="Contracted work tickets" data-title="Contracted Work"></div>
 	</li>
   </ul>
 </div>
