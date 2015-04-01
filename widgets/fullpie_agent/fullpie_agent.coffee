@@ -484,7 +484,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
     #    )
     path.transition().duration(1500).attrTween 'd', (d,i) ->
         `var i`
-        theOldDataInPie = oldPieData
+        theOldDataInPie = @oldPieData
         # Interpolate the arcs in data space
         s0 = undefined
         e0 = undefined
@@ -643,12 +643,11 @@ class Dashing.FullpieAgent extends Dashing.Widget
       maxLabelHeight = Math.max(maxLabelHeight, bbox.height + 10)
       return
     )
-    .fadeOut().fadeIn()
-    #.transition()
-    #.attr('x', (d) ->
-    #  d.x
-    #).attr 'y', (d) ->
-    #  d.y
+    .transition()
+    .attr('x', (d) ->
+      d.x
+    ).attr 'y', (d) ->
+      d.y
     pointers = pointerGroup.selectAll('path.pointer').data(piedata)
     pointers.enter().append('path').attr('class', 'pointer').style('fill', 'none').style('stroke', 'black').attr 'marker-end', 'url(#circ)'
     pointers.exit().remove()
@@ -660,5 +659,5 @@ class Dashing.FullpieAgent extends Dashing.Widget
     #  else
     #    console.log 'else', 'M' + d.r - 2 + ',' + d.b + 'L' + d.l + 2 + ',' + d.b + ' ' + d.cx + ',' + d.cy
     #    'M' + d.r - 2 + ',' + d.b + 'L' + d.l + 2 + ',' + d.b + ' ' + d.cx + ',' + d.cy
-    oldPieData = piedata
+    @oldPieData = piedata
     return
