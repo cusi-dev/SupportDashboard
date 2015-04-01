@@ -72,7 +72,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
     @radius = Math.min(@width, @height) / 2
     @radiuso = 135
     @radiusi = 90
-    @color = d3.scale.category20()
+    color = d3.scale.category20()
     @pie = d3.layout.pie()#.sort(null)
     @arc = d3.svg.arc().innerRadius(@radiusi).outerRadius(@radiuso)
     @svg = d3.select(@node).append('svg').attr('width', @width).attr('height', @height).append('g').attr('transform', 'translate(' + @width / 2 + ',' + @height / 2 + ')')
