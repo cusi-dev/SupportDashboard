@@ -23,7 +23,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
         height = (Dashing.widget_base_dimensions[1] * container.data("sizey")) - 120 # # Height of the SVG area allowing for header and footer text
         radius = Math.min(width, height) / 2    # Calculated min dimension of the SVG area
         radiuso = Math.min(width, height) /3 #130                           # Outer radius of the pie
-        radiusi = radiuso / 3 #80                            # Inner radius of the pie (zero = pie, non-zero = donut)
+        radiusi = radiuso * 2 / 3 #80                            # Inner radius of the pie (zero = pie, non-zero = donut)
 
         color = d3.scale.category20()           # Color scale for pie slices
         dropshadowx = 2                         # X-offset for drop shadow filter
