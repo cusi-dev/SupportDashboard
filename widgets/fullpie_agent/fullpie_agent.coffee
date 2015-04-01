@@ -251,10 +251,10 @@ class Dashing.FullpieAgent extends Dashing.Widget
             else
                 'M' + (d.r - 2) + ',' + d.b + 'L' + (d.l + 2) + ',' + d.b + ' ' + d.cx + ',' + d.cy
 
+        # Display total count
         totalTickets = 0
         for pd in dataSet
             totalTickets += pd.value
-        #console.log totaltickets
         totalLabel.append('text')
             .text(totalTickets)
             .attr('text-anchor', 'middle')
