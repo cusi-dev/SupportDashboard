@@ -67,17 +67,17 @@ class Dashing.FullpieAgent extends Dashing.Widget
         # and keep them in the correct drawing order
         pathGroup = svg.select('g.piePaths')
         if pathGroup.empty()
-          pathGroup = svg.append('g').attr('class', 'piePaths')
+            pathGroup = svg.append('g').attr('class', 'piePaths')
         pointerGroup = svg.select('g.pointers')
         if pointerGroup.empty()
-          pointerGroup = svg.append('g').attr('class', 'pointers')
+            pointerGroup = svg.append('g').attr('class', 'pointers')
         labelGroup = svg.select('g.labels')
         if labelGroup.empty()
-          labelGroup = svg.append('g').attr('class', 'labels')
+            labelGroup = svg.append('g').attr('class', 'labels')
         path = pathGroup.selectAll('path.pie').data(piedata)
         #console.log("path",this.path.empty())
         path.enter().append('path').attr('class', 'pie').attr 'fill', (d, i) ->
-          color i
+            color i
         #path.attr('d',arc)
         #    .exit()
         path.transition().duration(1500).attrTween 'd', (d,i) ->
@@ -87,26 +87,26 @@ class Dashing.FullpieAgent extends Dashing.Widget
             s0 = undefined
             e0 = undefined
             if theOldDataInPie[i]
-              s0 = theOldDataInPie[i].startAngle
-              e0 = theOldDataInPie[i].endAngle
+                s0 = theOldDataInPie[i].startAngle
+                e0 = theOldDataInPie[i].endAngle
             else if !theOldDataInPie[i] and theOldDataInPie[i - 1]
-              s0 = theOldDataInPie[i - 1].endAngle
-              e0 = theOldDataInPie[i - 1].endAngle
+                s0 = theOldDataInPie[i - 1].endAngle
+                e0 = theOldDataInPie[i - 1].endAngle
             else if !theOldDataInPie[i - 1] and theOldDataInPie.length > 0
-              s0 = theOldDataInPie[theOldDataInPie.length - 1].endAngle
-              e0 = theOldDataInPie[theOldDataInPie.length - 1].endAngle
+                s0 = theOldDataInPie[theOldDataInPie.length - 1].endAngle
+                e0 = theOldDataInPie[theOldDataInPie.length - 1].endAngle
             else
-              s0 = 0
-              e0 = 0
+                s0 = 0
+                e0 = 0
             i = d3.interpolate({
-              startAngle: 0
-              endAngle: 0
+                startAngle: 0
+                endAngle: 0
             },
-              startAngle: d.startAngle
-              endAngle: d.endAngle)
+                startAngle: d.startAngle
+                endAngle: d.endAngle)
             (t) ->
-              b = i(t)
-              return arc b
+                b = i(t)
+                return arc b
         path.exit()
             .transition()
             .duration(300)
@@ -115,44 +115,44 @@ class Dashing.FullpieAgent extends Dashing.Widget
                 s0 = 2 * Math.PI
                 e0 = 2 * Math.PI
                 i = d3.interpolate({
-                  startAngle: d.startAngle
-                  endAngle: d.endAngle
+                    startAngle: d.startAngle
+                    endAngle: d.endAngle
                 },
-                  startAngle: s0
-                  endAngle: e0)
+                    startAngle: s0
+                    endAngle: e0)
                 (t) ->
-                  b = i(t)
-                  return arc b
+                    b = i(t)
+                    return arc b
             )
             .remove()
         labels = labelGroup.selectAll('text').data(piedata.sort((p1, p2) ->
-          p1.startAngle - p2.startAngle
+            p1.startAngle - p2.startAngle
         ))
         labels.enter().append('text').attr 'text-anchor', 'middle'
         labels.exit().remove()
         labelLayout = d3.geom.quadtree().extent([
-          [
-            -width
-            -height
-          ]
-          [
-            width
-            height
-          ]
+            [
+                -width
+                -height
+            ]
+            [
+                width
+                height
+            ]
         ]).x((d) ->
-          d.x
+            d.x
         ).y((d) ->
-          d.y
+            d.y
         )([])
         #create an empty quadtree to hold label positions
         maxLabelWidth = 0
         maxLabelHeight = 0
         labels.text((d) ->
-          # Set the text *first*, so we can query the size
-          # of the label with .getBBox()
-          #d.value
-          console.log 'ts: d', d
-          d.data.label
+            # Set the text *first*, so we can query the size
+            # of the label with .getBBox()
+            #d.value
+            console.log 'ts: d', d
+            d.data.label
         ).each((d, i) ->
             # Move all calculations into the each function.
             # Position values are stored in the data object 
@@ -187,32 +187,33 @@ class Dashing.FullpieAgent extends Dashing.Widget
             ###
             conflicts = []
             labelLayout.visit (node, x1, y1, x2, y2) ->
-              #recurse down the tree, adding any overlapping 
-              #node is the node in the quadtree, 
-              #node.point is the value that we added to the tree
-              #x1,y1,x2,y2 are the bounds of the rectangle that
-              #this node covers
-              if x1 > d.r + maxLabelWidth / 2 or x2 < d.l - maxLabelWidth / 2 or y1 > d.b + maxLabelHeight / 2 or y2 < d.t - maxLabelHeight / 2
-                return true #don't bother visiting children or checking this node
-              p = node.point
-              v = false
-              h = false
-              if p
-                #p is defined, i.e., there is a value stored in this node
-                h = p.l > d.l and p.l <= d.r or p.r > d.l and p.r <= d.r or p.l < d.l and p.r >= d.r
-                #horizontal conflict
-                v = p.t > d.t and p.t <= d.b or p.b > d.t and p.b <= d.b or p.t < d.t and p.b >= d.b
-                #vertical conflict
-                if h and v
-                  conflicts.push p
-                #add to conflict list
-              return
+                #recurse down the tree, adding any overlapping 
+                #node is the node in the quadtree, 
+                #node.point is the value that we added to the tree
+                #x1,y1,x2,y2 are the bounds of the rectangle that
+                #this node covers
+
+                if x1 > d.r + maxLabelWidth / 2 or x2 < d.l - maxLabelWidth / 2 or y1 > d.b + maxLabelHeight / 2 or y2 < d.t - maxLabelHeight / 2
+                    return true # don't bother visiting children or checking this node
+                p = node.point
+                v = false
+                h = false
+                if p
+                    #p is defined, i.e., there is a value stored in this node
+                    h = p.l > d.l and p.l <= d.r or p.r > d.l and p.r <= d.r or p.l < d.l and p.r >= d.r
+                    #horizontal conflict
+                    v = p.t > d.t and p.t <= d.b or p.b > d.t and p.b <= d.b or p.t < d.t and p.b >= d.b
+                    #vertical conflict
+                    if h and v
+                        conflicts.push p
+                    #add to conflict list
+                return
             if conflicts.length
-              console.log d, ' conflicts with ', conflicts
-              rightEdge = d3.max(conflicts, (d2) ->
-                `var maxLabelHeight`
-                `var maxLabelWidth`
-                d2.r
+                console.log d, ' conflicts with ', conflicts
+                rightEdge = d3.max(conflicts, (d2) ->
+                    `var maxLabelHeight`
+                    `var maxLabelWidth`
+                    d2.r
               )
               d.l = rightEdge
               d.x = d.l + bbox.width / 2 + 5
