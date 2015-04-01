@@ -235,7 +235,7 @@ $pb4 += "]"
 $url = "$($dashboardURL)/widgets/assigned"
 $json = "{
     ""auth_token"" : ""$($authToken)"",
-    ""value"" : $pb4
+    ""data"" : $pb4
 }"
 
-#(Invoke-WebRequest -Uri $url -Method Post -Body $json).content | ConvertFrom-Json
+(Invoke-WebRequest -Uri $url -Method Post -Body $json).content | ConvertFrom-Json
