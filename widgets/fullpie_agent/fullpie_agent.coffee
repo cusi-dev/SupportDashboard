@@ -335,7 +335,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
       # of the label with .getBBox()
       #d.value
       console.log 'ts: d', d
-      d.label
+      d.data.label
     ).each((d, i) ->
       # Move all calculations into the each function.
       # Position values are stored in the data object 
