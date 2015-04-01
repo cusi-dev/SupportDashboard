@@ -17,13 +17,15 @@ class Dashing.FullpieAgent extends Dashing.Widget
         $(@node).children("svg").remove();
 
         # Config values here
-        width = 750                            # Width of the SVG area
-        height = 400                           # Height of the SVG area
-        radius = Math.min(width, height) / 2   # Calculated min dimension of the SVG area
-        radiuso = 130                          # Outer radius of the pie
-        radiusi = 65                           # Inner radius of the pie (zero = pie, non-zero = donut)
-        color = d3.scale.category20()          # Color scale for pie slices
-
+        width = 750                             # Width of the SVG area
+        height = 400                            # Height of the SVG area
+        radius = Math.min(width, height) / 2    # Calculated min dimension of the SVG area
+        radiuso = 130                           # Outer radius of the pie
+        radiusi = 65                            # Inner radius of the pie (zero = pie, non-zero = donut)
+        color = d3.scale.category20()           # Color scale for pie slices
+        dropshadowx = 2                         # X-offset for drop shadow filter
+        dropshadowy = 2                         # Y-offset for drop shadow filter
+        dropshadowblur = "1.1"                  # [STRING] Blur value for drop shadow filter
         
         pie = d3.layout.pie().value((d) -> d.value)
         arc = d3.svg.arc().innerRadius(radiusi).outerRadius(radiuso)
@@ -38,13 +40,31 @@ class Dashing.FullpieAgent extends Dashing.Widget
         #create a marker element if it doesn't already exist
         defs = svg.select('defs')
         if defs.empty()
-          defs = svg.append('defs')
+            defs = svg.append('defs')
         marker = defs.select('marker#circ')
         if marker.empty()
-          defs.append('marker').attr('id', 'circ').attr('markerWidth', 44).attr('markerHeight', 44).attr('refX', 3).attr('refY', 3).append('circle').attr('cx', 3).attr('cy', 3).attr 'r', 3
+            defs.append('marker').attr('id', 'circ').attr('markerWidth', 44).attr('markerHeight', 44).attr('refX', 3).attr('refY', 3).append('circle').attr('cx', 3).attr('cy', 3).attr 'r', 3
 
-        #Create/select <g> elements to hold the different types of graphics
-        #and keep them in the correct drawing order
+        # Add drop shadow filter
+        filter = defs.append("filter")
+            .attr("id","dropshadow")
+        filter.append("feGaussianBlur")
+            .attr("in","SourceAlpha")
+            .attr("stdDeviation","1.1")
+            .attr("result","blur")
+        filter.append("feOffset")
+            .attr("in","blur")
+            .attr("dx",2)
+            .attr("dy",2)
+            .attr("result","offsetBlur")
+        feMerge = filter.append("feMerge")
+        feMerge.append("feMergeNode")
+            .attr("in","offsetBlur")
+        feMerge.append("feMergeNode")
+            .attr("in","SourceGraphic")
+
+        # Create/select <g> elements to hold the different types of graphics
+        # and keep them in the correct drawing order
         pathGroup = svg.select('g.piePaths')
         if pathGroup.empty()
           pathGroup = svg.append('g').attr('class', 'piePaths')
