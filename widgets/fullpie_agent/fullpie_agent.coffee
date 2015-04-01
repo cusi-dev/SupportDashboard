@@ -67,6 +67,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
         dataSet = @get("data")
     if !dataSet
         return
+    $(@node).children("svg").remove();
     width = 750
     height = 450
     radius = Math.min(width, height) / 2
