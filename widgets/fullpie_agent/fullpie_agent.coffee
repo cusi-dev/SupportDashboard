@@ -14,8 +14,8 @@ class Dashing.FullpieAgent extends Dashing.Widget
             return
 
         container = $(@node)
-        console.log('height: ',container.height)
-        console.log('width: ',container.width)
+        console.log('height: ',container.style.height)
+        console.log('width: ',container.style.width)
 
         # Remove any previous svg
         container.children("svg").remove();
