@@ -1,13 +1,11 @@
 class Dashing.FullpieAgent extends Dashing.Widget
   #@accessor 'value'
   @accessor 'data'
-
   onData: (data) ->
     $(@node).fadeOut().fadeIn()
     #@buildPieStructure()
     #@render(data.data)
     @update(data.data)
-  
   buildPieStructure: ->
     @width = 300
     @height = 300
@@ -17,9 +15,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
     @arc = d3.svg.arc().innerRadius(@radius - 100).outerRadius(@radius - 50)
     @svg = d3.select(@node).append('svg').attr('width', @width).attr('height', @height).append('g').attr('transform', 'translate(' + @width / 2 + ',' + @height / 2 + ')')
     return
-
   oldPieData: ''
-
   pieTween: (d, i) ->
     `var i`
     that = this
@@ -39,7 +35,6 @@ class Dashing.FullpieAgent extends Dashing.Widget
     #else
     #  s0 = 0
     #  e0 = 0
-
     # TS
     s0 = 0
     e0 = 0
@@ -53,7 +48,6 @@ class Dashing.FullpieAgent extends Dashing.Widget
     (t) ->
       b = i(t)
       return @arc b
-
   removePieTween: (d, i) ->
     `var i`
     that = this
@@ -68,14 +62,11 @@ class Dashing.FullpieAgent extends Dashing.Widget
     (t) ->
       b = i(t)
       @arc b
-
   update: (dataSet) ->
-
     if !dataSet
         dataSet = @get("data")
     if !dataSet
         return
-
     width = 750
     height = 450
     radius = Math.min(width, height) / 2
@@ -85,7 +76,6 @@ class Dashing.FullpieAgent extends Dashing.Widget
     pie = d3.layout.pie()#.sort(null)
     arc = d3.svg.arc().innerRadius(radiusi).outerRadius(radiuso)#.innerRadius(radius - 100).outerRadius(radius - 50)
     svg = d3.select(@node).append('svg').attr('width', width).attr('height', height).append('g').attr('transform', 'translate(' + width / 2 + ',' + height / 2 + ')')
-
     console.log 'update pie', dataSet
     that = this
     piedata = pie(dataSet[0].value)
@@ -124,7 +114,6 @@ class Dashing.FullpieAgent extends Dashing.Widget
                 b = i(t)
                 return arc(b)
         )
-
     #@path.exit().transition().duration(300).attrTween('d', that.removePieTween).remove()
     path.exit()
         .transition()
@@ -136,7 +125,6 @@ class Dashing.FullpieAgent extends Dashing.Widget
                 return arc(b)
         )
         .remove()
-
     labels = labelGroup.selectAll('text').data(piedata.sort((p1, p2) ->
       p1.startAngle - p2.startAngle
     ))
@@ -167,20 +155,16 @@ class Dashing.FullpieAgent extends Dashing.Widget
       # Move all calculations into the each function.
       # Position values are stored in the data object 
       # so can be accessed later when drawing the line
-
       ### calculate the position of the center marker ###
-
       a = (d.startAngle + d.endAngle) / 2
       #trig functions adjusted to use the angle relative
       #to the "12 o'clock" vector:
       #console.log 'ts: a', a
       d.cx = Math.sin(a) * (radius - 75)
       d.cy = -Math.cos(a) * (radius - 75)
-
       ### calculate the default position for the label,
          so that the middle of the label is centered in the arc
       ###
-
       bbox = @getBBox()
       #bbox.width and bbox.height will 
       #describe the size of the label text
@@ -195,7 +179,6 @@ class Dashing.FullpieAgent extends Dashing.Widget
       ### check whether the default position 
          overlaps any other labels
       ###
-
       conflicts = []
       labelLayout.visit (node, x1, y1, x2, y2) ->
         #recurse down the tree, adding any overlapping 
@@ -231,11 +214,9 @@ class Dashing.FullpieAgent extends Dashing.Widget
         d.r = d.l + bbox.width + 10
       else
         console.log 'no conflicts for ', d
-
       ### add this label to the quadtree, so it will show up as a conflict
          for future labels.  
       ###
-
       labelLayout.add d
       maxLabelWidth = Math.max(maxLabelWidth, bbox.width + 10)
       maxLabelHeight = Math.max(maxLabelHeight, bbox.height + 10)
