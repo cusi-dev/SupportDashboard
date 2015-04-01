@@ -2,7 +2,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
   #@accessor 'value'
   @accessor 'data'
   onData: (data) ->
-    $(@node).fadeOut().fadeIn()
+    #$(@node).fadeOut().fadeIn()
     #@buildPieStructure()
     #@render(data.data)
     @update(data.data)
