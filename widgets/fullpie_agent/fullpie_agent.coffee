@@ -248,5 +248,10 @@ class Dashing.FullpieAgent extends Dashing.Widget
             else
                 'M' + (d.r - 2) + ',' + d.b + 'L' + (d.l + 2) + ',' + d.b + ' ' + d.cx + ',' + d.cy
 
+        totaltickets = 0
+        for pd in dataSet
+            totaltickets += pd.value
+        console.log totaltickets
+
         oldPieData = piedata
         return
