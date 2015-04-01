@@ -13,8 +13,10 @@ class Dashing.FullpieAgent extends Dashing.Widget
         if !dataSet
             return
 
+        container = $(@node)
+
         # Remove any previous svg
-        $(@node).children("svg").remove();
+        container.children("svg").remove();
 
         # Config values here
         width = 580                             # Width of the SVG area
