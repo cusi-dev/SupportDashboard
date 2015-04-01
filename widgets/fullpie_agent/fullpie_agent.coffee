@@ -432,7 +432,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
         return
     $(@node).children("svg").remove();
     width = 750
-    height = 350
+    height = 400
     radius = Math.min(width, height) / 2
     radiuso = 135
     radiusi = 90
