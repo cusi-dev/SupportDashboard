@@ -283,9 +283,10 @@ class Dashing.FullpieAgent extends Dashing.Widget
     #console.log("path",this.path.empty())
     path.enter().append('path').attr('class', 'pie').attr 'fill', (d, i) ->
       color i
-    path.attr('d',arc)
-        .exit()
+    #path.attr('d',arc)
+    #    .exit()
     #@path.transition().duration(1500).attrTween 'd', that.pieTween
+    path.transition().duration(1500).attrTween 'd', pieTween
     #path.transition()
     #    .duration(1000)
     #    #.attrTween("d", pieTween)
@@ -298,7 +299,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
     #            return arc(b)
     #    )
     #@path.exit().transition().duration(300).attrTween('d', that.removePieTween).remove()
-    #path.exit()
+    path.exit()
     #    .transition()
     #    .duration(300)
     #    .attrTween("d", (d,i) -> 
