@@ -465,25 +465,9 @@ class Dashing.FullpieAgent extends Dashing.Widget
     path = pathGroup.selectAll('path.pie').data(piedata)
     #console.log("path",this.path.empty())
     path.enter().append('path').attr('class', 'pie').attr 'fill', (d, i) ->
-      console.log('d.data.value',d.data.value)
-      if d.data.value != 0
-        color i
+      color i
     #path.attr('d',arc)
     #    .exit()
-    
-    #@path.transition().duration(1500).attrTween 'd', that.pieTween
-    #path.transition().duration(1500).attrTween 'd', @pieTween
-    #path.transition()
-    #    .duration(1000)
-    #    #.attrTween("d", pieTween)
-    #    .attrTween("d", (d,i) -> 
-    #        #console.log("d",d)
-    #        #console.log("i",i)
-    #        i = d3.interpolate({startAngle: 0, endAngle: 0}, {startAngle: d.startAngle, endAngle: d.endAngle})
-    #        return (t) -> 
-    #            b = i(t)
-    #            return arc(b)
-    #    )
     path.transition().duration(1500).attrTween 'd', (d,i) ->
         `var i`
         theOldDataInPie = oldPieData
@@ -511,17 +495,6 @@ class Dashing.FullpieAgent extends Dashing.Widget
         (t) ->
           b = i(t)
           return arc b
-    #@path.exit().transition().duration(300).attrTween('d', that.removePieTween).remove()
-    #path.exit()
-    #    .transition()
-    #    .duration(300)
-    #    .attrTween("d", (d,i) -> 
-    #        i = d3.interpolate({startAngle: d.startAngle,endAngle: d.endAngle},{startAngle: 2 * Math.PI,endAngle: 2 * Math.PI})
-    #        return (t) -> 
-    #            b = i(t)
-    #            return arc(b)
-    #    )
-    #    .remove()
     path.exit()
         .transition()
         .duration(300)
