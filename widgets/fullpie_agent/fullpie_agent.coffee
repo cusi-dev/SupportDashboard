@@ -460,7 +460,8 @@ class Dashing.FullpieAgent extends Dashing.Widget
     svg = @svg
     console.log 'update pie', dataSet
     #that = this
-    piedata = pie(dataSet)
+    #piedata = pie(dataSet)
+    piedata = @pie(dataSet)
     console.log 'update pie', piedata
     #create a marker element if it doesn't already exist
     defs = svg.select('defs')
