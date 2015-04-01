@@ -7,13 +7,13 @@ class Dashing.FullpieAgent extends Dashing.Widget
     #@render(data.data)
     @update(data.data)
   buildPieStructure: ->
-    @width = 300
-    @height = 300
-    @radius = Math.min(@width, @height) / 2
+    width = 300
+    height = 300
+    radius = Math.min(width, height) / 2
     @color = d3.scale.category20()
-    @pie = d3.layout.pie().sort(null)
-    @arc = d3.svg.arc().innerRadius(@radius - 100).outerRadius(@radius - 50)
-    @svg = d3.select(@node).append('svg').attr('width', @width).attr('height', @height).append('g').attr('transform', 'translate(' + @width / 2 + ',' + @height / 2 + ')')
+    pie = d3.layout.pie().sort(null)
+    arc = d3.svg.arc().innerRadius(radius - 100).outerRadius(radius - 50)
+    svg = d3.select(@node).append('svg').attr('width', width).attr('height', height).append('g').attr('transform', 'translate(' + width / 2 + ',' + height / 2 + ')')
     return
   oldPieData: ''
   pieTween: (d, i) ->
@@ -47,7 +47,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
       endAngle: d.endAngle)
     (t) ->
       b = i(t)
-      return @arc b
+      return arc b
   removePieTween: (d, i) ->
     `var i`
     that = this
@@ -61,43 +61,43 @@ class Dashing.FullpieAgent extends Dashing.Widget
       endAngle: e0)
     (t) ->
       b = i(t)
-      @arc b
+      arc b
   update: (dataSet) ->
     if !dataSet
         dataSet = @get("data")
     if !dataSet
         return
-    @width = 750
-    @height = 450
-    @radius = Math.min(@width, @height) / 2
-    @radiuso = 135
-    @radiusi = 90
+    width = 750
+    height = 450
+    radius = Math.min(width, height) / 2
+    radiuso = 135
+    radiusi = 90
     color = d3.scale.category20()
-    @pie = d3.layout.pie()#.sort(null)
-    @arc = d3.svg.arc().innerRadius(@radiusi).outerRadius(@radiuso)
-    @svg = d3.select(@node).append('svg').attr('width', @width).attr('height', @height).append('g').attr('transform', 'translate(' + @width / 2 + ',' + @height / 2 + ')')
+    pie = d3.layout.pie()#.sort(null)
+    arc = d3.svg.arc().innerRadius(radiusi).outerRadius(radiuso)
+    svg = d3.select(@node).append('svg').attr('width', width).attr('height', height).append('g').attr('transform', 'translate(' + width / 2 + ',' + height / 2 + ')')
     console.log 'update pie', dataSet
     that = this
-    piedata = @pie(dataSet[0].value)
+    piedata = pie(dataSet[0].value)
     console.log 'update pie', piedata
     #create a marker element if it doesn't already exist
-    defs = @svg.select('defs')
+    defs = svg.select('defs')
     if defs.empty()
-      defs = @svg.append('defs')
+      defs = svg.append('defs')
     marker = defs.select('marker#circ')
     if marker.empty()
       defs.append('marker').attr('id', 'circ').attr('markerWidth', 6).attr('markerHeight', 6).attr('refX', 3).attr('refY', 3).append('circle').attr('cx', 3).attr('cy', 3).attr 'r', 3
     #Create/select <g> elements to hold the different types of graphics
     #and keep them in the correct drawing order
-    pathGroup = @svg.select('g.piePaths')
+    pathGroup = svg.select('g.piePaths')
     if pathGroup.empty()
-      pathGroup = @svg.append('g').attr('class', 'piePaths')
-    pointerGroup = @svg.select('g.pointers')
+      pathGroup = svg.append('g').attr('class', 'piePaths')
+    pointerGroup = svg.select('g.pointers')
     if pointerGroup.empty()
-      pointerGroup = @svg.append('g').attr('class', 'pointers')
-    labelGroup = @svg.select('g.labels')
+      pointerGroup = svg.append('g').attr('class', 'pointers')
+    labelGroup = svg.select('g.labels')
     if labelGroup.empty()
-      labelGroup = @svg.append('g').attr('class', 'labels')
+      labelGroup = svg.append('g').attr('class', 'labels')
     path = pathGroup.selectAll('path.pie').data(piedata)
     #console.log("path",this.path.empty())
     path.enter().append('path').attr('class', 'pie').attr 'fill', (d, i) ->
@@ -112,7 +112,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
             i = d3.interpolate({startAngle: 0, endAngle: 0}, {startAngle: d.startAngle, endAngle: d.endAngle})
             return (t) -> 
                 b = i(t)
-                return @arc(b)
+                return arc(b)
         )
     #@path.exit().transition().duration(300).attrTween('d', that.removePieTween).remove()
     path.exit()
@@ -122,7 +122,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
             i = d3.interpolate({startAngle: d.startAngle,endAngle: d.endAngle},{startAngle: 2 * Math.PI,endAngle: 2 * Math.PI})
             return (t) -> 
                 b = i(t)
-                return @arc(b)
+                return arc(b)
         )
         .remove()
     labels = labelGroup.selectAll('text').data(piedata.sort((p1, p2) ->
@@ -132,12 +132,12 @@ class Dashing.FullpieAgent extends Dashing.Widget
     labels.exit().remove()
     labelLayout = d3.geom.quadtree().extent([
       [
-        -@width
-        -@height
+        -width
+        -height
       ]
       [
-        @width
-        @height
+        width
+        height
       ]
     ]).x((d) ->
       d.x
@@ -160,19 +160,19 @@ class Dashing.FullpieAgent extends Dashing.Widget
       #trig functions adjusted to use the angle relative
       #to the "12 o'clock" vector:
       #console.log 'ts: a', a
-      d.cx = Math.sin(a) * (@radius - 75)
-      d.cy = -Math.cos(a) * (@radius - 75)
+      d.cx = Math.sin(a) * (radius - 75)
+      d.cy = -Math.cos(a) * (radius - 75)
       ### calculate the default position for the label,
          so that the middle of the label is centered in the arc
       ###
       bbox = @getBBox()
       #bbox.width and bbox.height will 
       #describe the size of the label text
-      labelRadius = @radius - 20
+      labelRadius = radius - 20
       d.x = Math.sin(a) * labelRadius
       d.l = d.x - bbox.width / 2 - 2
       d.r = d.x + bbox.width / 2 + 2
-      d.y = -Math.cos(a) * (@radius - 20)
+      d.y = -Math.cos(a) * (radius - 20)
       d.b = d.oy = d.y + 5
       d.t = d.y - bbox.height - 5
       #console.log 'ts: d', d
