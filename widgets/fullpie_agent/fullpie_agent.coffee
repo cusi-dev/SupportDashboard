@@ -133,7 +133,20 @@ class Dashing.FullpieAgent extends Dashing.Widget
             p1.startAngle - p2.startAngle
         ))
         #labels.enter().append('text').attr 'text-anchor', 'middle'
-        labels.enter().append('text').attr('text-anchor', 'middle').attr("filter","url(#dropshadow)")
+        #labels.enter().append('text').attr('text-anchor', 'middle').attr("filter","url(#dropshadow)")
+        labels.enter().append('text')
+            .attr('text-anchor', (d) ->
+                rads = ((d.endAngle - d.startAngle) / 2) + d.startAngle;
+                if (rads > 7 * Math.PI / 4 && rads < Math.PI / 4) || (rads > 3 * Math.PI / 4 && rads < 5 * Math.PI / 4) )
+                    return "middle"
+                else if (rads >= Math.PI / 4 && rads <= 3 * Math.PI / 4)
+                    return "start"
+                else if (rads >= 5 * Math.PI / 4 && rads <= 7 * Math.PI / 4)
+                    return "end"
+                else
+                    return "middle"
+            )
+            .attr("filter","url(#dropshadow)")
         labels.exit().remove()
         labelLayout = d3.geom.quadtree().extent([
             [
