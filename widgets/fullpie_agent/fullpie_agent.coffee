@@ -17,7 +17,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
         $(@node).children("svg").remove();
 
         # Config values here
-        width = 590                             # Width of the SVG area
+        width = 580                             # Width of the SVG area
         height = 400                            # Height of the SVG area
         radius = Math.min(width, height) / 2    # Calculated min dimension of the SVG area
         radiuso = 130                           # Outer radius of the pie
