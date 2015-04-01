@@ -43,11 +43,12 @@ $moreinfo-color:    rgba(255, 255, 255, 1);
     font-size: 14px;
   }
   
-  .labels {
+  .labels text {
 	font-size: 30px;
 	font-weight: normal;
 	color: $label-color;
   }
+
   .cusipie-label-percent {
 	font-size: .7em;
 	font-weight: lighter;
