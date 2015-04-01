@@ -1,6 +1,7 @@
 class Dashing.FullpieAgent extends Dashing.Widget
 
     @accessor 'data'
+    @oldPieData = ''
 
     onData: (data) ->
         #$(@node).fadeOut().fadeIn()
@@ -84,7 +85,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
 
         path.transition().duration(1500).attrTween('d', (d,i) ->
             `var i`
-            theOldDataInPie = oldPieData
+            theOldDataInPie = @oldPieData
             # Interpolate the arcs in data space
             s0 = undefined
             e0 = undefined
@@ -274,5 +275,5 @@ class Dashing.FullpieAgent extends Dashing.Widget
             .attr('alignment-baseline', 'mathematical')
             .attr('filter','url(#dropshadow)')
 
-        oldPieData = piedata
+        @oldPieData = piedata
         return
