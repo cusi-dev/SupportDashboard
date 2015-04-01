@@ -225,11 +225,11 @@ class Dashing.FullpieAgent extends Dashing.Widget
       maxLabelHeight = Math.max(maxLabelHeight, bbox.height + 10)
       return
     )
-    .transition()
-    .attr('x', (d) ->
-      d.x
-    ).attr 'y', (d) ->
-      d.y
+    #.transition()
+    #.attr('x', (d) ->
+    #  d.x
+    #).attr 'y', (d) ->
+    #  d.y
     pointers = pointerGroup.selectAll('path.pointer').data(piedata)
     pointers.enter().append('path').attr('class', 'pointer').style('fill', 'none').style('stroke', 'black').attr 'marker-end', 'url(#circ)'
     pointers.exit().remove()
