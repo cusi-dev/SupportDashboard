@@ -129,7 +129,8 @@ class Dashing.FullpieAgent extends Dashing.Widget
         labels = labelGroup.selectAll('text').data(piedata.sort((p1, p2) ->
             p1.startAngle - p2.startAngle
         ))
-        labels.enter().append('text').attr 'text-anchor', 'middle'
+        #labels.enter().append('text').attr 'text-anchor', 'middle'
+        labels.enter().append('text').attr('text-anchor', 'middle').attr("filter","url(#dropshadow)")
         labels.exit().remove()
         labelLayout = d3.geom.quadtree().extent([
             [
