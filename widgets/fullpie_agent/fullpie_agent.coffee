@@ -74,12 +74,11 @@ class Dashing.FullpieAgent extends Dashing.Widget
         labelGroup = svg.select('g.labels')
         if labelGroup.empty()
             labelGroup = svg.append('g').attr('class', 'labels')
+
         path = pathGroup.selectAll('path.pie').data(piedata)
-        #console.log("path",this.path.empty())
         path.enter().append('path').attr('class', 'pie').attr 'fill', (d, i) ->
             color i
-        #path.attr('d',arc)
-        #    .exit()
+
         path.transition().duration(1500).attrTween 'd', (d,i) ->
             `var i`
             theOldDataInPie = oldPieData
@@ -107,6 +106,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
             (t) ->
                 b = i(t)
                 return arc b
+
         path.exit()
             .transition()
             .duration(300)
@@ -125,6 +125,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
                     return arc b
             )
             .remove()
+
         labels = labelGroup.selectAll('text').data(piedata.sort((p1, p2) ->
             p1.startAngle - p2.startAngle
         ))
@@ -144,6 +145,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
         ).y((d) ->
             d.y
         )([])
+
         #create an empty quadtree to hold label positions
         maxLabelWidth = 0
         maxLabelHeight = 0
@@ -151,7 +153,6 @@ class Dashing.FullpieAgent extends Dashing.Widget
             # Set the text *first*, so we can query the size
             # of the label with .getBBox()
             #d.value
-            console.log 'ts: d', d
             d.data.label
         ).each((d, i) ->
             # Move all calculations into the each function.
