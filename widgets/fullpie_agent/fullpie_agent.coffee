@@ -286,7 +286,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
     #path.attr('d',arc)
     #    .exit()
     #@path.transition().duration(1500).attrTween 'd', that.pieTween
-    path.transition().duration(1500).attrTween 'd', pieTween
+    path.transition().duration(1500).attrTween 'd', @pieTween
     #path.transition()
     #    .duration(1000)
     #    #.attrTween("d", pieTween)
