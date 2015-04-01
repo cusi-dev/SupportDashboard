@@ -146,23 +146,24 @@ $pb3 = "
     }
 ]
 "#>
+<#
 $pb3 = "
 [
     { 
         ""label"" : ""Alpha"",
-        ""value"" : 11
+        ""value"" : 7
     },
     {
         ""label"" : ""Beta"",
-        ""value"" : 13
+        ""value"" : 11
     },
     {
         ""label"" : ""Theta"",
-        ""value"" : 17
+        ""value"" : 13
     },
     {
         ""label"" : ""Gimel"",
-        ""value"" : 23
+        ""value"" : 17
     },
     {
         ""label"" : ""DaletHe"",
@@ -174,6 +175,37 @@ $pb3 = "
     }
 ]
 "
+#>
+
+$pb3 = "
+[
+    { 
+        ""label"" : ""Alpha"",
+        ""value"" : 23
+    },
+    {
+        ""label"" : ""Beta"",
+        ""value"" : 17
+    },
+    {
+        ""label"" : ""Theta"",
+        ""value"" : 17
+    },
+    {
+        ""label"" : ""Gimel"",
+        ""value"" : 3
+    },
+    {
+        ""label"" : ""DaletHe"",
+        ""value"" : 3
+    },
+    {
+        ""label"" : ""HeDalet"",
+        ""value"" : 3
+    }
+]
+"
+
 
 $url3 = "$($dashboardURL)/widgets/resolved"
 $json3 = "{

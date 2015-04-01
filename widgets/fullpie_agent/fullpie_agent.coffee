@@ -587,11 +587,13 @@ class Dashing.FullpieAgent extends Dashing.Widget
       bbox = @getBBox()
       #bbox.width and bbox.height will 
       #describe the size of the label text
-      labelRadius = radius - 20
+      #labelRadius = radius - 20
+      labelRadius = radiuso + 20
       d.x = Math.sin(a) * labelRadius
       d.l = d.x - bbox.width / 2 - 2
       d.r = d.x + bbox.width / 2 + 2
-      d.y = -Math.cos(a) * (radius - 20)
+      #d.y = -Math.cos(a) * (radius - 20)
+      d.y = -Math.cos(a) * (labelRadius)
       d.b = d.oy = d.y + 5
       d.t = d.y - bbox.height - 5
       #console.log 'ts: d', d
