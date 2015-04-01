@@ -23,6 +23,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
         height = 400                            # Height of the SVG area
         width = (Dashing.widget_base_dimensions[0] * container.data("sizex")) + Dashing.widget_margins[0] * 2 * (container.data("sizex") - 1)
         height = (Dashing.widget_base_dimensions[1] * container.data("sizey")) - 120 # Allow for header and footer text
+        console.log('w/h',width + '/' + height)
         radius = Math.min(width, height) / 2    # Calculated min dimension of the SVG area
         radiuso = 130                           # Outer radius of the pie
         radiusi = 80                            # Inner radius of the pie (zero = pie, non-zero = donut)
