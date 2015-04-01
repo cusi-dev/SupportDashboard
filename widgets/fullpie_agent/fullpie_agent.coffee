@@ -639,4 +639,5 @@ class Dashing.FullpieAgent extends Dashing.Widget
     #  else
     #    console.log 'else', 'M' + d.r - 2 + ',' + d.b + 'L' + d.l + 2 + ',' + d.b + ' ' + d.cx + ',' + d.cy
     #    'M' + d.r - 2 + ',' + d.b + 'L' + d.l + 2 + ',' + d.b + ' ' + d.cx + ',' + d.cy
+    @oldPieData = piedata
     return
