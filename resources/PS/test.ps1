@@ -36,70 +36,47 @@ $rows = $DataSet.Tables[0].Rows
 #$cols = $DataSet.Tables[0].Columns
 
 #
-#widget
+#contracted widget
 #
-$pb1max = 0
+$i = 0
+$pb1 = "["
 foreach ($row in $rows)
 {
-#    Write-Host $row[2]
-    if ($row[2] -gt $pb1max)
+    $i += 1
+    $pb1 += "
+        { 
+            ""label"" : ""$($row[0])"",
+            ""value"" :  $($row[12])
+        }
+    "
+    if ($i -lt $rows.Count)
     {
-        $pb1max = $row[2]
+        $pb1 += ","
     }
 }
-#write-host $pb1max
+$pb1 += "]"
+$url1 = "$($dashboardURL)/widgets/contracted"
+$json = "{
+    ""auth_token"" : ""$($authToken)"",
+    ""data"" : $pb1
+}"
 
-$pb1Count = $rows.Count
-
-#$i = 0
-#$pb1 = "["
-#foreach ($row in $rows)
-#{
-#    $i += 1
-#    $val = [math]::round(($row[2]/$pb1max)*100)
-#    #Write-Host $row[0]
-#    $pb1 += 
-#    "
-#        {
-#          ""name"" : ""$($row[0])"",
-#          ""value"" : $($row[2]),
-#          ""progress"" : $($val)
-#        }
-#    "
-#    if ($i -lt $pb1Count)
-#    {
-#        $pb1 += ","
-#    }
-#}
-#$pb1 += "]"
-#$url = "$($dashboardURL)/widgets/cusi_progress_bars"
-#$json = "{
-#    ""auth_token"" : ""$($authToken)"",
-#    ""progress_items"" : $pb1
-#}"
-#Write-Host $url
-#Write-Host $json
-
-#(Invoke-WebRequest -Uri $url -Method Post -Body $json).content | ConvertFrom-Json
-
+(Invoke-WebRequest -Uri $url1 -Method Post -Body $json).content | ConvertFrom-Json
 
 
 #
-#widget
+#pending widget
 #
-$pb2 = "[
-    [
-        ""Agent"",""Resolved"",""Assigned""
-    ],
-"
 $i = 0
+$pb2 = "["
 foreach ($row in $rows)
 {
     $i += 1
     $pb2 += "
-        [ 
-            ""$($row[0])"",$($row[2]),$($row[5]) 
-        ]
+        { 
+            ""label"" : ""$($row[0])"",
+            ""value"" :  $($row[8])
+        }
     "
     if ($i -lt $rows.Count)
     {
@@ -107,20 +84,17 @@ foreach ($row in $rows)
     }
 }
 $pb2 += "]"
-$url = "$($dashboardURL)/widgets/mychart"
+$url2 = "$($dashboardURL)/widgets/pending"
 $json = "{
     ""auth_token"" : ""$($authToken)"",
-    ""points"" : $pb2
+    ""data"" : $pb2
 }"
-#Write-Host $url
-#Write-Host $json
 
-#(Invoke-WebRequest -Uri $url -Method Post -Body $json).content | ConvertFrom-Json
+(Invoke-WebRequest -Uri $url2 -Method Post -Body $json).content | ConvertFrom-Json
 
 
 #pie resolved widget
 $i = 0
-
 $pb3 = "["
 foreach ($row in $rows)
 {
@@ -137,74 +111,6 @@ foreach ($row in $rows)
     }
 }
 $pb3 += "]"
-
-<#
-$pb3 = "
-[
-    { 
-        ""label"": [""Alpha"",""Beta"",""Theta"",""Gimal"",""DaletHe"",""HeDalet""],
-        ""value"": [3,5,7,11,13,3]
-    }
-]
-"#>
-<#
-$pb3a = "
-[
-    { 
-        ""label"" : ""Alpha"",
-        ""value"" : 0
-    },
-    {
-        ""label"" : ""Beta"",
-        ""value"" : 11
-    },
-    {
-        ""label"" : ""Theta"",
-        ""value"" : 13
-    },
-    {
-        ""label"" : ""Gimel"",
-        ""value"" : 17
-    },
-    {
-        ""label"" : ""DaletHe"",
-        ""value"" : 3
-    },
-    {
-        ""label"" : ""HeDalet"",
-        ""value"" : 3
-    }
-]
-"
-$pb3b = "
-[
-    { 
-        ""label"" : ""Alpha"",
-        ""value"" : 23
-    },
-    {
-        ""label"" : ""Beta"",
-        ""value"" : 0
-    },
-    {
-        ""label"" : ""Theta"",
-        ""value"" : 17
-    },
-    {
-        ""label"" : ""Gimel"",
-        ""value"" : 3
-    },
-    {
-        ""label"" : ""DaletHe"",
-        ""value"" : 3
-    },
-    {
-        ""label"" : ""HeDalet"",
-        ""value"" : 3
-    }
-]
-"
-#>
 $url3 = "$($dashboardURL)/widgets/resolved"
 $json3 = "{
     ""auth_token"" : ""$($authToken)"",
