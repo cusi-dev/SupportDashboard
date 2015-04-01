@@ -137,11 +137,19 @@ class Dashing.FullpieAgent extends Dashing.Widget
         labels.enter().append('text')
             .attr('text-anchor', (d) ->
                 rads = ((d.endAngle - d.startAngle) / 2) + d.startAngle
-                if (rads > 7 * Math.PI / 4 && rads < Math.PI / 4) || (rads > 3 * Math.PI / 4 && rads < 5 * Math.PI / 4)
+                #if (rads > 7 * Math.PI / 4 && rads < Math.PI / 4) || (rads > 3 * Math.PI / 4 && rads < 5 * Math.PI / 4)
+                #    return "middle"
+                #else if (rads >= Math.PI / 4 && rads <= 3 * Math.PI / 4)
+                #    return "start"
+                #else if (rads >= 5 * Math.PI / 4 && rads <= 7 * Math.PI / 4)
+                #    return "end"
+                #else
+                #    return "middle"
+                if (rads > 3 * Math.PI / 4 && rads < 5 * Math.PI / 4)
                     return "middle"
-                else if (rads >= Math.PI / 4 && rads <= 3 * Math.PI / 4)
+                else if (rads >= 0 && rads <= 3 * Math.PI / 4)
                     return "start"
-                else if (rads >= 5 * Math.PI / 4 && rads <= 7 * Math.PI / 4)
+                else if (rads >= 5 * Math.PI / 4 && rads <= 8 * Math.PI / 4)
                     return "end"
                 else
                     return "middle"
