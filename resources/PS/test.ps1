@@ -18,7 +18,8 @@ $SqlCmd = New-Object System.Data.SqlClient.SqlCommand
 
 ###########################################################################
 
-$SqlCmd.CommandText = "exec [cusip_SupportAgentMetrics] @i_Today = '2015-03-27'"#'$Date'"
+#$SqlCmd.CommandText = "exec [cusip_SupportAgentMetrics] @i_Today = '2015-03-27'"#'$Date'"
+$SqlCmd.CommandText = "exec [cusip_SupportAgentMetrics] @i_Today = '$Date'"
 
 ###########################################################################
 
@@ -146,6 +147,7 @@ $pb3 = "
     }
 ]
 "#>
+<#
 $pb3a = "
 [
     { 
@@ -202,7 +204,7 @@ $pb3b = "
     }
 ]
 "
-
+#>
 $url3 = "$($dashboardURL)/widgets/resolved"
 $json3 = "{
     ""auth_token"" : ""$($authToken)"",

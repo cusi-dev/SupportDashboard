@@ -258,7 +258,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
         totalLabel.append('text')
             .text(totalTickets)
             .attr('text-anchor', 'middle')
-            .attr('alignment-baseline', 'central')
+            .attr('alignment-baseline', 'mathematical')
             .attr('filter','url(#dropshadow)')
 
         oldPieData = piedata
