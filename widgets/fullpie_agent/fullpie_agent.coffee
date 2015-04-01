@@ -26,6 +26,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
         dropshadowx = 2                         # X-offset for drop shadow filter
         dropshadowy = 2                         # Y-offset for drop shadow filter
         dropshadowblur = "1.1"                  # [STRING] Blur value for drop shadow filter
+        totallabelfontsize = radiusi            # Font size for total count label
         
         pie = d3.layout.pie().value((d) -> d.value)
         arc = d3.svg.arc().innerRadius(radiusi).outerRadius(radiuso)
@@ -258,8 +259,9 @@ class Dashing.FullpieAgent extends Dashing.Widget
         #console.log totaltickets
         totalLabel.append('text')
             .text(totalTickets)
+            .attr('font-size','totallabelfontsize')
             .attr('text-anchor', 'middle')
-            .attr("filter","url(#dropshadow)")
+            .attr('filter','url(#dropshadow)')
 
         oldPieData = piedata
         return
