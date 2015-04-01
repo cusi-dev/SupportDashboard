@@ -82,7 +82,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
         path = pathGroup.selectAll('path.pie').data(piedata)
         path.enter().append('path').attr('class', 'pie').attr('fill', (d, i) -> color i)
 
-        path.transition().duration(1500).attrTween 'd', (d,i) ->
+        path.transition().duration(1500).attrTween('d', (d,i) ->
             `var i`
             theOldDataInPie = oldPieData
             # Interpolate the arcs in data space
@@ -109,7 +109,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
             (t) ->
                 b = i(t)
                 return arc b
-
+        ).attr('filter','url(#dropshadow)')
         path.exit()
             .transition()
             .duration(300)
@@ -128,7 +128,6 @@ class Dashing.FullpieAgent extends Dashing.Widget
                     return arc b
             )
             .remove()
-            .attr('filter','url(#dropshadow)')
 
         labels = labelGroup.selectAll('text').data(piedata.sort((p1, p2) ->
             p1.startAngle - p2.startAngle
