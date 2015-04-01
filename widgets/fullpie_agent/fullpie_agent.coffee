@@ -154,84 +154,84 @@ class Dashing.FullpieAgent extends Dashing.Widget
           console.log 'ts: d', d
           d.data.label
         ).each((d, i) ->
-          # Move all calculations into the each function.
-          # Position values are stored in the data object 
-          # so can be accessed later when drawing the line
-          ### calculate the position of the center marker ###
-          a = (d.startAngle + d.endAngle) / 2
-          #trig functions adjusted to use the angle relative
-          #to the "12 o'clock" vector:
-          #console.log 'ts: a', a
-          #d.cx = Math.sin(a) * (radius - 75)
-          #d.cy = -Math.cos(a) * (radius - 75)
-          d.cx = Math.sin(a) * (radiuso - (radiuso - radiusi) / 2)
-          d.cy = -Math.cos(a) * (radiuso - (radiuso - radiusi) / 2)
-          ### calculate the default position for the label,
-             so that the middle of the label is centered in the arc
-          ###
-          bbox = @getBBox()
-          #bbox.width and bbox.height will 
-          #describe the size of the label text
-          labelRadius = radius - 20
-          #labelRadius = radiuso * 1.3
-          d.x = Math.sin(a) * labelRadius
-          d.l = d.x - bbox.width / 2 - 2
-          d.r = d.x + bbox.width / 2 + 2
-          #d.y = -Math.cos(a) * (radius - 20)
-          d.y = -Math.cos(a) * (labelRadius)
-          d.b = d.oy = d.y + 5
-          d.t = d.y - bbox.height - 5
-          #console.log 'ts: d', d
-          ### check whether the default position 
-             overlaps any other labels
-          ###
-          conflicts = []
-          labelLayout.visit (node, x1, y1, x2, y2) ->
-            #recurse down the tree, adding any overlapping 
-            #node is the node in the quadtree, 
-            #node.point is the value that we added to the tree
-            #x1,y1,x2,y2 are the bounds of the rectangle that
-            #this node covers
-            if x1 > d.r + maxLabelWidth / 2 or x2 < d.l - maxLabelWidth / 2 or y1 > d.b + maxLabelHeight / 2 or y2 < d.t - maxLabelHeight / 2
-              return true #don't bother visiting children or checking this node
-            p = node.point
-            v = false
-            h = false
-            if p
-              #p is defined, i.e., there is a value stored in this node
-              h = p.l > d.l and p.l <= d.r or p.r > d.l and p.r <= d.r or p.l < d.l and p.r >= d.r
-              #horizontal conflict
-              v = p.t > d.t and p.t <= d.b or p.b > d.t and p.b <= d.b or p.t < d.t and p.b >= d.b
-              #vertical conflict
-              if h and v
-                conflicts.push p
-              #add to conflict list
+            # Move all calculations into the each function.
+            # Position values are stored in the data object 
+            # so can be accessed later when drawing the line
+            ### calculate the position of the center marker ###
+            a = (d.startAngle + d.endAngle) / 2
+            #trig functions adjusted to use the angle relative
+            #to the "12 o'clock" vector:
+            #console.log 'ts: a', a
+            #d.cx = Math.sin(a) * (radius - 75)
+            #d.cy = -Math.cos(a) * (radius - 75)
+            d.cx = Math.sin(a) * (radiuso - (radiuso - radiusi) / 2)
+            d.cy = -Math.cos(a) * (radiuso - (radiuso - radiusi) / 2)
+            ### calculate the default position for the label,
+               so that the middle of the label is centered in the arc
+            ###
+            bbox = @getBBox()
+            #bbox.width and bbox.height will 
+            #describe the size of the label text
+            labelRadius = radius - 20
+            #labelRadius = radiuso * 1.3
+            d.x = Math.sin(a) * labelRadius
+            d.l = d.x - bbox.width / 2 - 2
+            d.r = d.x + bbox.width / 2 + 2
+            #d.y = -Math.cos(a) * (radius - 20)
+            d.y = -Math.cos(a) * (labelRadius)
+            d.b = d.oy = d.y + 5
+            d.t = d.y - bbox.height - 5
+            #console.log 'ts: d', d
+            ### check whether the default position 
+               overlaps any other labels
+            ###
+            conflicts = []
+            labelLayout.visit (node, x1, y1, x2, y2) ->
+              #recurse down the tree, adding any overlapping 
+              #node is the node in the quadtree, 
+              #node.point is the value that we added to the tree
+              #x1,y1,x2,y2 are the bounds of the rectangle that
+              #this node covers
+              if x1 > d.r + maxLabelWidth / 2 or x2 < d.l - maxLabelWidth / 2 or y1 > d.b + maxLabelHeight / 2 or y2 < d.t - maxLabelHeight / 2
+                return true #don't bother visiting children or checking this node
+              p = node.point
+              v = false
+              h = false
+              if p
+                #p is defined, i.e., there is a value stored in this node
+                h = p.l > d.l and p.l <= d.r or p.r > d.l and p.r <= d.r or p.l < d.l and p.r >= d.r
+                #horizontal conflict
+                v = p.t > d.t and p.t <= d.b or p.b > d.t and p.b <= d.b or p.t < d.t and p.b >= d.b
+                #vertical conflict
+                if h and v
+                  conflicts.push p
+                #add to conflict list
+              return
+            if conflicts.length
+              console.log d, ' conflicts with ', conflicts
+              rightEdge = d3.max(conflicts, (d2) ->
+                `var maxLabelHeight`
+                `var maxLabelWidth`
+                d2.r
+              )
+              d.l = rightEdge
+              d.x = d.l + bbox.width / 2 + 5
+              d.r = d.l + bbox.width + 10
+            else
+              console.log 'no conflicts for ', d
+            ### add this label to the quadtree, so it will show up as a conflict
+               for future labels.  
+            ###
+            labelLayout.add d
+            maxLabelWidth = Math.max(maxLabelWidth, bbox.width + 10)
+            maxLabelHeight = Math.max(maxLabelHeight, bbox.height + 10)
             return
-          if conflicts.length
-            console.log d, ' conflicts with ', conflicts
-            rightEdge = d3.max(conflicts, (d2) ->
-              `var maxLabelHeight`
-              `var maxLabelWidth`
-              d2.r
-            )
-            d.l = rightEdge
-            d.x = d.l + bbox.width / 2 + 5
-            d.r = d.l + bbox.width + 10
-          else
-            console.log 'no conflicts for ', d
-          ### add this label to the quadtree, so it will show up as a conflict
-             for future labels.  
-          ###
-          labelLayout.add d
-          maxLabelWidth = Math.max(maxLabelWidth, bbox.width + 10)
-          maxLabelHeight = Math.max(maxLabelHeight, bbox.height + 10)
-          return
         )
         .transition()
         .attr('x', (d) ->
-          d.x
+            d.x
         ).attr 'y', (d) ->
-          d.y
+            d.y
         pointers = pointerGroup.selectAll('path.pointer').data(piedata)
         pointers.enter()
             .append('path')
@@ -241,12 +241,9 @@ class Dashing.FullpieAgent extends Dashing.Widget
             .attr('marker-end', 'url(#circ)')
         pointers.exit().remove()
         pointers.transition().attr 'd', (d) ->
-          console.log 'ts: d', d
-          if d.cx > d.l
-            console.log 'if d.cx > d.l','M' + (d.l + 2) + ',' + d.b + 'L' + (d.r - 2) + ',' + d.b + ' ' + d.cx + ',' + d.cy
-            'M' + (d.l + 2) + ',' + d.b + 'L' + (d.r - 2) + ',' + d.b + ' ' + d.cx + ',' + d.cy
-          else
-            console.log 'else', 'M' + (d.r - 2) + ',' + d.b + 'L' + (d.l + 2) + ',' + d.b + ' ' + d.cx + ',' + d.cy
-            'M' + (d.r - 2) + ',' + d.b + 'L' + (d.l + 2) + ',' + d.b + ' ' + d.cx + ',' + d.cy
+            if d.cx > d.l
+                'M' + (d.l + 2) + ',' + d.b + 'L' + (d.r - 2) + ',' + d.b + ' ' + d.cx + ',' + d.cy
+            else
+                'M' + (d.r - 2) + ',' + d.b + 'L' + (d.l + 2) + ',' + d.b + ' ' + d.cx + ',' + d.cy
         oldPieData = piedata
         return
