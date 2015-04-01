@@ -2,15 +2,6 @@ class Dashing.FullpieAgent extends Dashing.Widget
 
     @accessor 'data'
 
-    ready: ->
-        # Config values here
-        @width = 750                            # Width of the SVG area
-        @height = 400                           # Height of the SVG area
-        @radius = Math.min(width, height) / 2   # Calculated min dimension of the SVG area
-        @radiuso = 130                          # Outer radius of the pie
-        @radiusi = 65                           # Inner radius of the pie (zero = pie, non-zero = donut)
-        @color = d3.scale.category20()          # Color scale for pie slices
-        
     onData: (data) ->
         #$(@node).fadeOut().fadeIn()
         @update(data.data)
@@ -25,28 +16,33 @@ class Dashing.FullpieAgent extends Dashing.Widget
         # Remove any previous svg
         $(@node).children("svg").remove();
 
-        width = @width
+        # Config values here
+        width = 750                            # Width of the SVG area
         height = 400                           # Height of the SVG area
         radius = Math.min(width, height) / 2   # Calculated min dimension of the SVG area
         radiuso = 130                          # Outer radius of the pie
         radiusi = 65                           # Inner radius of the pie (zero = pie, non-zero = donut)
         color = d3.scale.category20()          # Color scale for pie slices
+
+        
         pie = d3.layout.pie().value((d) -> d.value)
         arc = d3.svg.arc().innerRadius(radiusi).outerRadius(radiuso)
         svg = d3.select(@node).append('svg').attr('width', width).attr('height', height).append('g').attr('transform', 'translate(' + width / 2 + ',' + height / 2 + ')')
-        console.log 'update pie', dataSet
-        #that = this
+        #console.log 'update pie', dataSet
+
         piedata = pie(dataSet)
-        # Remove zero values
+        # Remove zero values from our pie data
         piedata = piedata.filter (pd) -> pd.value isnt 0
-        console.log 'update pie', piedata
+        #console.log 'update pie', piedata
+
         #create a marker element if it doesn't already exist
         defs = svg.select('defs')
         if defs.empty()
           defs = svg.append('defs')
         marker = defs.select('marker#circ')
         if marker.empty()
-          defs.append('marker').attr('id', 'circ').attr('markerWidth', 6).attr('markerHeight', 6).attr('refX', 3).attr('refY', 3).append('circle').attr('cx', 3).attr('cy', 3).attr 'r', 3
+          defs.append('marker').attr('id', 'circ').attr('markerWidth', 12).attr('markerHeight', 12).attr('refX', 3).attr('refY', 3).append('circle').attr('cx', 3).attr('cy', 3).attr 'r', 3
+
         #Create/select <g> elements to hold the different types of graphics
         #and keep them in the correct drawing order
         pathGroup = svg.select('g.piePaths')
