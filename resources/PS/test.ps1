@@ -137,11 +137,40 @@ foreach ($row in $rows)
 }
 $pb3 += "]"
 #>
+<#
 $pb3 = "
 [
     { 
         ""label"": [""Alpha"",""Beta"",""Theta"",""Gimal"",""DaletHe"",""HeDalet""],
         ""value"": [3,5,7,11,13,3]
+    }
+]
+"#>
+$pb3 = "
+[
+    { 
+        ""label"" : ""Alpha"",
+        ""value"" : 5
+    },
+    {
+        ""label"" : ""Beta"",
+        ""value"" : 7
+    },
+    {
+        ""label"" : ""Theta"",
+        ""value"" : 11
+    },
+    {
+        ""label"" : ""Gimel"",
+        ""value"" : 13
+    },
+    {
+        ""label"" : ""DaletHe"",
+        ""value"" : 3
+    },
+    {
+        ""label"" : ""HeDalet"",
+        ""value"" : 3
     }
 ]
 "

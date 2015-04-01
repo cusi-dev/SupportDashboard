@@ -259,7 +259,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
     svg = d3.select(@node).append('svg').attr('width', width).attr('height', height).append('g').attr('transform', 'translate(' + width / 2 + ',' + height / 2 + ')')
     console.log 'update pie', dataSet
     that = this
-    piedata = pie(dataSet[0].value)
+    piedata = pie(dataSet)
     console.log 'update pie', piedata
     #create a marker element if it doesn't already exist
     defs = svg.select('defs')
