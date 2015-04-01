@@ -604,8 +604,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
         #x1,y1,x2,y2 are the bounds of the rectangle that
         #this node covers
         if x1 > d.r + maxLabelWidth / 2 or x2 < d.l - maxLabelWidth / 2 or y1 > d.b + maxLabelHeight / 2 or y2 < d.t - maxLabelHeight / 2
-          return true
-        #don't bother visiting children or checking this node
+          return true #don't bother visiting children or checking this node
         p = node.point
         v = false
         h = false
