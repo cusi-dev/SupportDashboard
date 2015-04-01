@@ -443,7 +443,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
     console.log 'update pie', dataSet
     #that = this
     piedata = pie(dataSet)
-    piedata = piedata.filter(pd) -> pd.value isnt 0
+    piedata = piedata.filter (pd) -> pd.value isnt 0
     console.log 'update pie', piedata
     #create a marker element if it doesn't already exist
     defs = svg.select('defs')
