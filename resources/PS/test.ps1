@@ -119,7 +119,7 @@ $json = "{
 
 #pie resolved widget
 $i = 0
-<#
+
 $pb3 = "["
 foreach ($row in $rows)
 {
@@ -136,7 +136,7 @@ foreach ($row in $rows)
     }
 }
 $pb3 += "]"
-#>
+
 <#
 $pb3 = "
 [
@@ -206,7 +206,7 @@ $pb3b = "
 $url3 = "$($dashboardURL)/widgets/resolved"
 $json3 = "{
     ""auth_token"" : ""$($authToken)"",
-    ""data"" : $pb3b
+    ""data"" : $pb3
 }"
 
 (Invoke-WebRequest -Uri $url3 -Method Post -Body $json3).content | ConvertFrom-Json
