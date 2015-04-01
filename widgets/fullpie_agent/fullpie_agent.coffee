@@ -31,7 +31,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
         
         pie = d3.layout.pie().value((d) -> d.value)
         arc = d3.svg.arc().innerRadius(radiusi).outerRadius(radiuso)
-        svg = d3.select(@node).append('svg').attr('width', width).attr('height', height).append('g').attr('transform', 'translate(' + width / 2 + ',' + height / 2 + ')')
+        svg = d3.select(container).append('svg').attr('width', width).attr('height', height).append('g').attr('transform', 'translate(' + width / 2 + ',' + height / 2 + ')')
         #console.log 'update pie', dataSet
 
         piedata = pie(dataSet)
