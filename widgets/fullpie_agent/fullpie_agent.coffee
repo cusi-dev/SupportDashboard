@@ -643,7 +643,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
       maxLabelHeight = Math.max(maxLabelHeight, bbox.height + 10)
       return
     )
-    .transition()
+    .transition().fadeOut().fadeIn()
     .attr('x', (d) ->
       d.x
     ).attr 'y', (d) ->
