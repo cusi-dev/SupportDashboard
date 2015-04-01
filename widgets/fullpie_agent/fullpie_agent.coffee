@@ -256,7 +256,8 @@ class Dashing.FullpieAgent extends Dashing.Widget
             totaltickets += pd.value
         #console.log totaltickets
         totalLabel.enter()
-            .append('text' () -> totalTickets)
+            .append('text')
+            .text(totalTickets)
             .attr('text-anchor', 'middle')
             .attr("filter","url(#dropshadow)")
         totalLabel.exit().remove()
