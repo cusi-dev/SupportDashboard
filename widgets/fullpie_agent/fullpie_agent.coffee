@@ -74,6 +74,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
         labelGroup = svg.select('g.labels')
         if labelGroup.empty()
             labelGroup = svg.append('g').attr('class', 'labels')
+
         totalLabel = svg.select('g.totalLabel')
         if totalLabel.empty()
             totalLabel = svg.append('g').attr('class', 'totalLabel')
@@ -255,12 +256,10 @@ class Dashing.FullpieAgent extends Dashing.Widget
         for pd in dataSet
             totaltickets += pd.value
         #console.log totaltickets
-        totalLabel#.enter()
-            .append('text')
+        totalLabel.append('text')
             .text(totalTickets)
             .attr('text-anchor', 'middle')
             .attr("filter","url(#dropshadow)")
-        #totalLabel.exit().remove()
 
         oldPieData = piedata
         return
