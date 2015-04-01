@@ -23,10 +23,9 @@ class Dashing.FullpieAgent extends Dashing.Widget
         radiuso = 130                           # Outer radius of the pie
         radiusi = 65                            # Inner radius of the pie (zero = pie, non-zero = donut)
         color = d3.scale.category20()           # Color scale for pie slices
-        dropshadowx = 2                         # X-offset for drop shadow filter
-        dropshadowy = 2                         # Y-offset for drop shadow filter
+        dropshadowx = 4                         # X-offset for drop shadow filter
+        dropshadowy = 4                         # Y-offset for drop shadow filter
         dropshadowblur = "1.1"                  # [STRING] Blur value for drop shadow filter
-        totallabelfontsize = radiusi            # Font size for total count label
         
         pie = d3.layout.pie().value((d) -> d.value)
         arc = d3.svg.arc().innerRadius(radiusi).outerRadius(radiuso)
