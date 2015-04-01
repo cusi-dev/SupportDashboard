@@ -81,8 +81,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
             totalLabel = svg.append('g').attr('class', 'totalLabel')
 
         path = pathGroup.selectAll('path.pie').data(piedata)
-        path.enter().append('path').attr('class', 'pie').attr 'fill', (d, i) ->
-            color i
+        path.enter().append('path').attr('class', 'pie').attr('fill', (d, i) -> color i).attr('filter','url(#dropshadow)')
 
         path.transition().duration(1500).attrTween 'd', (d,i) ->
             `var i`
