@@ -33,7 +33,7 @@ $conn.Close()
 
 #Assign results
 $rows = $DataSet.Tables[0].Rows
-#$cols = $DataSet.Tables[0].Columns
+
 
 #
 #contracted widget
