@@ -146,8 +146,7 @@ $pb3 = "
     }
 ]
 "#>
-<# #>
-$pb3 = "
+$pb3a = "
 [
     { 
         ""label"" : ""Alpha"",
@@ -175,9 +174,7 @@ $pb3 = "
     }
 ]
 "
-<# #>
-<#
-$pb3 = "
+$pb3b = "
 [
     { 
         ""label"" : ""Alpha"",
@@ -205,12 +202,11 @@ $pb3 = "
     }
 ]
 "
-#>
 
 $url3 = "$($dashboardURL)/widgets/resolved"
 $json3 = "{
     ""auth_token"" : ""$($authToken)"",
-    ""data"" : $pb3
+    ""data"" : $pb3b
 }"
 
 (Invoke-WebRequest -Uri $url3 -Method Post -Body $json3).content | ConvertFrom-Json
