@@ -482,7 +482,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
     #            b = i(t)
     #            return arc(b)
     #    )
-    path.transition().duration(1500).attrTween 'd', () ->
+    path.transition().duration(1500).attrTween 'd', (d,i) ->
         `var i`
         theOldDataInPie = oldPieData
         # Interpolate the arcs in data space
