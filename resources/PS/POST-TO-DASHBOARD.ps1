@@ -164,7 +164,7 @@ $points = "[
 ]"
 $json = "{
     ""auth_token"" : ""$($authToken)"",
-    ""data"" : $points
+    ""value"" : $points
 }"
 (Invoke-WebRequest -Uri $url -Method Post -Body $json).content | ConvertFrom-Json
 
