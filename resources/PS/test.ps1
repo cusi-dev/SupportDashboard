@@ -150,7 +150,7 @@ $pb3a = "
 [
     { 
         ""label"" : ""Alpha"",
-        ""value"" : 7
+        ""value"" : 0
     },
     {
         ""label"" : ""Beta"",
@@ -182,7 +182,7 @@ $pb3b = "
     },
     {
         ""label"" : ""Beta"",
-        ""value"" : 17
+        ""value"" : 0
     },
     {
         ""label"" : ""Theta"",

@@ -15,8 +15,8 @@ class Dashing.FullpieAgent extends Dashing.Widget
     width = 750
     height = 400
     radius = Math.min(width, height) / 2
-    radiuso = 135
-    radiusi = 90
+    radiuso = 130
+    radiusi = 65
     color = d3.scale.category20()
     pie = d3.layout.pie().value((d) -> d.value)
     arc = d3.svg.arc().innerRadius(radiusi).outerRadius(radiuso)
