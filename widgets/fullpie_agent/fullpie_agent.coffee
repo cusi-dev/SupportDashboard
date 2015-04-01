@@ -2,7 +2,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
 
     @accessor 'data'
 
-    constructor: ({@oldPieData}) ->
+    ready: ->
         @oldPieData = ''
 
     onData: (data) ->
