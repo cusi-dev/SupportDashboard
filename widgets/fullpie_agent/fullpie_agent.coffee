@@ -29,7 +29,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
         dropshadowy = 2                         # Y-offset for drop shadow filter
         dropshadowblur = "1.2"                  # [STRING] Blur value for drop shadow filter
         
-        pie = d3.layout.pie().value((d) -> d.value)
+        pie = d3.layout.pie().value((d) -> d.value).sort(null)
         arc = d3.svg.arc().innerRadius(radiusi).outerRadius(radiuso)
         svg = d3.select(@node).append('svg').attr('width', width).attr('height', height).append('g').attr('transform', 'translate(' + width / 2 + ',' + height / 2 + ')')
         #console.log 'update pie', dataSet
