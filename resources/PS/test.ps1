@@ -38,7 +38,7 @@ foreach ($row in $rows)
     $pb1 += "
         { 
             ""label"" : ""$($row[0])"",
-            ""value"" :  $($row[12])
+            ""value"" :  $($row[11])
         }
     "
     if ($i -lt $rows.Count)
