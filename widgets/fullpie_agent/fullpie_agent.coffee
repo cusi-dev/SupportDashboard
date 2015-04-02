@@ -18,12 +18,11 @@ class Dashing.FullpieAgent extends Dashing.Widget
 
         container = $(@node).parent()
 
-        # Config values here
         width = (Dashing.widget_base_dimensions[0] * container.data("sizex")) - Dashing.widget_margins[0] * 4 * (container.data("sizex") - 1) # Width of the SVG area
         height = (Dashing.widget_base_dimensions[1] * container.data("sizey")) - 120 # # Height of the SVG area allowing for header and footer text
         radius = Math.min(width, height) / 2    # Calculated min dimension of the SVG area
-        radiuso = Math.min(width, height) /3 #130                           # Outer radius of the pie
-        radiusi = radiuso * 2 / 3 #80                            # Inner radius of the pie (zero = pie, non-zero = donut)
+        radiuso = Math.min(width, height) /3    # Outer radius of the pie
+        radiusi = radiuso * 2 / 3               # Inner radius of the pie (zero = pie, non-zero = donut)
 
         color = d3.scale.category20()           # Color scale for pie slices
         dropshadowx = 2                         # X-offset for drop shadow filter

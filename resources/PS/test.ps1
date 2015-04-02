@@ -14,8 +14,8 @@ $Date = Get-Date -Format d
 $conn = New-Object System.Data.SqlClient.SqlConnection $connStr
 $conn.Open()
 $SqlCmd = New-Object System.Data.SqlClient.SqlCommand
-#$SqlCmd.CommandText = "exec [cusip_SupportAgentMetrics] @i_Today = '2015-03-27'"#'$Date'"
-$SqlCmd.CommandText = "exec [cusip_SupportAgentMetrics] @i_Today = '$Date'"
+$SqlCmd.CommandText = "exec [cusip_SupportAgentMetrics] @i_Today = '2015-04-01'"#'$Date'"
+#$SqlCmd.CommandText = "exec [cusip_SupportAgentMetrics] @i_Today = '$Date'"
 $SqlCmd.Connection = $conn
 $SqlAdapter = New-Object System.Data.SqlClient.SqlDataAdapter
 $SqlAdapter.SelectCommand = $SqlCmd
@@ -120,7 +120,7 @@ foreach ($row in $rows)
     $pb4 += "
         { 
             ""label"" : ""$($row[0])"",
-            ""value"" :  $($row[4])
+            ""value"" :  $($row[5])
         }
     "
     if ($i -lt $rows.Count)
