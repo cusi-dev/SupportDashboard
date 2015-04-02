@@ -273,7 +273,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
         totalTickets = 0
         for pd in dataSet
             totalTickets += pd.value
-        totalTickets = if totalTickets == 'asdf' then totalTickets else 'No Results'
+        totalTickets = if totalTickets != 0 then totalTickets else 'No Results'
         totalLabel.append('text')
             .text(totalTickets)
             .attr('font-size',radiusi + 'px')
