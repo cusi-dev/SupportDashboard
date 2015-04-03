@@ -248,7 +248,8 @@ class Dashing.FullpieAgent extends Dashing.Widget
             maxLabelHeight = Math.max(maxLabelHeight, bbox.height + 10)
             return
         )
-        .attr("x",0).attr("y",0)
+        .attr("x",0)
+        .attr("y",0)
         .transition()
             .duration(1000)
             .attr('x', (d) ->
@@ -265,12 +266,18 @@ class Dashing.FullpieAgent extends Dashing.Widget
             .style('stroke', 'black')
             .attr('stroke-width', 1)
             .attr('marker-end', 'url(#circ)')
+            .style("opacity", 0)
         pointers.exit().remove()
-        pointers.transition().attr 'd', (d) ->
-            if d.cx > d.l
-                'M' + (d.l + 2) + ',' + d.b + 'L' + (d.r - 2) + ',' + d.b + ' ' + d.cx + ',' + d.cy
-            else
-                'M' + (d.r - 2) + ',' + d.b + 'L' + (d.l + 2) + ',' + d.b + ' ' + d.cx + ',' + d.cy
+        pointers.transition()
+            .delay(500)
+            .duration(1000)
+            .attr('d', (d) ->
+                if d.cx > d.l
+                    'M' + (d.l + 2) + ',' + d.b + 'L' + (d.r - 2) + ',' + d.b + ' ' + d.cx + ',' + d.cy
+                else
+                    'M' + (d.r - 2) + ',' + d.b + 'L' + (d.l + 2) + ',' + d.b + ' ' + d.cx + ',' + d.cy
+            ).style("opacity", 1)
+        
 
         # Display total count
         totalTickets = 0
