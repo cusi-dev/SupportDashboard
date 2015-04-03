@@ -291,9 +291,10 @@ class Dashing.FullpieAgent extends Dashing.Widget
             .attr('alignment-baseline', 'central')
             .attr('filter','url(#dropshadow)')
             .style("opacity", 0)
-        totalLabel.text.transition()
+        totalLabel.enter().transition()
             .duration(1000)
             .style("opacity", 1)
+        totalLabel.exit()
 
         oldPieData = piedata
         return
