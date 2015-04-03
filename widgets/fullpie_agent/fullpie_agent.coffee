@@ -249,7 +249,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
             return
         )
         .transition()
-            .duration(1000)
+            .duration(3000)
             .attr('x', (d) ->
                 d.x
             ).attr('y', (d) ->
