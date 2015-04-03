@@ -3,7 +3,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
     @accessor 'data'
 
     onData: (data) ->
-        $(@node).fadeOut().fadeIn()
+        #$(@node).fadeOut().fadeIn()
         @update(data.data)
 
     update: (dataSet) ->
@@ -249,7 +249,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
             return
         )
         .transition()
-            .duration(3000)
+            .duration(1000)
             .attr('x', (d) ->
                 d.x
             ).attr('y', (d) ->
