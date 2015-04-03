@@ -172,7 +172,9 @@ class Dashing.FullpieAgent extends Dashing.Widget
             # of the label with .getBBox()
             #d.value
             d.data.label + ": " + d.data.value
-        ).each((d, i) ->
+        )
+        .style("opacity",0)
+        .each((d, i) ->
             # Move all calculations into the each function.
             # Position values are stored in the data object 
             # so can be accessed later when drawing the line
@@ -247,10 +249,11 @@ class Dashing.FullpieAgent extends Dashing.Widget
             return
         )
         .transition()
-            .attr('x', (d) ->
-                d.x
-            ).attr 'y', (d) ->
-                d.y
+        .attr('x', (d) ->
+            d.x
+        ).attr('y', (d) ->
+            d.y
+        ).style("opacity", 1)
 
         pointers = pointerGroup.selectAll('path.pointer').data(piedata)
         pointers.enter()
