@@ -134,7 +134,6 @@ class Dashing.FullpieAgent extends Dashing.Widget
         labels = labelGroup.selectAll('text').data(piedata.sort((p1, p2) ->
             p1.startAngle - p2.startAngle
         ))
-        #labels.enter().append('text').attr 'text-anchor', 'middle'
         labels.enter().append('text').attr('text-anchor', 'middle').attr("filter","url(#dropshadow)")
         #labels.enter().append('text')
             #.attr('text-anchor', (d) ->
@@ -248,6 +247,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
             return
         )
         .transition()
+            .delay(1000)
             .attr('x', (d) ->
                 d.x
             ).attr 'y', (d) ->
