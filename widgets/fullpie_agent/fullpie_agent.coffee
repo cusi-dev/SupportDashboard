@@ -149,14 +149,10 @@ class Dashing.FullpieAgent extends Dashing.Widget
         if totalLabel.empty()
             totalLabel = svg.append('g').attr('class', 'totalLabel')
 
-        #console.log('@oldPieData',@oldPieData)
-        #@oldPieData = 1
-        console.log('@oldPieData before the tween',@oldPieData)
-
         path = pathGroup.selectAll('path.pie').data(piedata)
         path.enter().append('path').attr('class', 'pie').attr('fill', (d, i) -> color i)
         
-        path.transition().duration(750).attrTween('d', (d,i) ->
+        path.transition().duration(1000).attrTween('d', (d,i) ->
             #theOldDataInPie = @oldPieData ? piedata
             #console.log('@oldPieData in the tween',@oldPieData)
             ## Interpolate the arcs in data space
@@ -174,6 +170,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
             #else
             #    s0 = 0
             #    e0 = 0
+            console.log('TS D:', d)
             `var i`
             i = d3.interpolate({
                 startAngle: 0 #s0
