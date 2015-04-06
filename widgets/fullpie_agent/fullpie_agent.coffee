@@ -293,7 +293,8 @@ class Dashing.FullpieAgent extends Dashing.Widget
             .style("opacity", 0)
         totalLabel.select('text').transition()
             .duration(1000)
-            .attr('font-size',radiusi + 'px')
+            #.attr('font-size',radiusi + 'px')
+            .attr('font-size',(if typeof totalTickets isnt 'string' then radiusi + 'px' else '2em'))
             .style("opacity", 1)
 
         oldPieData = piedata
