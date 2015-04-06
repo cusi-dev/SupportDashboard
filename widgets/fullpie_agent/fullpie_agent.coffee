@@ -7,6 +7,42 @@ class Dashing.FullpieAgent extends Dashing.Widget
     onData: (data) ->
         #$(@node).fadeOut().fadeIn()
         @container = $(@node).parent()
+
+        #
+        # CONFIG ZONE
+        #
+
+        # Width of the SVG area
+        @width = (Dashing.widget_base_dimensions[0] * @container.data('sizex')) - Dashing.widget_margins[0] * 4 * (@container.data('sizex') - 1) 
+
+        # Height of the SVG area allowing for header and footer text
+        @height = (Dashing.widget_base_dimensions[1] * @container.data('sizey')) - 120 
+
+        # Calculated min dimension of the SVG area
+        @radius = Math.min(width, height) / 2
+
+        # Outer radius of the pie
+        @radiuso = Math.min(width, height) / 3
+
+        # Inner radius of the pie (zero = pie, non-zero = donut)
+        @radiusi = radiuso * 2 / 3
+
+        # Color scale for pie slices
+        @color = d3.scale.category20()
+
+        # X-offset for drop shadow filter
+        @dropshadowx = 2
+
+        # Y-offset for drop shadow filter
+        @dropshadowy = 2
+
+        # [STRING] Blur value for drop shadow filter
+        @dropshadowblur = '1.2'
+
+        #
+        # END CONFIG ZONE
+        #
+
         @update(data.data)
 
     update: (dataSet) ->
@@ -21,31 +57,31 @@ class Dashing.FullpieAgent extends Dashing.Widget
         #
 
         # Width of the SVG area
-        width = (Dashing.widget_base_dimensions[0] * @container.data('sizex')) - Dashing.widget_margins[0] * 4 * (@container.data('sizex') - 1) 
+        width = @width#(Dashing.widget_base_dimensions[0] * @container.data('sizex')) - Dashing.widget_margins[0] * 4 * (@container.data('sizex') - 1) 
 
         # Height of the SVG area allowing for header and footer text
-        height = (Dashing.widget_base_dimensions[1] * @container.data('sizey')) - 120 
+        height = @height#(Dashing.widget_base_dimensions[1] * @container.data('sizey')) - 120 
 
         # Calculated min dimension of the SVG area
-        radius = Math.min(width, height) / 2
+        radius = @radius#Math.min(width, height) / 2
 
         # Outer radius of the pie
-        radiuso = Math.min(width, height) / 3
+        radiuso = @radiuso#Math.min(width, height) / 3
 
         # Inner radius of the pie (zero = pie, non-zero = donut)
-        radiusi = radiuso * 2 / 3
+        radiusi = @radiusi#radiuso * 2 / 3
 
         # Color scale for pie slices
-        color = d3.scale.category20()
+        color = @color#d3.scale.category20()
 
         # X-offset for drop shadow filter
-        dropshadowx = 2
+        dropshadowx = @dropshadowx#2
 
         # Y-offset for drop shadow filter
-        dropshadowy = 2
+        dropshadowy = @dropshadowy#2
 
         # [STRING] Blur value for drop shadow filter
-        dropshadowblur = '1.2'
+        dropshadowblur = @dropshadowblur#'1.2'
 
         #
         # END CONFIG ZONE
