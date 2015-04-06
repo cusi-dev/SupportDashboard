@@ -6,7 +6,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
         #
 
     onData: (data) ->
-        oldPieData = piedata
+        @oldPieData = ''
 
         #$(@node).fadeOut().fadeIn()
         @container = $(@node).parent()
@@ -152,8 +152,8 @@ class Dashing.FullpieAgent extends Dashing.Widget
 
         path.transition().duration(750).attrTween('d', (d,i) ->
             `var i`
-            theOldDataInPie = oldPieData ? piedata
-            console.log('oldPieData',oldPieData)
+            theOldDataInPie = @oldPieData ? piedata
+            console.log('@oldPieData',@oldPieData)
             # Interpolate the arcs in data space
             s0 = undefined
             e0 = undefined
@@ -363,5 +363,5 @@ class Dashing.FullpieAgent extends Dashing.Widget
             .attr('font-size',(if typeof totalTickets isnt 'string' then radiusi + 'px' else '2em'))
             .style('opacity', 1)
 
-        oldPieData = piedata
+        @oldPieData = piedata
         return
