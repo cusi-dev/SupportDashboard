@@ -2,54 +2,6 @@ class Dashing.FullpieAgent extends Dashing.Widget
 
     @accessor 'data'
 
-    #@oldPieData: ''
-    @container: ''
-    @pie: ''
-
-    ready: -> 
-        # Remove any previous svg
-        $(@node).children('svg').remove()
-        # Define the container
-        @container = $(@node).parent()
-        #
-        # CONFIG ZONE
-        #
-
-        # Width of the SVG area
-        @width = (Dashing.widget_base_dimensions[0] * container.data('sizex')) - Dashing.widget_margins[0] * 4 * (container.data('sizex') - 1) 
-
-        # Height of the SVG area allowing for header and footer text
-        @height = (Dashing.widget_base_dimensions[1] * container.data('sizey')) - 120 
-
-        # Calculated min dimension of the SVG area
-        @radius = Math.min(width, height) / 2
-
-        # Outer radius of the pie
-        @radiuso = Math.min(width, height) / 3
-
-        # Inner radius of the pie (zero = pie, non-zero = donut)
-        @radiusi = radiuso * 2 / 3
-
-        # Color scale for pie slices
-        @color = d3.scale.category20()
-
-        # X-offset for drop shadow filter
-        @dropshadowx = 2
-
-        # Y-offset for drop shadow filter
-        @dropshadowy = 2
-
-        # [STRING] Blur value for drop shadow filter
-        @dropshadowblur = '1.2'
-
-        #
-        # END CONFIG ZONE
-        #
-
-        @pie = d3.layout.pie().value((d) -> d.value).sort(null)
-        @arc = d3.svg.arc().innerRadius(radiusi).outerRadius(radiuso)
-        @svg = d3.select(@node).append('svg').attr('width', width).attr('height', height).append('g').attr('transform', 'translate(' + width / 2 + ',' + height / 2 + ')')
-
     onData: (data) ->
         #$(@node).fadeOut().fadeIn()
         @update(data.data)
@@ -57,40 +9,40 @@ class Dashing.FullpieAgent extends Dashing.Widget
     update: (dataSet) ->
 
         # Remove any previous svg
-        #$(@node).children('svg').remove()
+        $(@node).children('svg').remove()
         # Define the container
-        #container = $(@node).parent()
+        container = $(@node).parent()
 
         #
         # CONFIG ZONE
         #
 
         # Width of the SVG area
-        #width = @width#(Dashing.widget_base_dimensions[0] * container.data('sizex')) - Dashing.widget_margins[0] * 4 * (container.data('sizex') - 1) 
+        width = (Dashing.widget_base_dimensions[0] * container.data('sizex')) - Dashing.widget_margins[0] * 4 * (container.data('sizex') - 1) 
 
         # Height of the SVG area allowing for header and footer text
-        #height = @height#(Dashing.widget_base_dimensions[1] * container.data('sizey')) - 120 
+        height = (Dashing.widget_base_dimensions[1] * container.data('sizey')) - 120 
 
         # Calculated min dimension of the SVG area
-        #radius = @radius#Math.min(width, height) / 2
+        radius = Math.min(width, height) / 2
 
         # Outer radius of the pie
-        #radiuso = @radiuso#Math.min(width, height) / 3
+        radiuso = Math.min(width, height) / 3
 
         # Inner radius of the pie (zero = pie, non-zero = donut)
-        #radiusi = @radiusi#radiuso * 2 / 3
+        radiusi = radiuso * 2 / 3
 
         # Color scale for pie slices
-        #color = @color#d3.scale.category20()
+        color = d3.scale.category20()
 
         # X-offset for drop shadow filter
-        #dropshadowx = @dropshadowx#2
+        dropshadowx = 2
 
         # Y-offset for drop shadow filter
-        #dropshadowy = @dropshadowy#2
+        dropshadowy = 2
 
         # [STRING] Blur value for drop shadow filter
-        #dropshadowblur = @dropshadowblur#'1.2'
+        dropshadowblur = '1.2'
 
         #
         # END CONFIG ZONE
@@ -101,12 +53,12 @@ class Dashing.FullpieAgent extends Dashing.Widget
         if !dataSet
             return
 
-        #pie = @pie#d3.layout.pie().value((d) -> d.value).sort(null)
-        #arc = @arc#d3.svg.arc().innerRadius(radiusi).outerRadius(radiuso)
-        #svg = @svg#d3.select(@node).append('svg').attr('width', width).attr('height', height).append('g').attr('transform', 'translate(' + width / 2 + ',' + height / 2 + ')')
+        pie = d3.layout.pie().value((d) -> d.value).sort(null)
+        arc = d3.svg.arc().innerRadius(radiusi).outerRadius(radiuso)
+        svg = d3.select(@node).append('svg').attr('width', width).attr('height', height).append('g').attr('transform', 'translate(' + width / 2 + ',' + height / 2 + ')')
         #console.log 'update pie', dataSet
 
-        piedata = @pie(dataSet)
+        piedata = pie(dataSet)
         # Remove zero values from our pie data
         piedata = piedata.filter (pd) -> pd.value isnt 0
         #console.log 'update pie', piedata
