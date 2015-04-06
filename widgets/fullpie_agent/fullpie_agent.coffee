@@ -179,11 +179,11 @@ class Dashing.FullpieAgent extends Dashing.Widget
             #    b = i(t)
             #    return arc b
         #)
-        path.transition().duration(750).attrTween('d', (d,i,a) ->
-            `var i`
-            i = d3.interpolate(@_current, d)
-            @_current = i(0)
+        path.transition().duration(750).attrTween('d', (d) ->
+            ip = d3.interpolate(@_current, d)
+            @_current = ip(0)
             return (t) ->
+                d.endAngle = ip(t)
                 return arc(i(t))
         )
         path.exit()
