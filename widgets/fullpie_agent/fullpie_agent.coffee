@@ -3,6 +3,13 @@ class Dashing.FullpieAgent extends Dashing.Widget
     @accessor 'data'
 
     #@oldPieData: ''
+    @container: ''
+
+    ready: -> 
+        # Remove any previous svg
+        $(@node).children('svg').remove()
+        # Define the container
+        @container = $(@node).parent()
     #
     # CONFIG ZONE
     #
