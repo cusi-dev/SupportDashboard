@@ -5,6 +5,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
     #constructor: ->
     ready: ->
         @testData = 123
+        @oldPieData = ''
 
     onData: (data) ->
         console.log('testData',@testData)
@@ -151,28 +152,30 @@ class Dashing.FullpieAgent extends Dashing.Widget
         if totalLabel.empty()
             totalLabel = svg.append('g').attr('class', 'totalLabel')
 
+        console.log('@oldPieData before the tween',@oldPieData)
+
         path = pathGroup.selectAll('path.pie').data(piedata)
         path.enter().append('path').attr('class', 'pie').attr('fill', (d, i) -> color i)
         
         path.transition().duration(1000).attrTween('d', (d,i) ->
-            #theOldDataInPie = @oldPieData ? piedata
-            #console.log('@oldPieData in the tween',@oldPieData)
-            ## Interpolate the arcs in data space
-            #s0 = undefined
-            #e0 = undefined
-            #if theOldDataInPie[i]
-            #    s0 = theOldDataInPie[i].startAngle
-            #    e0 = theOldDataInPie[i].endAngle
-            #else if !theOldDataInPie[i] and theOldDataInPie[i - 1]
-            #    s0 = theOldDataInPie[i - 1].endAngle
-            #    e0 = theOldDataInPie[i - 1].endAngle
-            #else if !theOldDataInPie[i - 1] and theOldDataInPie.length > 0
-            #    s0 = theOldDataInPie[theOldDataInPie.length - 1].endAngle
-            #    e0 = theOldDataInPie[theOldDataInPie.length - 1].endAngle
-            #else
-            #    s0 = 0
-            #    e0 = 0
-            console.log('TS D:', d)
+            theOldDataInPie = @oldPieData ? piedata
+            console.log('@oldPieData in the tween',@oldPieData)
+            # Interpolate the arcs in data space
+            s0 = undefined
+            e0 = undefined
+            if theOldDataInPie[i]
+                s0 = theOldDataInPie[i].startAngle
+                e0 = theOldDataInPie[i].endAngle
+            else if !theOldDataInPie[i] and theOldDataInPie[i - 1]
+                s0 = theOldDataInPie[i - 1].endAngle
+                e0 = theOldDataInPie[i - 1].endAngle
+            else if !theOldDataInPie[i - 1] and theOldDataInPie.length > 0
+                s0 = theOldDataInPie[theOldDataInPie.length - 1].endAngle
+                e0 = theOldDataInPie[theOldDataInPie.length - 1].endAngle
+            else
+                s0 = 0
+                e0 = 0
+            #console.log('TS D:', d)
             `var i`
             i = d3.interpolate({
                 startAngle: 0 #s0
