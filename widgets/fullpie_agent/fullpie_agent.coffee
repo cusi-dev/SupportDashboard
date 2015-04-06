@@ -84,7 +84,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
         path = pathGroup.selectAll('path.pie').data(piedata)
         path.enter().append('path').attr('class', 'pie').attr('fill', (d, i) -> color i)
 
-        path.transition().duration(1500).attrTween('d', (d,i) ->
+        path.transition().duration(750).attrTween('d', (d,i) ->
             `var i`
             theOldDataInPie = oldPieData ? piedata
             # Interpolate the arcs in data space
