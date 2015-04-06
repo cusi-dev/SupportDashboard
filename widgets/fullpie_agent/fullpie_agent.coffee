@@ -129,8 +129,8 @@ class Dashing.FullpieAgent extends Dashing.Widget
                 s0 = 0
                 e0 = 0
             i = d3.interpolate({
-                startAngle: 0
-                endAngle: 0
+                startAngle: s0
+                endAngle: e0
             },
                 startAngle: d.startAngle
                 endAngle: d.endAngle)
