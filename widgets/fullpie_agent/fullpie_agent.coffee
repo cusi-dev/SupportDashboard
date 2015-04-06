@@ -101,7 +101,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
         #console.log 'update pie', dataSet
 
         #piedata = pie(dataSet)
-        piedata = @pie(dataSet)
+        piedata = pie(dataSet)
         # Remove zero values from our pie data
         piedata = piedata.filter (pd) -> pd.value isnt 0
         #console.log 'update pie', piedata
