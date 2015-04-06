@@ -2,8 +2,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
 
     @accessor 'data'
 
-    ready: ->
-        #@oldPieData = ''
+    constructor: ->
         @_current = ''
 
         #$(@node).fadeOut().fadeIn()
@@ -46,6 +45,9 @@ class Dashing.FullpieAgent extends Dashing.Widget
 
         @pie = d3.layout.pie().value((d) -> d.value).sort(null)
         @arc = d3.svg.arc().innerRadius(@radiusi).outerRadius(@radiuso)
+
+    ready: ->
+        #@oldPieData = ''
 
     onData: (data) ->
 
