@@ -155,8 +155,8 @@ class Dashing.FullpieAgent extends Dashing.Widget
         if totalLabel.empty()
             totalLabel = svg.append('g').attr('class', 'totalLabel')
 
-        console.log('@oldPieData before the tween',@oldPieData[@instanceDataId])
-        window.oldPieData[@instanceDataId] = @oldPieData[@instanceDataId]
+        console.log('@oldPieData before the tween',@oldPieData[@instanceDataId] ? null)
+        window.oldPieData[@instanceDataId] = @oldPieData[@instanceDataId] ? null
 
         path = pathGroup.selectAll('path.pie').data(piedata)
         path.enter().append('path').attr('class', 'pie').attr('fill', (d, i) -> color i)
