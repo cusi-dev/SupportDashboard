@@ -2,6 +2,8 @@ class Dashing.FullpieAgent extends Dashing.Widget
 
     @accessor 'data'
 
+    @oldPieData: ''
+
     onData: (data) ->
         #$(@node).fadeOut().fadeIn()
         @update(data.data)
@@ -13,7 +15,9 @@ class Dashing.FullpieAgent extends Dashing.Widget
         # Define the container
         container = $(@node).parent()
 
-        # CONFIG ZONE :
+        #
+        # CONFIG ZONE
+        #
 
         # Width of the SVG area
         width = (Dashing.widget_base_dimensions[0] * container.data('sizex')) - Dashing.widget_margins[0] * 4 * (container.data('sizex') - 1) 
@@ -42,7 +46,9 @@ class Dashing.FullpieAgent extends Dashing.Widget
         # [STRING] Blur value for drop shadow filter
         dropshadowblur = '1.2'
 
+        #
         # END CONFIG ZONE
+        #
         
         if !dataSet
             dataSet = @get('data')
@@ -106,7 +112,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
 
         path.transition().duration(750).attrTween('d', (d,i) ->
             `var i`
-            theOldDataInPie = oldPieData ? piedata
+            theOldDataInPie = @oldPieData ? piedata
             # Interpolate the arcs in data space
             s0 = undefined
             e0 = undefined
@@ -317,5 +323,5 @@ class Dashing.FullpieAgent extends Dashing.Widget
             .attr('font-size',(if typeof totalTickets isnt 'string' then radiusi + 'px' else '2em'))
             .style('opacity', 1)
 
-        oldPieData = piedata
+        @oldPieData = piedata
         return
