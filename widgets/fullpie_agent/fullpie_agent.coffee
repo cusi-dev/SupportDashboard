@@ -2,6 +2,9 @@ class Dashing.FullpieAgent extends Dashing.Widget
 
     @accessor 'data'
 
+    ready: ->
+        @oldPieData
+
     onData: (data) ->
         #$(@node).fadeOut().fadeIn()
         @update(data.data)
@@ -14,7 +17,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
             return
 
         # Remove any previous svg
-        $(@node).children('svg').remove();
+        $(@node).children('svg').remove()
 
         container = $(@node).parent()
 
