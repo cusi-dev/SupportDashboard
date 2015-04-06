@@ -53,7 +53,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
         @update(data.data)
 
     update: (dataSet) ->
-
+        @testData = @testData + 100
         # Remove any previous svg
         $(@node).children('svg').remove()
         # Define the container
