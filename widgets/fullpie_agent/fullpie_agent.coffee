@@ -182,7 +182,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
                 endAngle: d.endAngle)
             (t) ->
                 b = i(t)
-                return @arc b
+                return arc b
         )
         #path.transition().duration(750).attrTween('d', (d) ->
         #    ip = d3.interpolate(@_current, newAngle)
