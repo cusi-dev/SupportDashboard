@@ -19,13 +19,13 @@ class Dashing.FullpieAgent extends Dashing.Widget
         @height = (Dashing.widget_base_dimensions[1] * @container.data('sizey')) - 120 
 
         # Calculated min dimension of the SVG area
-        @radius = Math.min(width, height) / 2
+        @radius = Math.min(@width, height) / 2
 
         # Outer radius of the pie
-        @radiuso = Math.min(width, height) / 3
+        @radiuso = Math.min(@width, height) / 3
 
         # Inner radius of the pie (zero = pie, non-zero = donut)
-        @radiusi = radiuso * 2 / 3
+        @radiusi = @radiuso * 2 / 3
 
         # Color scale for pie slices
         @color = d3.scale.category20()
