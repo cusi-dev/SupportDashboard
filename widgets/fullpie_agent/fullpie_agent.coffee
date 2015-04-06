@@ -9,17 +9,17 @@ class Dashing.FullpieAgent extends Dashing.Widget
     update: (dataSet) ->
 
         if !dataSet
-            dataSet = @get("data")
+            dataSet = @get('data')
         if !dataSet
             return
 
         # Remove any previous svg
-        $(@node).children("svg").remove();
+        $(@node).children('svg').remove();
 
         container = $(@node).parent()
 
-        width = (Dashing.widget_base_dimensions[0] * container.data("sizex")) - Dashing.widget_margins[0] * 4 * (container.data("sizex") - 1) # Width of the SVG area
-        height = (Dashing.widget_base_dimensions[1] * container.data("sizey")) - 120 # # Height of the SVG area allowing for header and footer text
+        width = (Dashing.widget_base_dimensions[0] * container.data('sizex')) - Dashing.widget_margins[0] * 4 * (container.data('sizex') - 1) # Width of the SVG area
+        height = (Dashing.widget_base_dimensions[1] * container.data('sizey')) - 120 # # Height of the SVG area allowing for header and footer text
         radius = Math.min(width, height) / 2    # Calculated min dimension of the SVG area
         radiuso = Math.min(width, height) /3    # Outer radius of the pie
         radiusi = radiuso * 2 / 3               # Inner radius of the pie (zero = pie, non-zero = donut)
@@ -48,22 +48,22 @@ class Dashing.FullpieAgent extends Dashing.Widget
             defs.append('marker').attr('id', 'circ').attr('markerWidth', 9).attr('markerHeight', 9).attr('refX', 4).attr('refY', 4).append('circle').attr('cx', 4).attr('cy', 4).attr 'r', 4
 
         # Add drop shadow filter
-        filter = defs.append("filter")
-            .attr("id","dropshadow")
-        filter.append("feGaussianBlur")
-            .attr("in","SourceAlpha")
-            .attr("stdDeviation",dropshadowblur)
-            .attr("result","blur")
-        filter.append("feOffset")
-            .attr("in","blur")
-            .attr("dx",dropshadowx)
-            .attr("dy",dropshadowy)
-            .attr("result","offsetBlur")
-        feMerge = filter.append("feMerge")
-        feMerge.append("feMergeNode")
-            .attr("in","offsetBlur")
-        feMerge.append("feMergeNode")
-            .attr("in","SourceGraphic")
+        filter = defs.append('filter')
+            .attr('id','dropshadow')
+        filter.append('feGaussianBlur')
+            .attr('in','SourceAlpha')
+            .attr('stdDeviation',dropshadowblur)
+            .attr('result','blur')
+        filter.append('feOffset')
+            .attr('in','blur')
+            .attr('dx',dropshadowx)
+            .attr('dy',dropshadowy)
+            .attr('result','offsetBlur')
+        feMerge = filter.append('feMerge')
+        feMerge.append('feMergeNode')
+            .attr('in','offsetBlur')
+        feMerge.append('feMergeNode')
+            .attr('in','SourceGraphic')
 
         # Create/select <g> elements to hold the different types of graphics
         # and keep them in the correct drawing order
@@ -115,7 +115,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
         path.exit()
             .transition()
             .duration(300)
-            .attrTween("d", (d,i) -> 
+            .attrTween('d', (d,i) -> 
                 `var i`
                 s0 = 2 * Math.PI
                 e0 = 2 * Math.PI
@@ -134,7 +134,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
         labels = labelGroup.selectAll('text').data(piedata.sort((p1, p2) ->
             p1.startAngle - p2.startAngle
         ))
-        labels.enter().append('text').attr('text-anchor', 'middle').attr("filter","url(#dropshadow)")
+        labels.enter().append('text').attr('text-anchor', 'middle').attr('filter','url(#dropshadow)')
         #labels.enter().append('text')
             #.attr('text-anchor', (d) ->
                 #rads = ((d.endAngle - d.startAngle) / 2) + d.startAngle
@@ -171,9 +171,9 @@ class Dashing.FullpieAgent extends Dashing.Widget
             # Set the text *first*, so we can query the size
             # of the label with .getBBox()
             #d.value
-            d.data.label + ": " + d.data.value
+            d.data.label + ': ' + d.data.value
         )
-        .style("opacity",0)
+        .style('opacity',0)
         .each((d, i) ->
             # Move all calculations into the each function.
             # Position values are stored in the data object 
@@ -266,7 +266,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
             .style('stroke', 'black')
             .attr('stroke-width', 1)
             .attr('marker-end', 'url(#circ)')
-            .style("opacity", 0)
+            .style('opacity', 0)
         pointers.exit().remove()
         pointers.transition()
             .delay(500)
@@ -276,7 +276,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
                     'M' + (d.l + 2) + ',' + d.b + 'L' + (d.r - 2) + ',' + d.b + ' ' + d.cx + ',' + d.cy
                 else
                     'M' + (d.r - 2) + ',' + d.b + 'L' + (d.l + 2) + ',' + d.b + ' ' + d.cx + ',' + d.cy
-            ).style("opacity", 1)
+            ).style('opacity', 1)
         
 
         # Display total count
@@ -290,12 +290,12 @@ class Dashing.FullpieAgent extends Dashing.Widget
             .attr('text-anchor', 'middle')
             .attr('alignment-baseline', 'central')
             .attr('filter','url(#dropshadow)')
-            .style("opacity", 0)
+            .style('opacity', 0)
         totalLabel.select('text').transition()
             .duration(1000)
             #.attr('font-size',radiusi + 'px')
             .attr('font-size',(if typeof totalTickets isnt 'string' then radiusi + 'px' else '2em'))
-            .style("opacity", 1)
+            .style('opacity', 1)
 
         oldPieData = piedata
         return
