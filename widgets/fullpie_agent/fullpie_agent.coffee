@@ -3,7 +3,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
     @accessor 'data'
 
     ready: ->
-        @container = $(@node).parent()
+        #@container = $(@node).parent()
 
     onData: (data) ->
         #$(@node).fadeOut().fadeIn()
@@ -15,6 +15,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
         $(@node).children('svg').remove()
         # Define the container
         #container = @container#$(@node).parent()
+        @container = $(@node).parent()
 
         #
         # CONFIG ZONE
