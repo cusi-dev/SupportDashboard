@@ -2,7 +2,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
 
     @accessor 'data'
 
-    @oldPieData: ''
+    #@oldPieData: ''
 
     onData: (data) ->
         #$(@node).fadeOut().fadeIn()
@@ -323,5 +323,5 @@ class Dashing.FullpieAgent extends Dashing.Widget
             .attr('font-size',(if typeof totalTickets isnt 'string' then radiusi + 'px' else '2em'))
             .style('opacity', 1)
 
-        @oldPieData = piedata
+        #@oldPieData = piedata
         return
