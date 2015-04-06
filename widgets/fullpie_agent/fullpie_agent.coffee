@@ -2,11 +2,8 @@ class Dashing.FullpieAgent extends Dashing.Widget
 
     @accessor 'data'
 
-    @pie = d3.layout.pie()
-    @arc = d3.svg.arc()
-
     #constructor: ->
-    ready: ->
+    #ready: ->
         #@oldPieData = ''
 
     onData: (data) ->
@@ -49,8 +46,8 @@ class Dashing.FullpieAgent extends Dashing.Widget
         # END CONFIG ZONE
         #
 
-        @pie = @pie.value((d) -> d.value).sort(null)
-        @arc = @arc.innerRadius(@radiusi).outerRadius(@radiuso)
+        @pie = d3.layout.pie().value((d) -> d.value).sort(null)
+        @arc = d3.svg.arc().innerRadius(@radiusi).outerRadius(@radiuso)
 
         @update(data.data)
 
