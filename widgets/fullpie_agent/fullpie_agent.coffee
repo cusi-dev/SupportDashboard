@@ -8,6 +8,11 @@ class Dashing.FullpieAgent extends Dashing.Widget
 
     update: (dataSet) ->
 
+        # Remove any previous svg
+        $(@node).children('svg').remove()
+        # Define the container
+        container = $(@node).parent()
+
         # CONFIG ZONE :
 
         # Width of the SVG area
@@ -43,11 +48,6 @@ class Dashing.FullpieAgent extends Dashing.Widget
             dataSet = @get('data')
         if !dataSet
             return
-
-        # Remove any previous svg
-        $(@node).children('svg').remove()
-
-        container = $(@node).parent()
 
         pie = d3.layout.pie().value((d) -> d.value).sort(null)
         arc = d3.svg.arc().innerRadius(radiusi).outerRadius(radiuso)
