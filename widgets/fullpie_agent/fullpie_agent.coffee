@@ -155,8 +155,8 @@ class Dashing.FullpieAgent extends Dashing.Widget
         if totalLabel.empty()
             totalLabel = svg.append('g').attr('class', 'totalLabel')
 
-        console.log('@oldPieData before the tween',@oldPieData)
-        window.oldPieData[@instanceDataId] = @oldPieData
+        console.log('@oldPieData before the tween',@oldPieData[@instanceDataId])
+        window.oldPieData[@instanceDataId] = @oldPieData[@instanceDataId]
 
         path = pathGroup.selectAll('path.pie').data(piedata)
         path.enter().append('path').attr('class', 'pie').attr('fill', (d, i) -> color i)
@@ -164,7 +164,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
         path.transition().duration(1000).attrTween('d', (d,i) ->
             theOldDataInPie = window.oldPieData[@instanceDataId] ? piedata
             console.log('theOldDataInPie in the tween',theOldDataInPie)
-            console.log('@oldPieData in the tween',@oldPieData)
+            console.log('@oldPieData in the tween',@oldPieData[@instanceDataId])
             console.log('window.oldPieData in the tween',window.oldPieData[@instanceDataId])
             @testData = @testData + 1000
             tD = @testData + 1000
@@ -388,34 +388,5 @@ class Dashing.FullpieAgent extends Dashing.Widget
             .attr('font-size',(if typeof totalTickets isnt 'string' then radiusi + 'px' else '2em'))
             .style('opacity', 1)
 
-        @oldPieData = piedata
+        @oldPieData[@instanceDataId] = piedata
         return
-
-#    arcTween: (d,i) ->
-#        theOldDataInPie = @oldPieData ? piedata
-#        console.log('@oldPieData in the tween',@oldPieData)
-#        # Interpolate the arcs in data space
-#        s0 = undefined
-#        e0 = undefined
-#        if theOldDataInPie[i]
-#            s0 = theOldDataInPie[i].startAngle
-#            e0 = theOldDataInPie[i].endAngle
-#        else if !theOldDataInPie[i] and theOldDataInPie[i - 1]
-#            s0 = theOldDataInPie[i - 1].endAngle
-#            e0 = theOldDataInPie[i - 1].endAngle
-#        else if !theOldDataInPie[i - 1] and theOldDataInPie.length > 0
-#            s0 = theOldDataInPie[theOldDataInPie.length - 1].endAngle
-#            e0 = theOldDataInPie[theOldDataInPie.length - 1].endAngle
-#        else
-#            s0 = 0
-#            e0 = 0
-#        `var i`
-#        i = d3.interpolate({
-#            startAngle: s0
-#            endAngle: e0
-#        },
-#            startAngle: d.startAngle
-#            endAngle: d.endAngle)
-#        (t) ->
-#            b = i(t)
-#            return arc b
