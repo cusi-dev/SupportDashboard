@@ -6,8 +6,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
     ready: ->
         @testData = 123
         @oldPieData = ''
-        @instanceDataId = $(@node).parent().attr('data-id')
-        console.log('@instanceDataId',@instanceDataId)
+        @instanceDataId = ''
 
     onData: (data) ->
         console.log('testData',@testData)
@@ -16,6 +15,8 @@ class Dashing.FullpieAgent extends Dashing.Widget
 
         #$(@node).fadeOut().fadeIn()
         @container = $(@node).parent()
+        @instanceDataId = @container.attr('data-id')
+        console.log('@instanceDataId',@instanceDataId)
 
         #
         # CONFIG ZONE
@@ -319,7 +320,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
                 return
 
             if conflicts.length
-                console.log d, ' conflicts with ', conflicts
+                #console.log d, ' conflicts with ', conflicts
                 rightEdge = d3.max(conflicts, (d2) ->
                     `var maxLabelHeight`
                     `var maxLabelWidth`
@@ -328,8 +329,9 @@ class Dashing.FullpieAgent extends Dashing.Widget
                 d.l = rightEdge
                 d.x = d.l + bbox.width / 2 + 5
                 d.r = d.l + bbox.width + 10
-            else
-                console.log 'no conflicts for ', d
+            #else
+            #    console.log 'no conflicts for ', d
+
             ### add this label to the quadtree, so it will show up as a conflict
                for future labels.  
             ###
