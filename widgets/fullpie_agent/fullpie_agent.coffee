@@ -178,7 +178,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
             #    b = i(t)
             #    return arc b
         #)
-        path.transition().duration(750).attrTween('d', (d,i,a) ->
+        path.transition().duration(750).attrTween('d', (a) ->
             `var i`
             i = d3.interpolate(this._current, a)
             this._current = i(0)
