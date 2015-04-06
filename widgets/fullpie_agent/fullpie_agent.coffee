@@ -151,6 +151,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
         path.transition().duration(750).attrTween('d', (d,i) ->
             `var i`
             theOldDataInPie = @oldPieData ? piedata
+            console.log('@oldPieData',@oldPieData)
             # Interpolate the arcs in data space
             s0 = undefined
             e0 = undefined
