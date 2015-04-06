@@ -4,6 +4,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
 
     ready: ->
         #@oldPieData = ''
+        @_current = ''
 
     onData: (data) ->
 
@@ -178,10 +179,10 @@ class Dashing.FullpieAgent extends Dashing.Widget
             #    b = i(t)
             #    return arc b
         #)
-        path.transition().duration(750).attrTween('d', (d, i, a) ->
+        path.transition().duration(750).attrTween('d', (a) ->
             `var i`
-            i = d3.interpolate(this._current, d)
-            this._current = i(0)
+            i = d3.interpolate(@_current, a)
+            @_current = i(0)
             return (t) ->
                 return arc(i(t))
         )
