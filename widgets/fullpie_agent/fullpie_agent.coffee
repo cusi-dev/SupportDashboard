@@ -3,10 +3,11 @@ class Dashing.FullpieAgent extends Dashing.Widget
     @accessor 'data'
 
     #constructor: ->
-    #ready: ->
-        #@oldPieData = ''
+    ready: ->
+        @testData = 123
 
     onData: (data) ->
+        console.log('testData',@testData)
 
         #$(@node).fadeOut().fadeIn()
         @container = $(@node).parent()
