@@ -3,7 +3,8 @@ class Dashing.FullpieAgent extends Dashing.Widget
     @accessor 'data'
 
     #@oldPieData: ''
-    #@container: ''
+    @container: ''
+    @pie: ''
 
     ready: -> 
         # Remove any previous svg
