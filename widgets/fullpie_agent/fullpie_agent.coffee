@@ -184,8 +184,8 @@ class Dashing.FullpieAgent extends Dashing.Widget
             #console.log('TS D:', d)
             `var i`
             i = d3.interpolate({
-                startAngle: 0 #s0
-                endAngle: 0 #e0
+                startAngle: s0
+                endAngle: e0
             },
                 startAngle: d.startAngle
                 endAngle: d.endAngle)
