@@ -150,42 +150,42 @@ class Dashing.FullpieAgent extends Dashing.Widget
         path = pathGroup.selectAll('path.pie').data(piedata)
         path.enter().append('path').attr('class', 'pie').attr('fill', (d, i) -> color i)
 
-        #path.transition().duration(750).attrTween('d', (d,i) ->
-            #theOldDataInPie = @oldPieData ? piedata
-            #console.log('@oldPieData',@oldPieData)
-            ## Interpolate the arcs in data space
-            #s0 = undefined
-            #e0 = undefined
-            #if theOldDataInPie[i]
-            #    s0 = theOldDataInPie[i].startAngle
-            #    e0 = theOldDataInPie[i].endAngle
-            #else if !theOldDataInPie[i] and theOldDataInPie[i - 1]
-            #    s0 = theOldDataInPie[i - 1].endAngle
-            #    e0 = theOldDataInPie[i - 1].endAngle
-            #else if !theOldDataInPie[i - 1] and theOldDataInPie.length > 0
-            #    s0 = theOldDataInPie[theOldDataInPie.length - 1].endAngle
-            #    e0 = theOldDataInPie[theOldDataInPie.length - 1].endAngle
-            #else
-            #    s0 = 0
-            #    e0 = 0
-            #`var i`
-            #i = d3.interpolate({
-            #    startAngle: s0
-            #    endAngle: e0
-            #},
-            #    startAngle: d.startAngle
-            #    endAngle: d.endAngle)
-            #(t) ->
-            #    b = i(t)
-            #    return arc b
-        #)
-        path.transition().duration(750).attrTween('d', (d) ->
-            ip = d3.interpolate(@_current, d)
-            @_current = ip(0)
-            return (t) ->
-                d.endAngle = ip(t)
-                return arc(i(t))
+        path.transition().duration(750).attrTween('d', (d,i) ->
+            theOldDataInPie = @oldPieData ? piedata
+            console.log('@oldPieData',@oldPieData)
+            # Interpolate the arcs in data space
+            s0 = undefined
+            e0 = undefined
+            if theOldDataInPie[i]
+                s0 = theOldDataInPie[i].startAngle
+                e0 = theOldDataInPie[i].endAngle
+            else if !theOldDataInPie[i] and theOldDataInPie[i - 1]
+                s0 = theOldDataInPie[i - 1].endAngle
+                e0 = theOldDataInPie[i - 1].endAngle
+            else if !theOldDataInPie[i - 1] and theOldDataInPie.length > 0
+                s0 = theOldDataInPie[theOldDataInPie.length - 1].endAngle
+                e0 = theOldDataInPie[theOldDataInPie.length - 1].endAngle
+            else
+                s0 = 0
+                e0 = 0
+            `var i`
+            i = d3.interpolate({
+                startAngle: s0
+                endAngle: e0
+            },
+                startAngle: d.startAngle
+                endAngle: d.endAngle)
+            (t) ->
+                b = i(t)
+                return arc b
         )
+        #path.transition().duration(750).attrTween('d', (d) ->
+        #    ip = d3.interpolate(@_current, newAngle)
+        #    @_current = ip(0)
+        #    return (t) ->
+        #        d.endAngle = ip(t)
+        #        return arc(d)
+        #)
         path.exit()
             #.transition()
             #.duration(300)
