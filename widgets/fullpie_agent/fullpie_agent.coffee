@@ -3,10 +3,9 @@ class Dashing.FullpieAgent extends Dashing.Widget
     @accessor 'data'
 
     ready: ->
-        #
+        @oldPieData = ''
 
     onData: (data) ->
-        @oldPieData = ''
 
         #$(@node).fadeOut().fadeIn()
         @container = $(@node).parent()
@@ -151,7 +150,6 @@ class Dashing.FullpieAgent extends Dashing.Widget
         path.enter().append('path').attr('class', 'pie').attr('fill', (d, i) -> color i)
 
         path.transition().duration(750).attrTween('d', (d,i) ->
-            #`var i`
             theOldDataInPie = @oldPieData ? piedata
             console.log('@oldPieData',@oldPieData)
             # Interpolate the arcs in data space
@@ -169,6 +167,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
             else
                 s0 = 0
                 e0 = 0
+            `var i`
             i = d3.interpolate({
                 startAngle: s0
                 endAngle: e0
