@@ -167,8 +167,8 @@ class Dashing.FullpieAgent extends Dashing.Widget
                 s0 = 0
                 e0 = 0
             i = d3.interpolate({
-                startAngle: 0#s0
-                endAngle: 0#e0
+                startAngle: s0
+                endAngle: e0
             },
                 startAngle: d.startAngle
                 endAngle: d.endAngle)
@@ -341,7 +341,6 @@ class Dashing.FullpieAgent extends Dashing.Widget
                 else
                     'M' + (d.r - 2) + ',' + d.b + 'L' + (d.l + 2) + ',' + d.b + ' ' + d.cx + ',' + d.cy
             ).style('opacity', 1)
-        
 
         # Display total count
         totalTickets = 0
