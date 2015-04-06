@@ -17,7 +17,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
         # Remove any previous svg
         $(@node).children('svg').remove()
         # Define the container
-        container = @container#$(@node).parent()
+        #container = @container#$(@node).parent()
 
         #
         # CONFIG ZONE
