@@ -149,6 +149,10 @@ class Dashing.FullpieAgent extends Dashing.Widget
 
         path = pathGroup.selectAll('path.pie').data(piedata)
         path.enter().append('path').attr('class', 'pie').attr('fill', (d, i) -> color i)
+        
+        console.log('@oldPieData',@oldPieData)
+        @oldPieData = 1
+        console.log('@oldPieData',@oldPieData)
 
         path.transition().duration(750).attrTween('d', (d,i) ->
             theOldDataInPie = @oldPieData ? piedata
