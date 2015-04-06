@@ -15,7 +15,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
 
         #$(@node).fadeOut().fadeIn()
         @container = $(@node).parent()
-        @instanceDataId = @container.attr('data-id')
+        @instanceDataId = $(@node).attr('data-id')
         console.log('@instanceDataId',@instanceDataId)
 
         #
