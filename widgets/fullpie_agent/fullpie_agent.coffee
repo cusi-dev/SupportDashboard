@@ -8,7 +8,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
 
     onData: (data) ->
         console.log('testData',@testData)
-        @testData = 321
+        @testData = @testData + 1
         console.log('testData',@testData)
 
         #$(@node).fadeOut().fadeIn()
