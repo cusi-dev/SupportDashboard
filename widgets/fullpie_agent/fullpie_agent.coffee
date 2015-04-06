@@ -2,8 +2,10 @@ class Dashing.FullpieAgent extends Dashing.Widget
 
     @accessor 'data'
 
+    @oldPieData: ''
+
     ready: ->
-        window.oldPieData = ''
+        #window.oldPieData = ''
 
     onData: (data) ->
         #$(@node).fadeOut().fadeIn()
