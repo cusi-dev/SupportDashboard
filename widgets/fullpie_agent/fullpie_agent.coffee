@@ -6,7 +6,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
     ready: ->
         @testData = 123
         @oldPieData = ''
-        @instanceDataId = $(@node).parent().data-id
+        @instanceDataId = $(@node).parent().attr('data-id')
         console.log('@instanceDataId',@instanceDataId)
 
     onData: (data) ->
