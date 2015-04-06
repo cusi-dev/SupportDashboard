@@ -24,7 +24,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
         #
 
         # Width of the SVG area
-        width = (Dashing.widget_base_dimensions[0] * container.data('sizex')) - Dashing.widget_margins[0] * 4 * (container.data('sizex') - 1) 
+        width = (Dashing.widget_base_dimensions[0] * @container.data('sizex')) - Dashing.widget_margins[0] * 4 * (@container.data('sizex') - 1) 
 
         # Height of the SVG area allowing for header and footer text
         height = (Dashing.widget_base_dimensions[1] * container.data('sizey')) - 120 
