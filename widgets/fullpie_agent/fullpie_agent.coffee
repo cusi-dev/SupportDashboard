@@ -206,7 +206,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
             #    return arc b
         #)
         path.transition().duration(2000).attrTween('d', (d) ->
-            myInterpolater = d3.interpolate(window.oldPieData[myInstanceDataId], a)
+            myInterpolater = d3.interpolate(window.oldPieData[myInstanceDataId], d)
             window.oldPieData[myInstanceDataId] = myInterpolater(0)
             return (t) ->
                 return arc(i(t))
