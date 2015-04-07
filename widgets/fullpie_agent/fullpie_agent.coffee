@@ -4,11 +4,11 @@ class Dashing.FullpieAgent extends Dashing.Widget
 
     #constructor: ->
     ready: ->
-        @testData = 123
-        @oldPieData = ''
+        #@testData = 123
+        #@oldPieData = ''
         @instanceDataId = $(@node).attr('data-id')
         #console.log('@instanceDataId',@instanceDataId)
-        @oldPieData[@instanceDataId] = ''
+        #@oldPieData[@instanceDataId] = ''
         window.oldPieData = window.oldPieData or {}
         window.oldPieData[@instanceDataId] = window.oldPieData[@instanceDataId] or {}
 
@@ -394,5 +394,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
             .style('opacity', 1)
 
         console.log('window.oldPieData BOTTOM',window.oldPieData)
-        window.oldPieData[@instanceDataId] = piedata
+        #window.oldPieData[@instanceDataId] = piedata
+        window.oldPieData = window.oldPieData or {}
+        window.oldPieData[@instanceDataId] = window.oldPieData[@instanceDataId] or {}
         return
