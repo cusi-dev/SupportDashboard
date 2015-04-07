@@ -9,11 +9,14 @@ class Dashing.FullpieAgent extends Dashing.Widget
         @instanceDataId = $(@node).attr('data-id')
         #console.log('@instanceDataId',@instanceDataId)
         @oldPieData[@instanceDataId] = ''
+        window.oldPieData = window.oldPieData or {}
+        windows.oldPieData[@instanceDataId] = windows.oldPieData[@instanceDataId] or {}
 
     onData: (data) ->
-        console.log('testData',@testData)
-        @testData = @testData + 1
-        console.log('testData',@testData)
+        #console.log('testData',@testData)
+        #@testData = @testData + 1
+        #console.log('testData',@testData)
+        console.log('window.oldPieData',window.oldPieData)
 
         #$(@node).fadeOut().fadeIn()
         @container = $(@node).parent()
@@ -157,20 +160,20 @@ class Dashing.FullpieAgent extends Dashing.Widget
         if totalLabel.empty()
             totalLabel = svg.append('g').attr('class', 'totalLabel')
 
-        console.log('@oldPieData before the tween',@oldPieData[@instanceDataId] ? null)
-        window.oldPieData[@instanceDataId] = @oldPieData[@instanceDataId] ? null
-
+        #console.log('@oldPieData before the tween',@oldPieData[@instanceDataId] ? null)
+        #window.oldPieData[@instanceDataId] = @oldPieData[@instanceDataId] ? null
+        myInstanceDataId = @instanceDataId
         path = pathGroup.selectAll('path.pie').data(piedata)
         path.enter().append('path').attr('class', 'pie').attr('fill', (d, i) -> color i)
         
         path.transition().duration(1000).attrTween('d', (d,i) ->
-            theOldDataInPie = window.oldPieData[@instanceDataId] ? piedata
+            theOldDataInPie = window.oldPieData[myInstanceDataId] ? piedata
             console.log('theOldDataInPie in the tween',theOldDataInPie)
-            console.log('@oldPieData in the tween',@oldPieData[@instanceDataId])
-            console.log('window.oldPieData in the tween',window.oldPieData[@instanceDataId])
-            @testData = @testData + 1000
-            tD = @testData + 1000
-            console.log('tD in the tween',tD)
+            #console.log('@oldPieData in the tween',@oldPieData[@instanceDataId])
+            console.log('window.oldPieData in the tween',window.oldPieData[myInstanceDataId])
+            #@testData = @testData + 1000
+            #tD = @testData + 1000
+            #console.log('tD in the tween',tD)
             # Interpolate the arcs in data space
             s0 = undefined
             e0 = undefined
@@ -390,5 +393,5 @@ class Dashing.FullpieAgent extends Dashing.Widget
             .attr('font-size',(if typeof totalTickets isnt 'string' then radiusi + 'px' else '2em'))
             .style('opacity', 1)
 
-        @oldPieData[@instanceDataId] = piedata
+        windows.oldPieData[@instanceDataId] = piedata
         return
