@@ -167,10 +167,11 @@ class Dashing.FullpieAgent extends Dashing.Widget
         path.enter().append('path').attr('class', 'pie').attr('fill', (d, i) -> color i)
         
         path.transition().duration(1000).attrTween('d', (d,i) ->
-            theOldDataInPie = window.oldPieData[myInstanceDataId] ? piedata
+            theOldDataInPie = window.oldPieData[myInstanceDataId]
             console.log('theOldDataInPie in the tween',theOldDataInPie)
             #console.log('@oldPieData in the tween',@oldPieData[@instanceDataId])
-            console.log('window.oldPieData in the tween',window.oldPieData[myInstanceDataId])
+            console.log('window.oldPieData[myInstanceDataId] in the tween',window.oldPieData[myInstanceDataId])
+            console.log('window.oldPieData in the tween',window.oldPieData)
             #@testData = @testData + 1000
             #tD = @testData + 1000
             #console.log('tD in the tween',tD)
