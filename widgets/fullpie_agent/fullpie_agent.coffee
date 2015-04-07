@@ -208,7 +208,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
         path.transition().duration(2000).attrTween('d', (d,i) ->
             console.log('1. in tween - window.oldPieData[' + myInstanceDataId + '][' + i + ']: ',window.oldPieData[myInstanceDataId][i])
             console.log('1. in tween - d: ',d)
-            myInterpolater = d3.interpolate(window.oldPieData[myInstanceDataId][i] ? null, d)
+            myInterpolater = d3.interpolate(window.oldPieData[myInstanceDataId][i] ? d, d)
             window.oldPieData[myInstanceDataId][i] = myInterpolater(0) ? null
             console.log('2. in tween - window.oldPieData[' + myInstanceDataId + '][' + i + ']: ',window.oldPieData[myInstanceDataId][i])
             console.log('2. in tween - d: ',d)
