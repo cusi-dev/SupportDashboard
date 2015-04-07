@@ -16,12 +16,12 @@ class Dashing.FullpieAgent extends Dashing.Widget
         #console.log('testData',@testData)
         #@testData = @testData + 1
         #console.log('testData',@testData)
-        console.log('window.oldPieData',window.oldPieData)
+        #console.log('window.oldPieData',window.oldPieData)
 
         #$(@node).fadeOut().fadeIn()
         @container = $(@node).parent()
-        @instanceDataId = $(@node).attr('data-id')
-        console.log('@instanceDataId',@instanceDataId)
+        #@instanceDataId = $(@node).attr('data-id')
+        #console.log('@instanceDataId',@instanceDataId)
 
         #
         # CONFIG ZONE
@@ -168,10 +168,10 @@ class Dashing.FullpieAgent extends Dashing.Widget
         
         path.transition().duration(2000).attrTween('d', (d,i) ->
             theOldDataInPie = window.oldPieData[myInstanceDataId]
-            console.log('theOldDataInPie in the tween',theOldDataInPie)
-            console.log('myInstanceDataId in the tween',myInstanceDataId)
-            console.log('window.oldPieData[myInstanceDataId] in the tween',window.oldPieData[myInstanceDataId])
-            console.log('window.oldPieData in the tween',window.oldPieData)
+            #console.log('theOldDataInPie in the tween',theOldDataInPie)
+            #console.log('myInstanceDataId in the tween',myInstanceDataId)
+            #console.log('window.oldPieData[myInstanceDataId] in the tween',window.oldPieData[myInstanceDataId])
+            #console.log('window.oldPieData in the tween',window.oldPieData)
             #@testData = @testData + 1000
             #tD = @testData + 1000
             #console.log('tD in the tween',tD)
@@ -198,8 +198,10 @@ class Dashing.FullpieAgent extends Dashing.Widget
             },
                 startAngle: d.startAngle
                 endAngle: d.endAngle)
+            console.log('i',i)
             (t) ->
                 b = i(t)
+                console.log('b',b)
                 return arc b
         )
         #path.transition().duration(750).attrTween('d', (d) ->
@@ -394,10 +396,10 @@ class Dashing.FullpieAgent extends Dashing.Widget
             .attr('font-size',(if typeof totalTickets isnt 'string' then radiusi + 'px' else '2em'))
             .style('opacity', 1)
 
-        console.log('window.oldPieData BOTTOM',window.oldPieData)
+        #console.log('window.oldPieData BOTTOM',window.oldPieData)
         #window.oldPieData[@instanceDataId] = piedata
         window.oldPieData = window.oldPieData or {}
         window.oldPieData[@instanceDataId] = window.oldPieData[@instanceDataId] or []
         window.oldPieData[@instanceDataId] = piedata
-        console.log('piedata',piedata) 
+        #console.log('piedata',piedata) 
         return
