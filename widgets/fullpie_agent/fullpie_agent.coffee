@@ -178,6 +178,8 @@ class Dashing.FullpieAgent extends Dashing.Widget
             # Interpolate the arcs in data space
             s0 = undefined
             e0 = undefined
+            console.log('theOldDataInPie[i]',theOldDataInPie[i])
+            console.log('d',d)
             if theOldDataInPie[i]
                 s0 = theOldDataInPie[i].startAngle
                 e0 = theOldDataInPie[i].endAngle
@@ -197,10 +199,10 @@ class Dashing.FullpieAgent extends Dashing.Widget
             },
                 startAngle: d.startAngle
                 endAngle: d.endAngle)
-            console.log('i',myInterpolate)
+            #console.log('i',myInterpolate)
             return (t) ->
                 b = myInterpolate(t)
-                console.log('b',b)
+                #console.log('b',b)
                 return arc b
         )
         #path.transition().duration(750).attrTween('d', (d) ->
