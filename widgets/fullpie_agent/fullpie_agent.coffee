@@ -191,16 +191,15 @@ class Dashing.FullpieAgent extends Dashing.Widget
                 s0 = 0
                 e0 = 0
             #console.log('TS D:', d)
-            `var i`
-            i = d3.interpolate({
+            myInterpolate = d3.interpolate({
                 startAngle: s0
                 endAngle: e0
             },
                 startAngle: d.startAngle
                 endAngle: d.endAngle)
-            console.log('i',i)
+            console.log('i',myInterpolate)
             (t) ->
-                b = i(t)
+                b = myInterpolate(t)
                 console.log('b',b)
                 return arc b
         )
