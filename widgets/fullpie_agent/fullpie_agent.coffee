@@ -398,4 +398,5 @@ class Dashing.FullpieAgent extends Dashing.Widget
         #window.oldPieData[@instanceDataId] = piedata
         window.oldPieData = window.oldPieData or {}
         window.oldPieData[@instanceDataId] = window.oldPieData[@instanceDataId] or {}
+        console.log('piedata',piedata)
         return
