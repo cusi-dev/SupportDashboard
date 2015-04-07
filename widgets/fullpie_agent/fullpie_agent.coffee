@@ -198,7 +198,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
                 startAngle: d.startAngle
                 endAngle: d.endAngle)
             console.log('i',myInterpolate)
-            (t) ->
+            return (t) ->
                 b = myInterpolate(t)
                 console.log('b',b)
                 return arc b
