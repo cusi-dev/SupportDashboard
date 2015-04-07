@@ -166,52 +166,51 @@ class Dashing.FullpieAgent extends Dashing.Widget
         path = pathGroup.selectAll('path.pie').data(piedata)
         path.enter().append('path').attr('class', 'pie').attr('fill', (d, i) -> color i)
         
-        path.transition().duration(2000).attrTween('d', (d,i) ->
-            theOldDataInPie = window.oldPieData[myInstanceDataId]
-            #console.log('theOldDataInPie in the tween',theOldDataInPie)
-            #console.log('myInstanceDataId in the tween',myInstanceDataId)
-            #console.log('window.oldPieData[myInstanceDataId] in the tween',window.oldPieData[myInstanceDataId])
-            #console.log('window.oldPieData in the tween',window.oldPieData)
-            #@testData = @testData + 1000
-            #tD = @testData + 1000
-            #console.log('tD in the tween',tD)
-            # Interpolate the arcs in data space
-            s0 = undefined
-            e0 = undefined
-            console.log('theOldDataInPie[i]',theOldDataInPie[i])
-            console.log('d',d)
-            if theOldDataInPie[i]
-                s0 = theOldDataInPie[i].startAngle
-                e0 = theOldDataInPie[i].endAngle
-            else if !theOldDataInPie[i] and theOldDataInPie[i - 1]
-                s0 = theOldDataInPie[i - 1].endAngle
-                e0 = theOldDataInPie[i - 1].endAngle
-            else if !theOldDataInPie[i - 1] and theOldDataInPie.length > 0
-                s0 = theOldDataInPie[theOldDataInPie.length - 1].endAngle
-                e0 = theOldDataInPie[theOldDataInPie.length - 1].endAngle
-            else
-                s0 = 0
-                e0 = 0
-            #console.log('TS D:', d)
-            myInterpolate = d3.interpolate({
-                startAngle: s0
-                endAngle: e0
-            },
-                startAngle: d.startAngle
-                endAngle: d.endAngle)
-            #console.log('i',myInterpolate)
-            return (t) ->
-                b = myInterpolate(t)
-                #console.log('b',b)
-                return arc b
-        )
-        #path.transition().duration(750).attrTween('d', (d) ->
-        #    ip = d3.interpolate(@_current, newAngle)
-        #    @_current = ip(0)
-        #    return (t) ->
-        #        d.endAngle = ip(t)
-        #        return arc(d)
+        #path.transition().duration(2000).attrTween('d', (d,i) ->
+            #theOldDataInPie = window.oldPieData[myInstanceDataId]
+                #console.log('theOldDataInPie in the tween',theOldDataInPie)
+                #console.log('myInstanceDataId in the tween',myInstanceDataId)
+                #console.log('window.oldPieData[myInstanceDataId] in the tween',window.oldPieData[myInstanceDataId])
+                #console.log('window.oldPieData in the tween',window.oldPieData)
+                #@testData = @testData + 1000
+                #tD = @testData + 1000
+                #console.log('tD in the tween',tD)
+            ## Interpolate the arcs in data space
+            #s0 = undefined
+            #e0 = undefined
+            #console.log('theOldDataInPie[i]',theOldDataInPie[i])
+            #console.log('d',d)
+            #if theOldDataInPie[i]
+            #    s0 = theOldDataInPie[i].startAngle
+            #    e0 = theOldDataInPie[i].endAngle
+            #else if !theOldDataInPie[i] and theOldDataInPie[i - 1]
+            #    s0 = theOldDataInPie[i - 1].endAngle
+            #    e0 = theOldDataInPie[i - 1].endAngle
+            #else if !theOldDataInPie[i - 1] and theOldDataInPie.length > 0
+            #    s0 = theOldDataInPie[theOldDataInPie.length - 1].endAngle
+            #    e0 = theOldDataInPie[theOldDataInPie.length - 1].endAngle
+            #else
+            #    s0 = 0
+            #    e0 = 0
+            ##console.log('TS D:', d)
+            #myInterpolate = d3.interpolate({
+            #    startAngle: s0
+            #    endAngle: e0
+            #},
+            #    startAngle: d.startAngle
+            #    endAngle: d.endAngle)
+            ##console.log('i',myInterpolate)
+            #return (t) ->
+            #    b = myInterpolate(t)
+            #    #console.log('b',b)
+            #    return arc b
         #)
+        path.transition().duration(2000).attrTween('d', (d) ->
+            myInterpolater = d3.interpolate(window.oldPieData[myInstanceDataId], a)
+            window.oldPieData[myInstanceDataId] = myInterpolater(0)
+            return (t) ->
+                return arc(i(t))
+        )
         path.exit()
             #.transition()
             #.duration(300)
