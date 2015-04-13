@@ -237,7 +237,10 @@ class Dashing.FullpieAgent extends Dashing.Widget
             if myInstanceDataId = 'resolved' and i = 0 
                 console.log('in tween - OLD DATA - ' + myInstanceDataId + '[' + i + ']: ',window.oldPieData[myInstanceDataId][i])
             #console.log('1. in tween - d: ',d)
-            myInterpolater = d3.interpolate(window.oldPieData[myInstanceDataId][i] ? d, d)
+
+            #myInterpolater = d3.interpolate(window.oldPieData[myInstanceDataId][i] ? d, d)
+            myInterpolater = d3.interpolate(opd[i])
+
             #console.log('myInterpolater(0): ',myInterpolater(0))
             window.oldPieData[myInstanceDataId][i] = myInterpolater(0) ? d
             if myInstanceDataId = 'resolved' and i = 0
