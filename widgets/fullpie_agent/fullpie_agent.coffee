@@ -168,13 +168,6 @@ class Dashing.FullpieAgent extends Dashing.Widget
         
         #path.transition().duration(2000).attrTween('d', (d,i) ->
             #theOldDataInPie = window.oldPieData[myInstanceDataId]
-                #console.log('theOldDataInPie in the tween',theOldDataInPie)
-                #console.log('myInstanceDataId in the tween',myInstanceDataId)
-                #console.log('window.oldPieData[myInstanceDataId] in the tween',window.oldPieData[myInstanceDataId])
-                #console.log('window.oldPieData in the tween',window.oldPieData)
-                #@testData = @testData + 1000
-                #tD = @testData + 1000
-                #console.log('tD in the tween',tD)
             ## Interpolate the arcs in data space
             #s0 = undefined
             #e0 = undefined
@@ -206,18 +199,47 @@ class Dashing.FullpieAgent extends Dashing.Widget
             #    return arc b
         #)
         path.transition().duration(2000).attrTween('d', (d,i) ->
-            if myInstanceDataId = 'resolved' and i = 0 
-                console.log('in tween - OLD DATA - ' + myInstanceDataId + '[' + i + ']: ',window.oldPieData[myInstanceDataId][i])
-            #console.log('1. in tween - d: ',d)
-            myInterpolater = d3.interpolate(window.oldPieData[myInstanceDataId][i] ? d, d)
-            #console.log('myInterpolater(0): ',myInterpolater(0))
-            window.oldPieData[myInstanceDataId][i] = myInterpolater(0) ? d
-            if myInstanceDataId = 'resolved' and i = 0
-                console.log('in tween - NEW DATA - ' + myInstanceDataId + '[' + i + ']: ',window.oldPieData[myInstanceDataId][i])
-            #console.log('2. in tween - d: ',d)
+            console.log('d',d)
+            window.oldPieData[myInstanceDataId][i] = d[i]
+            opd = window.oldPieData[myInstanceDataId]
+            # Interpolate the arcs in data space
+            s0 = undefined
+            e0 = undefined
+            if opd[i]
+                s0 = opd[i].startAngle
+                e0 = opd[i].endAngle
+            else if !opd[i] and opd[i - 1]
+                s0 = opd[i - 1].endAngle
+                e0 = opd[i - 1].endAngle
+            else if !opd[i - 1] and opd.length > 0
+                s0 = opd[opd.length - 1].endAngle
+                e0 = opd[opd.length - 1].endAngle
+            else
+                s0 = 0
+                e0 = 0
+            myInterpolate = d3.interpolate({
+                startAngle: s0
+                endAngle: e0
+            },
+                startAngle: d.startAngle
+                endAngle: d.endAngle)
             return (t) ->
-                return arc(myInterpolater(t))
+                b = myInterpolate(t)
+                return arc b
         )
+        #path.transition().duration(2000).attrTween('d', (d,i) ->
+        #    if myInstanceDataId = 'resolved' and i = 0 
+        #        console.log('in tween - OLD DATA - ' + myInstanceDataId + '[' + i + ']: ',window.oldPieData[myInstanceDataId][i])
+        #    #console.log('1. in tween - d: ',d)
+        #    myInterpolater = d3.interpolate(window.oldPieData[myInstanceDataId][i] ? d, d)
+        #    #console.log('myInterpolater(0): ',myInterpolater(0))
+        #    window.oldPieData[myInstanceDataId][i] = myInterpolater(0) ? d
+        #    if myInstanceDataId = 'resolved' and i = 0
+        #        console.log('in tween - NEW DATA - ' + myInstanceDataId + '[' + i + ']: ',window.oldPieData[myInstanceDataId][i])
+        #    #console.log('2. in tween - d: ',d)
+        #    return (t) ->
+        #        return arc(myInterpolater(t))
+        #)
         path.exit()
             #.transition()
             #.duration(300)
