@@ -2,9 +2,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
 
     @accessor 'data'
 
-    constructor: ->
-        #@instanceDataId = $(@node).attr('data-id')
-
+    #constructor: ->
     ready: ->
         #@testData = 123
         #@oldPieData = ''
@@ -409,5 +407,4 @@ class Dashing.FullpieAgent extends Dashing.Widget
         window.oldPieData[@instanceDataId] = window.oldPieData[@instanceDataId] or []
         window.oldPieData[@instanceDataId] = piedata
         #console.log('piedata',piedata) 
-        console.log('EOF: window.oldPieData[@instanceDataId]',window.oldPieData[@instanceDataId])
         return
