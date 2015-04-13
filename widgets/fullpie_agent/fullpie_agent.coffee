@@ -61,7 +61,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
         @update(data.data)
 
     update: (dataSet) ->
-        @testData = @testData + 100
+        #@testData = @testData + 100
         # Remove any previous svg
         $(@node).children('svg').remove()
         # Define the container
@@ -206,13 +206,13 @@ class Dashing.FullpieAgent extends Dashing.Widget
             #    return arc b
         #)
         path.transition().duration(2000).attrTween('d', (d,i) ->
-            if myInstanceId = 'resolved' and i = 0 then
+            if myInstanceId = 'resolved' and i = 0 
                 console.log('in tween - OLD DATA - ' + myInstanceDataId + '[' + i + ']: ',window.oldPieData[myInstanceDataId][i])
             #console.log('1. in tween - d: ',d)
             myInterpolater = d3.interpolate(window.oldPieData[myInstanceDataId][i] ? d, d)
             #console.log('myInterpolater(0): ',myInterpolater(0))
             window.oldPieData[myInstanceDataId][i] = myInterpolater(0) ? d
-            if myInstanceId = 'resolved' and i = 1 then
+            if myInstanceId = 'resolved' and i = 0
                 console.log('in tween - NEW DATA - ' + myInstanceDataId + '[' + i + ']: ',window.oldPieData[myInstanceDataId][i])
             #console.log('2. in tween - d: ',d)
             return (t) ->
