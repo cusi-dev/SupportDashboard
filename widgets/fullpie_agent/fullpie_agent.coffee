@@ -211,7 +211,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
             #console.log('1. in tween - d: ',d)
             #myInterpolater = d3.interpolate(window.oldPieData[myInstanceDataId][i] ? d, d)
             interpolateVal = (window.oldPieData[myInstanceDataId] ? 0)
-            if interpolateVal != 0 and not window.oldPieData[myInstanceDataId].empty()
+            if interpolateVal != 0 
                 interpolateVal = window.oldPieData[myInstanceDataId][i]
             myInterpolater = d3.interpolate(interpolateVal, d)
             #console.log('myInterpolater(0): ',myInterpolater(0))
