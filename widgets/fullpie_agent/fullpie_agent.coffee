@@ -231,7 +231,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
         path.transition().duration(2000).attrTween('d', (d,i) ->
             console.log('window.oldPieData[myInstanceDataId]',window.oldPieData[myInstanceDataId])
             opd = window.oldPieData[myInstanceDataId]
-            if opd.empty()
+            if opd.length = 0
                 opd = d
             console.log('opd',opd)
             if myInstanceDataId = 'resolved' and i = 0 
