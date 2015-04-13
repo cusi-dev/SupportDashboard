@@ -206,13 +206,15 @@ class Dashing.FullpieAgent extends Dashing.Widget
             #    return arc b
         #)
         path.transition().duration(2000).attrTween('d', (d,i) ->
-            console.log('1. in tween - window.oldPieData[' + myInstanceDataId + '][' + i + ']: ',window.oldPieData[myInstanceDataId][i])
-            console.log('1. in tween - d: ',d)
+            if myInstanceId = 'resolved' and i = 0 then
+                console.log('in tween - OLD DATA - ' + myInstanceDataId + '[' + i + ']: ',window.oldPieData[myInstanceDataId][i])
+            #console.log('1. in tween - d: ',d)
             myInterpolater = d3.interpolate(window.oldPieData[myInstanceDataId][i] ? d, d)
-            console.log('myInterpolater(0): ',myInterpolater(0))
+            #console.log('myInterpolater(0): ',myInterpolater(0))
             window.oldPieData[myInstanceDataId][i] = myInterpolater(0) ? d
-            console.log('2. in tween - window.oldPieData[' + myInstanceDataId + '][' + i + ']: ',window.oldPieData[myInstanceDataId][i])
-            console.log('2. in tween - d: ',d)
+            if myInstanceId = 'resolved' and i = 0 then
+                console.log('in tween - NEW DATA - ' + myInstanceDataId + '[' + i + ']: ',window.oldPieData[myInstanceDataId][i])
+            #console.log('2. in tween - d: ',d)
             return (t) ->
                 return arc(myInterpolater(t))
         )
@@ -405,6 +407,6 @@ class Dashing.FullpieAgent extends Dashing.Widget
         #window.oldPieData[@instanceDataId] = piedata
         #window.oldPieData = window.oldPieData or {}
         #window.oldPieData[@instanceDataId] = window.oldPieData[@instanceDataId] or []
-        window.oldPieData[@instanceDataId] = piedata
+        #window.oldPieData[@instanceDataId] = piedata
         #console.log('piedata',piedata) 
         return
