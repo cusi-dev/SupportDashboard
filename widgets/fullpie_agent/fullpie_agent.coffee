@@ -229,20 +229,16 @@ class Dashing.FullpieAgent extends Dashing.Widget
         #        return arc b
         #)
         path.transition().duration(2000).attrTween('d', (d,i) ->
-            console.log('window.oldPieData[myInstanceDataId]',window.oldPieData[myInstanceDataId])
-            opd = window.oldPieData[myInstanceDataId]
-            if opd.length = 0
-                opd = d
-            console.log('opd',opd)
+            window.oldPieData[myInstanceDataId][i] = window.oldPieData[myInstanceDataId][i] ? []
+            window.oldPieData[myInstanceDataId][i] = d
+
             if myInstanceDataId = 'resolved' and i = 0 
                 console.log('in tween - OLD DATA - ' + myInstanceDataId + '[' + i + ']: ',window.oldPieData[myInstanceDataId][i])
             #console.log('1. in tween - d: ',d)
 
-            #myInterpolater = d3.interpolate(window.oldPieData[myInstanceDataId][i] ? d, d)
-            myInterpolater = d3.interpolate(opd[i])
+            myInterpolater = d3.interpolate(window.oldPieData[myInstanceDataId][i], d)
 
-            #console.log('myInterpolater(0): ',myInterpolater(0))
-            window.oldPieData[myInstanceDataId][i] = myInterpolater(0) ? d
+            #window.oldPieData[myInstanceDataId][i] = myInterpolater(0) ? d
             if myInstanceDataId = 'resolved' and i = 0
                 console.log('in tween - NEW DATA - ' + myInstanceDataId + '[' + i + ']: ',window.oldPieData[myInstanceDataId][i])
             #console.log('2. in tween - d: ',d)
