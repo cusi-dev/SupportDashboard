@@ -4,13 +4,24 @@ class Dashing.FullpieAgent extends Dashing.Widget
 
     #constructor: ->
     ready: ->
+        #@testData = 123
+        #@oldPieData = ''
         @instanceDataId = $(@node).attr('data-id')
+        #console.log('@instanceDataId',@instanceDataId)
+        #@oldPieData[@instanceDataId] = ''
         window.oldPieData = window.oldPieData or {}
         window.oldPieData[@instanceDataId] = window.oldPieData[@instanceDataId] or []
 
     onData: (data) ->
+        #console.log('testData',@testData)
+        #@testData = @testData + 1
+        #console.log('testData',@testData)
+        #console.log('window.oldPieData',window.oldPieData)
+
         #$(@node).fadeOut().fadeIn()
         @container = $(@node).parent()
+        #@instanceDataId = $(@node).attr('data-id')
+        #console.log('@instanceDataId',@instanceDataId)
 
         #
         # CONFIG ZONE
@@ -395,5 +406,6 @@ class Dashing.FullpieAgent extends Dashing.Widget
         window.oldPieData = window.oldPieData or {}
         window.oldPieData[@instanceDataId] = window.oldPieData[@instanceDataId] or []
         window.oldPieData[@instanceDataId] = piedata
-        console.log('piedata',piedata) 
+        #console.log('piedata',piedata) 
+        console.log('EOF: window.oldPieData[@instanceDataId]',window.oldPieData[@instanceDataId])
         return
