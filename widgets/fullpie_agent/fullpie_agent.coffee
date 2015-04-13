@@ -2,11 +2,13 @@ class Dashing.FullpieAgent extends Dashing.Widget
 
     @accessor 'data'
 
-    #constructor: ->
+    constructor: ->
+        @instanceDataId = $(@node).attr('data-id')
+
     ready: ->
         #@testData = 123
         #@oldPieData = ''
-        @instanceDataId = $(@node).attr('data-id')
+        #@instanceDataId = $(@node).attr('data-id')
         #console.log('@instanceDataId',@instanceDataId)
         #@oldPieData[@instanceDataId] = ''
         window.oldPieData = window.oldPieData or {}
