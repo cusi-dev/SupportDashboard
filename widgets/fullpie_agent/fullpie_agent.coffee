@@ -200,6 +200,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
         #)
         path.transition().duration(2000).attrTween('d', (d,i) ->
             console.log('d',d)
+            console.log('window.oldPieData[myInstanceDataId]',window.oldPieData[myInstanceDataId])
             window.oldPieData[myInstanceDataId][i] = d
             opd = window.oldPieData[myInstanceDataId]
             # Interpolate the arcs in data space
