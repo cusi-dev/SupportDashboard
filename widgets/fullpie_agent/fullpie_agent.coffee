@@ -1,10 +1,12 @@
 class Dashing.FullpieAgent extends Dashing.Widget
 
     @accessor 'data'
-    @instanceDataId = ''
-    @oldPieData = {}
 
-    #constructor: ->
+    constructor: ->
+        super
+        @instanceDataId = ''
+        @oldPieData = {}
+        
     ready: ->
         @instanceDataId = $(@node).attr('data-id')
         console.log('ready -> @instanceDataId: ',@instanceDataId)
@@ -15,7 +17,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
 
     onData: (data) ->
         console.log('onData')
-
+        
         #$(@node).fadeOut().fadeIn()
         @container = $(@node).parent()
         #@instanceDataId = $(@node).attr('data-id')
