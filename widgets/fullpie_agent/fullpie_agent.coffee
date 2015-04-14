@@ -9,20 +9,14 @@ class Dashing.FullpieAgent extends Dashing.Widget
         
     ready: ->
         @instanceDataId = $(@node).attr('data-id')
-        #console.log('ready -> @instanceDataId: ',@instanceDataId)
-        #console.log('@instanceDataId',@instanceDataId)
-        #@oldPieData[@instanceDataId] = ''
         window.oldPieData = window.oldPieData or {}
         window.oldPieData[@instanceDataId] = window.oldPieData[@instanceDataId] or []
 
     onData: (data) ->
-        console.log('onData')
-        
         #$(@node).fadeOut().fadeIn()
+
+        # Define the container
         @container = $(@node).parent()
-        #@instanceDataId = $(@node).attr('data-id')
-        #@instanceDataId = @instanceDataId ? $(@node).attr('data-id')
-        #console.log('onData -> @instanceDataId: ',@instanceDataId)
 
         #
         # CONFIG ZONE
@@ -64,44 +58,16 @@ class Dashing.FullpieAgent extends Dashing.Widget
     update: (dataSet) ->
         # Remove any previous svg
         $(@node).children('svg').remove()
-        # Define the container
-        #container = @container#$(@node).parent()
-        #console.log('update -> @instanceDataId: ',@instanceDataId)
 
-        #
-        # CONFIG ZONE
-        #
-
-        # Width of the SVG area
-        width = @width#(Dashing.widget_base_dimensions[0] * @container.data('sizex')) - Dashing.widget_margins[0] * 4 * (@container.data('sizex') - 1) 
-
-        # Height of the SVG area allowing for header and footer text
-        height = @height#(Dashing.widget_base_dimensions[1] * @container.data('sizey')) - 120 
-
-        # Calculated min dimension of the SVG area
-        radius = @radius#Math.min(width, height) / 2
-
-        # Outer radius of the pie
-        radiuso = @radiuso#Math.min(width, height) / 3
-
-        # Inner radius of the pie (zero = pie, non-zero = donut)
-        radiusi = @radiusi#radiuso * 2 / 3
-
-        # Color scale for pie slices
-        color = @color#d3.scale.category20()
-
-        # X-offset for drop shadow filter
-        dropshadowx = @dropshadowx#2
-
-        # Y-offset for drop shadow filter
-        dropshadowy = @dropshadowy#2
-
-        # [STRING] Blur value for drop shadow filter
-        dropshadowblur = @dropshadowblur#'1.2'
-
-        #
-        # END CONFIG ZONE
-        #
+        width = @width
+        height = @height
+        radius = @radius
+        radiuso = @radiuso
+        radiusi = @radiusi
+        color = @color
+        dropshadowx = @dropshadowx
+        dropshadowy = @dropshadowy
+        dropshadowblur = @dropshadowblur
         
         if !dataSet
             dataSet = @get('data')
@@ -111,13 +77,11 @@ class Dashing.FullpieAgent extends Dashing.Widget
         pie = d3.layout.pie().value((d) -> d.value).sort(null)
         arc = d3.svg.arc().innerRadius(radiusi).outerRadius(radiuso)
         svg = d3.select(@node).append('svg').attr('width', width).attr('height', height).append('g').attr('transform', 'translate(' + width / 2 + ',' + height / 2 + ')')
-        #console.log 'update pie', dataSet
 
-        #piedata = pie(dataSet)
         piedata = pie(dataSet)
+
         # Remove zero values from our pie data
         piedata = piedata.filter (pd) -> pd.value isnt 0
-        #console.log 'update pie', piedata
 
         #create a marker element if it doesn't already exist
         defs = svg.select('defs')
@@ -161,76 +125,12 @@ class Dashing.FullpieAgent extends Dashing.Widget
         if totalLabel.empty()
             totalLabel = svg.append('g').attr('class', 'totalLabel')
 
-        #console.log('@oldPieData before the tween',@oldPieData[@instanceDataId] ? null)
-        #window.oldPieData[@instanceDataId] = @oldPieData[@instanceDataId] ? null
+        # Create variables that will be in scope within the transition attrTween function
         lastPieData = window.oldPieData[@instanceDataId]
         myInstanceDataId = @instanceDataId
 
         path = pathGroup.selectAll('path.pie').data(piedata)
         path.enter().append('path').attr('class', 'pie').attr('fill', (d, i) -> color i)
-        
-        #path.transition().duration(2000).attrTween('d', (d,i) ->
-            #theOldDataInPie = window.oldPieData[myInstanceDataId]
-            ## Interpolate the arcs in data space
-            #s0 = undefined
-            #e0 = undefined
-            #console.log('theOldDataInPie[i]',theOldDataInPie[i])
-            #console.log('d',d)
-            #if theOldDataInPie[i]
-            #    s0 = theOldDataInPie[i].startAngle
-            #    e0 = theOldDataInPie[i].endAngle
-            #else if !theOldDataInPie[i] and theOldDataInPie[i - 1]
-            #    s0 = theOldDataInPie[i - 1].endAngle
-            #    e0 = theOldDataInPie[i - 1].endAngle
-            #else if !theOldDataInPie[i - 1] and theOldDataInPie.length > 0
-            #    s0 = theOldDataInPie[theOldDataInPie.length - 1].endAngle
-            #    e0 = theOldDataInPie[theOldDataInPie.length - 1].endAngle
-            #else
-            #    s0 = 0
-            #    e0 = 0
-            ##console.log('TS D:', d)
-            #myInterpolate = d3.interpolate({
-            #    startAngle: s0
-            #    endAngle: e0
-            #},
-            #    startAngle: d.startAngle
-            #    endAngle: d.endAngle)
-            ##console.log('i',myInterpolate)
-            #return (t) ->
-            #    b = myInterpolate(t)
-            #    #console.log('b',b)
-            #    return arc b
-        #)
-        #path.transition().duration(2000).attrTween('d', (d,i) ->
-        #    console.log('d',d)
-        #    console.log('window.oldPieData[myInstanceDataId]',window.oldPieData[myInstanceDataId])
-        #    window.oldPieData[myInstanceDataId][i] = d
-        #    opd = window.oldPieData[myInstanceDataId]
-        #    # Interpolate the arcs in data space
-        #    s0 = undefined
-        #    e0 = undefined
-        #    if opd[i]
-        #        s0 = opd[i].startAngle
-        #        e0 = opd[i].endAngle
-        #    else if !opd[i] and opd[i - 1]
-        #        s0 = opd[i - 1].endAngle
-        #        e0 = opd[i - 1].endAngle
-        #    else if !opd[i - 1] and opd.length > 0
-        #        s0 = opd[opd.length - 1].endAngle
-        #        e0 = opd[opd.length - 1].endAngle
-        #    else
-        #        s0 = 0
-        #        e0 = 0
-        #    myInterpolate = d3.interpolate({
-        #        startAngle: s0
-        #        endAngle: e0
-        #    },
-        #        startAngle: d.startAngle
-        #        endAngle: d.endAngle)
-        #    return (t) ->
-        #        b = myInterpolate(t)
-        #        return arc b
-        #)
         path.transition().duration(1000).attrTween('d', (d,i) ->
             s0 = undefined
             e0 = undefined
@@ -314,7 +214,6 @@ class Dashing.FullpieAgent extends Dashing.Widget
         labels.text((d) ->
             # Set the text *first*, so we can query the size
             # of the label with .getBBox()
-            #d.value
             d.data.label + ': ' + d.data.value
         )
         .style('opacity',0)
@@ -336,7 +235,6 @@ class Dashing.FullpieAgent extends Dashing.Widget
             bbox = @getBBox()
             #bbox.width and bbox.height will 
             #describe the size of the label text
-            #labelRadius = radius - 20
             labelRadius = radiuso + (radiuso - radiusi)
             d.x = Math.sin(a) * labelRadius
             d.l = d.x - bbox.width / 2 - 2
