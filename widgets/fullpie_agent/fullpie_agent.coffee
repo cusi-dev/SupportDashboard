@@ -6,8 +6,6 @@ class Dashing.FullpieAgent extends Dashing.Widget
 
     #constructor: ->
     ready: ->
-        #@testData = 123
-        #@oldPieData = ''
         @instanceDataId = $(@node).attr('data-id')
         console.log('ready -> @instanceDataId: ',@instanceDataId)
         #console.log('@instanceDataId',@instanceDataId)
@@ -230,6 +228,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
         #        return arc b
         #)
         path.transition().duration(2000).attrTween('d', (d,i) ->
+            console.log('tween @instanceDataId: ',@instanceDataId)
             console.log('window.oldPieData['+@instanceDataId+']: ',window.oldPieData[@instanceDataId])
             lastPieData = window.oldPieData[@instanceDataId] 
             console.log('lastPieData: ',lastPieData)
