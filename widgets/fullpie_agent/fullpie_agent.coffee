@@ -149,9 +149,10 @@ class Dashing.FullpieAgent extends Dashing.Widget
             myInterpolater = d3.interpolate({
                 startAngle: s0
                 endAngle: e0
-            },
+            },{
                 startAngle: d.startAngle
-                endAngle: d.endAngle)
+                endAngle: d.endAngle
+            })
             return (t) ->
                 return arc(myInterpolater(t))
         )
