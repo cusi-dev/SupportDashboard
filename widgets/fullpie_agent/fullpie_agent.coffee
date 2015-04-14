@@ -1,7 +1,7 @@
 class Dashing.FullpieAgent extends Dashing.Widget
 
     @accessor 'data'
-    @testVar {}
+    @testVar = {}
 
     #constructor: ->
     ready: ->
