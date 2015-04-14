@@ -162,15 +162,15 @@ class Dashing.FullpieAgent extends Dashing.Widget
             .attrTween('d', (d,i) -> 
                 s0 = 2 * Math.PI
                 e0 = 2 * Math.PI
-                x = d3.interpolate({
+                exitInterpolater = d3.interpolate({
                     startAngle: d.startAngle
                     endAngle: d.endAngle
-                },
+                },{
                     startAngle: s0
-                    endAngle: e0)
-                (t) ->
-                    b = x(t)
-                    return arc b
+                    endAngle: e0
+                })
+                return (t) ->
+                    return arc(exitInterpolater(t))
             )
             .remove()
 
