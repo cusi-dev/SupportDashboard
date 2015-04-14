@@ -157,7 +157,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
         )
         path.exit()
             .transition()
-            .duration(300)
+            .duration(1000)
             .attrTween('d', (d,i) -> 
                 s0 = 2 * Math.PI
                 e0 = 2 * Math.PI
