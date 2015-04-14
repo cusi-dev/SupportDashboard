@@ -226,16 +226,17 @@ class Dashing.FullpieAgent extends Dashing.Widget
         #        return arc b
         #)
         path.transition().duration(2000).attrTween('d', (d,i) ->
-            console.log('window.oldPieData['+@instanceDataId+']['+i+']: ',window.oldPieData[@instanceDataId][i])
+            lastPieData = window.oldPieData[@instanceDataId] 
+            console.log('lastPieData: ',lastPieData)
             #window.oldPieData[myInstanceDataId][i] = window.oldPieData[myInstanceDataId][i] ? []
             #window.oldPieData[myInstanceDataId][i] = d
-            console.log('This is the real pie data: ',d)
+            console.log('live pie data: ',d)
 
             #if myInstanceDataId = 'resolved' and i = 0 
             #    console.log('in tween - OLD DATA - ' + myInstanceDataId + '[' + i + ']: ',window.oldPieData[myInstanceDataId][i])
             #console.log('1. in tween - d: ',d)
 
-            myInterpolater = d3.interpolate(window.oldPieData[@instanceDataId][i], d)
+            myInterpolater = d3.interpolate(lastPieData, d)
 
             #window.oldPieData[myInstanceDataId][i] = myInterpolater(0) ? d
             #if myInstanceDataId = 'resolved' and i = 0
