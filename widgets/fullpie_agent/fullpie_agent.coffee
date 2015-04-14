@@ -159,17 +159,15 @@ class Dashing.FullpieAgent extends Dashing.Widget
             .transition()
             .duration(300)
             .attrTween('d', (d,i) -> 
-                #`var i`
                 s0 = 2 * Math.PI
                 e0 = 2 * Math.PI
-                i = d3.interpolate({
+                x = d3.interpolate({
                     startAngle: d.startAngle
                     endAngle: d.endAngle
                 },
                     startAngle: s0
                     endAngle: e0)
                 (t) ->
-                #    b = i(t)
                     b = x(t)
                     return arc b
             )
