@@ -309,7 +309,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
             #.attr('stroke-width', 1)
             .attr('marker-end', 'url(#circ)')
             #.style('opacity', 0)
-        #pointers.exit().remove()
+        pointers.exit().remove()
 
         pointers.transition().duration(2000).attr('d', (d) ->
                 console.log('label transition d: ',d)
@@ -319,7 +319,6 @@ class Dashing.FullpieAgent extends Dashing.Widget
                     return 'M' + (d.r - 2) + ',' + d.b + 'L' + (d.l + 2) + ',' + d.b + ' ' + d.cx + ',' + d.cy
             )
             #.style('opacity', 1)
-        pointers.exit().remove()
 
         # Display total count
         totalTickets = 0
