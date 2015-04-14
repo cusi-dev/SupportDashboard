@@ -226,6 +226,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
         #        return arc b
         #)
         path.transition().duration(2000).attrTween('d', (d,i) ->
+            console.log('window.oldPieData['+@instanceDataId+']: ',window.oldPieData[@instanceDataId])
             lastPieData = window.oldPieData[@instanceDataId] 
             console.log('lastPieData: ',lastPieData)
             #window.oldPieData[myInstanceDataId][i] = window.oldPieData[myInstanceDataId][i] ? []
