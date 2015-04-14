@@ -231,7 +231,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
         #        b = myInterpolate(t)
         #        return arc b
         #)
-        path.transition().duration(2000).attrTween('d', (d,i) ->
+        path.transition().duration(1000).attrTween('d', (d,i) ->
             s0 = undefined
             e0 = undefined
             if lastPieData[i]
