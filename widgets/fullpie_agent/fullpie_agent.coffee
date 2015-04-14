@@ -163,7 +163,9 @@ class Dashing.FullpieAgent extends Dashing.Widget
 
         #console.log('@oldPieData before the tween',@oldPieData[@instanceDataId] ? null)
         #window.oldPieData[@instanceDataId] = @oldPieData[@instanceDataId] ? null
+        lastPieData = window.oldPieData[@instanceDataId]
         myInstanceDataId = @instanceDataId
+
         path = pathGroup.selectAll('path.pie').data(piedata)
         path.enter().append('path').attr('class', 'pie').attr('fill', (d, i) -> color i)
         
@@ -233,7 +235,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
             console.log('tween @instanceDataId: ',@instanceDataId)
             console.log('tween myInstanceDataId: ',myInstanceDataId)
             console.log('window.oldPieData['+myInstanceDataId+']: ',window.oldPieData[myInstanceDataId])
-            lastPieData = window.oldPieData[myInstanceDataId] 
+            #lastPieData = window.oldPieData[myInstanceDataId] 
             console.log('lastPieData: ',lastPieData)
             #window.oldPieData[myInstanceDataId][i] = window.oldPieData[myInstanceDataId][i] ? []
             #window.oldPieData[myInstanceDataId][i] = d
@@ -253,7 +255,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
             else
                 s0 = 0
                 e0 = 0
-            myInterpolate = d3.interpolate({
+            myInterpolater = d3.interpolate({
                 startAngle: s0
                 endAngle: e0
             },
