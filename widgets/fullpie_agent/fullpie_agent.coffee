@@ -162,7 +162,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
 
         #console.log('@oldPieData before the tween',@oldPieData[@instanceDataId] ? null)
         #window.oldPieData[@instanceDataId] = @oldPieData[@instanceDataId] ? null
-        myInstanceDataId = @instanceDataId
+        #myInstanceDataId = @instanceDataId
         path = pathGroup.selectAll('path.pie').data(piedata)
         path.enter().append('path').attr('class', 'pie').attr('fill', (d, i) -> color i)
         
@@ -229,16 +229,16 @@ class Dashing.FullpieAgent extends Dashing.Widget
         #        return arc b
         #)
         path.transition().duration(2000).attrTween('d', (d,i) ->
-            console.log('window.oldPieData['+myInstanceDataId+']['+i+']: ',window.oldPieData[myInstanceDataId][i])
-            window.oldPieData[myInstanceDataId][i] = window.oldPieData[myInstanceDataId][i] ? []
-            window.oldPieData[myInstanceDataId][i] = d
+            console.log('window.oldPieData['+@instanceDataId+']['+i+']: ',window.oldPieData[@instanceDataId][i])
+            #window.oldPieData[myInstanceDataId][i] = window.oldPieData[myInstanceDataId][i] ? []
+            #window.oldPieData[myInstanceDataId][i] = d
             console.log('This is the real pie data: ',d)
 
             #if myInstanceDataId = 'resolved' and i = 0 
             #    console.log('in tween - OLD DATA - ' + myInstanceDataId + '[' + i + ']: ',window.oldPieData[myInstanceDataId][i])
             #console.log('1. in tween - d: ',d)
 
-            myInterpolater = d3.interpolate(window.oldPieData[myInstanceDataId][i], d)
+            myInterpolater = d3.interpolate(window.oldPieData[@instanceDataId][i], d)
 
             #window.oldPieData[myInstanceDataId][i] = myInterpolater(0) ? d
             #if myInstanceDataId = 'resolved' and i = 0
