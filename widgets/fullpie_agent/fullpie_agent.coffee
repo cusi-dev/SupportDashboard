@@ -13,10 +13,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
         window.oldPieData[@instanceDataId] = window.oldPieData[@instanceDataId] or []
 
     onData: (data) ->
-        #console.log('testData',@testData)
-        #@testData = @testData + 1
-        #console.log('testData',@testData)
-        #console.log('window.oldPieData',window.oldPieData)
+        console.log('onData')
 
         #$(@node).fadeOut().fadeIn()
         @container = $(@node).parent()
