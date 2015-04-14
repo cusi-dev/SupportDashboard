@@ -411,17 +411,16 @@ class Dashing.FullpieAgent extends Dashing.Widget
             .style('stroke', 'black')
             .attr('stroke-width', 1)
             .attr('marker-end', 'url(#circ)')
-            .style('opacity', 0)
+            #.style('opacity', 0)
         pointers.exit().remove()
         pointers.transition()
-            .delay(500)
             .duration(1000)
             .attr('d', (d) ->
                 if d.cx > d.l
                     'M' + (d.l + 2) + ',' + d.b + 'L' + (d.r - 2) + ',' + d.b + ' ' + d.cx + ',' + d.cy
                 else
                     'M' + (d.r - 2) + ',' + d.b + 'L' + (d.l + 2) + ',' + d.b + ' ' + d.cx + ',' + d.cy
-            ).style('opacity', 1)
+            )#.style('opacity', 1)
 
         # Display total count
         totalTickets = 0
@@ -441,10 +440,6 @@ class Dashing.FullpieAgent extends Dashing.Widget
             .attr('font-size',(if typeof totalTickets isnt 'string' then radiusi + 'px' else '2em'))
             .style('opacity', 1)
 
-        #console.log('window.oldPieData BOTTOM',window.oldPieData)
-        #window.oldPieData[@instanceDataId] = piedata
-        #window.oldPieData = window.oldPieData or {}
-        #window.oldPieData[@instanceDataId] = window.oldPieData[@instanceDataId] or []
         window.oldPieData[@instanceDataId] = piedata
-        #console.log('piedata',piedata) 
+
         return
