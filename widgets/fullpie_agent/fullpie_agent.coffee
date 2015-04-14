@@ -127,7 +127,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
 
         # Create variables that will be in scope within the path.transition attrTween function
         myInstanceDataId = @instanceDataId
-        lastPieData = window.oldPieData[myInstanceDataId]
+        lastPieData = window.oldPieData[myInstanceDataId] ? d
 
         path = pathGroup.selectAll('path.pie').data(piedata)
         path.enter().append('path').attr('class', 'pie').attr('fill', (d, i) -> color i)
