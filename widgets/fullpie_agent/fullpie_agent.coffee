@@ -125,9 +125,8 @@ class Dashing.FullpieAgent extends Dashing.Widget
         if totalLabel.empty()
             totalLabel = svg.append('g').attr('class', 'totalLabel')
 
-        # Create variables that will be in scope within the path.transition attrTween function
-        myInstanceDataId = @instanceDataId
-        lastPieData = window.oldPieData[myInstanceDataId] ? d
+        # Create variable for old pie data that will be in scope within the path.transition attrTween function below
+        lastPieData = window.oldPieData[@instanceDataId] ? d
 
         path = pathGroup.selectAll('path.pie').data(piedata)
         path.enter().append('path').attr('class', 'pie').attr('fill', (d, i) -> color i)
