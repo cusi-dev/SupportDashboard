@@ -9,7 +9,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
         
     ready: ->
         @instanceDataId = $(@node).attr('data-id')
-        console.log('ready -> @instanceDataId: ',@instanceDataId)
+        #console.log('ready -> @instanceDataId: ',@instanceDataId)
         #console.log('@instanceDataId',@instanceDataId)
         #@oldPieData[@instanceDataId] = ''
         window.oldPieData = window.oldPieData or {}
@@ -22,7 +22,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
         @container = $(@node).parent()
         #@instanceDataId = $(@node).attr('data-id')
         #@instanceDataId = @instanceDataId ? $(@node).attr('data-id')
-        console.log('onData -> @instanceDataId: ',@instanceDataId)
+        #console.log('onData -> @instanceDataId: ',@instanceDataId)
 
         #
         # CONFIG ZONE
@@ -66,7 +66,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
         $(@node).children('svg').remove()
         # Define the container
         #container = @container#$(@node).parent()
-        console.log('update -> @instanceDataId: ',@instanceDataId)
+        #console.log('update -> @instanceDataId: ',@instanceDataId)
 
         #
         # CONFIG ZONE
@@ -413,17 +413,15 @@ class Dashing.FullpieAgent extends Dashing.Widget
             .attr('marker-end', 'url(#circ)')
             #.style('opacity', 0)
         pointers.exit().remove()
-        pointers.transition()
-            .duration(2000)
-            .attr('d', (d) ->
-                console.log('my d: ',d)
-                if d.cx > d.l
-                    console.log('if: ', "M" + (d.l+2) + "," + d.b + "L" + (d.r-2) + "," + d.b + " " + d.cx + "," + d.cy)
-                    'M' + (d.l + 2) + ',' + d.b + 'L' + (d.r - 2) + ',' + d.b + ' ' + d.cx + ',' + d.cy
-                else
-                    console.log('else: ', "M" + (d.r-2) + "," + d.b + "L" + (d.l+2) + "," + d.b + " " + d.cx + "," + d.cy)
-                    'M' + (d.r - 2) + ',' + d.b + 'L' + (d.l + 2) + ',' + d.b + ' ' + d.cx + ',' + d.cy
-            )#.style('opacity', 1)
+        pointers.transition().duration(2000).attr('d', (d) ->
+            console.log('my d: ',d)
+            if d.cx > d.l
+                console.log('if: ', "M" + (d.l+2) + "," + d.b + "L" + (d.r-2) + "," + d.b + " " + d.cx + "," + d.cy)
+                'M' + (d.l + 2) + ',' + d.b + 'L' + (d.r - 2) + ',' + d.b + ' ' + d.cx + ',' + d.cy
+            else
+                console.log('else: ', "M" + (d.r-2) + "," + d.b + "L" + (d.l+2) + "," + d.b + " " + d.cx + "," + d.cy)
+                'M' + (d.r - 2) + ',' + d.b + 'L' + (d.l + 2) + ',' + d.b + ' ' + d.cx + ',' + d.cy
+        )#.style('opacity', 1)
 
         # Display total count
         totalTickets = 0
