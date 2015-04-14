@@ -163,7 +163,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
 
         #console.log('@oldPieData before the tween',@oldPieData[@instanceDataId] ? null)
         #window.oldPieData[@instanceDataId] = @oldPieData[@instanceDataId] ? null
-        #myInstanceDataId = @instanceDataId
+        myInstanceDataId = @instanceDataId
         path = pathGroup.selectAll('path.pie').data(piedata)
         path.enter().append('path').attr('class', 'pie').attr('fill', (d, i) -> color i)
         
@@ -230,9 +230,9 @@ class Dashing.FullpieAgent extends Dashing.Widget
         #        return arc b
         #)
         path.transition().duration(2000).attrTween('d', (d,i) ->
-            console.log('tween @instanceDataId: ',@instanceDataId)
-            console.log('window.oldPieData['+@instanceDataId+']: ',window.oldPieData[@instanceDataId])
-            lastPieData = window.oldPieData[@instanceDataId] 
+            console.log('tween @instanceDataId: ',myInstanceDataId)
+            console.log('window.oldPieData['+myInstanceDataId+']: ',window.oldPieData[myInstanceDataId])
+            lastPieData = window.oldPieData[myInstanceDataId] 
             console.log('lastPieData: ',lastPieData)
             #window.oldPieData[myInstanceDataId][i] = window.oldPieData[myInstanceDataId][i] ? []
             #window.oldPieData[myInstanceDataId][i] = d
