@@ -413,6 +413,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
             .attr('marker-end', 'url(#circ)')
             #.style('opacity', 0)
         pointers.exit().remove()
+
         pointers.transition().duration(2000).attr('d', (d) ->
             console.log('my d: ',d)
             if d.cx > d.l
