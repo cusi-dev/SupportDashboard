@@ -68,7 +68,6 @@ class Dashing.FullpieAgent extends Dashing.Widget
         #container = @container#$(@node).parent()
         console.log('update -> @instanceDataId: ',@instanceDataId)
 
-
         #
         # CONFIG ZONE
         #
