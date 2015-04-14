@@ -232,15 +232,6 @@ class Dashing.FullpieAgent extends Dashing.Widget
         #        return arc b
         #)
         path.transition().duration(2000).attrTween('d', (d,i) ->
-            console.log('tween @instanceDataId: ',@instanceDataId)
-            console.log('tween myInstanceDataId: ',myInstanceDataId)
-            console.log('window.oldPieData['+myInstanceDataId+']: ',window.oldPieData[myInstanceDataId])
-            #lastPieData = window.oldPieData[myInstanceDataId] 
-            console.log('lastPieData: ',lastPieData)
-            #window.oldPieData[myInstanceDataId][i] = window.oldPieData[myInstanceDataId][i] ? []
-            #window.oldPieData[myInstanceDataId][i] = d
-            console.log('live pie data: ',d)
-
             s0 = undefined
             e0 = undefined
             if lastPieData[i]
@@ -261,33 +252,27 @@ class Dashing.FullpieAgent extends Dashing.Widget
             },
                 startAngle: d.startAngle
                 endAngle: d.endAngle)
-            
-            #myInterpolater = d3.interpolate(lastPieData, d)
-
-            #window.oldPieData[myInstanceDataId][i] = myInterpolater(0) ? d
-            #if myInstanceDataId = 'resolved' and i = 0
-            #    console.log('in tween - NEW DATA - ' + myInstanceDataId + '[' + i + ']: ',window.oldPieData[myInstanceDataId][i])
-            #console.log('2. in tween - d: ',d)
             return (t) ->
                 return arc(myInterpolater(t))
         )
         path.exit()
-            #.transition()
-            #.duration(300)
-            #.attrTween('d', (d,i) -> 
-            #    `var i`
-            #    s0 = 2 * Math.PI
-            #    e0 = 2 * Math.PI
-            #    i = d3.interpolate({
-            #        startAngle: d.startAngle
-            #        endAngle: d.endAngle
-            #    },
-            #        startAngle: s0
-            #        endAngle: e0)
-            #    (t) ->
-            #        b = i(t)
-            #        return arc b
-            #)
+            .transition()
+            .duration(300)
+            .attrTween('d', (d,i) -> 
+                #`var i`
+                s0 = 2 * Math.PI
+                e0 = 2 * Math.PI
+                i = d3.interpolate({
+                    startAngle: d.startAngle
+                    endAngle: d.endAngle
+                },
+                    startAngle: s0
+                    endAngle: e0)
+                (t) ->
+                #    b = i(t)
+                    b = x(t)
+                    return arc b
+            )
             .remove()
 
         labels = labelGroup.selectAll('text').data(piedata.sort((p1, p2) ->
