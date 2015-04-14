@@ -231,6 +231,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
         path.transition().duration(2000).attrTween('d', (d,i) ->
             window.oldPieData[myInstanceDataId][i] = window.oldPieData[myInstanceDataId][i] ? []
             window.oldPieData[myInstanceDataId][i] = d
+            console.log('window.oldPieData[myInstanceDataId][i]',window.oldPieData[myInstanceDataId][i])
 
             if myInstanceDataId = 'resolved' and i = 0 
                 console.log('in tween - OLD DATA - ' + myInstanceDataId + '[' + i + ']: ',window.oldPieData[myInstanceDataId][i])
