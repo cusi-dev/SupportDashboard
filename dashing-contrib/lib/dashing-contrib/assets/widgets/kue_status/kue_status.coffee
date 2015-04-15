@@ -1,0 +1,1 @@
+class Dashing.KueStatus extends Dashing.Widget

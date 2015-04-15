@@ -1,0 +1,37 @@
+<h1 class="title" data-bind="title" data-showif="title"></h1>
+
+<ul class="critical-list" data-showif="hasCritical">
+    <li data-foreach-item="criticalMap">
+        <span class="host-title" data-bind="item.host"></span>
+        <div class="checks-list">
+            <div class="check-item" data-foreach-check="item.checks">
+                <span class="check-item-name" data-bind="check.service"></span>
+                <span class="check-item-timestamp" data-bind="check.last_check"></span>
+            </div>
+        </div>
+    </li>
+</ul>
+
+<ul class="warning-list" data-showif="hasWarning">
+    <li data-foreach-item="warningMap">
+        <span class="host-title" data-bind="item.host"></span>
+        <div class="checks-list">
+            <div class="check-item" data-foreach-check="item.checks">
+                <span class="check-item-name" data-bind="check.service"></span>
+                <span class="check-item-timestamp" data-bind="check.last_check"></span>
+            </div>
+        </div>
+    </li>
+</ul>
+
+<ul class="ok-list" >
+    <li data-foreach-item="okMap">
+        <span class="host-title" data-bind="item.host"></span>
+        <div class="checks-list">
+            <div class="check-item" data-foreach-check="item.checks">
+                <span class="check-item-name" data-bind="check.service"></span>
+                <span class="check-item-timestamp" data-bind="check.last_check"></span>
+            </div>
+        </div>
+    </li>
+</ul>

@@ -1,0 +1,48 @@
+.widget.widget-dashing-state {
+
+  .dashing-contrib {
+    &.state-warning {
+      background: rgba(247,206,27,0.5);
+    }
+    &.state-ok {
+      background: rgba(154,202,60,0.7);
+    }
+    &.state-critical {
+      background: rgba(195,32,38, 0.6);
+    }
+  }
+  .basic-stats {
+
+    font-size: 160px;
+    text-align: center;
+
+    .stats-item {
+      padding: 50px;
+      display: inline-block;
+    }
+    .stats-title {
+      font-size: 40px;
+    }
+  }
+
+  ul {
+    padding: 10px 200px;
+    li {
+      display: inline-block;
+      padding: 10px 10px;
+      margin: 10px;
+      font-size: 25px;
+      &.item-state-ok {
+        background: rgba(154,202,60,1);
+      }
+      &.item-state-warning {
+        background: rgba(247,206,27,1);
+      }
+      &.item-state-critical {
+        background: rgba(195,32,38, 1);
+      }
+      border-radius: 10px;
+    }
+  }
+
+}

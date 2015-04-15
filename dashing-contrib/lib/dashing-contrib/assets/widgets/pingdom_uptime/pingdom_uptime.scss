@@ -1,0 +1,89 @@
+// ----------------------------------------------------------------------------
+// Sass declarations
+// ----------------------------------------------------------------------------
+$background-color:  #2A2A2A;
+$value-color:       #73AA3A;
+
+$title-color:       #B2B2B2;
+$moreinfo-color:    rgba(255, 255, 255, 0.7);
+
+// ----------------------------------------------------------------------------
+// Widget styles
+// ----------------------------------------------------------------------------
+.widget-pingdom-uptime {
+  //refreshing default widget definition
+  vertical-align: baseline !important;
+  padding:0px !important;
+
+  background-color: $background-color;
+
+  header{
+    background-color: #272727;
+    text-transform: uppercase;
+    padding: 5px 0px 5px 0px;
+    font-weight: 700;
+    font-size: 12px;
+    text-shadow: 1px 1px #0e0e0e;
+  }
+  .title {
+    color: $title-color;
+    font-size: inherit;
+  }
+
+  .body {
+    padding: 0px;
+    color: #d3d4d4;
+    text-shadow: 1px 1px #0e0e0e;
+    font-family: Helvetica, Arial, sans-serif;
+    z-index: 1;
+
+    .row {
+      width:100%;
+    }
+    .left {
+      float:left;
+      width:50%;
+    }
+    .right {
+      float:right;
+      width:49%;
+      border-left: 1px dotted #8b8b8b;
+    }
+  }
+
+  .current-status-container {
+    padding: 10px;
+    font-size: 35px;
+    text-shadow: none;
+    &.status-up {
+      color: #9ACA3C;
+    }
+    &.status-down {
+      color: #C32026;
+    }
+
+    i.fa {
+      font-size: 55px;
+    }
+  }
+
+  .value {
+    font-size: 60px;
+  }
+
+  .more-info {
+    color: $moreinfo-color;
+    p {
+      font-size:12px;
+      color: #8b8b8b;
+    }
+    .figure {
+      font-size:18px;
+      color: #CECFCF;
+    }
+    &.past-status {
+      bottom: 80px;
+    }
+  }
+
+}

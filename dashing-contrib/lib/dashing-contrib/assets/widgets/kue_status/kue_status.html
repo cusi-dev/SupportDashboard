@@ -1,0 +1,12 @@
+<div data-bind-class="state | prepend 'dashing-contrib state-'">
+    <h1 class="title" data-bind="title"></h1>
+
+    <ul>
+        <li data-foreach-metric="metrics">
+            <span data-bind-class="metric.label | prepend 'label '" class="label" data-bind="metric.label"></span>
+            <span class="value" data-bind="metric.value"></span>
+        </li>
+    </ul>
+
+    <p class="updated-at" data-bind="updatedAtMessage"></p>
+</div>

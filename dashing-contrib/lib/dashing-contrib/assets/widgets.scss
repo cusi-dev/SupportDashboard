@@ -1,0 +1,33 @@
+//=require_tree ./javascripts
+//=require_tree ./widgets
+//=require      ./stylesheets/font-awesome/scss/font-awesome
+
+
+.dashing-contrib {
+  height: 100%;
+  width: 100%;
+  background-color: #2a2a2a;
+  font-size: 20px;
+  color: white;
+
+  .title {
+    font-size: 25px;
+    padding: 5px 10px;
+    color: white;
+  }
+  &.state-ok {
+    .title {
+      background-color: #272727;
+    }
+  }
+  &.state-warning {
+    .title {
+      background-color: #F7CE1B;
+    }
+  }
+  &.state-critical {
+    .title {
+      background-color: #C32026;
+    }
+  }
+}

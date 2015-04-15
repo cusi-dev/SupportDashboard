@@ -1,0 +1,1 @@
+require 'dashing-contrib/bottles/kue/client'

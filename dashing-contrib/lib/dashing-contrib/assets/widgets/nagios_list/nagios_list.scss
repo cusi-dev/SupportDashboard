@@ -1,0 +1,61 @@
+.widget-nagios-list {
+
+
+  ul {
+    padding: 0px;
+    margin: 0;
+    text-align: left;
+
+    li {
+      padding: 10px;
+      background: #2A2A2A;
+      border-bottom: 1px solid #333;
+    }
+
+    .host-title {
+      display: block;
+      font-size: 25px;
+      padding-bottom: 10px;
+    }
+
+    .checks-list {
+      .check-item {
+        display: inline-block;
+        margin-bottom: 18px;
+        margin-right: 5px;
+        border-radius: 5px;
+
+        .check-item-name {
+          padding: 3px 15px 5px 15px;
+          margin-right: 0px;
+        }
+        .check-item-timestamp {
+          padding: 3px 15px 5px 15px;
+          margin-left: -6px;
+          background: black;
+        }
+      }
+    }
+
+
+    &.critical-list {
+      .check-item-name {
+        background: #C32026;
+      }
+    }
+
+    &.warning-list {
+      .check-item-name {
+        background: #F7CE1B;
+        color: black;
+      }
+    }
+
+    &.ok-list {
+      .check-item-name {
+        background: #9ACA3C;
+        color: black;
+      }
+    }
+  }
+}

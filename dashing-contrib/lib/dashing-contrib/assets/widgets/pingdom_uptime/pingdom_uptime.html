@@ -1,0 +1,44 @@
+<div data-bind-class="state | prepend 'dashing-contrib state-'">
+    <h1 class="title">Pingdom</h1>
+    <section class="body">
+        <div class="canvas">
+
+            <div class="uptime-container" data-bind-class="value">
+                <div>Pingdom Uptime</div>
+                <div>
+                    <span data-bind="current | shortenedNumber | prepend prefix | append suffix"></span>%
+                </div>
+            </div>
+
+            <div class="current-status-container" data-bind-class="statusClass">
+                <div data-bind="title"></div>
+                <div>
+                    <i data-bind-class="arrowClass"></i>
+                </div>
+            </div>
+
+            <div class="row more-info past-status">
+                <div class="left">
+                    <p>Last downtime<p>
+                    <p class="figure" data-bind="last_downtime"></p>
+                </div>
+                <div class="right">
+                    <p>Response time<p>
+                    <p class="figure" data-bind="current_response_time"></p>
+                </div>
+            </div>
+
+            <div class="row more-info uptime-status">
+                <div class="left">
+                    <p data-bind="first_title"><p>
+                    <p class="figure"><span data-bind="first"></span>%</p>
+                </div>
+
+                <div class="right">
+                    <p data-bind="second_title"><p>
+                    <p class="figure"><span data-bind="second"></span>%</p>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>

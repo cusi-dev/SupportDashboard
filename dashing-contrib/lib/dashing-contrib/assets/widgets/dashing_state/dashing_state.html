@@ -1,0 +1,24 @@
+<div data-bind-class="state | prepend 'dashing-contrib state-'">
+    <div class="basic-stats">
+        <div class="stats-item ok">
+            <div data-bind="ok"></div>
+            <div class="stats-title">OK</div>
+        </div>
+
+        <div class="stats-item warning">
+            <div data-bind="warning"></div>
+            <div class="stats-title">WARNING</div>
+        </div>
+
+        <div class="stats-item critical">
+            <div data-bind="critical"></div>
+            <div class="stats-title">CRITICAL</div>
+        </div>
+
+    </div>
+    <ul>
+        <li data-foreach-state="widgetStates" data-bind-class="state.state | prepend 'item-state-'">
+            <span data-bind="state.title"></span>
+        </li>
+    </ul>
+</div>
