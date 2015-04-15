@@ -273,8 +273,8 @@ class Dashing.FullpieAgent extends Dashing.Widget
             if conflicts.length
                 #console.log d, ' conflicts with ', conflicts
                 rightEdge = d3.max(conflicts, (d2) ->
-                    `var maxLabelHeight`
-                    `var maxLabelWidth`
+                    #`var maxLabelHeight`
+                    #`var maxLabelWidth`
                     d2.r
                 )
                 d.l = rightEdge
@@ -344,7 +344,6 @@ class Dashing.FullpieAgent extends Dashing.Widget
             .style('opacity', 0)
         totalLabel.select('text').transition()
             .duration(500)
-            #.attr('font-size',radiusi + 'px')
             .attr('font-size',(if typeof totalTickets isnt 'string' then radiusi + 'px' else '2em'))
             .style('opacity', 1)
 
