@@ -313,7 +313,13 @@ class Dashing.FullpieAgent extends Dashing.Widget
             #.style('opacity', 0)
         pointers.exit().remove()
 
-        pointers.transition().delay(1000).duration(500).attr('d', (d) ->
+        #pointers.transition().delay(1000).duration(500).attr('d', (d) ->
+        #        if d.cx > d.l
+        #            'M' + (d.l + 2) + ',' + d.b + 'L' + (d.r - 2) + ',' + d.b + ' ' + d.cx + ',' + d.cy
+        #        else
+        #            'M' + (d.r - 2) + ',' + d.b + 'L' + (d.l + 2) + ',' + d.b + ' ' + d.cx + ',' + d.cy
+        #    )
+        pointers.attr('d', (d) ->
                 if d.cx > d.l
                     'M' + (d.l + 2) + ',' + d.b + 'L' + (d.r - 2) + ',' + d.b + ' ' + d.cx + ',' + d.cy
                 else
