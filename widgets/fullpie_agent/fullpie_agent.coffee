@@ -334,7 +334,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
         totalTickets = if totalTickets != 0 then totalTickets else 'No Results'
         totalLabel.append('text')
             .text(totalTickets)
-            .attr('font-size','0px')
+            .attr('font-size','smaller')
             .attr('text-anchor', 'middle')
             .attr('alignment-baseline', 'central')
             .attr('filter','url(#dropshadow)')
