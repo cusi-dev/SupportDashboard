@@ -320,7 +320,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
         #            return 'M' + (d.r - 2) + ',' + d.b + 'L' + (d.l + 2) + ',' + d.b + ' ' + d.cx + ',' + d.cy
         #    )
         #    #.style('opacity', 1)
-        pointers.transition().duration(2000).attr('d', (d) ->
+        pointers.transition().duration(2000).attr("d", (d) ->
                 console.log('d',d)
                 if d.cx > d.l
                     'M' + (d.l + 2) + ',' + d.b + 'L' + (d.r - 2) + ',' + d.b + ' ' + d.cx + ',' + d.cy
