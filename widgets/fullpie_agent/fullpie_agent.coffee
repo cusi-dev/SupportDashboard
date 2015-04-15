@@ -311,7 +311,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
             .attr('class', 'pointer')
             .style('fill', 'none')
             .style('stroke', 'black')
-            .attr('stroke-width', 2)
+            .attr('stroke-width', 1.2)
             .attr('marker-end', 'url(#circ)')
             .style('opacity', 0)
         pointers.exit().remove()
