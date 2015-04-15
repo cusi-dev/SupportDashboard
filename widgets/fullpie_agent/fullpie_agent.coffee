@@ -294,6 +294,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
         #.attr("x",0)
         #.attr("y",0)
         .transition()
+            .delay(750)
             .duration(500)
             .attr('x', (d) ->
                 d.x
