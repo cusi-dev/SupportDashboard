@@ -313,12 +313,15 @@ class Dashing.FullpieAgent extends Dashing.Widget
             .style('opacity', 0)
         pointers.exit().remove()
 
+        # Unable to make this pointer transition work.  They all snap and ignore transitioning.  The example
+        # in pure Javascript works at http://jsfiddle.net/Qh9X5/1249/
         #pointers.transition().delay(1000).duration(500).attr('d', (d) ->
         #        if d.cx > d.l
         #            'M' + (d.l + 2) + ',' + d.b + 'L' + (d.r - 2) + ',' + d.b + ' ' + d.cx + ',' + d.cy
         #        else
         #            'M' + (d.r - 2) + ',' + d.b + 'L' + (d.l + 2) + ',' + d.b + ' ' + d.cx + ',' + d.cy
         #    )
+        # Work-around broken smooth transitioning by using 0 opacity to hide the move
         pointers.attr('d', (d) ->
                 if d.cx > d.l
                     'M' + (d.l + 2) + ',' + d.b + 'L' + (d.r - 2) + ',' + d.b + ' ' + d.cx + ',' + d.cy
