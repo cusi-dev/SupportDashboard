@@ -302,7 +302,6 @@ class Dashing.FullpieAgent extends Dashing.Widget
             ).style("opacity", 1)
 
         pointers = pointerGroup.selectAll('path.pointer').data(piedata)
-        pointers.transition().duration(500).style('opacity',0)
         pointers.enter()
             .append('path')
             .attr('class', 'pointer')
@@ -310,7 +309,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
             .style('stroke', 'black')
             .attr('stroke-width', 1)
             .attr('marker-end', 'url(#circ)')
-            #.style('opacity', 0)
+            .style('opacity', 0)
         pointers.exit().remove()
 
         #pointers.transition().delay(1000).duration(500).attr('d', (d) ->
