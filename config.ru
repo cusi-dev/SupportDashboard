@@ -1,4 +1,6 @@
+require 'dashing-contrib'
 require 'dashing'
+DashingContrib.configure
 
 configure do
 <<<<<<< HEAD
