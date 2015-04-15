@@ -312,14 +312,20 @@ class Dashing.FullpieAgent extends Dashing.Widget
             #.style('opacity', 0)
         pointers.exit().remove()
 
+        #pointers.transition().duration(2000).attr('d', (d) ->
+        #        console.log('label transition d: ',d)
+        #        if d.cx > d.l
+        #            return 'M' + (d.l + 2) + ',' + d.b + 'L' + (d.r - 2) + ',' + d.b + ' ' + d.cx + ',' + d.cy
+        #        else
+        #            return 'M' + (d.r - 2) + ',' + d.b + 'L' + (d.l + 2) + ',' + d.b + ' ' + d.cx + ',' + d.cy
+        #    )
+        #    #.style('opacity', 1)
         pointers.transition().duration(2000).attr('d', (d) ->
-                console.log('label transition d: ',d)
-                if d.cx > d.l
-                    return 'M' + (d.l + 2) + ',' + d.b + 'L' + (d.r - 2) + ',' + d.b + ' ' + d.cx + ',' + d.cy
-                else
-                    return 'M' + (d.r - 2) + ',' + d.b + 'L' + (d.l + 2) + ',' + d.b + ' ' + d.cx + ',' + d.cy
-            )
-            #.style('opacity', 1)
+		        if d.cx > d.l
+			        return 'M' + (d.l + 2) + ',' + d.b + 'L' + (d.r - 2) + ',' + d.b + ' ' + d.cx + ',' + d.cy
+		        else
+			        return 'M' + (d.r - 2) + ',' + d.b + 'L' + (d.l + 2) + ',' + d.b + ' ' + d.cx + ',' + d.cy
+	        )
 
         # Display total count
         totalTickets = 0
