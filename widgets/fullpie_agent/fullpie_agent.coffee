@@ -208,6 +208,9 @@ class Dashing.FullpieAgent extends Dashing.Widget
             d.y
         )([])
 
+        # Create an instance name variable that will be in scope below
+        myInstanceDataId = @instanceDataId
+
         #create an empty quadtree to hold label positions
         maxLabelWidth = 0
         maxLabelHeight = 0
@@ -271,7 +274,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
                 return
 
             if conflicts.length
-                console.log @instanceDataId , ' ', d, ' conflicts with ', conflicts
+                console.log myInstanceDataId , ' ', d, ' conflicts with ', conflicts
                 rightEdge = d3.max(conflicts, (d2) ->
                     #`var maxLabelHeight`
                     #`var maxLabelWidth`
@@ -281,7 +284,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
                 d.x = d.l + bbox.width / 2 + 5
                 d.r = d.l + bbox.width + 10
             else
-                console.log 'no conflicts for ', d, ' ', @instanceDataId
+                console.log 'no conflicts for ', d, ' ', myInstanceDataId
 
             ### add this label to the quadtree, so it will show up as a conflict
                for future labels.  
