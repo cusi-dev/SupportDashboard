@@ -271,7 +271,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
                 return
 
             if conflicts.length
-                console.log d, ' conflicts with ', conflicts
+                console.log @instanceDataId , ' ', d, ' conflicts with ', conflicts
                 rightEdge = d3.max(conflicts, (d2) ->
                     #`var maxLabelHeight`
                     #`var maxLabelWidth`
@@ -281,7 +281,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
                 d.x = d.l + bbox.width / 2 + 5
                 d.r = d.l + bbox.width + 10
             else
-                console.log 'no conflicts for ', d
+                console.log 'no conflicts for ', d, ' ', @instanceDataId
 
             ### add this label to the quadtree, so it will show up as a conflict
                for future labels.  
