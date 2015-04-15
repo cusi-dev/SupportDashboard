@@ -284,7 +284,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
                 d.x = d.l + bbox.width / 2 + 5
                 d.r = d.l + bbox.width + 10
             else
-                console.log 'no conflicts for ', d, ' ', myInstanceDataId
+                console.log 'no conflicts for ', myInstanceDataId, ' ', d
 
             ### add this label to the quadtree, so it will show up as a conflict
                for future labels.  
