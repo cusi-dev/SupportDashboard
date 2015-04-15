@@ -324,7 +324,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
                 else
                     'M' + (d.r - 2) + ',' + d.b + 'L' + (d.l + 2) + ',' + d.b + ' ' + d.cx + ',' + d.cy
             )
-        pointers.transition().duration(500).style('opacity',1)
+        pointers.transition().delay(1000).duration(500).style('opacity',1)
 
         # Display total count
         totalTickets = 0
