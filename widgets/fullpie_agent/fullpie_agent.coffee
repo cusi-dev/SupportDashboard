@@ -322,9 +322,9 @@ class Dashing.FullpieAgent extends Dashing.Widget
         #    #.style('opacity', 1)
         pointers.transition().duration(2000).attr('d', (d) ->
 		        if d.cx > d.l
-			        return 'M' + (d.l + 2) + ',' + d.b + 'L' + (d.r - 2) + ',' + d.b + ' ' + d.cx + ',' + d.cy
+			        'M' + (d.l + 2) + ',' + d.b + 'L' + (d.r - 2) + ',' + d.b + ' ' + d.cx + ',' + d.cy
 		        else
-			        return 'M' + (d.r - 2) + ',' + d.b + 'L' + (d.l + 2) + ',' + d.b + ' ' + d.cx + ',' + d.cy
+			        'M' + (d.r - 2) + ',' + d.b + 'L' + (d.l + 2) + ',' + d.b + ' ' + d.cx + ',' + d.cy
 	        )
 
         # Display total count
