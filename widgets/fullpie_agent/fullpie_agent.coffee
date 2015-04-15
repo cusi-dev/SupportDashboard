@@ -302,32 +302,24 @@ class Dashing.FullpieAgent extends Dashing.Widget
             ).style("opacity", 1)
 
         pointers = pointerGroup.selectAll('path.pointer').data(piedata)
+        pointers.transition().duration(500).style('opacity',0)
         pointers.enter()
             .append('path')
             .attr('class', 'pointer')
             .style('fill', 'none')
             .style('stroke', 'black')
-            #.attr('stroke-width', 1)
+            .attr('stroke-width', 1)
             .attr('marker-end', 'url(#circ)')
             #.style('opacity', 0)
         pointers.exit().remove()
 
-        #pointers.transition().duration(2000).attr('d', (d) ->
-        #        console.log('label transition d: ',d)
-        #        if d.cx > d.l
-        #            return 'M' + (d.l + 2) + ',' + d.b + 'L' + (d.r - 2) + ',' + d.b + ' ' + d.cx + ',' + d.cy
-        #        else
-        #            return 'M' + (d.r - 2) + ',' + d.b + 'L' + (d.l + 2) + ',' + d.b + ' ' + d.cx + ',' + d.cy
-        #    )
-        #    #.style('opacity', 1)
-        pointers.transition().duration(2000).attr("d", (d) ->
+        pointers.transition().delay(1000).duration(500).attr('d', (d) ->
                 if d.cx > d.l
-                    console.log('if: ','M' + (d.l + 2) + ',' + d.b + 'L' + (d.r - 2) + ',' + d.b + ' ' + d.cx + ',' + d.cy)
                     'M' + (d.l + 2) + ',' + d.b + 'L' + (d.r - 2) + ',' + d.b + ' ' + d.cx + ',' + d.cy
                 else
-                    console.log('else: ','M' + (d.r - 2) + ',' + d.b + 'L' + (d.l + 2) + ',' + d.b + ' ' + d.cx + ',' + d.cy)
                     'M' + (d.r - 2) + ',' + d.b + 'L' + (d.l + 2) + ',' + d.b + ' ' + d.cx + ',' + d.cy
             )
+            .style('opacity',1)
 
         # Display total count
         totalTickets = 0
