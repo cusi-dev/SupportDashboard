@@ -126,6 +126,8 @@ class Dashing.FullpieAgent extends Dashing.Widget
             totalLabel = svg.append('g').attr('class', 'totalLabel')
 
         # Create variable for old pie data that will be in scope within the path.transition attrTween function below
+        # and handle null values that happen on browser refresh because onData() loads before ready()
+        window.oldPieData ? ready
         lastPieData = window.oldPieData[@instanceDataId] ? d
 
         path = pathGroup.selectAll('path.pie').data(piedata)
