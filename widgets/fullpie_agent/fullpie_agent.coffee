@@ -11,14 +11,14 @@ class Dashing.FullpieAgent extends Dashing.Widget
         @instanceDataId = $(@node).attr('data-id')
         window.oldPieData = window.oldPieData or {}
         window.oldPieData[@instanceDataId] = window.oldPieData[@instanceDataId] or []
-        console.log ('$(@node)',$(@node))
-        console.log ('$(@node).parent()',$(@node).parent())
 
     onData: (data) ->
         #$(@node).fadeOut().fadeIn()
 
         # Define the container
         @container = $(@node).parent()
+        console.log ('$(@node)',$(@node))
+        console.log ('@container',@container)
 
         #
         # CONFIG ZONE
