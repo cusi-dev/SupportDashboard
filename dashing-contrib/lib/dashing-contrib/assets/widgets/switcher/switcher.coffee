@@ -89,8 +89,8 @@ class WidgetSwitcher
     @handle = setInterval(()->
       # Hide all at first - then show the current and ensure it uses table-cell display type
       #self.$elements.hide()
-      self.$elements.hide(300)
-      $(self.$elements[self.curPos]).show(300).css('display', 'table-cell')
+      self.$elements.hide(333)
+      $(self.$elements[self.curPos]).show(333).css('display', 'table-cell')
 
       # Increase the position or reset back to zero
       self.curPos += 1
