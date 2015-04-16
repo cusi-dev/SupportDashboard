@@ -17,8 +17,8 @@ class Dashing.FullpieAgent extends Dashing.Widget
 
         # Define the container
         @container = $(@node).parent()
-        console.log ('$(@node)',$(@node))
-        console.log ('@container',@container)
+        console.log ('node',$(@node))
+        console.log ('container',@container)
 
         #
         # CONFIG ZONE
