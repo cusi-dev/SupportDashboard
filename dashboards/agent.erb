@@ -15,8 +15,11 @@ $(function() {
 
 <div class="gridster">
   <ul>
-	<li data-row="1" data-col="1" data-sizex="2" data-sizey="2">
-		<div data-id="resolved" data-view="FullpieAgent" style="background-color:#095209;" data-moreinfo="Tickets resolved today" data-title="Resolved Tickets"></div>
+<!--	<li data-row="1" data-col="1" data-sizex="2" data-sizey="2">--
+	<li data-switcher-interval="8000" data-row="1" data-col="1" data-sizex="2" data-sizey="2">
+		<div data-id="resolved" data-view="FullpieAgent" style="background-color:#095209;" data-moreinfo="Tickets resolved today" data-title="Resolved Tickets (ALL)"></div>
+		<div data-id="resolvedc" data-view="FullpieAgent" style="background-color:#095209;" data-moreinfo="Tickets resolved today" data-title="Resolved Tickets (CBSW)"></div>
+		<div data-id="resolvedu" data-view="FullpieAgent" style="background-color:#095209;" data-moreinfo="Tickets resolved today" data-title="Resolved Tickets (UMS)"></div>
 	</li>
 	
 	<li data-row="1" data-col="3" data-sizex="2" data-sizey="2">
@@ -53,7 +56,7 @@ $(function() {
 		<div data-id="t5" data-view="Text" style="background-color:#ffff00;" data-moreinfo="T5" data-title="T5"></div>
 	</li>
 -->
-	<li data-switcher-interval="5000" data-row="3" data-col="5" data-sizex="1" data-sizey="1" id="dc-switcher-controls">
+	<li data-switcher-interval="5000" data-row="3" data-col="5" data-sizex="1" data-sizey="1">
 		<div data-view="Clock" style="background-color:#222"></div>
 		<div data-id="t5" data-view="Text" style="background-color:#ffff00;" data-moreinfo="T5" data-title="T5"></div>
 	</li>
