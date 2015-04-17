@@ -11,13 +11,20 @@ $moreinfo-color:    rgba(255, 255, 255, 0.7);
 // ----------------------------------------------------------------------------
 // Widget-list styles
 // ----------------------------------------------------------------------------
+div.widget-table {
+  padding: 0 0;
+}
 .widget-table {
 
   background-color: $background-color;
   vertical-align: top;
 
-  .title {
+  .table-title {
     color: $title-color;
+    position: absolute;
+	top: 0;
+	width: 100%;
+	text-align: center;
   }
 
   td {
