@@ -32,13 +32,13 @@ div.widget-table {
     margin: 0 15px;
     text-align: left;
     color: $label-color;
+	font-size: 28px;
   }
 
   .value {
     margin-left: 12px;
     font-weight: 600;
     color: $value-color;
-	font-size: 28px;
   }
 
   .updated-at {
