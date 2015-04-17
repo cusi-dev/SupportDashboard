@@ -12,7 +12,7 @@ $moreinfo-color:    rgba(255, 255, 255, 1.0);
 // Widget-list styles
 // ----------------------------------------------------------------------------
 div.widget-table {
-  padding: 0 0;
+  padding: 0 10px;
 }
 .widget-table {
 
@@ -26,10 +26,6 @@ div.widget-table {
 	width: 100%;
 	text-align: center;
 	margin: 0;
-  }
-
-  table, thead, tbody {
-    padding: 0 10px;
   }
   
   th, td {
