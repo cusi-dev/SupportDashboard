@@ -180,7 +180,7 @@ class Dashing.FullpieAgent extends Dashing.Widget
         labels = labelGroup.selectAll('text').data(piedata.sort((p1, p2) ->
             p1.startAngle - p2.startAngle
         ))
-        labels.enter().append('text').attr('text-anchor', 'middle').attr('font-size', radiusi * .5 + 'px').attr('filter','url(#dropshadow)')
+        labels.enter().append('text').attr('text-anchor', 'middle').attr('font-size', radiusi * .2 + 'px').attr('filter','url(#dropshadow)')
         #labels.enter().append('text')
             #.attr('text-anchor', (d) ->
                 #rads = ((d.endAngle - d.startAngle) / 2) + d.startAngle
