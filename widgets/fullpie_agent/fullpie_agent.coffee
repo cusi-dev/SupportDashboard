@@ -342,14 +342,14 @@ class Dashing.FullpieAgent extends Dashing.Widget
         totalTickets = if totalTickets != 0 then totalTickets else 'No Results'
         totalLabel.append('text')
             .text(totalTickets)
-            .attr('font-size',radiusi / 2 + 'px')
+            .attr('font-size',radiusi * .1 + 'px')
             .attr('text-anchor', 'middle')
             .attr('alignment-baseline', 'central')
             .attr('filter','url(#dropshadow)')
             .style('opacity', 0)
         totalLabel.select('text').transition()
             .duration(500)
-            .attr('font-size',(if typeof totalTickets isnt 'string' then radiusi + 'px' else '2em'))
+            .attr('font-size',(if typeof totalTickets isnt 'string' then radiusi + 'px' else radiusi / 2 + 'px'))
             .style('opacity', 1)
 
         window.oldPieData[@instanceDataId] = piedata
