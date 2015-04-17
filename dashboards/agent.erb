@@ -16,25 +16,16 @@ $(function() {
 
 <div class="gridster">
   <ul>
-<!--	<li data-row="1" data-col="1" data-sizex="2" data-sizey="2"> -->
-	<li data-switcher-interval="8000" data-row="1" data-col="1" data-sizex="2" data-sizey="2">
+	<li data-row="1" data-col="1" data-sizex="2" data-sizey="2"> 
 		<div data-id="resolved" data-view="FullpieAgent" style="background-color:#095209;" data-moreinfo="Tickets resolved today" data-title="Resolved Tickets (ALL)"></div>
-		<div data-id="resolvedc" data-view="FullpieAgent" style="background-color:#095209;" data-moreinfo="Tickets resolved today" data-title="Resolved Tickets (CBSW)"></div>
-		<div data-id="resolvedu" data-view="FullpieAgent" style="background-color:#095209;" data-moreinfo="Tickets resolved today" data-title="Resolved Tickets (UMS)"></div>
 	</li>
 	
-<!--	<li data-row="1" data-col="3" data-sizex="2" data-sizey="2"> -->
-	<li data-switcher-interval="8000" data-row="1" data-col="3" data-sizex="2" data-sizey="2">
-		<div data-id="assigned" data-view="FullpieAgent" style="background-color:#933f0b;" data-moreinfo="Active tickets by assignee" data-title="Assigned Tickets (ALL)"></div>
-		<div data-id="assignedc" data-view="FullpieAgent" style="background-color:#933f0b;" data-moreinfo="Active tickets by assignee" data-title="Assigned Tickets (CBSW)"></div>
-		<div data-id="assignedu" data-view="FullpieAgent" style="background-color:#933f0b;" data-moreinfo="Active tickets by assignee" data-title="Assigned Tickets (UMS)"></div>
+	<li data-row="1" data-col="3" data-sizex="2" data-sizey="2"> 
+		<div data-id="resolvedu" data-view="FullpieAgent" style="background-color:#095209;" data-moreinfo="Tickets resolved today" data-title="Resolved Tickets (UMS)"></div>
 	</li>
 
-<!--	<li data-row="1" data-col="5" data-sizex="2" data-sizey="2"> -->
-	<li data-switcher-interval="8000" data-row="1" data-col="3" data-sizex="2" data-sizey="2">
-		<div data-id="pending" data-view="FullpieAgent" style="background-color:#983333;" data-moreinfo="Assigned tickets NOT on the log" data-title="Pending Tickets (ALL)"></div>
-		<div data-id="pendingc" data-view="FullpieAgent" style="background-color:#983333;" data-moreinfo="Assigned tickets NOT on the log" data-title="Pending Tickets (CBSW)"></div>
-		<div data-id="pendingu" data-view="FullpieAgent" style="background-color:#983333;" data-moreinfo="Assigned tickets NOT on the log" data-title="Pending Tickets (UMS)"></div>
+	<li data-row="1" data-col="5" data-sizex="2" data-sizey="2">
+		<div data-id="resolvedc" data-view="FullpieAgent" style="background-color:#095209;" data-moreinfo="Tickets resolved today" data-title="Resolved Tickets (CBSW)"></div>
 	</li>
 <!--
 	<li data-row="3" data-col="1" data-sizex="1" data-sizey="1">
@@ -51,26 +42,24 @@ $(function() {
 	</li>
 -->
 	<li data-row="3" data-col="1" data-sizex="2" data-sizey="2">
-		<div data-id="kbarticles" data-view="FullpieAgent" style="background-color:#004151;" data-moreinfo="Articles created this week" data-title="KB Articles"></div>
+		<div data-id="assigned" data-view="FullpieAgent" style="background-color:#933f0b;" data-moreinfo="Active tickets by assignee" data-title="Assigned Tickets (ALL)"></div>
 	</li>
 
 	<li data-row="3" data-col="3" data-sizex="2" data-sizey="2">
-		<div data-id="contracted" data-view="FullpieAgent" style="background-color:#565699;" data-moreinfo="Contracted work tickets" data-title="Contracted Work"></div>
+		<div data-id="pending" data-view="FullpieAgent" style="background-color:#983333;" data-moreinfo="Assigned tickets NOT on the log" data-title="Pending Tickets (ALL)"></div>
 	</li>
 
-<!--
 	<li data-row="3" data-col="5" data-sizex="1" data-sizey="1">
-		<div data-id="t5" data-view="Text" style="background-color:#ffff00;" data-moreinfo="T5" data-title="T5"></div>
+		<div data-id="kbarticles" data-view="FullpieAgent" style="background-color:#004151;" data-moreinfo="Articles created this week" data-title="KB Articles"></div>
 	</li>
--->
-
+<!--
 	<li data-switcher-interval="5000" data-row="3" data-col="5" data-sizex="1" data-sizey="1">
 		<div data-id="t5" data-view="Text" style="background-color:#ff0f00;" data-moreinfo="T5" data-title="T5a"></div>
 		<div data-id="t5" data-view="Text" style="background-color:#fff000;" data-moreinfo="T5" data-title="T5b"></div>
 	</li>
-
+-->
 	<li data-row="3" data-col="6" data-sizex="1" data-sizey="1">
-		<div data-id="t6" data-view="Text" style="background-color:#ff00ff;" data-moreinfo="T6" data-title="T6"></div>
+		<div data-id="contracted" data-view="FullpieAgent" style="background-color:#565699;" data-moreinfo="Contracted work tickets" data-title="Contracted Work"></div>
 	</li>
 	<li data-row="4" data-col="5" data-sizex="1" data-sizey="1">
 		<div data-id="t7" data-view="Text" style="background-color:#ff00ff;" data-moreinfo="T7" data-title="T7"></div>
