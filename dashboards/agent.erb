@@ -1,11 +1,5 @@
 <script type='text/javascript'>
 $(function() {
-  // These settings override the defaults set in application.coffee. You can do this on a per dashboard basis.
-  //Dashing.gridsterLayout('[{"col":1,"row":1},{"col":1,"row":2},{"col":1,"row":3},{"col":2,"row":1},{"col":2,"row":2},{"col":2,"row":3},{"col":3,"row":1},{"col":3,"row":2},{"col":3,"row":3},{"col":4,"row":1},{"col":4,"row":2},{"col":4,"row":3}]')
-//  Dashing.widget_base_dimensions = [460, 340]
-//  Dashing.widget_base_dimensions = [460, 255]
-//  Dashing.widget_base_dimensions = [368, 255]
-//  Dashing.widget_base_dimensions = [300, 255]
   Dashing.widget_base_dimensions = [600, 510]
   Dashing.numColumns = 3
   Dashing.numRows = 2
@@ -27,20 +21,7 @@ $(function() {
 	<li data-row="1" data-col="2" data-sizex="1" data-sizey="1">
 		<div data-id="resolvedc" data-view="FullpieAgent" style="background-color:#095209;" data-moreinfo="Tickets resolved today" data-title="Resolved Tickets (CBSW)"></div>
 	</li>
-<!--
-	<li data-row="3" data-col="1" data-sizex="1" data-sizey="1">
-		<div data-id="t1" data-view="Text" style="background-color:#ff00ff;" data-moreinfo="T1" data-title="T1"></div>
-	</li>
-	<li data-row="3" data-col="2" data-sizex="1" data-sizey="1">
-		<div data-id="t2" data-view="Text" style="background-color:#ffff00;" data-moreinfo="T2" data-title="T2"></div>
-	</li>
-	<li data-row="4" data-col="1" data-sizex="1" data-sizey="1">
-		<div data-id="t3" data-view="Text" style="background-color:#ffff00;" data-moreinfo="T3" data-title="T3"></div>
-	</li>
-	<li data-row="4" data-col="2" data-sizex="1" data-sizey="1">
-		<div data-id="t4" data-view="Text" style="background-color:#ff00ff;" data-moreinfo="T4" data-title="T4"></div>
-	</li>
--->
+
 	<li data-row="2" data-col="1" data-sizex="1" data-sizey="1">
 		<div data-id="assigned" data-view="FullpieAgent" style="background-color:#933f0b;" data-moreinfo="Active tickets by assignee" data-title="Assigned Tickets"></div>
 	</li>
@@ -48,35 +29,10 @@ $(function() {
 	<li data-row="2" data-col="2" data-sizex="1" data-sizey="1">
 		<div data-id="pending" data-view="FullpieAgent" style="background-color:#983333;" data-moreinfo="Assigned tickets NOT on the log" data-title="Pending Tickets"></div>
 	</li>
-<!--
-	<li data-row="3" data-col="5" data-sizex="1" data-sizey="1">
-		<div data-id="kbarticles" data-view="FullpieAgent" style="background-color:#004151;" data-moreinfo="Articles created this week" data-title="KB Articles"></div>
-	</li>
--->
-<!--
-	<li data-switcher-interval="5000" data-row="3" data-col="5" data-sizex="1" data-sizey="1">
-		<div data-id="t5" data-view="Text" style="background-color:#ff0f00;" data-moreinfo="T5" data-title="T5a"></div>
-		<div data-id="t5" data-view="Text" style="background-color:#fff000;" data-moreinfo="T5" data-title="T5b"></div>
-	</li>
--->
-<!--
-	<li data-row="3" data-col="6" data-sizex="1" data-sizey="1">
-		<div data-id="contracted" data-view="FullpieAgent" style="background-color:#565699;" data-moreinfo="Contracted work tickets" data-title="Contracted Work"></div>
-	</li>
-	<li data-row="4" data-col="5" data-sizex="1" data-sizey="1">
-		<div data-id="t7" data-view="Text" style="background-color:#ff00ff;" data-moreinfo="T7" data-title="T7"></div>
-	</li>
-	<li data-row="4" data-col="6" data-sizex="1" data-sizey="1">
-		<div data-id="contractedlist" data-view="List" style="background-color:#0000ff;" data-moreinfo="Contracted work tickets" data-title="Contracted" data-unordered="true"></div>
-	</li>
-	<li data-row="3" data-col="5" data-sizex="2" data-sizey="2">
--->
+
 	<li data-switcher-interval="10000" data-row="2" data-col="3" data-sizex="1" data-sizey="1">
-<!--		<div data-id="laststatus" data-view="List" style="background-color:#0000ff;" data-moreinfo="Last ticket status update and aging in hh:mm" data-title="Last Ticket Updated" data-unordered="true"></div> -->
 		<div data-id="laststatustable" data-view="Table" style="background-color:#0000ff;" data-moreinfo="Last ticket status update and aging in hh:mm" data-title="Last Ticket Updated"></div>
-<!--		<div data-id="contractedlist" data-view="List" style="background-color:#0000ff;" data-moreinfo="Contracted work tickets" data-title="Contracted Work" data-unordered="true"></div>-->
 		<div data-id="contractedtable" data-view="Table" style="background-color:#0000ff;" data-moreinfo="Contracted work tickets" data-title="Contracted Work"></div>
-<!--		<div data-id="escalatedlist" data-view="List" style="background-color:#0000ff;" data-moreinfo="Escalated ticket status and aging in hh:mm" data-title="Escalated Tickets" data-unordered="true"></div>-->
 		<div data-id="escalatedtable" data-view="Table" style="background-color:#0000ff;" data-moreinfo="Escalated ticket status and aging in hh:mm" data-title="Escalated Tickets"></div>
 	</li>
   </ul>
