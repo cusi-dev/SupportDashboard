@@ -11,10 +11,12 @@ $moreinfo-color:    rgba(255, 255, 255, 1);
 // ----------------------------------------------------------------------------
 // Widget-number styles
 // ----------------------------------------------------------------------------
+div.widget-fullpie-agent {
+  padding: 0 0;
+}
 .widget-fullpie-agent {
 
   background-color: $background-color;
-  padding: 0 0;
 
   .title {
     position: absolute;
