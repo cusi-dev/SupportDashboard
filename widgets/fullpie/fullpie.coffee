@@ -2,7 +2,7 @@ class Dashing.Fullpie extends Dashing.Widget
   @accessor 'value'
 
   onData: (data) ->
-    $(@node).fadeOut().fadeIn()
+    #$(@node).fadeOut().fadeIn()
     @render(data.value)
   
   render: (data) ->
@@ -11,7 +11,7 @@ class Dashing.Fullpie extends Dashing.Widget
     if !data
        return
     #console.log "FullPie new"
-# this is a fix because data binding seems otherwise not work 
+    # this is a fix because data binding seems otherwise not work 
     $(@node).children(".title").text($(@node).attr("data-title"))
     $(@node).children(".more-info").text($(@node).attr("data-moreinfo"))
     $(@node).children(".updated-at").text(@get('updatedAtMessage'))
