@@ -44,7 +44,8 @@ $moreinfo-color:    rgba(255, 255, 255, 1);
   }
   
   .labels text {
-	font-size: 26px;
+	//overrides font-size in coffeescript
+	//font-size: 26px;
 	font-weight: normal;
 	fill: $label-color;
   }
