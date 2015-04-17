@@ -6,9 +6,9 @@ $(function() {
 //  Dashing.widget_base_dimensions = [460, 255]
 //  Dashing.widget_base_dimensions = [368, 255]
 //  Dashing.widget_base_dimensions = [300, 255]
-  Dashing.widget_base_dimensions = [300, 255]
-  Dashing.numColumns = 6
-  Dashing.numRows = 4
+  Dashing.widget_base_dimensions = [600, 510]
+  Dashing.numColumns = 3
+  Dashing.numRows = 2
 });
 </script>
 
@@ -16,15 +16,15 @@ $(function() {
 
 <div class="gridster">
   <ul>
-	<li data-row="1" data-col="1" data-sizex="2" data-sizey="2"> 
+	<li data-row="1" data-col="1" data-sizex="1" data-sizey="1"> 
 		<div data-id="resolved" data-view="FullpieAgent" style="background-color:#095209;" data-moreinfo="Tickets resolved today" data-title="Resolved Tickets (ALL)"></div>
 	</li>
 	
-	<li data-row="1" data-col="3" data-sizex="2" data-sizey="2"> 
+	<li data-row="1" data-col="2" data-sizex="1" data-sizey="1"> 
 		<div data-id="resolvedu" data-view="FullpieAgent" style="background-color:#095209;" data-moreinfo="Tickets resolved today" data-title="Resolved Tickets (UMS)"></div>
 	</li>
 
-	<li data-row="1" data-col="5" data-sizex="2" data-sizey="2">
+	<li data-row="1" data-col="2" data-sizex="1" data-sizey="1">
 		<div data-id="resolvedc" data-view="FullpieAgent" style="background-color:#095209;" data-moreinfo="Tickets resolved today" data-title="Resolved Tickets (CBSW)"></div>
 	</li>
 <!--
@@ -41,11 +41,11 @@ $(function() {
 		<div data-id="t4" data-view="Text" style="background-color:#ff00ff;" data-moreinfo="T4" data-title="T4"></div>
 	</li>
 -->
-	<li data-row="3" data-col="1" data-sizex="2" data-sizey="2">
+	<li data-row="2" data-col="1" data-sizex="1" data-sizey="1">
 		<div data-id="assigned" data-view="FullpieAgent" style="background-color:#933f0b;" data-moreinfo="Active tickets by assignee" data-title="Assigned Tickets"></div>
 	</li>
 
-	<li data-row="3" data-col="3" data-sizex="2" data-sizey="2">
+	<li data-row="2" data-col="2" data-sizex="1" data-sizey="1">
 		<div data-id="pending" data-view="FullpieAgent" style="background-color:#983333;" data-moreinfo="Assigned tickets NOT on the log" data-title="Pending Tickets"></div>
 	</li>
 <!--
@@ -71,7 +71,7 @@ $(function() {
 	</li>
 	<li data-row="3" data-col="5" data-sizex="2" data-sizey="2">
 -->
-	<li data-switcher-interval="10000" data-row="3" data-col="5" data-sizex="2" data-sizey="2">
+	<li data-switcher-interval="10000" data-row="2" data-col="3" data-sizex="1" data-sizey="1">
 		<div data-id="laststatus" data-view="List" style="background-color:#0000ff;" data-moreinfo="Last ticket status update" data-title="Last Status" data-unordered="true"></div>
 		<div data-id="contractedlist" data-view="List" style="background-color:#0000ff;" data-moreinfo="Contracted work tickets" data-title="Contracted" data-unordered="true"></div>
 	</li>
