@@ -282,9 +282,21 @@ class Dashing.FullpieAgent extends Dashing.Widget
                     #`var maxLabelWidth`
                     d2.r
                 )
-                d.l = rightEdge
-                d.x = d.l + bbox.width / 2 + 2#5
-                d.r = d.l + bbox.width + 5#10
+                #d.l = rightEdge
+                #d.x = d.l + bbox.width / 2 + 2#5
+                #d.r = d.l + bbox.width + 5#10
+                rads = ((d.endAngle - d.startAngle) / 2) + d.startAngle
+                if (rads >= 0 && rads <= 4 * Math.PI / 4)
+                    d.b = d.oy = d.y + bbox.height
+                #else if (rads > 3 * Math.PI / 4 && rads < 5 * Math.PI / 4)
+                #    return "start"
+                #else if (rads >= 5 * Math.PI / 4 && rads <= 8 * Math.PI / 4)
+                #    return "end"
+                else
+                    d.l = rightEdge
+                    d.x = d.l + bbox.width / 2 + 2#5
+                    d.r = d.l + bbox.width + 5#10
+
             else
                 console.log 'no conflicts for ', myInstanceDataId, ' ', d
 
