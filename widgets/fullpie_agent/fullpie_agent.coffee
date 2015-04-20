@@ -283,8 +283,8 @@ class Dashing.FullpieAgent extends Dashing.Widget
                     d2.r
                 )
                 d.l = rightEdge
-                d.x = d.l + bbox.width / 2 + 5
-                d.r = d.l + bbox.width + 10
+                d.x = d.l + bbox.width / 2 + 2#5
+                d.r = d.l + bbox.width + 5#10
             else
                 console.log 'no conflicts for ', myInstanceDataId, ' ', d
 
