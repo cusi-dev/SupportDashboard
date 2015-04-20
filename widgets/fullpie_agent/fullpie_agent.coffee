@@ -242,11 +242,11 @@ class Dashing.FullpieAgent extends Dashing.Widget
             #describe the size of the label text
             labelRadius = radiuso + (radiuso - radiusi)
             d.x = Math.sin(a) * labelRadius
-            d.l = d.x - bbox.width / 2 - 2
-            d.r = d.x + bbox.width / 2 + 2
+            d.l = d.x - bbox.width / 2 - 1#2
+            d.r = d.x + bbox.width / 2 + 1#2
             d.y = -Math.cos(a) * (labelRadius)
-            d.b = d.oy = d.y + 2#5
-            d.t = d.y - bbox.height - 2#5
+            d.b = d.oy = d.y + 1#5
+            d.t = d.y - bbox.height - 1#5
 
             ### check whether the default position 
                overlaps any other labels
