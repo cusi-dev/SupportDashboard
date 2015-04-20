@@ -253,3 +253,327 @@ $json = "{
     ""value"" : ""$unhandled""
 }"
 (Invoke-WebRequest -Uri $url -Method Post -Body $json).content | ConvertFrom-Json
+
+
+#
+# AGENT DASHBOARD
+#
+
+#Query 
+$conn = New-Object System.Data.SqlClient.SqlConnection $connStr
+$conn.Open()
+$SqlCmd = New-Object System.Data.SqlClient.SqlCommand
+$SqlCmd.CommandText = "exec [cusip_SupportAgentMetrics] @i_Today = '$Date'"
+$SqlCmd.Connection = $conn
+$SqlAdapter = New-Object System.Data.SqlClient.SqlDataAdapter
+$SqlAdapter.SelectCommand = $SqlCmd
+$DataSet = New-Object System.Data.DataSet
+$SqlAdapter.Fill($DataSet)
+$conn.Close()
+
+#Assign results
+$rows = $DataSet.Tables[0].Rows
+
+
+#
+# CONTRACTED
+#
+$i = 0 
+$pb2h2 = "
+[ 
+    {""cols"" : 
+        [ 
+            {""class"" : ""contractedtabletablehdr1"", ""value"" : ""Agent""}, 
+            {""class"" : ""contractedtabletablehdr2"", ""value"" : ""Count""}
+        ] 
+    }
+]
+"
+$pb2r2 = "["
+foreach ($row in $rows)
+{
+    $i += 1
+    if ($row[11] -ne 0)
+        {
+        $pb2r2 += "
+            { ""cols"" : 
+                [
+                    {""class"" : ""contractedtabletablecol1"", ""value"" : ""$($row[0])""}, 
+                    {""class"" : ""contractedtabletablecol2"", ""value"" : ""$($row[11])""}
+                ]
+            }
+        "
+        if ($i -lt $rows.Count)
+        {
+            $pb2r2 += ","
+        }
+    }
+}
+$pb2r2  = $pb2r2.TrimEnd(',')
+$pb2r2 += "]"
+$url2 = "$($dashboardURL)/widgets/contractedtable"
+$json2 = "{
+    ""auth_token"" : ""$($authToken)"",
+    ""hrows"" : $pb2h2,
+    ""rows"" : $pb2r2
+}"
+
+(Invoke-WebRequest -Uri $url2 -Method Post -Body $json2).content | ConvertFrom-Json
+
+
+
+
+#
+# PENDING
+#
+$i = 0
+$pb2 = "["
+foreach ($row in $rows)
+{
+    $i += 1
+    $pb2 += "
+        { 
+            ""label"" : ""$($row[0])"",
+            ""value"" :  $($row[8])
+        }
+    "
+    if ($i -lt $rows.Count)
+    {
+        $pb2 += ","
+    }
+}
+$pb2 += "]"
+$url2 = "$($dashboardURL)/widgets/pending"
+$json = "{
+    ""auth_token"" : ""$($authToken)"",
+    ""data"" : $pb2
+}"
+
+(Invoke-WebRequest -Uri $url2 -Method Post -Body $json).content | ConvertFrom-Json
+
+
+#
+# RESOLVED
+#
+$i = 0
+$pb3 = "["
+foreach ($row in $rows)
+{
+    $i += 1
+    $pb3 += "
+        { 
+            ""label"" : ""$($row[0])"",
+            ""value"" :  $($row[2])
+        }
+    "
+    if ($i -lt $rows.Count)
+    {
+        $pb3 += ","
+    }
+}
+$pb3 += "]"
+$url3 = "$($dashboardURL)/widgets/resolved"
+$json3 = "{
+    ""auth_token"" : ""$($authToken)"",
+    ""data"" : $pb3
+}"
+
+(Invoke-WebRequest -Uri $url3 -Method Post -Body $json3).content | ConvertFrom-Json
+
+$i = 0
+$pb3c = "["
+foreach ($row in $rows)
+{
+    $i += 1
+    $pb3c += "
+        { 
+            ""label"" : ""$($row[0])"",
+            ""value"" :  $($row[4])
+        }
+    "
+    if ($i -lt $rows.Count)
+    {
+        $pb3c += ","
+    }
+}
+$pb3c += "]"
+$url3c = "$($dashboardURL)/widgets/resolvedc"
+$json3c = "{
+    ""auth_token"" : ""$($authToken)"",
+    ""data"" : $pb3c
+}"
+
+(Invoke-WebRequest -Uri $url3c -Method Post -Body $json3c).content | ConvertFrom-Json
+
+$i = 0
+$pb3u = "["
+foreach ($row in $rows)
+{
+    $i += 1
+    $pb3u += "
+        { 
+            ""label"" : ""$($row[0])"",
+            ""value"" :  $($row[3])
+        }
+    "
+    if ($i -lt $rows.Count)
+    {
+        $pb3u += ","
+    }
+}
+$pb3u += "]"
+$url3u = "$($dashboardURL)/widgets/resolvedu"
+$json3u = "{
+    ""auth_token"" : ""$($authToken)"",
+    ""data"" : $pb3u
+}"
+
+(Invoke-WebRequest -Uri $url3u -Method Post -Body $json3u).content | ConvertFrom-Json
+
+#
+# ASSIGNED
+#
+$i = 0
+$pb4 = "["
+foreach ($row in $rows)
+{
+    $i += 1
+    $pb4 += "
+        { 
+            ""label"" : ""$($row[0])"",
+            ""value"" :  $($row[5])
+        }
+    "
+    if ($i -lt $rows.Count)
+    {
+        $pb4 += ","
+    }
+}
+$pb4 += "]"
+
+$url = "$($dashboardURL)/widgets/assigned"
+$json = "{
+    ""auth_token"" : ""$($authToken)"",
+    ""data"" : $pb4
+}"
+
+(Invoke-WebRequest -Uri $url -Method Post -Body $json).content | ConvertFrom-Json
+
+#
+# LASTSTATUS
+#
+#Query 
+$conn = New-Object System.Data.SqlClient.SqlConnection $connStr
+$conn.Open()
+$SqlCmd = New-Object System.Data.SqlClient.SqlCommand
+$SqlCmd.CommandText = "exec [cusip_SupportAgentLastStatus]"
+$SqlCmd.Connection = $conn
+$SqlAdapter = New-Object System.Data.SqlClient.SqlDataAdapter
+$SqlAdapter.SelectCommand = $SqlCmd
+$DataSet = New-Object System.Data.DataSet
+$SqlAdapter.Fill($DataSet)
+$conn.Close()
+
+#Assign results
+$rows = $DataSet.Tables[0].Rows
+
+$i = 0 
+$pb1h1 = "
+[ 
+    {""cols"" : 
+        [ 
+            {""class"" : ""statustabletablehdr1"", ""value"" : ""Agent""}, 
+            {""class"" : ""statustabletablehdr2"", ""value"" : ""Age (h:m)""},
+            {""class"" : ""statustabletablehdr3"", ""value"" : ""Ticket""},
+            {""class"" : ""statustabletablehdr4"", ""value"" : ""Status""} 
+        ] 
+    }
+]
+"
+$pb1r1 = "["
+foreach ($row in $rows)
+{
+    $i += 1
+    $pb1r1 += "
+        { ""cols"" : 
+            [
+                {""class"" : ""statustabletablecol1"", ""value"" : ""$($row[0])""}, 
+                {""class"" : ""statustabletablecol2"", ""value"" : ""$($row[3])""},
+                {""class"" : ""statustabletablecol3"", ""value"" : ""$($row[1])""}, 
+                {""class"" : ""statustabletablecol4"", ""value"" : ""$($row[4])""}
+            ]
+        }
+    "
+    if ($i -lt $rows.Count)
+    {
+        $pb1r1 += ","
+    }
+}
+$pb1r1 += "]"
+$url1 = "$($dashboardURL)/widgets/laststatustable"
+$json1 = "{
+    ""auth_token"" : ""$($authToken)"",
+    ""hrows"" : $pb1h1,
+    ""rows"" : $pb1r1
+}"
+
+(Invoke-WebRequest -Uri $url1 -Method Post -Body $json1).content | ConvertFrom-Json
+
+#
+# Escalations
+#
+$conn = New-Object System.Data.SqlClient.SqlConnection $connStr
+$conn.Open()
+$SqlCmd = New-Object System.Data.SqlClient.SqlCommand
+$SqlCmd.CommandText = "exec [cusip_SupportAgentEscalations]"
+$SqlCmd.Connection = $conn
+$SqlAdapter = New-Object System.Data.SqlClient.SqlDataAdapter
+$SqlAdapter.SelectCommand = $SqlCmd
+$DataSet = New-Object System.Data.DataSet
+$SqlAdapter.Fill($DataSet)
+$conn.Close()
+
+#Assign results
+$rows = $DataSet.Tables[0].Rows
+
+
+$i = 0 
+$pb3h3 = "
+[ 
+    {""cols"" : 
+        [ 
+            {""class"" : ""escalatedtabletablehdr1"", ""value"" : ""Ticket""}, 
+            {""class"" : ""escalatedtabletablehdr2"", ""value"" : ""Age (h:m)""},
+            {""class"" : ""escalatedtabletablehdr3"", ""value"" : ""Status""} 
+        ] 
+    }
+]
+"
+$pb3r3 = "["
+foreach ($row in $rows)
+{
+    $i += 1
+    $pb3r3 += "
+        { ""cols"" : 
+            [
+                {""class"" : ""escalatedtabletablecol1"", ""value"" : ""$($row[0])""}, 
+                {""class"" : ""escalatedtabletablecol2"", ""value"" : ""$($row[2])""},
+                {""class"" : ""escalatedtabletablecol3"", ""value"" : ""$($row[3])""}
+            ]
+        }
+    "
+    if ($i -lt $rows.Count)
+    {
+        $pb3r3 += ","
+    }
+}
+$pb3r3 += "]"
+$url3 = "$($dashboardURL)/widgets/escalatedtable"
+$json3 = "{
+    ""auth_token"" : ""$($authToken)"",
+    ""hrows"" : $pb3h3,
+    ""rows"" : $pb3r3
+}"
+
+(Invoke-WebRequest -Uri $url3 -Method Post -Body $json3).content | ConvertFrom-Json
+
