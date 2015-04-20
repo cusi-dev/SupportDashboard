@@ -1,6 +1,5 @@
 USE [Footprints]
 GO
-/****** Object:  StoredProcedure [dbo].[cusip_UnhandledTickets]    Script Date: 3/27/2015 7:26:49 AM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON

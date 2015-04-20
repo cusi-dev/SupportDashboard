@@ -1,6 +1,5 @@
 USE [Footprints]
 GO
-/****** Object:  StoredProcedure [dbo].[cusip_SupportResponseTime]    Script Date: 3/27/2015 7:31:05 AM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -23,8 +22,15 @@ ON
 	m.mrid=ma.mrID
 WHERE
 	m.mrSTATUS IN ('_REQUEST_','Open','Contact__bAttempted') 
-AND 
-	m.mrASSIGNEES LIKE 'Support%'
+--AND 
+--	m.mrASSIGNEES = 'Support'
+AND --Check for Support as the only assignee after stripping CCs (which always come at the end of the assignee string)
+	RTRIM(LEFT(m.mrASSIGNEES,(
+				CASE 
+					WHEN CHARINDEX('cc',m.mrAssignees) > 0 THEN CHARINDEX('cc',m.mrAssignees) - 1
+					ELSE LEN(m.mrAssignees)
+				END
+	))) = 'Support'
 AND
 (
 	Scheduled__bCall IS NULL 

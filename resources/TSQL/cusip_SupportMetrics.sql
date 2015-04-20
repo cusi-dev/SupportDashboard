@@ -1,14 +1,10 @@
 USE [Footprints]
 GO
-
-/****** Object:  StoredProcedure [dbo].[cusip_SupportMetrics]    Script Date: 3/25/2015 8:06:46 AM ******/
 SET ANSI_NULLS ON
 GO
-
 SET QUOTED_IDENTIFIER ON
 GO
-
-CREATE PROCEDURE [dbo].[cusip_SupportMetrics] 
+ALTER PROCEDURE [dbo].[cusip_SupportMetrics] 
 (
 --DECLARE
 	@i_Today SMALLDATETIME
@@ -409,7 +405,3 @@ DROP TABLE #ResponseMetrics
 
 SET NOCOUNT OFF
 END
-
-GO
-
-
