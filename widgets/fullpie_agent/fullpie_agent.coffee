@@ -245,8 +245,8 @@ class Dashing.FullpieAgent extends Dashing.Widget
             d.l = d.x - bbox.width / 2 - 2
             d.r = d.x + bbox.width / 2 + 2
             d.y = -Math.cos(a) * (labelRadius)
-            d.b = d.oy = d.y + 5
-            d.t = d.y - bbox.height - 5
+            d.b = d.oy = d.y + 2#5
+            d.t = d.y - bbox.height - 2#5
 
             ### check whether the default position 
                overlaps any other labels
