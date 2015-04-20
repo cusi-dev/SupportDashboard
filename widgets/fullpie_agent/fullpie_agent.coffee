@@ -293,12 +293,12 @@ class Dashing.FullpieAgent extends Dashing.Widget
                 #d.x = d.l + bbox.width / 2 + 2#5
                 #d.r = d.l + bbox.width + 5#10
                 rads = ((d.endAngle - d.startAngle) / 2) + d.startAngle
-                if (rads >= 0 && rads <= 3 * Math.PI / 4)
+                if (rads >= 0 && rads <= 4 * Math.PI / 4)
                     d.t = bottomEdge + 2
-                else if (rads > 3 * Math.PI / 4 && rads < 4 * Math.PI / 4)
-                    d.l = rightEdge
-                    d.x = d.l + bbox.width / 2 + 2
-                    d.r = d.l + bbox.width + 5
+                #else if (rads > 3 * Math.PI / 4 && rads < 4 * Math.PI / 4)
+                #    d.l = rightEdge
+                #    d.x = d.l + bbox.width / 2 + 2
+                #    d.r = d.l + bbox.width + 5
                 else if (rads >= 4 * Math.PI / 4 && rads < 5 * Math.PI / 4)
                     d.r = leftEdge
                     d.x = d.r - bbox.width / 2 - 2
