@@ -278,24 +278,36 @@ class Dashing.FullpieAgent extends Dashing.Widget
             if conflicts.length
                 console.log myInstanceDataId , ' ', d, ' conflicts with ', conflicts
                 rightEdge = d3.max(conflicts, (d2) ->
-                    #`var maxLabelHeight`
-                    #`var maxLabelWidth`
                     d2.r
+                )
+                topEdge = d3.max(conflicts, (d2) ->
+                    d2.t
+                )
+                leftEdge = d3.max(conflicts, (d2) ->
+                    d2.l
+                )
+                bottomEdge = d3.max(conflicts, (d2) ->
+                    d2.b
                 )
                 #d.l = rightEdge
                 #d.x = d.l + bbox.width / 2 + 2#5
                 #d.r = d.l + bbox.width + 5#10
                 rads = ((d.endAngle - d.startAngle) / 2) + d.startAngle
-                if (rads >= 0 && rads <= 4 * Math.PI / 4)
-                    d.b = d.oy = d.y + bbox.height
-                #else if (rads > 3 * Math.PI / 4 && rads < 5 * Math.PI / 4)
-                #    return "start"
-                #else if (rads >= 5 * Math.PI / 4 && rads <= 8 * Math.PI / 4)
-                #    return "end"
-                else
+                if (rads >= 0 && rads <= 3 * Math.PI / 4)
+                    d.t = bottomEdge + 2
+                else if (rads > 3 * Math.PI / 4 && rads < 4 * Math.PI / 4)
                     d.l = rightEdge
-                    d.x = d.l + bbox.width / 2 + 2#5
-                    d.r = d.l + bbox.width + 5#10
+                    d.x = d.l + bbox.width / 2 + 2
+                    d.r = d.l + bbox.width + 5
+                else if (rads >= 4 * Math.PI / 4 && rads < 5 * Math.PI / 4)
+                    d.r = leftEdge
+                    d.x = d.r - bbox.width / 2 - 2
+                    d.l = d.r - bbox.width - 5
+                else if (rads > 5 * Math.PI / 4 && rads <= 7 * Math.PI / 4)
+                    d.b = topEdge + 2
+                else # if (rads > 7 * Math.PI / 4 && rads <= 8 * Math.PI / 4)
+                    d.x = d.r - bbox.width / 2 - 2
+                    d.l = d.r - bbox.width - 5
 
             else
                 console.log 'no conflicts for ', myInstanceDataId, ' ', d
@@ -304,8 +316,8 @@ class Dashing.FullpieAgent extends Dashing.Widget
                for future labels.  
             ###
             labelLayout.add d
-            maxLabelWidth = Math.max(maxLabelWidth, bbox.width + 10)
-            maxLabelHeight = Math.max(maxLabelHeight, bbox.height + 10)
+            maxLabelWidth = Math.max(maxLabelWidth, bbox.width + 3)#10)
+            maxLabelHeight = Math.max(maxLabelHeight, bbox.height + 3)#10)
             return
         )
         #.attr("x",0)
