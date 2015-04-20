@@ -37,7 +37,7 @@ class Dashing.Fullpie extends Dashing.Widget
         .attr("transform", "translate(" + radius + "," + radius + ")") 
 
     arc = d3.svg.arc().outerRadius(radius)
-    pie = d3.layout.pie().value((d) -> d.value)
+    pie = d3.layout.pie().value((d) -> d.value).sort(null)
 	
     arcs = vis.selectAll("g.slice")
       .data(pie)
