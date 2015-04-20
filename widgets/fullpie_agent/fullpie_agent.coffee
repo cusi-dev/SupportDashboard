@@ -149,6 +149,8 @@ class Dashing.FullpieAgent extends Dashing.Widget
             else
                 s0 = 0
                 e0 = 0
+            if s0 != 0 then s0 = s0 + ((2 * Math.PI) / 360) # shrink start angle by one degree
+            if e0 != 0 then e0 = e0 - ((2 * Math.PI) / 360) # shrink end angle by one degree
             myInterpolater = d3.interpolate({
                 startAngle: s0
                 endAngle: e0
