@@ -313,7 +313,7 @@ BEGIN
 	ON
 		m.mrID=ma.mrID
 	WHERE 
-		m.mrSTATUS IN ('Client__bAcceptance','Deployment','Development','Pending')
+		(m.mrSTATUS IN ('Client__bAcceptance','Deployment','Development','Pending') OR m.mrSTATUS LIKE 'Escalated%')
 		AND m.mrASSIGNEES LIKE 'Support%'
 		AND m.Contracted__bWork = 'off'
 	GROUP BY 
