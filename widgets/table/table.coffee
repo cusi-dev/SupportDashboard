@@ -5,3 +5,4 @@ class Dashing.Table extends Dashing.Widget
         console.log 'table widget node: ', $(@node)
         console.log 'table widget node height: ', $(@node).attr("clientHeight")
         #console.log 'table widget parent: ', $(@node).parent()
+        $(@node).attr('height','200px')
