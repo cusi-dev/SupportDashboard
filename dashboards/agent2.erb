@@ -4,13 +4,15 @@ $(function() {
   Dashing.widget_base_dimensions = [257, 145]
   Dashing.numColumns = 7
   Dashing.numRows = 7
+
+  Dashing.myAgents = 3
 });
 </script>
 
 <% content_for :title do %>Tech Support Agent Metrics Dashboard<% end %>
 
 <div class="gridster">
-  <ul>
+  <ul id="agent2">
 	<!-- TOP ROW -->
     <li data-row="1" data-col="1" data-sizex="1" data-sizey="1">
 		<div data-view="Text" data-title="Agent" data-moreinfo="Ticket count" style="background-color:#222" class="agentdb2"></div>
@@ -34,7 +36,7 @@ $(function() {
 		<div data-view="Text" data-title="Resolved" data-moreinfo="Ticket count" style="background-color:#222" class="agentdb2"></div>
     </li>
 
-	<!-- AGENT 1 ROW -->
+	<!-- AGENT ROW -->
     <li data-row="1" data-col="1" data-sizex="1" data-sizey="1">
 		<div data-id="agent1name" data-view="Text" data-title="" data-moreinfo="" style="background-color:#222" class="agentdb2"></div>
     </li>
@@ -57,5 +59,41 @@ $(function() {
 		<div data-id="agent1resolved" data-view="Number" data-title="" data-moreinfo="" style="background-color:#222" class="agentdb2"></div>
     </li>
 
-	</ul>
+
+  </ul>
 </div>
+
+<script type='text/javascript'>
+$(function() {
+	container = $('#agent2')
+	num = parstInt(Dashing.myAgents,10)
+	
+	for (var i = 1; i <= num; i++)
+	{
+		container.append('
+			<!-- AGENT ' + i + ' ROW -->
+			<li data-row="1" data-col="1" data-sizex="1" data-sizey="1">
+				<div data-id="agent' + i + 'name" data-view="Text" data-title="" data-moreinfo="" style="background-color:#222" class="agentdb2"></div>
+			</li>
+			<li data-row="1" data-col="1" data-sizex="1" data-sizey="1">
+				<div data-id="agent' + i + 'inprogress" data-view="Number" data-title="" data-moreinfo="" style="background-color:#222" class="agentdb2"></div>
+			</li>
+			<li data-row="1" data-col="1" data-sizex="1" data-sizey="1">
+				<div data-id="agent' + i + 'assigned" data-view="Number" data-title="" data-moreinfo="" style="background-color:#222" class="agentdb2"></div>
+			</li>
+			<li data-row="1" data-col="1" data-sizex="1" data-sizey="1">
+				<div data-id="agent' + i + 'pending" data-view="Number" data-title="" data-moreinfo="" style="background-color:#222" class="agentdb2"></div>
+			</li>
+			<li data-row="1" data-col="1" data-sizex="1" data-sizey="1">
+				<div data-id="agent' + i + 'escalated" data-view="Number" data-title="" data-moreinfo="" style="background-color:#222" class="agentdb2"></div>
+			</li>
+			<li data-row="1" data-col="1" data-sizex="1" data-sizey="1">
+				<div data-id="agent' + i + 'contracted" data-view="Number" data-title="" data-moreinfo="" style="background-color:#222" class="agentdb2"></div>
+			</li>
+			<li data-row="1" data-col="1" data-sizex="1" data-sizey="1">
+				<div data-id="agent' + i + 'resolved" data-view="Number" data-title="" data-moreinfo="" style="background-color:#222" class="agentdb2"></div>
+			</li>
+		')
+	}
+});
+</script>
