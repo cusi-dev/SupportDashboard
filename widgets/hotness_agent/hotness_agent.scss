@@ -48,9 +48,8 @@ div.widget-hotness-agent {
 .hotness3 { background-color: #990000; }
 .hotness4 { background-color: #cc0000; }
 
-// // More colour-blind friendly palette
-// .hotness0 { background-color: #046D8B; }
-// .hotness1 { background-color: #309292; }
-// .hotness2 { background-color: #2FB8AC; }
-// .hotness3 { background-color: #93A42A; }
-// .hotness4 { background-color: #ECBE13; }
+.agentresolved .hotness0 { background-color: #ff0000; }
+.agentresolved .hotness1 { background-color: #bf3f00; }
+.agentresolved .hotness2 { background-color: #7f7f00; }
+.agentresolved .hotness3 { background-color: #3fbf00; }
+.agentresolved .hotness4 { background-color: #00ff00; }
