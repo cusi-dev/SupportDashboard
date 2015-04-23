@@ -3,7 +3,7 @@ $(function() {
   //
   Dashing.myAgents = 12
   //
-  Dashing.numColumns = 9
+  Dashing.numColumns = 10
   Dashing.numRows = Dashing.myAgents + 1
   Dashing.widget_base_dimensions = [Math.floor(1800/Dashing.numColumns), Math.floor(1020/Dashing.numRows)]
   Dashing.widget_margins = [2, 2]
@@ -16,31 +16,34 @@ $(function() {
   <ul id="agent2">
 	<!-- TOP ROW -->
     <li data-row="1" data-col="1" data-sizex="1" data-sizey="1">
-		<div data-view="Text" data-title="Agent" data-moreinfo="Ticket count" style="background-color:#222" class="agentdb2 agentname agentdb2header"></div>
+		<div data-view="Text" data-title="Agent" data-moreinfo="" style="background-color:#222" class="agentdb2 agentname agentdb2header"></div>
     </li>
     <li data-row="1" data-col="2" data-sizex="1" data-sizey="1">
-		<div data-view="Text" data-title="In Progress" data-moreinfo="Ticket count" style="background-color:#222" class="agentdb2 agentinprogress agentdb2header"></div>
+		<div data-view="Text" data-title="In Progress" data-moreinfo="" style="background-color:#222" class="agentdb2 agentinprogress agentdb2header"></div>
     </li>
     <li data-row="1" data-col="3" data-sizex="1" data-sizey="1">
-		<div data-view="Text" data-title="Assigned" data-moreinfo="Ticket count" style="background-color:#222" class="agentdb2 agentassigned agentdb2header"></div>
+		<div data-view="Text" data-title="Assigned" data-moreinfo="" style="background-color:#222" class="agentdb2 agentassigned agentdb2header"></div>
     </li>
     <li data-row="1" data-col="4" data-sizex="1" data-sizey="1">
-		<div data-view="Text" data-title="Pending" data-moreinfo="Ticket count" style="background-color:#222" class="agentdb2 agentpending agentdb2header"></div>
+		<div data-view="Text" data-title="Pending" data-moreinfo="" style="background-color:#222" class="agentdb2 agentpending agentdb2header"></div>
     </li>
     <li data-row="1" data-col="5" data-sizex="1" data-sizey="1">
-		<div data-view="Text" data-title="Escalated" data-moreinfo="Ticket count" style="background-color:#222" class="agentdb2 agentescalated agentdb2header"></div>
+		<div data-view="Text" data-title="Escalated" data-moreinfo="" style="background-color:#222" class="agentdb2 agentescalated agentdb2header"></div>
     </li>
     <li data-row="1" data-col="6" data-sizex="1" data-sizey="1">
-		<div data-view="Text" data-title="Contracted" data-moreinfo="Ticket count" style="background-color:#222" class="agentdb2 agentcontracted agentdb2header"></div>
+		<div data-view="Text" data-title="Contracted" data-moreinfo="" style="background-color:#222" class="agentdb2 agentcontracted agentdb2header"></div>
     </li>
     <li data-row="1" data-col="7" data-sizex="1" data-sizey="1">
-		<div data-view="Text" data-title="Resolved" data-moreinfo="Ticket count" style="background-color:#222" class="agentdb2 agentresolved agentdb2header"></div>
+		<div data-view="Text" data-title="Resolved" data-moreinfo="" style="background-color:#222" class="agentdb2 agentresolved agentdb2header"></div>
     </li>
     <li data-row="1" data-col="8" data-sizex="1" data-sizey="1">
-		<div data-view="Text" data-title="Resolved-U" data-moreinfo="Ticket count" style="background-color:#222" class="agentdb2 agentresolvedu agentdb2header"></div>
+		<div data-view="Text" data-title="Resolved-U" data-moreinfo="" style="background-color:#222" class="agentdb2 agentresolvedu agentdb2header"></div>
     </li>
     <li data-row="1" data-col="9" data-sizex="1" data-sizey="1">
-		<div data-view="Text" data-title="Resolved-C" data-moreinfo="Ticket count" style="background-color:#222" class="agentdb2 agentresolvedc agentdb2header"></div>
+		<div data-view="Text" data-title="Resolved-C" data-moreinfo="" style="background-color:#222" class="agentdb2 agentresolvedc agentdb2header"></div>
+    </li>
+    <li data-row="1" data-col="10" data-sizex="1" data-sizey="1">
+		<div data-view="Text" data-title="Last Update" data-moreinfo="" style="background-color:#222" class="agentdb2 agentupdateage agentdb2header"></div>
     </li>
 
   </ul>
@@ -82,6 +85,9 @@ $(function() {
 			</li>\
 			<li data-row="' + rownum + '" data-col="9" data-sizex="1" data-sizey="1">\
 				<div data-id="agent' + i + 'resolvedc" data-view="Number" data-title="" data-moreinfo="" style="background-color:#222" class="agentdb2 agentresolvedc"></div>\
+			</li>\
+			<li data-row="' + rownum + '" data-col="10" data-sizex="1" data-sizey="1">\
+				<div data-id="agent' + i + 'updateage" data-view="Text" data-title="" data-moreinfo="" style="background-color:#222" class="agentdb2 agentupdateage"></div>\
 			</li>\
 		')
 	}
