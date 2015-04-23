@@ -3,7 +3,7 @@ $(function() {
   //
   Dashing.myAgents = 12
   //
-  Dashing.numColumns = 7
+  Dashing.numColumns = 9
   Dashing.numRows = Dashing.myAgents + 1
   Dashing.widget_base_dimensions = [Math.floor(1800/Dashing.numColumns), Math.floor(1020/Dashing.numRows)]
   Dashing.widget_margins = [2, 2]
@@ -35,6 +35,12 @@ $(function() {
     </li>
     <li data-row="1" data-col="7" data-sizex="1" data-sizey="1">
 		<div data-view="Text" data-title="Resolved" data-moreinfo="Ticket count" style="background-color:#222" class="agentdb2 agentresolved agentdb2header"></div>
+    </li>
+    <li data-row="1" data-col="8" data-sizex="1" data-sizey="1">
+		<div data-view="Text" data-title="Resolved-U" data-moreinfo="Ticket count" style="background-color:#222" class="agentdb2 agentresolvedu agentdb2header"></div>
+    </li>
+    <li data-row="1" data-col="9" data-sizex="1" data-sizey="1">
+		<div data-view="Text" data-title="Resolved-C" data-moreinfo="Ticket count" style="background-color:#222" class="agentdb2 agentresolvedc agentdb2header"></div>
     </li>
 
   </ul>
@@ -70,6 +76,12 @@ $(function() {
 			</li>\
 			<li data-row="' + rownum + '" data-col="7" data-sizex="1" data-sizey="1">\
 				<div data-id="agent' + i + 'resolved" data-cool="0" data-warm="10" data-view="HotnessAgent2" data-title="" data-moreinfo="" class="agentdb2 agentresolved"></div>\
+			</li>\
+			<li data-row="' + rownum + '" data-col="8" data-sizex="1" data-sizey="1">\
+				<div data-id="agent' + i + 'resolvedu" data-view="Number" data-title="" data-moreinfo="" class="agentdb2 agentresolvedu"></div>\
+			</li>\
+			<li data-row="' + rownum + '" data-col="9" data-sizex="1" data-sizey="1">\
+				<div data-id="agent' + i + 'resolvedc" data-view="Number" data-title="" data-moreinfo="" class="agentdb2 agentresolvedc"></div>\
 			</li>\
 		')
 	}
