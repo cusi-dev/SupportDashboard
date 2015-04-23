@@ -17,7 +17,7 @@ class Dashing.HotnessAgent2 extends Dashing.Widget
         bucketSize = (warm - cool) / 3 # Total # of colours in middle
         Math.ceil (value - cool) / bucketSize
   
-    backgroundClass = "hotness#{level}"
+    backgroundClass = "a2hotness#{level}"
     lastClass = @get "lastClass"
     node.toggleClass "#{lastClass} #{backgroundClass}"
     @set "lastClass", backgroundClass
