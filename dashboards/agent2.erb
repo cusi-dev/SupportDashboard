@@ -15,25 +15,25 @@ $(function() {
   <ul id="agent2">
 	<!-- TOP ROW -->
     <li data-row="1" data-col="1" data-sizex="1" data-sizey="1">
-		<div data-view="Text" data-title="Agent" data-moreinfo="Ticket count" style="background-color:#222" class="agentdb2"></div>
+		<div data-view="Text" data-title="Agent" data-moreinfo="Ticket count" style="background-color:#222" class="agentdb2 agentname"></div>
     </li>
-    <li data-row="1" data-col="1" data-sizex="1" data-sizey="1">
-		<div data-view="Text" data-title="In Progress" data-moreinfo="Ticket count" style="background-color:#222" class="agentdb2"></div>
+    <li data-row="1" data-col="2" data-sizex="1" data-sizey="1">
+		<div data-view="Text" data-title="In Progress" data-moreinfo="Ticket count" style="background-color:#222" class="agentdb2 agentinprogress"></div>
     </li>
-    <li data-row="1" data-col="1" data-sizex="1" data-sizey="1">
-		<div data-view="Text" data-title="Assigned" data-moreinfo="Ticket count" style="background-color:#222" class="agentdb2"></div>
+    <li data-row="1" data-col="3" data-sizex="1" data-sizey="1">
+		<div data-view="Text" data-title="Assigned" data-moreinfo="Ticket count" style="background-color:#222" class="agentdb2 agentassigned"></div>
     </li>
-    <li data-row="1" data-col="1" data-sizex="1" data-sizey="1">
-		<div data-view="Text" data-title="Pending" data-moreinfo="Ticket count" style="background-color:#222" class="agentdb2"></div>
+    <li data-row="1" data-col="4" data-sizex="1" data-sizey="1">
+		<div data-view="Text" data-title="Pending" data-moreinfo="Ticket count" style="background-color:#222" class="agentdb2 agentpending"></div>
     </li>
-    <li data-row="1" data-col="1" data-sizex="1" data-sizey="1">
-		<div data-view="Text" data-title="Escalated" data-moreinfo="Ticket count" style="background-color:#222" class="agentdb2"></div>
+    <li data-row="1" data-col="5" data-sizex="1" data-sizey="1">
+		<div data-view="Text" data-title="Escalated" data-moreinfo="Ticket count" style="background-color:#222" class="agentdb2 agentescalated"></div>
     </li>
-    <li data-row="1" data-col="1" data-sizex="1" data-sizey="1">
-		<div data-view="Text" data-title="Contracted" data-moreinfo="Ticket count" style="background-color:#222" class="agentdb2"></div>
+    <li data-row="1" data-col="6" data-sizex="1" data-sizey="1">
+		<div data-view="Text" data-title="Contracted" data-moreinfo="Ticket count" style="background-color:#222" class="agentdb2 agentcontracted"></div>
     </li>
-    <li data-row="1" data-col="1" data-sizex="1" data-sizey="1">
-		<div data-view="Text" data-title="Resolved" data-moreinfo="Ticket count" style="background-color:#222" class="agentdb2"></div>
+    <li data-row="1" data-col="7" data-sizex="1" data-sizey="1">
+		<div data-view="Text" data-title="Resolved" data-moreinfo="Ticket count" style="background-color:#222" class="agentdb2 agentresolved"></div>
     </li>
 
   </ul>
@@ -65,7 +65,7 @@ $(function() {
 				<div data-id="agent' + i + 'escalated" data-cool="0" data-warm="3" data-view="HotnessAgent" data-title="" data-moreinfo="" class="agentdb2 agentescalated"></div>\
 			</li>\
 			<li data-row="' + rownum + '" data-col="6" data-sizex="1" data-sizey="1">\
-				<div data-id="agent' + i + 'contracted" data-cool="0" data-warm="5" data-view="HotnessAgent" data-title="" data-moreinfo="" class="agentdb2 agentescalated"></div>\
+				<div data-id="agent' + i + 'contracted" data-cool="0" data-warm="5" data-view="HotnessAgent" data-title="" data-moreinfo="" class="agentdb2 agentcontracted"></div>\
 			</li>\
 			<li data-row="' + rownum + '" data-col="7" data-sizex="1" data-sizey="1">\
 				<div data-id="agent' + i + 'resolved" data-cool="0" data-warm="10" data-view="HotnessAgent2" data-title="" data-moreinfo="" class="agentdb2 agentresolved"></div>\
