@@ -1,0 +1,64 @@
+<script type='text/javascript'>
+$(function() {
+  Dashing.gridsterLayout('[
+    {"col":1,"row":1},{"col":1,"row":2},{"col":1,"row":3},{"col":1,"row":4},{"col":1,"row":5},{"col":1,"row":6},{"col":1,"row":7},
+    {"col":2,"row":1},{"col":2,"row":2},{"col":2,"row":3},{"col":2,"row":4},{"col":2,"row":5},{"col":2,"row":6},{"col":2,"row":7}
+  ]')
+  Dashing.widget_base_dimensions = [257, 145]
+  Dashing.numColumns = 7
+  Dashing.numRows = 7
+});
+</script>
+
+<% content_for :title do %>Tech Support Agent Metrics Dashboard<% end %>
+
+<div class="gridster">
+  <ul>
+	<!-- TOP ROW -->
+    <li data-row="1" data-col="1" data-sizex="1" data-sizey="1">
+		<div data-view="Text" data-title="Agent" data-moreinfo="Ticket count" style="background-color:#222"></div>
+    </li>
+    <li data-row="1" data-col="1" data-sizex="1" data-sizey="1">
+		<div data-view="Text" data-title="In Progress" data-moreinfo="Ticket count" style="background-color:#222"></div>
+    </li>
+    <li data-row="1" data-col="1" data-sizex="1" data-sizey="1">
+		<div data-view="Text" data-title="Assigned" data-moreinfo="Ticket count" style="background-color:#222"></div>
+    </li>
+    <li data-row="1" data-col="1" data-sizex="1" data-sizey="1">
+		<div data-view="Text" data-title="Pending" data-moreinfo="Ticket count" style="background-color:#222"></div>
+    </li>
+    <li data-row="1" data-col="1" data-sizex="1" data-sizey="1">
+		<div data-view="Text" data-title="Escalated" data-moreinfo="Ticket count" style="background-color:#222"></div>
+    </li>
+    <li data-row="1" data-col="1" data-sizex="1" data-sizey="1">
+		<div data-view="Text" data-title="Contracted" data-moreinfo="Ticket count" style="background-color:#222"></div>
+    </li>
+    <li data-row="1" data-col="1" data-sizex="1" data-sizey="1">
+		<div data-view="Text" data-title="Resolved" data-moreinfo="Ticket count" style="background-color:#222"></div>
+    </li>
+
+	<!-- AGENT 1 ROW -->
+    <li data-row="1" data-col="1" data-sizex="1" data-sizey="1">
+		<div data-view="Text" data-title="Agent1 Name" data-moreinfo="Ticket count" style="background-color:#222"></div>
+    </li>
+    <li data-row="1" data-col="1" data-sizex="1" data-sizey="1">
+		<div data-id="agent1inprogress" data-view="Number" data-value="1" data-title="" data-moreinfo="" style="background-color:#222"></div>
+    </li>
+    <li data-row="1" data-col="1" data-sizex="1" data-sizey="1">
+		<div data-id="agent1assigned" data-view="Number" data-value="1" data-title="" data-moreinfo="" style="background-color:#222"></div>
+    </li>
+    <li data-row="1" data-col="1" data-sizex="1" data-sizey="1">
+		<div data-id="agent1pending" data-view="Number" data-value="1" data-title="" data-moreinfo="" style="background-color:#222"></div>
+    </li>
+    <li data-row="1" data-col="1" data-sizex="1" data-sizey="1">
+		<div data-id="agent1escalated" data-view="Number" data-value="1" data-title="" data-moreinfo="" style="background-color:#222"></div>
+    </li>
+    <li data-row="1" data-col="1" data-sizex="1" data-sizey="1">
+		<div data-id="agent1contracted" data-view="Number" data-value="1" data-title="" data-moreinfo="" style="background-color:#222"></div>
+    </li>
+    <li data-row="1" data-col="1" data-sizex="1" data-sizey="1">
+		<div data-id="agent1resolved" data-view="Number" data-value="1" data-title="" data-moreinfo="" style="background-color:#222"></div>
+    </li>
+
+	</ul>
+</div>
