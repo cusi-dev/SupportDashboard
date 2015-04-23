@@ -1,11 +1,12 @@
 <script type='text/javascript'>
 $(function() {
   Dashing.gridsterLayout('[{"col":1,"row":1},{"col":2,"row":1},{"col":3,"row":1},{"col":4,"row":1},{"col":5,"row":1},{"col":6,"row":1},{"col":7,"row":1},{"col":1,"row":2},{"col":2,"row":2},{"col":3,"row":2},{"col":4,"row":2},{"col":5,"row":2},{"col":6,"row":2},{"col":7,"row":2}]')
-  Dashing.numColumns = 7
-  Dashing.numRows = 7
-  Dashing.widget_base_dimensions = [Math.floor(1800/Dashing.numColumns), Math.floor(1020/Dashing.numRows)]
-
+  //
   Dashing.myAgents = 3
+
+  Dashing.numColumns = 7
+  Dashing.numRows = Dashing.myAgents
+  Dashing.widget_base_dimensions = [Math.floor(1800/Dashing.numColumns), Math.floor(1020/Dashing.numRows)]
 });
 </script>
 
@@ -35,30 +36,6 @@ $(function() {
     <li data-row="1" data-col="1" data-sizex="1" data-sizey="1">
 		<div data-view="Text" data-title="Resolved" data-moreinfo="Ticket count" style="background-color:#222" class="agentdb2"></div>
     </li>
-
-	<!-- AGENT ROW -->
-    <li data-row="1" data-col="1" data-sizex="1" data-sizey="1">
-		<div data-id="agent1name" data-view="Text" data-title="" data-moreinfo="" style="background-color:#222" class="agentdb2"></div>
-    </li>
-    <li data-row="1" data-col="1" data-sizex="1" data-sizey="1">
-		<div data-id="agent1inprogress" data-view="Number" data-title="" data-moreinfo="" style="background-color:#222" class="agentdb2"></div>
-    </li>
-    <li data-row="1" data-col="1" data-sizex="1" data-sizey="1">
-		<div data-id="agent1assigned" data-view="Number" data-title="" data-moreinfo="" style="background-color:#222" class="agentdb2"></div>
-    </li>
-    <li data-row="1" data-col="1" data-sizex="1" data-sizey="1">
-		<div data-id="agent1pending" data-view="Number" data-title="" data-moreinfo="" style="background-color:#222" class="agentdb2"></div>
-    </li>
-    <li data-row="1" data-col="1" data-sizex="1" data-sizey="1">
-		<div data-id="agent1escalated" data-view="Number" data-title="" data-moreinfo="" style="background-color:#222" class="agentdb2"></div>
-    </li>
-    <li data-row="1" data-col="1" data-sizex="1" data-sizey="1">
-		<div data-id="agent1contracted" data-view="Number" data-title="" data-moreinfo="" style="background-color:#222" class="agentdb2"></div>
-    </li>
-    <li data-row="1" data-col="1" data-sizex="1" data-sizey="1">
-		<div data-id="agent1resolved" data-view="Number" data-title="" data-moreinfo="" style="background-color:#222" class="agentdb2"></div>
-    </li>
-
 
   </ul>
 </div>
