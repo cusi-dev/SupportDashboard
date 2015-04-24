@@ -6,8 +6,8 @@ $(function() {
   Dashing.numColumns = 9
   Dashing.numRows = Dashing.myAgents + 1
   Dashing.widget_margins = [3, 3]
-  cSize = Math.floor(1800/Dashing.numColumns) - (Dashing.numColumns * Dashing.widget_margins[0])
-  rSize = Math.floor(1020/Dashing.numRows) - (Dashing.numRows * Dashing.widget_margins[1])
+  cSize = Math.floor(1800/Dashing.numColumns) - (.5 * Dashing.numColumns * Dashing.widget_margins[0])
+  rSize = Math.floor(1020/Dashing.numRows) - (.5 * Dashing.numRows * Dashing.widget_margins[1])
   Dashing.widget_base_dimensions = [cSize, rSize]
 });
 </script>
