@@ -1,6 +1,6 @@
 class Dashing.HotnessAgent2 extends Dashing.Widget
 
-  @accessor 'value', Dashing.AnimatedValue
+  @accessor 'value'#, Dashing.AnimatedValue
 
   constructor: ->
     super
