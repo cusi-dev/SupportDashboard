@@ -747,7 +747,7 @@ BEGIN
 		m.mrID=ma.mrID
 	WHERE 
 		fh.mrFIELDNAME='mrStatus'
-		AND fh.mrNEWFIELDVALUE IN ('Resolved','Closed')
+		AND fh.mrNEWFIELDVALUE IN ('Resolved')--,'Closed')
 		AND fh.mrTIMESTAMP >= @Day
 		AND fh.mrTIMESTAMP < @NextDay
 		AND m.mrASSIGNEES LIKE 'Support%'
