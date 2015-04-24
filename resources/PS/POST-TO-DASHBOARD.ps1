@@ -690,19 +690,36 @@ $DataSet = New-Object System.Data.DataSet
 $SqlAdapter.Fill($DataSet)
 $conn.Close()
 
+# LAST UPDATE
+$conn = New-Object System.Data.SqlClient.SqlConnection $connStr
+$conn.Open()
+$SqlCmd = New-Object System.Data.SqlClient.SqlCommand
+$SqlCmd.CommandText = "exec [cusip_SupportAgentLastStatus] @i_ExcludeTier2=0"
+$SqlCmd.Connection = $conn
+$SqlAdapter = New-Object System.Data.SqlClient.SqlDataAdapter
+$SqlAdapter.SelectCommand = $SqlCmd
+$DataSet = New-Object System.Data.DataSet
+$SqlAdapter.Fill($DataSet)
+$conn.Close()
+
 #Assign results
 $rows = $DataSet.Tables[0].Rows
 $rows = $rows | Sort-Object real_name
 $i = 0
+$excludedUsers = 'jperryman','nmathes','pzenko','tscrape'
 foreach ($row in $rows)
 {
     $i += 1
 
     $updateage = $row[5]
+    if ($excludedUsers.Contains($row[6]))
+    {
+        $updateage = 0
+    }
     $url = "$($dashboardURL)/widgets/agent$($i)updateage"
     $json = "{
         ""auth_token"" : ""$($authToken)"",
-        ""text"" : ""$updateage""
+        ""value"" : ""$updateage""
     }"
     (Invoke-WebRequest -Uri $url -Method Post -Body $json).content | ConvertFrom-Json
 }
