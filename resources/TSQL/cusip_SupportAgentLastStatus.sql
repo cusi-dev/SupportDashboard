@@ -1,13 +1,16 @@
 USE [Footprints]
 GO
+/****** Object:  StoredProcedure [dbo].[cusip_SupportAgentLastStatus]    Script Date: 4/24/2015 8:41:20 AM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
 ALTER PROCEDURE [dbo].[cusip_SupportAgentLastStatus] 
+(
+	@i_ExcludeTier2 BIT 
+)
 AS
 BEGIN
-
 	SET NOCOUNT ON
 
 	SELECT 
@@ -15,7 +18,8 @@ BEGIN
 		ts.mrID,
 		CAST(ts.mrTIMESTAMP AS SMALLDATETIME) [Timestamp],
 		CAST((DATEDIFF(MINUTE,CAST(ts.mrTIMESTAMP AS SMALLDATETIME),GETDATE()) / 60) AS VARCHAR) + ':' + RIGHT('00' + RTRIM(CAST((DATEDIFF(MINUTE,CAST(ts.mrTIMESTAMP AS SMALLDATETIME),GETDATE()) % 60) AS VARCHAR)),2) Age,
-		i.StatusDisplayName [Status]
+		i.StatusDisplayName [Status],
+		DATEDIFF(MINUTE,CAST(ts.mrTIMESTAMP AS SMALLDATETIME),GETDATE()) AgeMinutes
 	FROM 
 	(
 		SELECT 
@@ -32,8 +36,11 @@ BEGIN
 		AND 
 			user_id NOT IN ('administrator','cshort')
 		-- Exclude specific users from displaying in this widget 
-		AND
-			user_id NOT IN ('jperryman','nmathes','tscrape','pzenko')
+		AND (
+			(@i_ExcludeTier2 = 1 AND user_id NOT IN ('jperryman','nmathes','tscrape','pzenko'))
+			OR
+			(@i_ExcludeTier2 = 0)
+		)
 		--
 		GROUP BY
 			u.user_id,

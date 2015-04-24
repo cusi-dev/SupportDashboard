@@ -466,7 +466,7 @@ $json = "{
 $conn = New-Object System.Data.SqlClient.SqlConnection $connStr
 $conn.Open()
 $SqlCmd = New-Object System.Data.SqlClient.SqlCommand
-$SqlCmd.CommandText = "exec [cusip_SupportAgentLastStatus]"
+$SqlCmd.CommandText = "exec [cusip_SupportAgentLastStatus] @i_ExcludeTier2=1"
 $SqlCmd.Connection = $conn
 $SqlAdapter = New-Object System.Data.SqlClient.SqlDataAdapter
 $SqlAdapter.SelectCommand = $SqlCmd
@@ -677,12 +677,12 @@ foreach ($row in $rows)
     }"
     (Invoke-WebRequest -Uri $url -Method Post -Body $json).content | ConvertFrom-Json
 }
-<#
+
 # LAST UPDATE
 $conn = New-Object System.Data.SqlClient.SqlConnection $connStr
 $conn.Open()
 $SqlCmd = New-Object System.Data.SqlClient.SqlCommand
-$SqlCmd.CommandText = "exec [cusip_SupportAgentLastStatus]"
+$SqlCmd.CommandText = "exec [cusip_SupportAgentLastStatus] @i_ExcludeTier2=0"
 $SqlCmd.Connection = $conn
 $SqlAdapter = New-Object System.Data.SqlClient.SqlDataAdapter
 $SqlAdapter.SelectCommand = $SqlCmd
@@ -698,7 +698,7 @@ foreach ($row in $rows)
 {
     $i += 1
 
-    $updateage = $row[3]
+    $updateage = $row[5]
     $url = "$($dashboardURL)/widgets/agent$($i)updateage"
     $json = "{
         ""auth_token"" : ""$($authToken)"",
@@ -706,4 +706,3 @@ foreach ($row in $rows)
     }"
     (Invoke-WebRequest -Uri $url -Method Post -Body $json).content | ConvertFrom-Json
 }
-#>
