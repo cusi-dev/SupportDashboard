@@ -577,3 +577,133 @@ $json3 = "{
 
 (Invoke-WebRequest -Uri $url3 -Method Post -Body $json3).content | ConvertFrom-Json
 
+
+#
+# AGENT2
+#
+
+#Query 
+$Date = Get-Date -Format d
+$conn = New-Object System.Data.SqlClient.SqlConnection $connStr
+$conn.Open()
+$SqlCmd = New-Object System.Data.SqlClient.SqlCommand
+#$SqlCmd.CommandText = "exec [cusip_SupportAgentMetrics] @i_Today = '2015-04-01'"#'$Date'"
+$SqlCmd.CommandText = "exec [cusip_SupportAgentMetrics] @i_Today = '$Date'"
+$SqlCmd.Connection = $conn
+$SqlAdapter = New-Object System.Data.SqlClient.SqlDataAdapter
+$SqlAdapter.SelectCommand = $SqlCmd
+$DataSet = New-Object System.Data.DataSet
+$SqlAdapter.Fill($DataSet)
+$conn.Close()
+
+#Assign results
+$rows = $DataSet.Tables[0].Rows
+
+$i = 0
+#
+# AGENT LOOP
+#
+foreach ($row in $rows)
+{
+    $i += 1
+
+    $agentname = $row[0]
+    $url = "$($dashboardURL)/widgets/agent$($i)name"
+    $json = "{
+        ""auth_token"" : ""$($authToken)"",
+        ""text"" : ""$agentname""
+    }"
+    (Invoke-WebRequest -Uri $url -Method Post -Body $json).content | ConvertFrom-Json
+
+    $inprogress = $row[24]
+    $url = "$($dashboardURL)/widgets/agent$($i)inprogress"
+    $json = "{
+        ""auth_token"" : ""$($authToken)"",
+        ""value"" : ""$inprogress""
+    }"
+    (Invoke-WebRequest -Uri $url -Method Post -Body $json).content | ConvertFrom-Json
+
+    $assigned = $row[5] - $row[24]
+    $url = "$($dashboardURL)/widgets/agent$($i)assigned"
+    $json = "{
+        ""auth_token"" : ""$($authToken)"",
+        ""value"" : ""$assigned""
+    }"
+    (Invoke-WebRequest -Uri $url -Method Post -Body $json).content | ConvertFrom-Json
+
+    $pending = $row[8] - $row[14]
+    $url = "$($dashboardURL)/widgets/agent$($i)pending"
+    $json = "{
+        ""auth_token"" : ""$($authToken)"",
+        ""value"" : ""$pending""
+    }"
+    (Invoke-WebRequest -Uri $url -Method Post -Body $json).content | ConvertFrom-Json
+
+    $escalated = $row[14]
+    $url = "$($dashboardURL)/widgets/agent$($i)escalated"
+    $json = "{
+        ""auth_token"" : ""$($authToken)"",
+        ""value"" : ""$escalated""
+    }"
+    (Invoke-WebRequest -Uri $url -Method Post -Body $json).content | ConvertFrom-Json
+
+    $contracted = $row[11]
+    $url = "$($dashboardURL)/widgets/agent$($i)contracted"
+    $json = "{
+        ""auth_token"" : ""$($authToken)"",
+        ""value"" : ""$contracted""
+    }"
+    (Invoke-WebRequest -Uri $url -Method Post -Body $json).content | ConvertFrom-Json
+
+    $resolved = $row[2]
+    $url = "$($dashboardURL)/widgets/agent$($i)resolved"
+    $json = "{
+        ""auth_token"" : ""$($authToken)"",
+        ""value"" : ""$resolved""
+    }"
+    (Invoke-WebRequest -Uri $url -Method Post -Body $json).content | ConvertFrom-Json
+    $resolvedu = $row[3]
+    $url = "$($dashboardURL)/widgets/agent$($i)resolvedu"
+    $json = "{
+        ""auth_token"" : ""$($authToken)"",
+        ""current"" : ""$resolvedu""
+    }"
+    (Invoke-WebRequest -Uri $url -Method Post -Body $json).content | ConvertFrom-Json
+    $resolvedc = $row[4]
+    $url = "$($dashboardURL)/widgets/agent$($i)resolvedc"
+    $json = "{
+        ""auth_token"" : ""$($authToken)"",
+        ""current"" : ""$resolvedc""
+    }"
+    (Invoke-WebRequest -Uri $url -Method Post -Body $json).content | ConvertFrom-Json
+}
+<#
+# LAST UPDATE
+$conn = New-Object System.Data.SqlClient.SqlConnection $connStr
+$conn.Open()
+$SqlCmd = New-Object System.Data.SqlClient.SqlCommand
+$SqlCmd.CommandText = "exec [cusip_SupportAgentLastStatus]"
+$SqlCmd.Connection = $conn
+$SqlAdapter = New-Object System.Data.SqlClient.SqlDataAdapter
+$SqlAdapter.SelectCommand = $SqlCmd
+$DataSet = New-Object System.Data.DataSet
+$SqlAdapter.Fill($DataSet)
+$conn.Close()
+
+#Assign results
+$rows = $DataSet.Tables[0].Rows
+$rows = $rows | Sort-Object real_name
+$i = 0
+foreach ($row in $rows)
+{
+    $i += 1
+
+    $updateage = $row[3]
+    $url = "$($dashboardURL)/widgets/agent$($i)updateage"
+    $json = "{
+        ""auth_token"" : ""$($authToken)"",
+        ""text"" : ""$updateage""
+    }"
+    (Invoke-WebRequest -Uri $url -Method Post -Body $json).content | ConvertFrom-Json
+}
+#>
