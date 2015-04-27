@@ -1,4 +1,4 @@
-class Dashing.FullpieAgent extends Dashing.Widget
+class Dashing.AgentDonut extends Dashing.Widget
 
     @accessor 'data'
 
