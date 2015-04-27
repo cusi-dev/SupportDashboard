@@ -80,7 +80,7 @@ CREATE TABLE #ResponseMetrics
 ------------------------------------------------
 DECLARE @Day DATETIME = @ThisPeriodStart
 DECLARE @NextDay DATETIME
-DECLARE @Period VARCHAR(24)
+
 WHILE @Day < @NextPeriodStart
 BEGIN
 
