@@ -6,14 +6,10 @@ SET QUOTED_IDENTIFIER ON
 GO
 ALTER PROCEDURE [dbo].[cusip_SupportMetrics] 
 (
---DECLARE
 	@i_Today SMALLDATETIME
 	,@i_Period VARCHAR(8)
 )
 AS
-
---SELECT @i_Today='2015-01-14'
---SELECT @i_Period='day'
 
 BEGIN
 SET NOCOUNT ON
@@ -77,7 +73,6 @@ CREATE TABLE #ResponseMetrics
 	,SLA60 INT
 	,SLA61 INT
 	,InboundTickets INT
-	--,AverageResolutionTime INT
 )
 
 ------------------------------------------------
@@ -112,7 +107,6 @@ BEGIN
 				,AvgRT.SLA60
 				,AvgRT.SLA61
 				,InboundTickets.CountInboundTickets
-				--,AvgResolutionTime.AverageResolutionTime
 			FROM (
 				SELECT 
 					@DayInt AS DayID
@@ -294,102 +288,7 @@ BEGIN
 					) RT
 				) A
 			) AvgRT ON ClosedTickets.DayID=AvgRT.DayID
---------------------------------------------------------------------------------------------------------------------------------------
-			--INNER JOIN (
-			--	SELECT 
-			--		@DayInt AS DayID
-			--		,AVG(A.ResolutionTime) AverageResolutionTime
-			--	FROM (
-			--		SELECT 
-			--			RT.mrID
-			--			,DATEDIFF(
-			--				MINUTE
-			--				,(SELECT mrTimestamp FROM MASTER4_FIELDHISTORY WHERE mrSEQUENCE=rt.startsequence)
-			--				,ISNULL((SELECT mrTimestamp FROM MASTER4_FIELDHISTORY WHERE mrSEQUENCE=rt.ResolvedSequence),(SELECT GETDATE()))
-			--			) ResolutionTime
-			--		FROM 
-			--		(
-			--			SELECT 
-			--				master4.mrID
-			--				,ss.StartSequence
-			--				,ts.ResolvedSequence 
-			--			FROM 
-			--				MASTER4
-			--			INNER JOIN (
-			--				-- Start sequence ID
-			--				SELECT 
-			--					fh.mrID
-			--					,MIN(fh.mrSEQUENCE) AS StartSequence
-			--				FROM 
-			--					MASTER4_FIELDHISTORY fh
-			--				INNER JOIN (
-			--					SELECT 
-			--						m.mrID 
-			--					FROM 
-			--						MASTER4 m
-			--					INNER JOIN
-			--						MASTER4_ABDATA ma
-			--					ON
-			--						m.mrid=ma.mrID
-			--					WHERE 
-			--						m.mrSTATUS<>'_DELETED_'
-			--						AND m.mrSUBMITDATE >= @Day
-			--						AND m.mrSUBMITDATE < @NextDay
-			--						AND ma.[Application] LIKE '%'+(CASE WHEN @ThisMetricGroup='ALL' THEN '' ELSE @ThisMetricGroup END)+'%'
-			--				) TD --today's tickets
-			--				ON TD.mrID=fh.mrID
-			--				WHERE 
-			--					fh.mrFIELDNAME='mrStatus'
-			--					AND fh.mrOLDFIELDVALUE IS NULL
-			--					AND fh.mrNEWFIELDVALUE IN ('Open','_REQUEST_','Assigned')
-			--				GROUP BY fh.mrID
-			--			) SS
-			--			ON master4.mrID=ss.mrID
-			--			LEFT JOIN (
-			--				-- 'Taken' sequence ID
-			--				SELECT 
-			--					fh.mrID
-			--					,MAX(fh.mrSEQUENCE) AS ResolvedSequence
-			--				FROM 
-			--					MASTER4_FIELDHISTORY fh
-			--				INNER JOIN (
-			--					SELECT 
-			--						m.mrID 
-			--					FROM 
-			--						MASTER4 m
-			--					INNER JOIN
-			--						MASTER4_ABDATA ma
-			--					ON
-			--						m.mrid=ma.mrID
-			--					WHERE 
-			--						m.mrSTATUS<>'_DELETED_'
-			--						AND m.mrSUBMITDATE >= @Day
-			--						AND m.mrSUBMITDATE < @NextDay
-			--						AND ma.[Application] LIKE '%'+(CASE WHEN @ThisMetricGroup='ALL' THEN '' ELSE @ThisMetricGroup END)+'%'
-			--				) TD --today's tickets
-			--				ON TD.mrID=fh.mrID
-			--				WHERE 
-			--					fh.mrFIELDNAME='mrStatus'
-			--					AND fh.mrNEWFIELDVALUE IN ('Resolved')
-			--				GROUP BY fh.mrID
-			--			) TS
-			--			ON TS.mrID=master4.mrID
-			--			WHERE MASTER4.mrASSIGNEES LIKE 'Support%'
-			--			AND MASTER4.mrID NOT IN ( --excluded tickets
-			--				SELECT 
-			--					DISTINCT(mrID)
-			--				FROM
-			--					MASTER4_FIELDHISTORY
-			--				WHERE
-			--					mrNEWFIELDVALUE IN ('Contracted__bWork','Scheduled__bCall','_INACTIVE_','_PENDING_SOLUTION_','_SOLVED_')
-			--			)
-			--			AND CONVERT(TIME,MASTER4.mrSUBMITDATE) >= @ShiftStartTime
-			--			AND CONVERT(TIME,MASTER4.mrSUBMITDATE) <= @ShiftEndTime
-			--		) RT
-			--	) A
-			--) AvgResolutionTime ON ClosedTickets.DayID=AvgResolutionTime.DayID
 
---------------------------------------------------------------------------------------------------------------------------------------
 		END
 
 	END
