@@ -16,32 +16,24 @@ SET NOCOUNT ON
 
 DECLARE @ShiftStartTime TIME = '07:00:00'
 DECLARE @ShiftEndTime TIME = '18:00:00'
+
 DECLARE @ThisPeriodStart DATETIME
 DECLARE @NextPeriodStart DATETIME
 
-DECLARE @ThisYearStart DATETIME = DATEADD(year,DATEDIFF(year,0,CAST(@i_Today AS DATETIME)),0)
-DECLARE @ThisMonthStart DATETIME = DATEADD(month,DATEDIFF(month,0,CAST(@i_Today AS DATETIME)),0)
-DECLARE @NextYearStart DATETIME = DATEADD(YEAR,1,@ThisYearStart)
-DECLARE @NextMonthStart DATETIME = DATEADD(MONTH,1,@ThisMonthStart)
-DECLARE @TodayStart DATETIME = CAST(@i_Today AS DATETIME)
-DECLARE @TomorrowStart DATETIME = DATEADD(day,1,@TodayStart)
-DECLARE @MonthInt INT = CAST(@ThisMonthStart AS INT)
-DECLARE @DayInt INT 
-
 IF @i_Period = 'YEAR'
 BEGIN
-	SET @ThisPeriodStart = @ThisYearStart
-	SET @NextPeriodStart = @NextYearStart
+	SET @ThisPeriodStart = DATEADD(year,DATEDIFF(year,0,CAST(@i_Today AS DATETIME)),0)
+	SET @NextPeriodStart = DATEADD(YEAR,1,@ThisPeriodStart)
 END
 ELSE IF @i_Period = 'MONTH'
 BEGIN
-	SET @ThisPeriodStart = @ThisMonthStart
-	SET @NextPeriodStart = @NextMonthStart
+	SET @ThisPeriodStart = DATEADD(month,DATEDIFF(month,0,CAST(@i_Today AS DATETIME)),0)
+	SET @NextPeriodStart = DATEADD(MONTH,1,@ThisPeriodStart)
 END
 ELSE -- 'DAY' or something else that we'll treat as a day
 BEGIN
-	SET @ThisPeriodStart = @TodayStart
-	SET @NextPeriodStart = @TomorrowStart
+	SET @ThisPeriodStart = CAST(@i_Today AS DATETIME)
+	SET @NextPeriodStart = DATEADD(day,1,@ThisPeriodStart)
 END
 
 DECLARE @MetricGroups TABLE (
@@ -57,7 +49,6 @@ DECLARE @ThisMetricGroup VARCHAR(4)
 DECLARE @i INT = 0
 DECLARE @cnt INT
 SELECT @cnt = COUNT(MetricGroup) FROM @MetricGroups
-
 
 IF OBJECT_ID('tempdb..#ResponseMetrics') IS NOT NULL
 DROP TABLE #ResponseMetrics
@@ -80,10 +71,13 @@ CREATE TABLE #ResponseMetrics
 ------------------------------------------------
 DECLARE @Day DATETIME = @ThisPeriodStart
 DECLARE @NextDay DATETIME
+DECLARE @DayInt INT 
 
+-- Loop for each day in the selected period
 WHILE @Day < @NextPeriodStart
 BEGIN
 
+	-- Loop for each metric group within the day
 	WHILE @i < @cnt
 	BEGIN
 
@@ -92,6 +86,7 @@ BEGIN
 
 		SET @NextDay = DATEADD(DAY,1,@Day)
 
+		-- Only gather numbers for weekdays
 		IF DATENAME(dw,@Day) NOT IN ('Saturday','Sunday')
 		BEGIN
 			SET @DayInt = CAST(@Day AS INT)
@@ -108,6 +103,7 @@ BEGIN
 				,AvgRT.SLA61
 				,InboundTickets.CountInboundTickets
 			FROM (
+				-- New ticket counts
 				SELECT 
 					@DayInt AS DayID
 					,COUNT(*) AS CountNewTickets 
@@ -125,6 +121,7 @@ BEGIN
 					AND m.mrASSIGNEES LIKE 'Support%'
 			) NewTickets 
 			INNER JOIN (
+				-- Closed ticket counts
 				SELECT 
 					@DayInt AS DayID
 					,COUNT(*) AS CountClosedTickets 
@@ -154,6 +151,7 @@ BEGIN
 			) ClosedTickets
 			ON ClosedTickets.DayID=NewTickets.DayID
 			INNER JOIN (
+				-- Inbound ticket counts
 				SELECT 
 					@DayInt AS DayID
 					,COUNT(*) AS CountInboundTickets 
@@ -184,6 +182,7 @@ BEGIN
 			) InboundTickets
 			ON InboundTickets.DayID=NewTickets.DayID
 			INNER JOIN (
+				-- Response times and ticket counts within SLA levels
 				SELECT 
 					@DayInt AS DayID
 					,AVG(A.ResponseTime) AverageResponseTime
@@ -200,6 +199,7 @@ BEGIN
 						ELSE 0
 					END),0) SLA61
 				FROM (
+					-- Response time calc
 					SELECT 
 						RT.mrID
 						,DATEDIFF(
@@ -209,6 +209,7 @@ BEGIN
 						) ResponseTime
 					FROM 
 					(
+						-- Feed tickets to response time calc
 						SELECT 
 							master4.mrID
 							,ss.StartSequence
@@ -241,7 +242,13 @@ BEGIN
 							WHERE 
 								fh.mrFIELDNAME='mrStatus'
 								AND fh.mrOLDFIELDVALUE IS NULL
+								--
+								-- Response time start statuses
+								--
 								AND fh.mrNEWFIELDVALUE IN ('Open','_REQUEST_','Assigned')
+								--
+								-- END: Response time start statuses
+								--
 							GROUP BY fh.mrID
 						) SS
 						ON master4.mrID=ss.mrID
@@ -270,12 +277,19 @@ BEGIN
 							ON TD.mrID=fh.mrID
 							WHERE 
 								fh.mrFIELDNAME='mrStatus'
+								--
+								-- Response time end statuses
+								--
 								AND fh.mrNEWFIELDVALUE IN ('In__bProgress','Contact__bAttempted','Resolved','Closed','Escalated__b__u__bTier__b2','Pending')
+								--
+								-- END: Response time end statuses
+								--
 							GROUP BY fh.mrID
 						) TS
 						ON TS.mrID=master4.mrID
 						WHERE MASTER4.mrASSIGNEES LIKE 'Support%'
-						AND MASTER4.mrID NOT IN ( --excluded tickets
+						AND MASTER4.mrID NOT IN ( 
+							-- Tickets EXCLUDED from response time stats
 							SELECT 
 								DISTINCT(mrID)
 							FROM
@@ -283,6 +297,7 @@ BEGIN
 							WHERE
 								mrNEWFIELDVALUE IN ('Contracted__bWork','Scheduled__bCall','_INACTIVE_','_PENDING_SOLUTION_','_SOLVED_')
 						)
+						-- Ticket creation date within "workspace time"
 						AND CONVERT(TIME,MASTER4.mrSUBMITDATE) >= @ShiftStartTime
 						AND CONVERT(TIME,MASTER4.mrSUBMITDATE) <= @ShiftEndTime
 					) RT
