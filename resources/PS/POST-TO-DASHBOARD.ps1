@@ -334,7 +334,7 @@ foreach ($row in $rows)
     $pb2 += "
         { 
             ""label"" : ""$($row[0])"",
-            ""value"" :  $($row[8])
+            ""value"" :  $($row[8] + $row[14])
         }
     "
     if ($i -lt $rows.Count)
@@ -631,7 +631,7 @@ foreach ($row in $rows)
     }"
     (Invoke-WebRequest -Uri $url -Method Post -Body $json).content | ConvertFrom-Json
 
-    $pending = $row[8] - $row[14]
+    $pending = $row[8]
     $url = "$($dashboardURL)/widgets/agent$($i)pending"
     $json = "{
         ""auth_token"" : ""$($authToken)"",
