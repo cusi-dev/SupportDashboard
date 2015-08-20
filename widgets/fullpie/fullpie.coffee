@@ -25,7 +25,7 @@ class Dashing.Fullpie extends Dashing.Widget
       .domain([0,2])
       #.range( ['#222222','#555555','#777777','#999999','#bbbbbb','#dddddd','#ffffff'] )
       #.range( ['#222222','#333333','#444444','#555555','#666666','#777777','#888888','#999999','#aaaaaa'] )
-      .range( ['#996600','#ff0099','#4444ee'] )
+      .range( ['#4498ed','#9844ed','#4444ee'] )
 
     $(@node).children("svg").remove();
 
