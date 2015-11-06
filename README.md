@@ -4,6 +4,8 @@ The CUSI Support Dashboard queries ticket data from [FootPrints Service Core](ht
 
 ![Dashboard Sample](http://i.imgur.com/T6GHRPe.png)
 ![Support Metrics](http://i.imgur.com/jnNAe2G.png)
+
+Agent metrics provide a breakdown of work completed and in progress by each support agent.
 ![Agent Metrics](http://i.imgur.com/bJ5n5O8.png)
 
 Check out http://shopify.github.com/dashing for more information.
