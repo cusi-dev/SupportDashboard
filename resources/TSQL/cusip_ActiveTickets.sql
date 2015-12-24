@@ -13,7 +13,7 @@ BEGIN
 	FROM 
 		MASTER4 m
 	WHERE 
-		m.mrSTATUS NOT IN ('Closed','Resolved', '_DELETED_', 'Client__bAcceptance', 'Contracted__bWork', 'Development', 'Pending','Escalated__b__u__bDevelopment','Escalated__b__u__bCBSW__bDevelopment','Escalated__b__u__bTier__b2')
+		m.mrSTATUS NOT IN ('Closed','Resolved', '_DELETED_', 'Client__bAcceptance', 'Contracted__bWork', 'Development', 'Pending','Escalated__b__u__bDevelopment','Escalated__b__u__bCBSW__bDevelopment','Escalated__b__u__bMgmt','Escalated__b__u__bTier__b2')
 		AND m.mrASSIGNEES LIKE 'Support%'
 		AND NOT m.Scheduled__bCall >= DATEADD(d,1,CAST(GETDATE() AS DATE))
 
