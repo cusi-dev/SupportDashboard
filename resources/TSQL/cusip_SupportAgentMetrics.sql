@@ -42,7 +42,10 @@ BEGIN
 		Inbound INT,
 		InboundUMS INT,
 		InboundCBSW INT,
-		KBArticles INT
+		KBArticles INT,
+		InProgress INT,
+		InProgressUMS INT,
+		InProgressCBSW INT
 	)
 	CREATE TABLE #tmpTicketAssignees
 	(
@@ -67,13 +70,13 @@ BEGIN
 	FROM 
 		users u
 	WHERE 
-		u.user_type 
-	IN 
-		('4','2')
-	AND 
-		u.default_project = 4
-	AND 
-		user_id NOT IN ('administrator','cshort')
+		user_id IN (
+		--
+		-- update these with your user ids
+		--
+			'fpuser1',
+			'fpuser2'
+		)
 	GROUP BY
 		u.user_id,
 		u.real_name
@@ -99,10 +102,14 @@ BEGIN
 		m.mrID=ma.mrID
 	WHERE 
 		fh.mrFIELDNAME='mrStatus'
-		AND fh.mrNEWFIELDVALUE IN ('Resolved')--,'Closed')
-		AND fh.mrTIMESTAMP >= @Day
-		AND fh.mrTIMESTAMP < @NextDay
-		AND m.mrASSIGNEES LIKE 'Support%'
+	AND
+		fh.mrNEWFIELDVALUE IN ('Resolved')--,'Closed')
+	AND
+		fh.mrTIMESTAMP >= @Day
+	AND
+		fh.mrTIMESTAMP < @NextDay
+	AND
+		(mrASSIGNEES LIKE 'Support%' OR mrASSIGNEES LIKE ' Support%')
 	GROUP BY 
 		fh.mrID,
 		m.mrASSIGNEES
@@ -208,8 +215,10 @@ BEGIN
 		m.mrID=ma.mrID
 	WHERE 
 		m.mrSTATUS IN ('Assigned','Contact__bAttempted','Customer__bReponse','In__bProgress','Open','Open__b__u__bTime__bSensitive','Rollover','Scheduled__bCall')
-		AND m.mrASSIGNEES LIKE 'Support%'
-		AND m.Contracted__bWork = 'off'
+	AND
+		(mrASSIGNEES LIKE 'Support%' OR mrASSIGNEES LIKE ' Support%')
+	AND
+		m.Contracted__bWork = 'off'
 	GROUP BY 
 		m.mrID,
 		m.mrASSIGNEES
@@ -312,10 +321,24 @@ BEGIN
 		MASTER4_ABDATA ma
 	ON
 		m.mrID=ma.mrID
-	WHERE 
-		m.mrSTATUS IN ('Client__bAcceptance','Deployment','Development','Pending')
-		AND m.mrASSIGNEES LIKE 'Support%'
-		AND m.Contracted__bWork = 'off'
+	WHERE
+		(
+				m.mrSTATUS IN ('Client__bAcceptance','Deployment','Development')
+			AND
+				(mrASSIGNEES LIKE 'Support%' OR mrASSIGNEES LIKE ' Support%')
+			AND
+				m.Contracted__bWork = 'off'
+		)
+		OR
+		(
+				m.mrSTATUS = 'Pending'
+			AND
+				m.Pending__bSub__ustatus NOT IN ('Backlog','Development')
+			AND
+				(mrASSIGNEES LIKE 'Support%' OR mrASSIGNEES LIKE ' Support%')
+			AND
+				m.Contracted__bWork = 'off'
+		)
 	GROUP BY 
 		m.mrID,
 		m.mrASSIGNEES
@@ -420,8 +443,10 @@ BEGIN
 		m.mrID=ma.mrID
 	WHERE 
 		Contracted__bWork = 'on'
-		AND m.mrSTATUS NOT IN ('Resolved','Closed','_DELETED_')
-		AND m.mrASSIGNEES LIKE 'Support%'
+	AND
+		m.mrSTATUS NOT IN ('Resolved','Closed','_DELETED_')
+	AND
+		(mrASSIGNEES LIKE 'Support%' OR mrASSIGNEES LIKE ' Support%')
 	GROUP BY 
 		m.mrID,
 		m.mrASSIGNEES
@@ -526,7 +551,8 @@ BEGIN
 		m.mrID=ma.mrID
 	WHERE 
 		m.mrSTATUS LIKE ('Escalated%')
-		AND m.mrASSIGNEES LIKE 'Support%'
+	AND
+		(mrASSIGNEES LIKE 'Support%' OR mrASSIGNEES LIKE ' Support%')
 	GROUP BY 
 		m.mrID,
 		m.mrASSIGNEES
@@ -635,10 +661,14 @@ BEGIN
 		m.mrID=ma.mrID
 	WHERE 
 		fh.mrFIELDNAME='mrStatus'
-		AND fh.mrNEWFIELDVALUE IN ('Reopened')
-		AND fh.mrTIMESTAMP >= @Day
-		AND fh.mrTIMESTAMP < @NextDay
-		AND m.mrASSIGNEES LIKE 'Support%'
+	AND
+		fh.mrNEWFIELDVALUE IN ('Reopened')
+	AND
+		fh.mrTIMESTAMP >= @Day
+	AND
+		fh.mrTIMESTAMP < @NextDay
+	AND
+		(mrASSIGNEES LIKE 'Support%' OR mrASSIGNEES LIKE ' Support%')
 	GROUP BY 
 		fh.mrID,
 		m.mrASSIGNEES
@@ -747,11 +777,16 @@ BEGIN
 		m.mrID=ma.mrID
 	WHERE 
 		fh.mrFIELDNAME='mrStatus'
-		AND fh.mrNEWFIELDVALUE IN ('Resolved')--,'Closed')
-		AND fh.mrTIMESTAMP >= @Day
-		AND fh.mrTIMESTAMP < @NextDay
-		AND m.mrASSIGNEES LIKE 'Support%'
-		AND m.First__bContact__bResolution = 'on'
+	AND
+		fh.mrNEWFIELDVALUE IN ('Resolved')--,'Closed')
+	AND
+		fh.mrTIMESTAMP >= @Day
+	AND
+		fh.mrTIMESTAMP < @NextDay
+	AND
+		(mrASSIGNEES LIKE 'Support%' OR mrASSIGNEES LIKE ' Support%')
+	AND
+		m.First__bContact__bResolution = 'on'
 	GROUP BY 
 		fh.mrID,
 		m.mrASSIGNEES
@@ -856,10 +891,10 @@ BEGIN
 		m.mrID=ma.mrID
 	WHERE 
 		mrSTATUS IN ('_PENDING_SOLUTION_','_SOLVED_','Draft__bSolution')
-		AND 
-			datepart(week,mrSUBMITDATE) = datepart(week,getdate())
-		AND 
-			datepart(year,mrSUBMITDATE) = datepart(year,getdate())	
+	AND 
+		datepart(week,mrSUBMITDATE) = datepart(week,getdate())
+	AND 
+		datepart(year,mrSUBMITDATE) = datepart(year,getdate())	
 	GROUP BY 
 		m.mrID,
 		m.mrASSIGNEES
@@ -931,6 +966,114 @@ BEGIN
 
 	--
 	-- END: KB Articles tickets - non-standard
+	--
+
+	--
+	-- In Progress tickets
+	--
+	INSERT #tmpTicketAssignees
+	SELECT 
+		m.mrid,
+		m.mrASSIGNEES
+	FROM 
+		MASTER4 m
+	INNER JOIN
+		MASTER4_ABDATA ma
+	ON
+		m.mrID=ma.mrID
+	WHERE 
+		m.mrSTATUS IN ('In__bProgress')
+	AND
+		(mrASSIGNEES LIKE 'Support%' OR mrASSIGNEES LIKE ' Support%')
+	AND
+		m.Contracted__bWork = 'off'
+	GROUP BY 
+		m.mrID,
+		m.mrASSIGNEES
+
+	DECLARE cInProgress CURSOR FOR
+	SELECT 
+		mrid
+	FROM
+		#tmpTicketAssignees
+	OPEN cInProgress
+
+	FETCH NEXT FROM cInProgress INTO @mrid
+	WHILE @@FETCH_STATUS = 0
+	BEGIN
+		INSERT INTO 
+			#tmpUserTickets
+		SELECT
+			@mrid,
+			user_id 
+		FROM 
+			users 
+		WHERE 
+			user_id 
+		IN (
+			SELECT 
+				data 
+			FROM 
+				dbo.Split(
+					(
+						SELECT 
+							mrASSIGNEES 
+						FROM 
+							master4 
+						WHERE 
+							mrid = @mrid
+					)
+					,' '
+				)
+		)
+		FETCH NEXT FROM cInProgress INTO @mrid
+	END
+
+	CLOSE cInProgress
+	DEALLOCATE cInProgress
+
+	UPDATE 
+		#tmpAgentStats
+	SET 
+		InProgress = ISNULL(tInProgress.aCount,0),
+		InProgressUMS = ISNULL(tInProgress.uCount,0),
+		InProgressCBSW = ISNULL(tInProgress.cCount,0)
+	FROM
+		#tmpAgentStats s
+	LEFT JOIN
+	(
+		SELECT 
+			t.AgentID,
+			COUNT(t.mrid) aCount,
+			SUM(
+				CASE
+					WHEN ab.[Application] = 'UMS' THEN 1 ELSE 0
+				END
+			) uCount,
+			SUM(
+				CASE
+					WHEN ab.[Application] = 'CBSW' THEN 1 ELSE 0
+				END
+			) cCount
+		FROM 
+			#tmpUserTickets t
+		INNER JOIN
+			MASTER4_ABDATA ab
+		ON
+			ab.mrID = t.mrid
+		GROUP BY
+			t.AgentID
+	) tInProgress
+	ON
+		tInProgress.AgentID = s.AgentID
+	--
+	-- Clear tables
+	--
+	DELETE FROM #tmpTicketAssignees
+	DELETE FROM #tmpUserTickets
+
+	--
+	-- END: In Progress tickets
 	--
 
 	SELECT * FROM #tmpAgentStats
