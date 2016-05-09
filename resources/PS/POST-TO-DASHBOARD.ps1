@@ -196,7 +196,7 @@ $json = "{
 #
 $conn.Open()
 $SqlCmd = New-Object System.Data.SqlClient.SqlCommand
-$SqlCmd.CommandText = "exec [cusip_SupportResponseTime]"
+$SqlCmd.CommandText = "exec [cusip_SupportWaitTime]"
 $SqlCmd.Connection = $conn
 $SqlAdapter = New-Object System.Data.SqlClient.SqlDataAdapter
 $SqlAdapter.SelectCommand = $SqlCmd
@@ -254,7 +254,6 @@ $json = "{
 }"
 (Invoke-WebRequest -Uri $url -Method Post -Body $json).content | ConvertFrom-Json
 
-
 #
 # AGENT DASHBOARD
 #
@@ -273,55 +272,6 @@ $conn.Close()
 
 #Assign results
 $rows = $DataSet.Tables[0].Rows
-
-
-#
-# CONTRACTED
-#
-$i = 0 
-$pb2h2 = "
-[ 
-    {""cols"" : 
-        [ 
-            {""class"" : ""contractedtabletablehdr1"", ""value"" : ""Agent""}, 
-            {""class"" : ""contractedtabletablehdr2"", ""value"" : ""Count""}
-        ] 
-    }
-]
-"
-$pb2r2 = "["
-foreach ($row in $rows)
-{
-    $i += 1
-    if ($row[11] -ne 0)
-        {
-        $pb2r2 += "
-            { ""cols"" : 
-                [
-                    {""class"" : ""contractedtabletablecol1"", ""value"" : ""$($row[0])""}, 
-                    {""class"" : ""contractedtabletablecol2"", ""value"" : ""$($row[11])""}
-                ]
-            }
-        "
-        if ($i -lt $rows.Count)
-        {
-            $pb2r2 += ","
-        }
-    }
-}
-$pb2r2  = $pb2r2.TrimEnd(',')
-$pb2r2 += "]"
-$url2 = "$($dashboardURL)/widgets/contractedtable"
-$json2 = "{
-    ""auth_token"" : ""$($authToken)"",
-    ""hrows"" : $pb2h2,
-    ""rows"" : $pb2r2
-}"
-
-(Invoke-WebRequest -Uri $url2 -Method Post -Body $json2).content | ConvertFrom-Json
-
-
-
 
 #
 # PENDING
@@ -350,7 +300,6 @@ $json = "{
 }"
 
 (Invoke-WebRequest -Uri $url2 -Method Post -Body $json).content | ConvertFrom-Json
-
 
 #
 # RESOLVED
@@ -460,66 +409,6 @@ $json = "{
 (Invoke-WebRequest -Uri $url -Method Post -Body $json).content | ConvertFrom-Json
 
 #
-# LASTSTATUS
-#
-#Query 
-$conn = New-Object System.Data.SqlClient.SqlConnection $connStr
-$conn.Open()
-$SqlCmd = New-Object System.Data.SqlClient.SqlCommand
-$SqlCmd.CommandText = "exec [cusip_SupportAgentLastStatus] @i_ExcludeTier2=1"
-$SqlCmd.Connection = $conn
-$SqlAdapter = New-Object System.Data.SqlClient.SqlDataAdapter
-$SqlAdapter.SelectCommand = $SqlCmd
-$DataSet = New-Object System.Data.DataSet
-$SqlAdapter.Fill($DataSet)
-$conn.Close()
-
-#Assign results
-$rows = $DataSet.Tables[0].Rows
-
-$i = 0 
-$pb1h1 = "
-[ 
-    {""cols"" : 
-        [ 
-            {""class"" : ""statustabletablehdr1"", ""value"" : ""Agent""}, 
-            {""class"" : ""statustabletablehdr2"", ""value"" : ""Age (h:m)""},
-            {""class"" : ""statustabletablehdr3"", ""value"" : ""Ticket""},
-            {""class"" : ""statustabletablehdr4"", ""value"" : ""Status""} 
-        ] 
-    }
-]
-"
-$pb1r1 = "["
-foreach ($row in $rows)
-{
-    $i += 1
-    $pb1r1 += "
-        { ""cols"" : 
-            [
-                {""class"" : ""statustabletablecol1"", ""value"" : ""$($row[0])""}, 
-                {""class"" : ""statustabletablecol2"", ""value"" : ""$($row[3])""},
-                {""class"" : ""statustabletablecol3"", ""value"" : ""$($row[1])""}, 
-                {""class"" : ""statustabletablecol4"", ""value"" : ""$($row[4])""}
-            ]
-        }
-    "
-    if ($i -lt $rows.Count)
-    {
-        $pb1r1 += ","
-    }
-}
-$pb1r1 += "]"
-$url1 = "$($dashboardURL)/widgets/laststatustable"
-$json1 = "{
-    ""auth_token"" : ""$($authToken)"",
-    ""hrows"" : $pb1h1,
-    ""rows"" : $pb1r1
-}"
-
-(Invoke-WebRequest -Uri $url1 -Method Post -Body $json1).content | ConvertFrom-Json
-
-#
 # Escalations
 #
 $conn = New-Object System.Data.SqlClient.SqlConnection $connStr
@@ -536,190 +425,28 @@ $conn.Close()
 #Assign results
 $rows = $DataSet.Tables[0].Rows
 
-
-$i = 0 
-$pb3h3 = "
-[ 
-    {""cols"" : 
-        [ 
-            {""class"" : ""escalatedtabletablehdr1"", ""value"" : ""Ticket""}, 
-            {""class"" : ""escalatedtabletablehdr2"", ""value"" : ""Age (h:m)""},
-            {""class"" : ""escalatedtabletablehdr3"", ""value"" : ""Status""} 
-        ] 
-    }
-]
-"
-$pb3r3 = "["
+$i = 0
+$pb3h3 = "["
 foreach ($row in $rows)
 {
     $i += 1
-    $pb3r3 += "
-        { ""cols"" : 
-            [
-                {""class"" : ""escalatedtabletablecol1"", ""value"" : ""$($row[0])""}, 
-                {""class"" : ""escalatedtabletablecol2"", ""value"" : ""$($row[2])""},
-                {""class"" : ""escalatedtabletablecol3"", ""value"" : ""$($row[3])""}
-            ]
+    $pb3h3 += "
+        { 
+            ""label"" : ""$($row[0])"",
+            ""value"" :  $($row[1])
         }
     "
     if ($i -lt $rows.Count)
     {
-        $pb3r3 += ","
+        $pb3h3 += ","
     }
 }
-$pb3r3 += "]"
+$pb3h3 += "]"
+
 $url3 = "$($dashboardURL)/widgets/escalatedtable"
 $json3 = "{
     ""auth_token"" : ""$($authToken)"",
-    ""hrows"" : $pb3h3,
-    ""rows"" : $pb3r3
+    ""data"" : $pb3h3
 }"
 
 (Invoke-WebRequest -Uri $url3 -Method Post -Body $json3).content | ConvertFrom-Json
-
-
-#
-# AGENT2
-#
-
-#Query 
-$Date = Get-Date -Format d
-$conn = New-Object System.Data.SqlClient.SqlConnection $connStr
-$conn.Open()
-$SqlCmd = New-Object System.Data.SqlClient.SqlCommand
-#$SqlCmd.CommandText = "exec [cusip_SupportAgentMetrics] @i_Today = '2015-04-01'"#'$Date'"
-$SqlCmd.CommandText = "exec [cusip_SupportAgentMetrics] @i_Today = '$Date'"
-$SqlCmd.Connection = $conn
-$SqlAdapter = New-Object System.Data.SqlClient.SqlDataAdapter
-$SqlAdapter.SelectCommand = $SqlCmd
-$DataSet = New-Object System.Data.DataSet
-$SqlAdapter.Fill($DataSet)
-$conn.Close()
-
-#Assign results
-$rows = $DataSet.Tables[0].Rows
-
-$i = 0
-#
-# AGENT LOOP
-#
-foreach ($row in $rows)
-{
-    $i += 1
-
-    $agentname = $row[0]
-    $url = "$($dashboardURL)/widgets/agent$($i)name"
-    $json = "{
-        ""auth_token"" : ""$($authToken)"",
-        ""text"" : ""$agentname""
-    }"
-    (Invoke-WebRequest -Uri $url -Method Post -Body $json).content | ConvertFrom-Json
-
-    $inprogress = $row[24]
-    $url = "$($dashboardURL)/widgets/agent$($i)inprogress"
-    $json = "{
-        ""auth_token"" : ""$($authToken)"",
-        ""value"" : ""$inprogress""
-    }"
-    (Invoke-WebRequest -Uri $url -Method Post -Body $json).content | ConvertFrom-Json
-
-    $assigned = $row[5] - $row[24]
-    $url = "$($dashboardURL)/widgets/agent$($i)assigned"
-    $json = "{
-        ""auth_token"" : ""$($authToken)"",
-        ""value"" : ""$assigned""
-    }"
-    (Invoke-WebRequest -Uri $url -Method Post -Body $json).content | ConvertFrom-Json
-
-    $pending = $row[8]
-    $url = "$($dashboardURL)/widgets/agent$($i)pending"
-    $json = "{
-        ""auth_token"" : ""$($authToken)"",
-        ""value"" : ""$pending""
-    }"
-    (Invoke-WebRequest -Uri $url -Method Post -Body $json).content | ConvertFrom-Json
-
-    $escalated = $row[14]
-    $url = "$($dashboardURL)/widgets/agent$($i)escalated"
-    $json = "{
-        ""auth_token"" : ""$($authToken)"",
-        ""value"" : ""$escalated""
-    }"
-    (Invoke-WebRequest -Uri $url -Method Post -Body $json).content | ConvertFrom-Json
-
-    $contracted = $row[11]
-    $url = "$($dashboardURL)/widgets/agent$($i)contracted"
-    $json = "{
-        ""auth_token"" : ""$($authToken)"",
-        ""value"" : ""$contracted""
-    }"
-    (Invoke-WebRequest -Uri $url -Method Post -Body $json).content | ConvertFrom-Json
-
-    $resolved = $row[2]
-    $url = "$($dashboardURL)/widgets/agent$($i)resolved"
-    $json = "{
-        ""auth_token"" : ""$($authToken)"",
-        ""value"" : ""$resolved""
-    }"
-    (Invoke-WebRequest -Uri $url -Method Post -Body $json).content | ConvertFrom-Json
-    $resolvedu = $row[3]
-    $url = "$($dashboardURL)/widgets/agent$($i)resolvedu"
-    $json = "{
-        ""auth_token"" : ""$($authToken)"",
-        ""current"" : ""$resolvedu""
-    }"
-    (Invoke-WebRequest -Uri $url -Method Post -Body $json).content | ConvertFrom-Json
-    $resolvedc = $row[4]
-    $url = "$($dashboardURL)/widgets/agent$($i)resolvedc"
-    $json = "{
-        ""auth_token"" : ""$($authToken)"",
-        ""current"" : ""$resolvedc""
-    }"
-    (Invoke-WebRequest -Uri $url -Method Post -Body $json).content | ConvertFrom-Json
-}
-
-# LAST UPDATE
-$conn = New-Object System.Data.SqlClient.SqlConnection $connStr
-$conn.Open()
-$SqlCmd = New-Object System.Data.SqlClient.SqlCommand
-$SqlCmd.CommandText = "exec [cusip_SupportAgentLastStatus] @i_ExcludeTier2=0"
-$SqlCmd.Connection = $conn
-$SqlAdapter = New-Object System.Data.SqlClient.SqlDataAdapter
-$SqlAdapter.SelectCommand = $SqlCmd
-$DataSet = New-Object System.Data.DataSet
-$SqlAdapter.Fill($DataSet)
-$conn.Close()
-
-# LAST UPDATE
-$conn = New-Object System.Data.SqlClient.SqlConnection $connStr
-$conn.Open()
-$SqlCmd = New-Object System.Data.SqlClient.SqlCommand
-$SqlCmd.CommandText = "exec [cusip_SupportAgentLastStatus] @i_ExcludeTier2=0"
-$SqlCmd.Connection = $conn
-$SqlAdapter = New-Object System.Data.SqlClient.SqlDataAdapter
-$SqlAdapter.SelectCommand = $SqlCmd
-$DataSet = New-Object System.Data.DataSet
-$SqlAdapter.Fill($DataSet)
-$conn.Close()
-
-#Assign results
-$rows = $DataSet.Tables[0].Rows
-$rows = $rows | Sort-Object real_name
-$i = 0
-$excludedUsers = 'jperryman','nmathes','pzenko','tscrape'
-foreach ($row in $rows)
-{
-    $i += 1
-
-    $updateage = $row[5]
-    if ($excludedUsers.Contains($row[6]))
-    {
-        $updateage = 0
-    }
-    $url = "$($dashboardURL)/widgets/agent$($i)updateage"
-    $json = "{
-        ""auth_token"" : ""$($authToken)"",
-        ""value"" : ""$updateage""
-    }"
-    (Invoke-WebRequest -Uri $url -Method Post -Body $json).content | ConvertFrom-Json
-}
