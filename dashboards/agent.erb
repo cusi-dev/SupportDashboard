@@ -30,10 +30,8 @@ $(function() {
 		<div data-id="pending" data-view="AgentDonut" style="background-color:#222222;" data-moreinfo="Assigned tickets NOT on the log" data-title="Pending Tickets"></div>
 	</li>
 
-	<li data-switcher-interval="25000" data-row="2" data-col="3" data-sizex="1" data-sizey="1">
-		<div data-id="laststatustable" data-view="Table" style="background-color:#222222;" data-moreinfo="Last ticket status update and aging in hh:mm" data-title="(1/3) Last Ticket Updated"></div>
-		<div data-id="contractedtable" data-view="Table" style="background-color:#222222;" data-moreinfo="Contracted work tickets" data-title="(2/3) Contracted Work"></div>
-		<div data-id="escalatedtable" data-view="Table" style="background-color:#222222;" data-moreinfo="Escalated ticket status and aging in hh:mm" data-title="(3/3) Escalated Tickets"></div>
+	<li data-row="2" data-col="3" data-sizex="1" data-sizey="1">
+		<div data-id="escalatedtable" data-view="AgentDonut" style="background-color:#222222;" data-moreinfo="Escalations per tier" data-title="Escalated Tickets"></div>
 	</li>
   </ul>
 </div>
