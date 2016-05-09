@@ -18,15 +18,8 @@ BEGIN
 		m.mrid=ma.mrID
 	WHERE 
 		m.mrSTATUS NOT IN ('Escalated__b__u__bTier__b2','Escalated__b__u__bDevelopment','Escalated__b__u__bCBSW__bDevelopment','Assigned','In__bProgress','Closed','Resolved', '_DELETED_', 'Client__bAcceptance', 'Contracted__bWork', 'Development', 'Pending', 'Deployment')
-	AND --First filter all non-support tickets
-		m.mrASSIGNEES LIKE 'Support%' 
-	AND --Check for Support as the only assignee after stripping CCs (which always come at the end of the assignee string)
-		RTRIM(LEFT(m.mrASSIGNEES,(
-					CASE 
-						WHEN CHARINDEX('cc',m.mrAssignees) > 0 THEN CHARINDEX('cc',m.mrAssignees) - 1
-						ELSE LEN(m.mrAssignees)
-					END
-		))) = 'Support'
+	AND
+		(m.mrASSIGNEES LIKE 'Support%' OR m.mrASSIGNEES LIKE ' Support%')
 	AND --Empty scheduled call time or the scheduled call time is before tomorrow.
 	(
 			Scheduled__bCall IS NULL
