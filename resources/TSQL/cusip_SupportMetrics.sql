@@ -50,6 +50,17 @@ DECLARE @i INT = 0
 DECLARE @cnt INT
 SELECT @cnt = COUNT(MetricGroup) FROM @MetricGroups
 
+IF OBJECT_ID('tempdb..#tmpART') IS NOT NULL
+DROP TABLE #tmpART
+
+CREATE TABLE #tmpART
+(
+	mrID INT,
+	OpenTime DATETIME,
+	InProgressTime DATETIME,
+	ResponseTime INT
+)
+
 IF OBJECT_ID('tempdb..#ResponseMetrics') IS NOT NULL
 DROP TABLE #ResponseMetrics
 
@@ -90,23 +101,62 @@ BEGIN
 		IF DATENAME(dw,@Day) NOT IN ('Saturday','Sunday')
 		BEGIN
 			SET @DayInt = CAST(@Day AS INT)
-		
+
 			INSERT INTO #ResponseMetrics
+			(
+				Period,
+				GroupName
+			)
 			SELECT 
 				CONVERT(VARCHAR(12),@Day,101)
 				,(SELECT MetricGroup FROM @MetricGroups WHERE idx=@i)
-				,ClosedTickets.CountClosedTickets
-				,NewTickets.CountNewTickets 
-				,ISNULL(AvgRT.AverageResponseTime,0)
-				,AvgRT.SLA30
-				,AvgRT.SLA60
-				,AvgRT.SLA61
-				,InboundTickets.CountInboundTickets
-			FROM (
-				-- New ticket counts
+
+			UPDATE
+				#ResponseMetrics
+			SET
+				ClosedTickets = ISNULL(A.TicketCount,0)
+			FROM
+			(
 				SELECT 
-					@DayInt AS DayID
-					,COUNT(*) AS CountNewTickets 
+					COUNT(fh.mrid) TicketCount
+				FROM 
+					MASTER4_FIELDHISTORY fh
+				INNER JOIN 
+					MASTER4 m
+				ON 
+					m.mrID=fh.mrID
+				INNER JOIN
+					MASTER4_ABDATA ma
+				ON
+					m.mrID=ma.mrID
+				WHERE 
+					m.mrSTATUS<>'_DELETED_'
+				AND
+					fh.mrFIELDNAME='mrStatus'
+				AND
+					fh.mrNEWFIELDVALUE IN ('Closed')
+				AND
+					fh.mrTIMESTAMP >= @Day
+				AND
+					fh.mrTIMESTAMP < @NextDay
+				AND
+					ma.[Application] LIKE '%'+(CASE WHEN @ThisMetricGroup='ALL' THEN '' ELSE @ThisMetricGroup END)+'%'
+				AND
+					(m.mrASSIGNEES LIKE 'Support%' OR m.mrASSIGNEES like ' Support%')
+			) A
+			WHERE
+				Period = @Day
+			AND
+				GroupName = @ThisMetricGroup
+
+			UPDATE
+				#ResponseMetrics
+			SET
+				NewTickets = ISNULL(A.TicketCount,0)
+			FROM
+			(
+				SELECT 
+					COUNT(*) AS TicketCount
 				FROM 
 					MASTER4 m
 				INNER JOIN
@@ -115,18 +165,29 @@ BEGIN
 					m.mrid=ma.mrID
 				WHERE 
 					m.mrSTATUS<>'_DELETED_'
-					AND m.mrSUBMITDATE >= @Day
-					AND m.mrSUBMITDATE < @NextDay
-					AND ma.[Application] LIKE '%'+(CASE WHEN @ThisMetricGroup='ALL' THEN '' ELSE @ThisMetricGroup END)+'%'
-					AND m.mrASSIGNEES LIKE 'Support%'
-			) NewTickets 
-			INNER JOIN (
-				-- Closed ticket counts
-				SELECT 
-					@DayInt AS DayID
-					,COUNT(*) AS CountClosedTickets 
-				FROM
-				(
+				AND
+					m.mrSUBMITDATE >= @Day
+				AND
+					m.mrSUBMITDATE < @NextDay
+				AND
+					ma.[Application] LIKE '%'+(CASE WHEN @ThisMetricGroup='ALL' THEN '' ELSE @ThisMetricGroup END)+'%'
+				AND
+					(mrASSIGNEES LIKE 'Support%' OR mrASSIGNEES LIKE ' Support%')
+			) A
+			WHERE
+				Period = @Day
+			AND
+				GroupName = @ThisMetricGroup
+
+			UPDATE
+				#ResponseMetrics
+			SET
+				InboundTickets = ISNULL(A.TicketCount,0)
+			FROM
+			(
+				SELECT
+					COUNT(*) TicketCount
+				FROM (
 					SELECT 
 						fh.mrid
 					FROM 
@@ -141,168 +202,200 @@ BEGIN
 						m.mrID=ma.mrID
 					WHERE 
 						fh.mrFIELDNAME='mrStatus'
-						AND fh.mrNEWFIELDVALUE IN ('Resolved','Closed')
-						AND fh.mrTIMESTAMP >= @Day
-						AND fh.mrTIMESTAMP < @NextDay
-						AND ma.[Application] LIKE '%'+(CASE WHEN @ThisMetricGroup='ALL' THEN '' ELSE @ThisMetricGroup END)+'%'
-						AND m.mrASSIGNEES LIKE 'Support%'
-					GROUP BY fh.mrID
-				) CT
-			) ClosedTickets
-			ON ClosedTickets.DayID=NewTickets.DayID
-			INNER JOIN (
-				-- Inbound ticket counts
-				SELECT 
-					@DayInt AS DayID
-					,COUNT(*) AS CountInboundTickets 
-				FROM
+					AND
+						fh.mrNEWFIELDVALUE IN ('Closed')
+					AND
+						m.First__bContact__bResolution = 'on'
+					AND
+						m.mrSTATUS<>'_DELETED_'
+					AND
+						fh.mrTIMESTAMP >= @Day
+					AND
+						fh.mrTIMESTAMP < @NextDay
+					AND
+						ma.[Application] LIKE '%'+(CASE WHEN @ThisMetricGroup='ALL' THEN '' ELSE @ThisMetricGroup END)+'%'
+					AND
+						(m.mrASSIGNEES LIKE 'Support%' OR m.mrASSIGNEES like ' Support%')
+					GROUP BY
+						fh.mrID
+				) B
+			) A
+			WHERE
+				Period = @Day
+			AND
+				GroupName = @ThisMetricGroup
+
+			INSERT INTO #tmpART
+			(
+				mrID,
+				OpenTime
+			)
+			SELECT
+				m.mrID,
+				m.mrSUBMITDATE
+			FROM
+				MASTER4 m
+			INNER JOIN
+				MASTER4_ABDATA ma
+			ON
+				m.mrID=ma.mrID
+			WHERE
+				m.mrSUBMITDATE >= @Day
+			AND
+				m.mrSUBMITDATE < @NextDay
+			AND
+				m.mrSTATUS <> '_DELETED_'
+			AND
+			(
+					m.Contracted__bWork = 'off'
+				OR
+					m.Contracted__bWork IS NULL
+			)
+			AND
+				(m.mrASSIGNEES LIKE 'Support%' OR m.mrASSIGNEES like ' support%')
+			-- Ticket creation date within "workspace time"
+			AND
+				CONVERT(TIME,m.mrSUBMITDATE) >= @ShiftStartTime
+			AND
+				CONVERT(TIME,m.mrSUBMITDATE) <= @ShiftEndTime
+			AND
+				ma.[Application] LIKE '%'+(CASE WHEN @ThisMetricGroup='ALL' THEN '' ELSE @ThisMetricGroup END)+'%'
+			GROUP BY
+				m.mrID,
+				m.mrSUBMITDATE
+			ORDER BY
+				m.mrID
+
+			DELETE FROM
+				#tmpART
+			WHERE
+				mrID IN
 				(
-					SELECT 
-						fh.mrid
-					FROM 
-						MASTER4_FIELDHISTORY fh
-					INNER JOIN 
-						MASTER4 m
-					ON 
-						m.mrID=fh.mrID
+					SELECT
+						t.mrID
+					FROM
+						#tmpART t
 					INNER JOIN
-						MASTER4_ABDATA ma
+						MASTER4_FIELDHISTORY fh
 					ON
-						m.mrID=ma.mrID
-					WHERE 
-						fh.mrFIELDNAME='mrStatus'
-						AND fh.mrNEWFIELDVALUE IN ('Resolved','Closed')
-						AND m.First__bContact__bResolution = 'on'
-						AND fh.mrTIMESTAMP >= @Day
-						AND fh.mrTIMESTAMP < @NextDay
-						AND ma.[Application] LIKE '%'+(CASE WHEN @ThisMetricGroup='ALL' THEN '' ELSE @ThisMetricGroup END)+'%'
-						AND m.mrASSIGNEES LIKE 'Support%'
-					GROUP BY fh.mrID
-				) CT
-			) InboundTickets
-			ON InboundTickets.DayID=NewTickets.DayID
-			INNER JOIN (
-				-- Response times and ticket counts within SLA levels
+						fh.mrID=t.mrID
+					WHERE
+						fh.mrFIELDNAME = 'mrStatus'
+					AND
+						fh.mrOLDFIELDVALUE IS NULL
+					AND
+						fh.mrNEWFIELDVALUE IN 
+						(
+							'Open__b__u__bTime__bSensitive',
+							'Scheduled__bCall'
+						)
+					GROUP BY
+						t.mrID
+				)
+
+			UPDATE
+				#tmpART
+			SET
+				InProgressTime = A.InProgressTime
+			FROM
+			(
+				SELECT
+					t.mrID,
+					MIN(fh.mrTIMESTAMP) InProgressTime
+				FROM
+					#tmpART t
+				INNER JOIN
+					MASTER4_FIELDHISTORY fh
+				ON
+					fh.mrID=t.mrID
+				WHERE
+					fh.mrFIELDNAME = 'mrStatus'
+				--AND
+				--	(fh.mrOLDFIELDVALUE IN ('Open','_REQUEST_') OR fh.mrOLDFIELDVALUE IS NULL)
+				AND
+					fh.mrNEWFIELDVALUE IN 
+					(
+						--'_DELETED_',
+						--'_INACTIVE_',
+						--'_PENDING_SOLUTION_',
+						--'_REQUEST_',
+						--'_SOLVED_',
+						'Assigned',
+						'Client__bAcceptance',
+						'Closed',
+						'Contact__bAttempted',
+						--'Contracted__bWork',
+						--'Contracted__bWork__bPending__bVersion__bRelease',
+						--'Customer__bReponse',
+						'Deployment',
+						'Development',
+						--'Draft__bSolution',
+						'Escalated__b__u__bCBSW__bDevelopment',
+						'Escalated__b__u__bCWP__bDevelopment',
+						'Escalated__b__u__bDevelopment',
+						'Escalated__b__u__bMgmt',
+						'Escalated__b__u__bOther',
+						'Escalated__b__u__bTier__b2',
+						'In__bProgress',
+						--'Open',
+						'Open__b__u__bTime__bSensitive',
+						'Pending',
+						'Pending__b__u__bClient__bAcceptance',
+						'Pending__b__u__bClient__bResponse',
+						'Pending__b__u__bClient__bUpgrade',
+						'Pending__b__u__bDev__bComplete',
+						'Pending__b__u__bDev__bIn__bProgress',
+						'Pending__b__u__bVersion__bRelease',
+						'Reopened',
+						'Resolved',
+						--'Rollover',
+						'Scheduled__bCall'
+					)
+				GROUP BY
+					t.mrID
+			) A
+			INNER JOIN
+				#tmpART
+			ON
+				#tmpART.mrID=A.mrID
+
+			UPDATE
+				#tmpART
+			SET
+				ResponseTime = DATEDIFF(MINUTE, OpenTime, ISNULL(InProgressTime,GETDATE()))
+
+			UPDATE
+				#ResponseMetrics
+			SET
+				AverageResponseTime = a.AverageResponseTime,
+				SLA30 = A.SLA30,
+				SLA60 = A.SLA60,
+				SLA61 = A.SLA61
+			FROM
+			(
 				SELECT 
-					@DayInt AS DayID
-					,AVG(A.ResponseTime) AverageResponseTime
+					ISNULL(AVG(t.ResponseTime),0) AverageResponseTime
 					,ISNULL(SUM(CASE
-						WHEN A.ResponseTime <= 30 THEN 1
+						WHEN t.ResponseTime <= 30 THEN 1
 						ELSE 0
 					END),0) SLA30
 					,ISNULL(SUM(CASE
-						WHEN A.ResponseTime > 30 AND A.ResponseTime <= 60 THEN 1
+						WHEN t.ResponseTime > 30 AND t.ResponseTime <= 60 THEN 1
 						ELSE 0
 					END),0) SLA60
 					,ISNULL(SUM(CASE
-						WHEN A.ResponseTime > 60 OR A.ResponseTime IS NULL THEN 1
+						WHEN t.ResponseTime > 60 OR t.ResponseTime IS NULL THEN 1
 						ELSE 0
 					END),0) SLA61
-				FROM (
-					-- Response time calc
-					SELECT 
-						RT.mrID
-						,DATEDIFF(
-							MINUTE
-							,(SELECT mrTimestamp FROM MASTER4_FIELDHISTORY WHERE mrSEQUENCE=rt.startsequence)
-							,ISNULL((SELECT mrTimestamp FROM MASTER4_FIELDHISTORY WHERE mrSEQUENCE=rt.TakenSequence),(SELECT GETDATE()))
-						) ResponseTime
-					FROM 
-					(
-						-- Feed tickets to response time calc
-						SELECT 
-							master4.mrID
-							,ss.StartSequence
-							,ts.TakenSequence 
-						FROM 
-							MASTER4
-						INNER JOIN (
-							-- Start sequence ID
-							SELECT 
-								fh.mrID
-								,MIN(fh.mrSEQUENCE) AS StartSequence
-							FROM 
-								MASTER4_FIELDHISTORY fh
-							INNER JOIN (
-								SELECT 
-									m.mrID 
-								FROM 
-									MASTER4 m
-								INNER JOIN
-									MASTER4_ABDATA ma
-								ON
-									m.mrid=ma.mrID
-								WHERE 
-									m.mrSTATUS<>'_DELETED_'
-									AND m.mrSUBMITDATE >= @Day
-									AND m.mrSUBMITDATE < @NextDay
-									AND ma.[Application] LIKE '%'+(CASE WHEN @ThisMetricGroup='ALL' THEN '' ELSE @ThisMetricGroup END)+'%'
-							) TD --today's tickets
-							ON TD.mrID=fh.mrID
-							WHERE 
-								fh.mrFIELDNAME='mrStatus'
-								AND fh.mrOLDFIELDVALUE IS NULL
-								--
-								-- Response time start statuses
-								--
-								AND fh.mrNEWFIELDVALUE IN ('Open','_REQUEST_','Assigned')
-								--
-								-- END: Response time start statuses
-								--
-							GROUP BY fh.mrID
-						) SS
-						ON master4.mrID=ss.mrID
-						LEFT JOIN (
-							-- 'Taken' sequence ID
-							SELECT 
-								fh.mrID
-								,MIN(fh.mrSEQUENCE) AS TakenSequence
-							FROM 
-								MASTER4_FIELDHISTORY fh
-							INNER JOIN (
-								SELECT 
-									m.mrID 
-								FROM 
-									MASTER4 m
-								INNER JOIN
-									MASTER4_ABDATA ma
-								ON
-									m.mrid=ma.mrID
-								WHERE 
-									m.mrSTATUS<>'_DELETED_'
-									AND m.mrSUBMITDATE >= @Day
-									AND m.mrSUBMITDATE < @NextDay
-									AND ma.[Application] LIKE '%'+(CASE WHEN @ThisMetricGroup='ALL' THEN '' ELSE @ThisMetricGroup END)+'%'
-							) TD --today's tickets
-							ON TD.mrID=fh.mrID
-							WHERE 
-								fh.mrFIELDNAME='mrStatus'
-								--
-								-- Response time end statuses
-								--
-								AND fh.mrNEWFIELDVALUE IN ('In__bProgress','Contact__bAttempted','Resolved','Closed','Escalated__b__u__bTier__b2','Pending')
-								--
-								-- END: Response time end statuses
-								--
-							GROUP BY fh.mrID
-						) TS
-						ON TS.mrID=master4.mrID
-						WHERE MASTER4.mrASSIGNEES LIKE 'Support%'
-						AND MASTER4.mrID NOT IN ( 
-							-- Tickets EXCLUDED from response time stats
-							SELECT 
-								DISTINCT(mrID)
-							FROM
-								MASTER4_FIELDHISTORY
-							WHERE
-								mrNEWFIELDVALUE IN ('Contracted__bWork','Scheduled__bCall','_INACTIVE_','_PENDING_SOLUTION_','_SOLVED_')
-						)
-						-- Ticket creation date within "workspace time"
-						AND CONVERT(TIME,MASTER4.mrSUBMITDATE) >= @ShiftStartTime
-						AND CONVERT(TIME,MASTER4.mrSUBMITDATE) <= @ShiftEndTime
-					) RT
-				) A
-			) AvgRT ON ClosedTickets.DayID=AvgRT.DayID
+				FROM
+					#tmpART t
+			) A
+			WHERE
+				Period = @Day
+			AND
+				GroupName = @ThisMetricGroup
+
+			DELETE #tmpART
 
 		END
 
