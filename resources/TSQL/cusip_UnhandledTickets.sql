@@ -17,7 +17,21 @@ BEGIN
 	ON
 		m.mrid=ma.mrID
 	WHERE 
-		m.mrSTATUS NOT IN ('Escalated__b__u__bTier__b2','Escalated__b__u__bDevelopment','Escalated__b__u__bCBSW__bDevelopment','Assigned','In__bProgress','Closed','Resolved', '_DELETED_', 'Client__bAcceptance', 'Contracted__bWork', 'Development', 'Pending', 'Deployment')
+		m.mrSTATUS NOT IN (
+			'Escalated__b__u__bTier__b2',
+			'Escalated__b__u__bDevelopment',
+			'Escalated__b__u__bCBSW__bDevelopment',
+			'Assigned',
+			'In__bProgress',
+			'Closed',
+			'Resolved',
+			'_DELETED_',
+			'Client__bAcceptance',
+			'Contracted__bWork',
+			'Development',
+			'Pending',
+			'Deployment'
+		)
 	AND
 		(m.mrASSIGNEES LIKE 'Support%' OR m.mrASSIGNEES LIKE ' Support%')
 	AND --Empty scheduled call time or the scheduled call time is before tomorrow.
