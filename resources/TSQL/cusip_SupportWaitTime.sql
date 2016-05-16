@@ -4,9 +4,13 @@ SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-ALTER PROCEDURE [dbo].[cusip_SupportWaitTime] 
+ALTER PROCEDURE [dbo].[cusip_SupportWaitTime]
+(
+	@i_Dashboard BIT = 1
+)
 AS 
 BEGIN
+
 
 DECLARE @Today SMALLDATETIME = (SELECT CAST(GETDATE() AS DATE))
 DECLARE @StartTime DATETIME = DATEADD(hour,7,@Today)
@@ -151,6 +155,9 @@ SELECT
 	END
 FROM
 	#OpenTickets
+
+IF @i_Dashboard <> 1
+	SELECT * FROM #OpenTickets
 
 DROP TABLE #OpenTickets
 

@@ -4,10 +4,11 @@ SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-ALTER PROCEDURE [dbo].[cusip_SupportMetrics] 
+ALTER PROCEDURE [dbo].[cusip_SupportMetrics]
 (
-	@i_Today SMALLDATETIME
-	,@i_Period VARCHAR(8)
+	@i_Today SMALLDATETIME,
+	@i_Period VARCHAR(8),
+	@i_Dashboard BIT = 1
 )
 AS
 
@@ -37,8 +38,8 @@ BEGIN
 END
 
 DECLARE @MetricGroups TABLE (
-	idx INT IDENTITY(1,1)
-	,MetricGroup VARCHAR(4)
+	idx INT IDENTITY(1,1),
+	MetricGroup VARCHAR(4)
 )
 INSERT INTO @MetricGroups 
 	SELECT 'ALL' UNION
@@ -50,9 +51,6 @@ DECLARE @i INT = 0
 DECLARE @cnt INT
 SELECT @cnt = COUNT(MetricGroup) FROM @MetricGroups
 
-IF OBJECT_ID('tempdb..#tmpART') IS NOT NULL
-DROP TABLE #tmpART
-
 CREATE TABLE #tmpART
 (
 	mrID INT,
@@ -61,20 +59,25 @@ CREATE TABLE #tmpART
 	ResponseTime INT
 )
 
-IF OBJECT_ID('tempdb..#ResponseMetrics') IS NOT NULL
-DROP TABLE #ResponseMetrics
+CREATE TABLE #ARTReportDetail
+(
+	mrID INT,
+	OpenTime DATETIME,
+	InProgressTime DATETIME,
+	ResponseTime INT
+)
 
 CREATE TABLE #ResponseMetrics
 (
-	Period VARCHAR(24)
-	,GroupName VARCHAR(4)
-	,ClosedTickets INT
-	,NewTickets INT
-	,AverageResponseTime INT
-	,SLA30 INT
-	,SLA60 INT
-	,SLA61 INT
-	,InboundTickets INT
+	Period VARCHAR(24),
+	GroupName VARCHAR(4),
+	ClosedTickets INT,
+	NewTickets INT,
+	AverageResponseTime INT,
+	SLA30 INT,
+	SLA60 INT,
+	SLA61 INT,
+	InboundTickets INT
 )
 
 ------------------------------------------------
@@ -108,8 +111,8 @@ BEGIN
 				GroupName
 			)
 			SELECT 
-				CONVERT(VARCHAR(12),@Day,101)
-				,(SELECT MetricGroup FROM @MetricGroups WHERE idx=@i)
+				CONVERT(VARCHAR(12),@Day,101),
+				(SELECT MetricGroup FROM @MetricGroups WHERE idx=@i)
 
 			UPDATE
 				#ResponseMetrics
@@ -395,11 +398,21 @@ BEGIN
 			AND
 				GroupName = @ThisMetricGroup
 
-			DELETE #tmpART
-
 		END
 
-	END
+		IF @ThisMetricGroup <> 'ALL'
+		BEGIN
+			INSERT INTO
+				#ARTReportDetail
+			SELECT
+				*
+			FROM
+				#tmpART
+		END
+
+		TRUNCATE TABLE #tmpART
+
+	END --WHILE
 	SET @i = 0
 
 	SET @Day = @NextDay
@@ -407,6 +420,9 @@ END
 
 SELECT * FROM #ResponseMetrics
 ORDER BY Period, GroupName
+
+IF @i_Dashboard <> 1
+	SELECT * FROM #ARTReportDetail ORDER BY mrID
 
 DROP TABLE #ResponseMetrics
 
