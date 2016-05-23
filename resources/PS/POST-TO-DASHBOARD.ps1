@@ -284,7 +284,7 @@ foreach ($row in $rows)
     $pb2 += "
         { 
             ""label"" : ""$($row[0])"",
-            ""value"" :  $($row[8] + $row[14])
+            ""value"" :  $($row[8])
         }
     "
     if ($i -lt $rows.Count)
