@@ -542,3 +542,59 @@ $json3 = "{
 }"
 
 (Invoke-WebRequest -Uri $url3 -Method Post -Body $json3).content | ConvertFrom-Json
+
+#
+# Top callers
+#
+$conn = New-Object System.Data.SqlClient.SqlConnection $connStr
+$conn.Open()
+$SqlCmd = New-Object System.Data.SqlClient.SqlCommand
+$SqlCmd.CommandText = "exec [cusip_TopCallers]"
+$SqlCmd.Connection = $conn
+$SqlAdapter = New-Object System.Data.SqlClient.SqlDataAdapter
+$SqlAdapter.SelectCommand = $SqlCmd
+$DataSet = New-Object System.Data.DataSet
+$SqlAdapter.Fill($DataSet)
+$conn.Close()
+
+#Assign results
+$rows = $DataSet.Tables[0].Rows
+
+$i = 0
+$tcth = "
+[ 
+    {""cols"" : 
+        [ 
+            {""class"" : ""topcallerstablehdr1"", ""value"" : ""Company""},
+            {""class"" : ""topcallerstablehdr2"", ""value"" : ""Tickets""} 
+        ] 
+    }
+]
+"
+$tctr = "["
+foreach ($row in $rows)
+{
+    $i += 1
+    $tctr += "
+        { ""cols"" : 
+            [
+                {""class"" : ""topcallerstablecol1"", ""value"" : ""$($row[0])""}, 
+                {""class"" : ""topcallerstablecol2"", ""value"" : ""$($row[1])""}
+            ]
+        }
+    "
+    if ($i -lt $rows.Count)
+    {
+        $tctr += ","
+    }
+}
+$tctr += "]"
+
+$url3 = "$($dashboardURL)/widgets/topcallerstable"
+$json3 = "{
+    ""auth_token"" : ""$($authToken)"",
+    ""hrows"" : $tcth,
+    ""rows""  : $tctr
+}"
+
+(Invoke-WebRequest -Uri $url3 -Method Post -Body $json3).content | ConvertFrom-Json
