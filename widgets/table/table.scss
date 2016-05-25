@@ -37,6 +37,11 @@ div.widget-table {
 	border-bottom: 1px solid;
   }
 
+  .escalatedtabletablehdr1, .escalatedtabletablehdr3,
+  .escalatedtabletablecol1, .escalatedtabletablecol3 {
+    font-size: 40px;
+  }
+
   .more-info {
     color: $moreinfo-color;
   }

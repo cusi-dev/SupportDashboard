@@ -32,6 +32,7 @@ $CBSWTickets = $DataSet.Tables[0].Select("GroupName='CBSW'")
 #
 $sla30c = $CBSWTickets.SLA30
 $sla30u = $UMSTickets.SLA30
+<# 2016-05-25 TS: no update required after dashboard tweak.
 $sla30 = "[
   {
     ""label"" : ""CBSW"",
@@ -49,12 +50,14 @@ $json = "{
 }"
 
 (Invoke-WebRequest -Uri $url -Method Post -Body $json).content | ConvertFrom-Json
+#>
 
 #
 #SLA Under 60 widget
 #
 $sla60c = $CBSWTickets.SLA60
 $sla60u = $UMSTickets.SLA60
+<# 2016-05-25 TS: no update required after dashboard tweak.
 $sla60 = "[
   {
     ""label"" : ""CBSW"",
@@ -72,12 +75,14 @@ $json = "{
 }"
 
 (Invoke-WebRequest -Uri $url -Method Post -Body $json).content | ConvertFrom-Json
+#>
 
 #
 #SLA Over 60 widget
 #
 $sla61c = $CBSWTickets.SLA61
 $sla61u = $UMSTickets.SLA61
+<# 2016-05-25 TS: no update required after dashboard tweak.
 $sla61 = "[
   {
     ""label"" : ""CBSW"",
@@ -95,10 +100,12 @@ $json = "{
 }"
 
 (Invoke-WebRequest -Uri $url -Method Post -Body $json).content | ConvertFrom-Json
+#>
 
 #
 #UMS tickets widget
 #
+<# 2016-05-25 TS: no update required after dashboard tweak.
 $url = "$($dashboardURL)/widgets/umsopentickets"
 $ums = "[
   {
@@ -119,10 +126,12 @@ $json = "{
     ""value"" : $ums
 }"
 (Invoke-WebRequest -Uri $url -Method Post -Body $json).content | ConvertFrom-Json
+#>
 
 #
 #CBSW tickets widget
 #
+<# 2016-05-25 TS: no update required after dashboard tweak.
 $url = "$($dashboardURL)/widgets/cbswopentickets"
 $cbsw = "[
   {
@@ -144,13 +153,15 @@ $json = "{
     ""value"" : $cbsw
 }"
 (Invoke-WebRequest -Uri $url -Method Post -Body $json).content | ConvertFrom-Json
+#>
 
 #
 #Inbound tickets widget
 #
 $inb = $AllTickets.InboundTickets
-$closed = $AllTickets.ClosedTickets
+$closed = $AllTickets.NewTickets
 $noninb = $closed - $inb
+<# 2016-05-25 TS: no update required after dashboard tweak.
 $url = "$($dashboardURL)/widgets/inbound"
 $points = "[
     {
@@ -167,6 +178,7 @@ $json = "{
     ""value"" : $points
 }"
 (Invoke-WebRequest -Uri $url -Method Post -Body $json).content | ConvertFrom-Json
+#>
 
 #
 #Response time widget
@@ -180,6 +192,9 @@ $json = "{
 
 (Invoke-WebRequest -Uri $url -Method Post -Body $json).content | ConvertFrom-Json
 
+$url = "http://10.10.1.132:8080/responsetime"
+Invoke-WebRequest -Uri $url -Method Put -Body $art
+
 #
 #New tickets today widget
 #
@@ -189,6 +204,76 @@ $json = "{
     ""auth_token"" : ""$($authToken)"",
     ""current"" : $newtickets
 }"
+(Invoke-WebRequest -Uri $url -Method Post -Body $json).content | ConvertFrom-Json
+
+
+$url = "http://10.10.1.132:8080/newticketstoday"
+Invoke-WebRequest -Uri $url -Method Put -Body $newtickets
+
+#
+# SLA aggregate
+#
+$val30 = $sla30c + $sla30u
+$val60 = $sla60c + $sla60u
+$val61 = $sla61c + $sla61u
+
+$lbl30 = If ($val30 -eq 0){""}else{$val30}
+$lbl60 = If ($val60 -eq 0){""}else{$val60}
+$lbl61 = If ($val61 -eq 0){""}else{$val61}
+
+$d = "
+[
+    [""Level"",""30"",{""role"": ""tooltip""},{""role"": ""annotation""},""60"",{""role"": ""tooltip""},{""role"": ""annotation""},""60+"",{""role"": ""tooltip""},{""role"": ""annotation""}],
+    [""All Tickets"",$val30,""SLA30"",""$lbl30"",$val60,""SLA60"",""$lbl60"",$val61,""Over 60"",""$lbl61""]
+]"
+
+$url = "$($dashboardURL)/widgets/slastack1"
+$json = "{
+    ""auth_token"" : ""$($authToken)"",
+
+    ""points"" : $d
+}"
+
+(Invoke-WebRequest -Uri $url -Method Post -Body $json).content | ConvertFrom-Json
+
+
+#
+# Response Detail
+#
+$val30c = $sla30c
+$val30u = $sla30u
+$val60c = $sla60c
+$val60u = $sla60u
+$val61c = $sla61c
+$val61u = $sla61u
+$vali = $inb
+$valn = $noninb
+
+$lbl30c = If ($val30c -eq 0){""}else{$val30c}
+$lbl30u = If ($val30u -eq 0){""}else{$val30u}
+$lbl60c = If ($val60c -eq 0){""}else{$val60c}
+$lbl60u = If ($val60u -eq 0){""}else{$val60u}
+$lbl61c = If ($val61c -eq 0){""}else{$val61c}
+$lbl61u = If ($val61u -eq 0){""}else{$val61u}
+
+$lbli = If ($vali -eq 0 -and $valn -eq 0){""}else{$vali}
+$lbln = If ($valn -eq 0 -and $vali -eq 0){""}else{$valn}
+
+$d = "
+[
+    [""Group""  ,""30"" ,{""role"": ""tooltip""},{""role"": ""annotation""},{""role"": ""style""},""60"" ,{""role"": ""tooltip""},{""role"": ""annotation""},{""role"": ""style""},""60+"",{""role"": ""tooltip""},{""role"": ""annotation""},{""role"": ""style""}],
+    [""CBSW""   ,$val30c,""SLA30""              ,""$lbl30c""               ,""""                 ,$val60c,""SLA60""              ,""$lbl60c""               ,""""                 ,$val61c,""Over 60""            ,""$lbl61c""               ,""""],
+    [""UMS""    ,$val30u,""SLA30""              ,""$lbl30u""               ,""""                 ,$val60u,""SLA60""              ,""$lbl60u""               ,""""                 ,$val61u,""Over 60""            ,""$lbl61u""               ,""""],
+    [""Inbound"",$vali  ,""Inbound""            ,""$lbli""                 ,""#3d88d5""          ,$valn  ,""Non-inbound""        ,""$lbln""                 ,""#224c76""          ,0      ,""""                   ,""""                      ,""""]
+]"
+
+$url = "$($dashboardURL)/widgets/slastack2"
+$json = "{
+    ""auth_token"" : ""$($authToken)"",
+
+    ""points"" : $d
+}"
+
 (Invoke-WebRequest -Uri $url -Method Post -Body $json).content | ConvertFrom-Json
 
 #
@@ -211,6 +296,10 @@ $json = "{
     ""value"" : ""$waittime""
 }"
 (Invoke-WebRequest -Uri $url -Method Post -Body $json).content | ConvertFrom-Json
+
+
+$url = "http://10.10.1.132:8080/waittime"
+Invoke-WebRequest -Uri $url -Method Put -Body $waittime
 
 #
 #Active tickets today widget
@@ -254,6 +343,7 @@ $json = "{
 }"
 (Invoke-WebRequest -Uri $url -Method Post -Body $json).content | ConvertFrom-Json
 
+
 #
 # AGENT DASHBOARD
 #
@@ -272,6 +362,7 @@ $conn.Close()
 
 #Assign results
 $rows = $DataSet.Tables[0].Rows
+
 
 #
 # PENDING
@@ -300,6 +391,7 @@ $json = "{
 }"
 
 (Invoke-WebRequest -Uri $url2 -Method Post -Body $json).content | ConvertFrom-Json
+
 
 #
 # RESOLVED
