@@ -42,6 +42,14 @@ div.widget-table {
     font-size: 40px;
   }
 
+  .topcallerstablehdr1, .topcallerstablehdr2,
+  .topcallerstablecol1, .topcallerstablecol2 {
+    font-size: 22px;
+  }
+  .topcallerstablehdr2, .topcallerstablecol2 {
+    text-align:right;
+  }
+
   .more-info {
     color: $moreinfo-color;
   }
