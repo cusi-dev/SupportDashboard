@@ -37,7 +37,7 @@ BEGIN
 			(m.mrSTATUS = 'Pending' AND m.Pending__bSub__ustatus IN ('Backlog','Development'))
 		)
 		AND
-			(mrASSIGNEES LIKE 'Support%' OR mrASSIGNEES LIKE ' Support%')
+			(mrASSIGNEES LIKE 'Support %' OR mrASSIGNEES LIKE '% Support %')
 	) A
 	GROUP BY
 		[Status]

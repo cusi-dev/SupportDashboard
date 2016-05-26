@@ -33,7 +33,7 @@ SELECT
 FROM
 	MASTER4
 WHERE
-	(mrASSIGNEES LIKE 'Support%' OR mrASSIGNEES LIKE ' Support%')
+	(mrASSIGNEES LIKE 'Support%' OR mrASSIGNEES LIKE '% Support%')
 AND
 	mrSTATUS IN ('_REQUEST_','Open','Contact__bAttempted','Open__b__u__bTime__bSensitive','Scheduled__bCall')
 AND

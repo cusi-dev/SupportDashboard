@@ -145,7 +145,7 @@ BEGIN
 				AND
 					ma.[Application] LIKE '%'+(CASE WHEN @ThisMetricGroup='ALL' THEN '' ELSE @ThisMetricGroup END)+'%'
 				AND
-					(m.mrASSIGNEES LIKE 'Support%' OR m.mrASSIGNEES like ' Support%')
+					(m.mrASSIGNEES LIKE 'Support%' OR m.mrASSIGNEES like '% Support%')
 			) A
 			WHERE
 				Period = @Day
@@ -175,7 +175,7 @@ BEGIN
 				AND
 					ma.[Application] LIKE '%'+(CASE WHEN @ThisMetricGroup='ALL' THEN '' ELSE @ThisMetricGroup END)+'%'
 				AND
-					(mrASSIGNEES LIKE 'Support%' OR mrASSIGNEES LIKE ' Support%')
+					(mrASSIGNEES LIKE 'Support%' OR mrASSIGNEES LIKE '% Support%')
 			) A
 			WHERE
 				Period = @Day
@@ -218,7 +218,7 @@ BEGIN
 					AND
 						ma.[Application] LIKE '%'+(CASE WHEN @ThisMetricGroup='ALL' THEN '' ELSE @ThisMetricGroup END)+'%'
 					AND
-						(m.mrASSIGNEES LIKE 'Support%' OR m.mrASSIGNEES like ' Support%')
+						(m.mrASSIGNEES LIKE 'Support%' OR m.mrASSIGNEES like '% Support%')
 					GROUP BY
 						fh.mrID
 				) B
@@ -255,7 +255,7 @@ BEGIN
 					m.Contracted__bWork IS NULL
 			)
 			AND
-				(m.mrASSIGNEES LIKE 'Support%' OR m.mrASSIGNEES like ' support%')
+				(m.mrASSIGNEES LIKE 'Support%' OR m.mrASSIGNEES like '% Support%')
 			-- Ticket creation date within "workspace time"
 			AND
 				CONVERT(TIME,m.mrSUBMITDATE) >= @ShiftStartTime

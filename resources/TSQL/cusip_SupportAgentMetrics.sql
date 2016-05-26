@@ -109,7 +109,7 @@ BEGIN
 	AND
 		fh.mrTIMESTAMP < @NextDay
 	AND
-		(mrASSIGNEES LIKE 'Support%' OR mrASSIGNEES LIKE ' Support%')
+		(mrASSIGNEES LIKE 'Support%' OR mrASSIGNEES LIKE '% Support%')
 	GROUP BY 
 		fh.mrID,
 		m.mrASSIGNEES
@@ -216,7 +216,7 @@ BEGIN
 	WHERE 
 		m.mrSTATUS IN ('Assigned','Contact__bAttempted','Customer__bReponse','In__bProgress','Open','Open__b__u__bTime__bSensitive','Rollover','Scheduled__bCall')
 	AND
-		(mrASSIGNEES LIKE 'Support%' OR mrASSIGNEES LIKE ' Support%')
+		(mrASSIGNEES LIKE 'Support%' OR mrASSIGNEES LIKE '% Support%')
 	AND
 		m.Contracted__bWork = 'off'
 	GROUP BY 
@@ -325,7 +325,7 @@ BEGIN
 		(
 				m.mrSTATUS IN ('Client__bAcceptance','Deployment','Development')
 			AND
-				(mrASSIGNEES LIKE 'Support%' OR mrASSIGNEES LIKE ' Support%')
+				(mrASSIGNEES LIKE 'Support%' OR mrASSIGNEES LIKE '% Support%')
 			AND
 				m.Contracted__bWork = 'off'
 		)
@@ -335,7 +335,7 @@ BEGIN
 			AND
 				m.Pending__bSub__ustatus NOT IN ('Backlog','Development')
 			AND
-				(mrASSIGNEES LIKE 'Support%' OR mrASSIGNEES LIKE ' Support%')
+				(mrASSIGNEES LIKE 'Support%' OR mrASSIGNEES LIKE '% Support%')
 			AND
 				m.Contracted__bWork = 'off'
 		)
@@ -446,7 +446,7 @@ BEGIN
 	AND
 		m.mrSTATUS NOT IN ('Resolved','Closed','_DELETED_')
 	AND
-		(mrASSIGNEES LIKE 'Support%' OR mrASSIGNEES LIKE ' Support%')
+		(mrASSIGNEES LIKE 'Support%' OR mrASSIGNEES LIKE '% Support%')
 	GROUP BY 
 		m.mrID,
 		m.mrASSIGNEES
@@ -552,7 +552,7 @@ BEGIN
 	WHERE 
 		m.mrSTATUS LIKE ('Escalated%')
 	AND
-		(mrASSIGNEES LIKE 'Support%' OR mrASSIGNEES LIKE ' Support%')
+		(mrASSIGNEES LIKE 'Support%' OR mrASSIGNEES LIKE '% Support%')
 	GROUP BY 
 		m.mrID,
 		m.mrASSIGNEES
@@ -668,7 +668,7 @@ BEGIN
 	AND
 		fh.mrTIMESTAMP < @NextDay
 	AND
-		(mrASSIGNEES LIKE 'Support%' OR mrASSIGNEES LIKE ' Support%')
+		(mrASSIGNEES LIKE 'Support%' OR mrASSIGNEES LIKE '% Support%')
 	GROUP BY 
 		fh.mrID,
 		m.mrASSIGNEES
@@ -784,7 +784,7 @@ BEGIN
 	AND
 		fh.mrTIMESTAMP < @NextDay
 	AND
-		(mrASSIGNEES LIKE 'Support%' OR mrASSIGNEES LIKE ' Support%')
+		(mrASSIGNEES LIKE 'Support%' OR mrASSIGNEES LIKE '% Support%')
 	AND
 		m.First__bContact__bResolution = 'on'
 	GROUP BY 
@@ -984,7 +984,7 @@ BEGIN
 	WHERE 
 		m.mrSTATUS IN ('In__bProgress')
 	AND
-		(mrASSIGNEES LIKE 'Support%' OR mrASSIGNEES LIKE ' Support%')
+		(mrASSIGNEES LIKE 'Support%' OR mrASSIGNEES LIKE '% Support%')
 	AND
 		m.Contracted__bWork = 'off'
 	GROUP BY 

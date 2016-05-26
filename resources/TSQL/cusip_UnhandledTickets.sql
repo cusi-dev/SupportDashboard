@@ -36,7 +36,7 @@ BEGIN
 			'Deployment'
 		)
 	AND
-		(m.mrASSIGNEES LIKE 'Support%' OR m.mrASSIGNEES LIKE ' Support%')
+		(m.mrASSIGNEES LIKE 'Support%' OR m.mrASSIGNEES LIKE '% Support%')
 	AND --Empty scheduled call time or the scheduled call time is before tomorrow.
 	(
 			Scheduled__bCall IS NULL
@@ -71,7 +71,7 @@ BEGIN
 				'Deployment'
 			)
 		AND
-			(m.mrASSIGNEES LIKE 'Support%' OR m.mrASSIGNEES LIKE ' Support%')
+			(m.mrASSIGNEES LIKE 'Support%' OR m.mrASSIGNEES LIKE '% Support%')
 		AND --Empty scheduled call time or the scheduled call time is before tomorrow.
 		(
 				Scheduled__bCall IS NULL

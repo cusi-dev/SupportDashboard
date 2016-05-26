@@ -32,7 +32,7 @@ WHERE
 		'Draft__bSolution'
 	)
 AND
-	(mrASSIGNEES LIKE 'support%' OR mrASSIGNEES LIKE ' support%')
+	(mrASSIGNEES LIKE 'Support%' OR mrASSIGNEES LIKE '% Support%')
 GROUP BY
 	DATEPART(YEAR,mrsubmitdate),DATEPART(WEEK,mrsubmitdate)
 ORDER BY

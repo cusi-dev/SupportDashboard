@@ -274,7 +274,7 @@ BEGIN
 					'Draft__bSolution'
 				)
 			AND
-				(mrASSIGNEES LIKE 'Support%' OR mrASSIGNEES LIKE ' Support%')
+				(mrASSIGNEES LIKE 'Support%' OR mrASSIGNEES LIKE '% Support%')
 		) A
 		WHERE
 			Period = @d
@@ -303,7 +303,7 @@ BEGIN
 					'Draft__bSolution'
 				)
 			AND
-				(mrASSIGNEES LIKE 'Support%' OR mrASSIGNEES LIKE ' Support%')
+				(mrASSIGNEES LIKE 'Support%' OR mrASSIGNEES LIKE '% Support%')
 			AND
 				a.Application = 'UMS'
 		) A
@@ -334,7 +334,7 @@ BEGIN
 					'Draft__bSolution'
 				)
 			AND
-				(mrASSIGNEES LIKE 'Support%' OR mrASSIGNEES LIKE ' Support%')
+				(mrASSIGNEES LIKE 'Support%' OR mrASSIGNEES LIKE '% Support%')
 			AND
 				a.Application = 'CBSW'
 		) A
@@ -363,7 +363,7 @@ BEGIN
 					'Draft__bSolution'
 				)
 			AND
-				(mrASSIGNEES LIKE 'Support%' OR mrASSIGNEES LIKE ' Support%')
+				(mrASSIGNEES LIKE 'Support%' OR mrASSIGNEES LIKE '% Support%')
 		) A
 		WHERE
 			Period = @d
@@ -392,7 +392,7 @@ BEGIN
 					'Draft__bSolution'
 				)
 			AND
-				(mrASSIGNEES LIKE 'Support%' OR mrASSIGNEES LIKE ' Support%')
+				(mrASSIGNEES LIKE 'Support%' OR mrASSIGNEES LIKE '% Support%')
 			AND
 				a.Application = 'UMS'
 		) A
@@ -423,7 +423,7 @@ BEGIN
 					'Draft__bSolution'
 				)
 			AND
-				(mrASSIGNEES LIKE 'Support%' OR mrASSIGNEES LIKE ' Support%')
+				(mrASSIGNEES LIKE 'Support%' OR mrASSIGNEES LIKE '% Support%')
 			AND
 				a.Application = 'CBSW'
 		) A

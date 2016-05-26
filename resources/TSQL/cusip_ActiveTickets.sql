@@ -6,7 +6,7 @@ SET QUOTED_IDENTIFIER ON
 GO
 ALTER PROCEDURE [dbo].[cusip_ActiveTickets]
 (
-	@i_Dashboard BIT = 0
+	@i_Dashboard BIT = 1
 )
 AS
 BEGIN
@@ -16,9 +16,21 @@ BEGIN
 	FROM 
 		MASTER4 m
 	WHERE 
-		m.mrSTATUS NOT IN ('Closed','Resolved', '_DELETED_', 'Client__bAcceptance', 'Contracted__bWork', 'Development', 'Pending','Escalated__b__u__bDevelopment','Escalated__b__u__bCBSW__bDevelopment','Escalated__b__u__bMgmt','Escalated__b__u__bTier__b2')
+		m.mrSTATUS NOT IN (
+			'Closed',
+			'Resolved',
+			'_DELETED_',
+			'Client__bAcceptance',
+			'Contracted__bWork',
+			'Development',
+			'Pending',
+			'Escalated__b__u__bDevelopment',
+			'Escalated__b__u__bCBSW__bDevelopment',
+			'Escalated__b__u__bMgmt',
+			'Escalated__b__u__bTier__b2'
+		)
 	AND
-		(mrASSIGNEES LIKE 'Support%' OR mrASSIGNEES LIKE ' Support%')
+		(mrASSIGNEES LIKE 'Support%' OR mrASSIGNEES LIKE '% Support %')
 	AND
 		NOT m.Scheduled__bCall >= DATEADD(d,1,CAST(GETDATE() AS DATE))
 
@@ -29,9 +41,21 @@ BEGIN
 		FROM 
 			MASTER4 m
 		WHERE 
-			m.mrSTATUS NOT IN ('Closed','Resolved', '_DELETED_', 'Client__bAcceptance', 'Contracted__bWork', 'Development', 'Pending','Escalated__b__u__bDevelopment','Escalated__b__u__bCBSW__bDevelopment','Escalated__b__u__bMgmt','Escalated__b__u__bTier__b2')
+			m.mrSTATUS NOT IN (
+				'Closed',
+				'Resolved',
+				'_DELETED_',
+				'Client__bAcceptance',
+				'Contracted__bWork',
+				'Development',
+				'Pending',
+				'Escalated__b__u__bDevelopment',
+				'Escalated__b__u__bCBSW__bDevelopment',
+				'Escalated__b__u__bMgmt',
+				'Escalated__b__u__bTier__b2'
+			)
 		AND
-			(mrASSIGNEES LIKE 'Support%' OR mrASSIGNEES LIKE ' Support%')
+			(mrASSIGNEES LIKE 'Support %' OR mrASSIGNEES LIKE '% Support %')
 		AND
 			NOT m.Scheduled__bCall >= DATEADD(d,1,CAST(GETDATE() AS DATE))
 	END
