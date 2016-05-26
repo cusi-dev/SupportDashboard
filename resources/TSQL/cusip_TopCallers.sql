@@ -1,6 +1,7 @@
 CREATE PROCEDURE [dbo].[cusip_TopCallers]
 (
-	@i_Dashboard BIT = 1
+	@i_Dashboard BIT = 1,
+	@i_TopCount INT = 10
 )
 AS
 BEGIN
@@ -14,7 +15,7 @@ DECLARE
 SELECT @FirstOfMonth = DATEADD(day,-DATEPART(day,@CurrentDate)+1,@CurrentDate)
 
 SELECT
-	TOP 10 *
+	TOP (@i_TopCount) *
 FROM
 (
 	SELECT
