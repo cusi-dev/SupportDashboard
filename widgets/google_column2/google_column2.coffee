@@ -1,4 +1,4 @@
-class Dashing.GoogleColumn extends Dashing.Widget
+class Dashing.GoogleColumn2 extends Dashing.Widget
 
   @accessor 'current', ->
     return @get('displayedValue') if @get('displayedValue')
@@ -27,7 +27,7 @@ class Dashing.GoogleColumn extends Dashing.Widget
       legend:
         position: @get('legend_position'),
         textStyle:
-          fontSize: 24,
+          fontSize: 18,
           opacity: 0.8,
           color: 'white'
       animation:

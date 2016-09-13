@@ -77,7 +77,8 @@ CREATE TABLE #ResponseMetrics
 	SLA30 INT,
 	SLA60 INT,
 	SLA61 INT,
-	InboundTickets INT
+	InboundTickets INT,
+    ChatTickets INT
 )
 
 ------------------------------------------------
@@ -209,6 +210,52 @@ BEGIN
 						fh.mrNEWFIELDVALUE IN ('Closed')
 					AND
 						m.First__bContact__bResolution = 'on'
+					AND
+						m.mrSTATUS<>'_DELETED_'
+					AND
+						fh.mrTIMESTAMP >= @Day
+					AND
+						fh.mrTIMESTAMP < @NextDay
+					AND
+						ma.[Application] LIKE '%'+(CASE WHEN @ThisMetricGroup='ALL' THEN '' ELSE @ThisMetricGroup END)+'%'
+					AND
+						(m.mrASSIGNEES LIKE 'Support%' OR m.mrASSIGNEES like '% Support%')
+					GROUP BY
+						fh.mrID
+				) B
+			) A
+			WHERE
+				Period = @Day
+			AND
+				GroupName = @ThisMetricGroup
+
+			UPDATE
+				#ResponseMetrics
+			SET
+				ChatTickets = ISNULL(A.TicketCount,0)
+			FROM
+			(
+				SELECT
+					COUNT(*) TicketCount
+				FROM (
+					SELECT 
+						fh.mrid
+					FROM 
+						MASTER4_FIELDHISTORY fh
+					INNER JOIN 
+						MASTER4 m
+					ON 
+						m.mrID=fh.mrID
+					INNER JOIN
+						MASTER4_ABDATA ma
+					ON
+						m.mrID=ma.mrID
+					WHERE 
+						fh.mrFIELDNAME='mrStatus'
+					AND
+						fh.mrNEWFIELDVALUE IN ('Closed')
+					AND
+						m.Chat__bResolution = 'on'
 					AND
 						m.mrSTATUS<>'_DELETED_'
 					AND
