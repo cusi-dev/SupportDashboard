@@ -93,6 +93,7 @@ CREATE TABLE #tmpMetrics
 	,SLA60 INT
 	,SLA61 INT
 	,InboundTickets INT
+    ,ChatTickets INT
 )
 
 INSERT INTO #tmpMetrics
@@ -124,6 +125,9 @@ CREATE TABLE #MetricsReport
 	,InboundTicketsAll INT
 	,InboundTicketsCBSW INT
 	,InboundTicketsUMS INT
+	,ChatTicketsAll INT
+	,ChatTicketsCBSW INT
+	,ChatTicketsUMS INT
 	,NewCBSWPerc DECIMAL(5,1)			-- CBSW % of all new tickets
 	,NewUMSPerc DECIMAL(5,1)			-- UMS % of all new tickets
 	,SLA30Perc DECIMAL(5,1)				-- % of new tickets in SLA30
@@ -138,6 +142,9 @@ CREATE TABLE #MetricsReport
 	,InboundTicketsAllPerc DECIMAL(5,1)	-- inbound % of all new tickets
 	,InboundTicketsCBSWPerc DECIMAL(5,1)-- % of CBSW tickets inbound
 	,InboundTicketsUMSPerc DECIMAL(5,1)	-- % of UMS tickets inbound
+	,ChatTicketsAllPerc DECIMAL(5,1)	-- chat % of all new tickets
+	,ChatTicketsCBSWPerc DECIMAL(5,1)   -- % of CBSW tickets chat
+	,ChatTicketsUMSPerc DECIMAL(5,1)	-- % of UMS tickets chat
 )
 
 INSERT INTO #MetricsReport
@@ -152,6 +159,7 @@ INSERT INTO #MetricsReport
 	,SLA60All
 	,SLA61All
 	,InboundTicketsAll
+    ,ChatTicketsAll
 )
 SELECT
 	Period
@@ -164,6 +172,7 @@ SELECT
 	,SLA60
 	,SLA61
 	,InboundTickets
+    ,ChatTickets
 FROM
 	#tmpMetrics
 WHERE
@@ -184,6 +193,7 @@ SET
 	,SLA60CBSW = t.SLA60
 	,SLA61CBSW = t.SLA61
 	,InboundTicketsCBSW = t.InboundTickets
+	,ChatTicketsCBSW = t.ChatTickets
 FROM
 	#tmpMetrics t
 INNER JOIN
@@ -206,6 +216,7 @@ SET
 	,SLA60UMS = t.SLA60
 	,SLA61UMS = t.SLA61
 	,InboundTicketsUMS = t.InboundTickets
+	,ChatTicketsUMS = t.ChatTickets
 FROM
 	#tmpMetrics t
 INNER JOIN
@@ -226,18 +237,21 @@ SET
 	,SLA60Perc = CASE WHEN m.NewTickets <> 0 THEN m.SLA60All / CAST(m.NewTickets AS DECIMAL) * 100 ELSE 0 END
 	,SLA61Perc = CASE WHEN m.NewTickets <> 0 THEN m.SLA61All / CAST(m.NewTickets AS DECIMAL) * 100 ELSE 0 END
 	,InboundTicketsAllPerc = CASE WHEN m.NewTickets <> 0 THEN m.InboundTicketsAll / CAST(m.NewTickets AS DECIMAL) * 100 ELSE 0 END
+	,ChatTicketsAllPerc = CASE WHEN m.NewTickets <> 0 THEN m.ChatTicketsAll / CAST(m.NewTickets AS DECIMAL) * 100 ELSE 0 END
 	--CBSW
 	,NewCBSWPerc = CASE WHEN m.NewTickets <> 0 THEN m.NewCBSW / CAST(m.NewTickets AS DECIMAL) * 100 ELSE 0 END
 	,SLA30CBSWPerc = CASE WHEN m.NewCBSW <> 0 THEN m.SLA30CBSW / CAST(m.NewCBSW AS DECIMAL) * 100 ELSE 0 END
 	,SLA60CBSWPerc = CASE WHEN m.NewCBSW <> 0 THEN m.SLA60CBSW / CAST(m.NewCBSW AS DECIMAL) * 100 ELSE 0 END
 	,SLA61CBSWPerc = CASE WHEN m.NewCBSW <> 0 THEN m.SLA61CBSW / CAST(m.NewCBSW AS DECIMAL) * 100 ELSE 0 END
 	,InboundTicketsCBSWPerc = CASE WHEN m.NewCBSW <> 0 THEN m.InboundTicketsCBSW / CAST(m.NewCBSW AS DECIMAL) * 100 ELSE 0 END
+	,ChatTicketsCBSWPerc = CASE WHEN m.NewCBSW <> 0 THEN m.ChatTicketsCBSW / CAST(m.NewCBSW AS DECIMAL) * 100 ELSE 0 END
 	--UMS
 	,NewUMSPerc = CASE WHEN m.NewTickets <> 0 THEN m.NewUMS / CAST(m.NewTickets AS DECIMAL) * 100 ELSE 0 END
 	,SLA30UMSPerc = CASE WHEN m.NewUMS <> 0 THEN m.SLA30UMS / CAST(m.NewUMS AS DECIMAL) * 100 ELSE 0 END
 	,SLA60UMSPerc = CASE WHEN m.NewUMS <> 0 THEN m.SLA60UMS / CAST(m.NewUMS AS DECIMAL) * 100 ELSE 0 END
 	,SLA61UMSPerc = CASE WHEN m.NewUMS <> 0 THEN m.SLA61UMS / CAST(m.NewUMS AS DECIMAL) * 100 ELSE 0 END
 	,InboundTicketsUMSPerc = CASE WHEN m.NewUMS <> 0 THEN m.InboundTicketsUMS / CAST(m.NewUMS AS DECIMAL) * 100 ELSE 0 END
+	,ChatTicketsUMSPerc = CASE WHEN m.NewUMS <> 0 THEN m.ChatTicketsUMS / CAST(m.NewUMS AS DECIMAL) * 100 ELSE 0 END
 FROM
 	#MetricsReport m
 
