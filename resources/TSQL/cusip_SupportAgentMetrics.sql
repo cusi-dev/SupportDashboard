@@ -69,14 +69,10 @@ BEGIN
 		u.user_id
 	FROM 
 		users u
-	WHERE 
-		user_id IN (
-		--
-		-- update these with your user ids
-		--
-			'fpuser1',
-			'fpuser2'
-		)
+    INNER JOIN
+        users_support s
+    ON
+        s.support_user_id = u.user_id
 	GROUP BY
 		u.user_id,
 		u.real_name
