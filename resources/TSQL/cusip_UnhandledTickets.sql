@@ -24,7 +24,6 @@ BEGIN
 			'Escalated__b__u__bTier__b2',
 			'Escalated__b__u__bDevelopment',
 			'Escalated__b__u__bCBSW__bDevelopment',
-			'Escalated__b__u__bMgmt',
 			'Assigned',
 			'In__bProgress',
 			'Closed',
@@ -38,11 +37,11 @@ BEGIN
 		)
 	AND
 		(m.mrASSIGNEES LIKE 'Support%' OR m.mrASSIGNEES LIKE '% Support%')
-	AND --Empty scheduled call time or the scheduled call time is before tomorrow.
+	AND --Empty scheduled call time or the scheduled call time is before now.
 	(
 			Scheduled__bCall IS NULL
 		OR
-			Scheduled__bCall < DATEADD(day,1,CAST(GETDATE() AS DATE))
+			Scheduled__bCall < GETDATE()
 	)
 
 	IF @i_Dashboard <> 1
@@ -60,7 +59,6 @@ BEGIN
 				'Escalated__b__u__bTier__b2',
 				'Escalated__b__u__bDevelopment',
 				'Escalated__b__u__bCBSW__bDevelopment',
-				'Escalated__b__u__bMgmt',
 				'Assigned',
 				'In__bProgress',
 				'Closed',
@@ -74,11 +72,11 @@ BEGIN
 			)
 		AND
 			(m.mrASSIGNEES LIKE 'Support%' OR m.mrASSIGNEES LIKE '% Support%')
-		AND --Empty scheduled call time or the scheduled call time is before tomorrow.
+		AND --Empty scheduled call time or the scheduled call time is before now.
 		(
 				Scheduled__bCall IS NULL
 			OR
-				Scheduled__bCall < DATEADD(day,1,CAST(GETDATE() AS DATE))
+			    Scheduled__bCall < GETDATE()
 		)
 	END
 END
