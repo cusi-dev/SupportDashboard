@@ -89,6 +89,16 @@ $url = "http://10.10.1.132:8080/newticketstoday"
 Invoke-WebRequest -Uri $url -Method Put -Body $newtickets
 
 #
+#Closed tickets today widget
+#
+$closedtickets = $AllTickets.ClosedTickets
+$url = "$($dashboardURL)/widgets/closedtickets"
+    ""auth_token"" : ""$($authToken)"",
+    ""current"" : $closedtickets
+}"
+(Invoke-WebRequest -Uri $url -Method Post -Body $json).content | ConvertFrom-Json
+
+#
 # SLA and Response Detail widgets
 #
 
@@ -385,12 +395,12 @@ $json = "{
 (Invoke-WebRequest -Uri $url -Method Post -Body $json).content | ConvertFrom-Json
 
 #
-# Escalations
+# Active tickets summary
 #
 $conn = New-Object System.Data.SqlClient.SqlConnection $connStr
 $conn.Open()
 $SqlCmd = New-Object System.Data.SqlClient.SqlCommand
-$SqlCmd.CommandText = "exec [cusip_SupportAgentEscalations]"
+$SqlCmd.CommandText = "exec [cusip_ActiveTicketsSummary] @i_Dashboard=0"
 $SqlCmd.Connection = $conn
 $SqlAdapter = New-Object System.Data.SqlClient.SqlDataAdapter
 $SqlAdapter.SelectCommand = $SqlCmd
@@ -402,30 +412,30 @@ $conn.Close()
 $rows = $DataSet.Tables[0].Rows
 
 $i = 0
-$pb3h3 = "["
+$pb = "["
 foreach ($row in $rows)
 {
     $i += 1
-    $pb3h3 += "
+    $pb += "
         { 
-            ""label"" : ""$($row[0])"",
-            ""value"" :  $($row[1])
+            ""label"" : ""$($row[1])"",
+            ""value"" :  $($row[0])
         }
     "
     if ($i -lt $rows.Count)
     {
-        $pb3h3 += ","
+        $pb += ","
     }
 }
-$pb3h3 += "]"
-
-$url3 = "$($dashboardURL)/widgets/escalatedtable"
-$json3 = "{
+$pb += "]"
+$url = "$($dashboardURL)/widgets/activesummary"
+$json = "{
     ""auth_token"" : ""$($authToken)"",
-    ""data"" : $pb3h3
+    ""data"" : $pb
 }"
 
-(Invoke-WebRequest -Uri $url3 -Method Post -Body $json3).content | ConvertFrom-Json
+(Invoke-WebRequest -Uri $url -Method Post -Body $json).content | ConvertFrom-Json
+
 
 #
 # Top callers
