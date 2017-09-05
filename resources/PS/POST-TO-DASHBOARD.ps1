@@ -93,6 +93,7 @@ Invoke-WebRequest -Uri $url -Method Put -Body $newtickets
 #
 $closedtickets = $AllTickets.ClosedTickets
 $url = "$($dashboardURL)/widgets/closedtickets"
+$json = "{
     ""auth_token"" : ""$($authToken)"",
     ""current"" : $closedtickets
 }"
