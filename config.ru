@@ -17,4 +17,6 @@ map Sinatra::Application.assets_prefix do
   run Sinatra::Application.sprockets
 end
 
+set :protection, :except => :frame_options
+
 run Sinatra::Application

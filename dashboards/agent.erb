@@ -15,25 +15,22 @@ $(function() {
 	</li>
 	
 	<li data-row="1" data-col="2" data-sizex="1" data-sizey="1"> 
-		<div data-id="resolvedu" data-view="AgentDonut" style="background-color:#222222;" data-moreinfo="Tickets resolved today" data-title="Resolved Tickets (UMS)"></div>
+		<div data-id="activesummary" data-view="AgentDonut" style="background-color:#222222;" data-moreinfo="Active ticket summary" data-title="Active Tickets"></div>
 	</li>
 
 	<li data-row="1" data-col="2" data-sizex="1" data-sizey="1">
 		<div data-id="resolvedc" data-view="AgentDonut" style="background-color:#222222;" data-moreinfo="Tickets resolved today" data-title="Resolved Tickets (CBSW)"></div>
 	</li>
 
-	<li data-row="2" data-col="1" data-sizex="1" data-sizey="1">
-		<div data-id="assigned" data-view="AgentDonut" style="background-color:#222222;" data-moreinfo="Active tickets by assignee" data-title="Assigned Tickets"></div>
+	<li data-row="2" data-col="1"  data-sizex="1" data-sizey="1">
+		<div data-id="topcallerstable" data-view="Table" style="background-color:#222222;" data-moreinfo="Top 10 ticket creators this month" data-title="Top Callers"></div>
 	</li>
 
 	<li data-row="2" data-col="2" data-sizex="1" data-sizey="1">
 		<div data-id="pending" data-view="AgentDonut" style="background-color:#222222;" data-moreinfo="Assigned tickets NOT on the log" data-title="Pending Tickets"></div>
 	</li>
-
-	<li data-switcher-interval="25000" data-row="2" data-col="3" data-sizex="1" data-sizey="1">
-		<div data-id="laststatustable" data-view="Table" style="background-color:#222222;" data-moreinfo="Last ticket status update and aging in hh:mm" data-title="(1/3) Last Ticket Updated"></div>
-		<div data-id="contractedtable" data-view="Table" style="background-color:#222222;" data-moreinfo="Contracted work tickets" data-title="(2/3) Contracted Work"></div>
-		<div data-id="escalatedtable" data-view="Table" style="background-color:#222222;" data-moreinfo="Escalated ticket status and aging in hh:mm" data-title="(3/3) Escalated Tickets"></div>
+	<li data-row="2" data-col="3" data-sizex="1" data-sizey="1">
+		<div data-id="resolvedu" data-view="AgentDonut" style="background-color:#222222;" data-moreinfo="Tickets resolved today" data-title="Resolved Tickets (UMS)"></div>
 	</li>
   </ul>
 </div>
