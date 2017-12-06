@@ -1,0 +1,70 @@
+<script type='text/javascript'>
+$(function() {
+  // These settings override the defaults set in application.coffee. You can do this on a per dashboard basis.
+//  Dashing.gridsterLayout('[{"col":1,"row":1},{"col":1,"row":2},{"col":1,"row":3},{"col":2,"row":1},{"col":2,"row":2},{"col":2,"row":3},{"col":3,"row":1},{"col":3,"row":2},{"col":3,"row":3},{"col":4,"row":1},{"col":4,"row":2},{"col":4,"row":3}]')
+  Dashing.widget_base_dimensions = [590, 490]
+  Dashing.numColumns = 6
+});
+</script>
+
+<% content_for :title do %>Tech Support Metrics Dashboard<% end %>
+
+<div class="gridster">
+  <ul>
+
+    <li data-row="1" data-col="1" data-sizex="1" data-sizey="3">
+      <div data-id="slastack1" data-view="GoogleColumn" data-is_stacked="percent" data-legend_position="bottom" data-colors="#00870f,#af5e1c,#580000" data-title="SLA Performance"></div>
+    </li>
+
+    <li data-row="1" data-col="2" data-sizex="1" data-sizey="1">
+      <div data-id="averageresponsetime" data-view="Hotness" data-title="Response Time" data-moreinfo="Current average response time" data-cool="31" data-warm="63"></div>
+    </li>
+
+    <li data-row="2" data-col="2" data-sizex="1" data-sizey="1">
+      <div data-id="newtickets" data-view="Number" data-title="New Tickets Today" data-moreinfo="Tickets created today" style="background-color:#222"></div>
+    </li>
+
+    <li data-row="3" data-col="2" data-sizex="1" data-sizey="1">
+      <div data-id="active" data-view="Hotness" data-title="Active Tickets" data-moreinfo="Total tickets on the log" data-cool="14" data-warm="25"></div>
+    </li>
+
+    <li data-row="1" data-col="3" data-sizex="1" data-sizey="1">
+      <div data-id="waittime" data-view="Hotness" data-title="Wait Time" data-moreinfo="Oldest ticket on the log" data-cool="31" data-warm="63"></div>
+    </li>
+
+    <li data-row="2" data-col="3" data-sizex="1" data-sizey="1">
+      <div data-id="closedtickets" data-view="Number" data-title="Resolved Today" data-moreinfo="Tickets closed today" style="background-color:#222"></div>
+    </li>
+
+    <li data-row="3" data-col="3" data-sizex="1" data-sizey="1">
+      <div data-id="unhandled" data-view="Hotness" data-title="Open Tickets" data-moreinfo="Tickets not in progess" data-cool="5" data-warm="11"></div>
+    </li>
+
+    <li data-row="4" data-col="1" data-sizex="1" data-sizey="3">
+      <div data-id="slastack2" data-view="GoogleColumn2" data-is_stacked="percent" data-legend_position="bottom" data-colors="#8D409E,#3d88d5,#224c76" data-title="Response Detail"></div>
+    </li>
+
+    <li data-row="3" data-col="6" data-sizex="1" data-sizey="1">
+      <div data-id="resolved" data-view="AgentDonut" style="background-color:#222222;" data-moreinfo="Tickets resolved today" data-title="Resolved Tickets"></div>
+    </li>
+
+    <li data-row="1" data-col="5" data-sizex="1" data-sizey="1">
+      <div data-id="activesummary" data-view="AgentDonut" style="background-color:#222222;" data-moreinfo="Active ticket summary" data-title="Active Tickets"></div>
+    </li>
+
+    <li data-row="1" data-col="6" data-sizex="1" data-sizey="1">
+      <div data-id="resolvedc" data-view="AgentDonut" style="background-color:#222222;" data-moreinfo="Tickets resolved today" data-title="Resolved CBSW"></div>
+    </li>
+
+    <li data-row="2" data-col="6"  data-sizex="1" data-sizey="1">
+      <div data-id="topcallerstable" data-view="Table" style="background-color:#222222;" data-moreinfo="Top 10 ticket creators this month" data-title="Top Callers"></div>
+    </li>
+
+    <li data-row="3" data-col="5" data-sizex="1" data-sizey="1">
+      <div data-id="pending" data-view="AgentDonut" style="background-color:#222222;" data-moreinfo="Assigned tickets NOT on the log" data-title="Pending Tickets"></div>
+    </li>
+    <li data-row="2" data-col="5" data-sizex="1" data-sizey="1">
+      <div data-id="resolvedu" data-view="AgentDonut" style="background-color:#222222;" data-moreinfo="Tickets resolved today" data-title="Resolved Tickets"></div>
+    </li>
+  </ul>
+</div>
