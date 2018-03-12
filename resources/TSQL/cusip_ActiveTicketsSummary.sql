@@ -31,6 +31,8 @@ BEGIN
             'Escalated__b__u__bTier__b2'
         )
     AND
+        ISNULL(Payment__bServices, 'off') <> 'on'
+    AND
         (mrASSIGNEES LIKE 'Support%' OR mrASSIGNEES LIKE '% Support%')
     AND
         NOT m.Scheduled__bCall >= DATEADD(d,1,CAST(GETDATE() AS DATE))
