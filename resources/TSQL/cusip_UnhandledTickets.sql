@@ -35,8 +35,8 @@ BEGIN
 			'Pending',
 			'Deployment'
 		)
-  AND
-    ISNULL(Payment__bServices, 'off') <> 'on'
+  	AND
+    		ISNULL(Payment__bServices, 'off') <> 'on'
 	AND
 		(m.mrASSIGNEES LIKE 'Support%' OR m.mrASSIGNEES LIKE '% Support%')
 	AND --Empty scheduled call time or the scheduled call time is before now.
@@ -72,8 +72,8 @@ BEGIN
 				'Pending',
 				'Deployment'
 			)
-    AND
-      ISNULL(Payment__bServices, 'off') <> 'on'
+    		AND
+      			ISNULL(Payment__bServices, 'off') <> 'on'
 		AND
 			(m.mrASSIGNEES LIKE 'Support%' OR m.mrASSIGNEES LIKE '% Support%')
 		AND --Empty scheduled call time or the scheduled call time is before now.
