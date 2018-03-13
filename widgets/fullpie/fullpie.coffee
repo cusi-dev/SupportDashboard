@@ -26,6 +26,7 @@ class Dashing.Fullpie extends Dashing.Widget
       #.range( ['#222222','#555555','#777777','#999999','#bbbbbb','#dddddd','#ffffff'] )
       #.range( ['#222222','#333333','#444444','#555555','#666666','#777777','#888888','#999999','#aaaaaa'] )
       .range( ['#4498ed','#9844ed','#4444ee'] )
+      #.range( ['#00c116','#FA8728','#7F0000'] )
 
     $(@node).children("svg").remove();
 
