@@ -270,7 +270,7 @@ foreach ($row in $rows)
     $pb2 += "
         { 
             ""label"" : ""$($row[0])"",
-            ""value"" :  $($row[8])
+            ""value"" :  $($row[9])
         }
     "
     if ($i -lt $rows.Count)
@@ -367,6 +367,29 @@ $json3u = "{
 (Invoke-WebRequest -Uri $url3u -Method Post -Body $json3u).content | ConvertFrom-Json
 
 #
+# RESOLVED (PAYMENT SERVICES)
+#
+$resolvedp = 0
+foreach ($row in $rows)
+{
+    $resolvedp += $row[5]
+}
+$pb3p = 
+    "[
+        {
+            ""label"" : ""Resolved"",
+            ""value"" : $resolvedp
+        }
+     ]"
+$url3p = "$($dashboardURL)/widgets/resolvedp"
+$json3p = "{
+    ""auth_token"" : ""$($authToken)"",
+    ""data"" : $pb3p
+}"
+
+(Invoke-WebRequest -Uri $url3p -Method Post -Body $json3p).content | ConvertFrom-Json
+
+#
 # ASSIGNED
 #
 $i = 0
@@ -377,7 +400,7 @@ foreach ($row in $rows)
     $pb4 += "
         { 
             ""label"" : ""$($row[0])"",
-            ""value"" :  $($row[5])
+            ""value"" :  $($row[6])
         }
     "
     if ($i -lt $rows.Count)

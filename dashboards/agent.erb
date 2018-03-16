@@ -9,17 +9,17 @@ $(function() {
 <% content_for :title do %>Tech Support Agent Metrics Dashboard<% end %>
 
 <div class="gridster">
-  <ul>
-	<li data-row="1" data-col="1" data-sizex="1" data-sizey="1"> 
-		<div data-id="resolved" data-view="AgentDonut" style="background-color:#222222;" data-moreinfo="Tickets resolved today" data-title="Resolved Tickets (ALL)"></div>
-	</li>
-	
-	<li data-row="1" data-col="2" data-sizex="1" data-sizey="1"> 
-		<div data-id="activesummary" data-view="AgentDonut" style="background-color:#222222;" data-moreinfo="Active ticket summary" data-title="Active Tickets"></div>
+	<ul>
+	<li data-row="1" data-col="1" data-sizex="1" data-sizey="1">
+		<div data-id="resolvedu" data-view="AgentDonut" style="background-color:#222222;" data-moreinfo="Tickets resolved today" data-title="Resolved Tickets (UMS)"></div>
 	</li>
 
 	<li data-row="1" data-col="2" data-sizex="1" data-sizey="1">
 		<div data-id="resolvedc" data-view="AgentDonut" style="background-color:#222222;" data-moreinfo="Tickets resolved today" data-title="Resolved Tickets (CBSW)"></div>
+	</li>
+	
+	<li data-row="1" data-col="3" data-sizex="1" data-sizey="1"> 
+		<div data-id="resolvedp" data-view="AgentDonut" style="background-color:#222222;" data-moreinfo="Tickets resolved today" data-title="Resolved Tickets (Payment Services)"></div>
 	</li>
 
 	<li data-row="2" data-col="1"  data-sizex="1" data-sizey="1">
@@ -29,8 +29,9 @@ $(function() {
 	<li data-row="2" data-col="2" data-sizex="1" data-sizey="1">
 		<div data-id="pending" data-view="AgentDonut" style="background-color:#222222;" data-moreinfo="Assigned tickets NOT on the log" data-title="Pending Tickets"></div>
 	</li>
-	<li data-row="2" data-col="3" data-sizex="1" data-sizey="1">
-		<div data-id="resolvedu" data-view="AgentDonut" style="background-color:#222222;" data-moreinfo="Tickets resolved today" data-title="Resolved Tickets (UMS)"></div>
+
+	<li data-row="2" data-col="3" data-sizex="1" data-sizey="1"> 
+		<div data-id="resolved" data-view="AgentDonut" style="background-color:#222222;" data-moreinfo="Tickets resolved today" data-title="Resolved Tickets (ALL)"></div>
 	</li>
   </ul>
 </div>
