@@ -18,7 +18,7 @@ BEGIN
         Resolved INT,
         ResolvedUMS INT,
         ResolvedCBSW INT,
-		ResolvedPS INT,
+	ResolvedPS INT,
         Assigned INT,
         AssignedUMS INT,
         AssignedCBSW INT,
@@ -152,7 +152,7 @@ BEGIN
         Resolved = ISNULL(tResolved.aCount,0),
         ResolvedUMS = ISNULL(tResolved.uCount,0),
         ResolvedCBSW = ISNULL(tResolved.cCount,0),
-		ResolvedPS = ISNULL(tResolved.pCount,0)
+	ResolvedPS = ISNULL(tResolved.pCount,0)
     FROM
         #tmpAgentStats s
     LEFT JOIN
@@ -170,21 +170,21 @@ BEGIN
                     WHEN ab.[Application] = 'CBSW' THEN 1 ELSE 0
                 END
             ) cCount,
-			SUM(
-				CASE
-					WHEN m4.[Payment__bServices] = 'on' THEN 1 ELSE 0
-				END
-			) pCount
+	    SUM(
+		CASE
+		    WHEN m4.[Payment__bServices] = 'on' THEN 1 ELSE 0
+		END
+	    ) pCount
         FROM
             #tmpUserTickets t
         INNER JOIN
             MASTER4_ABDATA ab
         ON
             ab.mrID = t.mrid
-		INNER JOIN
-			MASTER4 m4
-		ON
-			m4.mrID = t.mrid
+	INNER JOIN
+	    MASTER4 m4
+	ON
+	    m4.mrID = t.mrid
         GROUP BY
             t.AgentID
     ) tResolved
