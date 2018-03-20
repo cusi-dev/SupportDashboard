@@ -369,18 +369,23 @@ $json3u = "{
 #
 # RESOLVED (PAYMENT SERVICES)
 #
-$resolvedp = 0
+$i = 0
+$pb3p = "["
 foreach ($row in $rows)
 {
-    $resolvedp += $row[5]
-}
-$pb3p = 
-    "[
-        {
-            ""label"" : ""Resolved"",
-            ""value"" : $resolvedp
+    $i += 1
+    $pb3p += "
+        { 
+            ""label"" : ""$($row[0])"",
+            ""value"" :  $($row[5])
         }
-     ]"
+    "
+    if ($i -lt $rows.Count)
+    {
+        $pb3p += ","
+    }
+}
+$pb3p += "]"
 $url3p = "$($dashboardURL)/widgets/resolvedp"
 $json3p = "{
     ""auth_token"" : ""$($authToken)"",
