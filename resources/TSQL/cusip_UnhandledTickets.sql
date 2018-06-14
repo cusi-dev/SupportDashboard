@@ -24,6 +24,7 @@ BEGIN
 			'Escalated__b__u__bTier__b2',
 			'Escalated__b__u__bDevelopment',
 			'Escalated__b__u__bCBSW__bDevelopment',
+			'Escalated__b__u__bPayment__bServices';
 			'Assigned',
 			'In__bProgress',
 			'Closed',
@@ -61,6 +62,7 @@ BEGIN
 				'Escalated__b__u__bTier__b2',
 				'Escalated__b__u__bDevelopment',
 				'Escalated__b__u__bCBSW__bDevelopment',
+				'Escalated__b__u__bPayment__bServices';
 				'Assigned',
 				'In__bProgress',
 				'Closed',
