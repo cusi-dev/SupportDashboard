@@ -21,9 +21,10 @@ BEGIN
 		m.mrid=ma.mrID
 	WHERE 
 		m.mrSTATUS NOT IN (
-			'Escalated__b__u__bTier__b2',
-			'Escalated__b__u__bDevelopment',
 			'Escalated__b__u__bCBSW__bDevelopment',
+			'Escalated__b__u__bDevelopment',
+			'Escalated__b__u__bPayment__bServices',
+			'Escalated__b__u__bTier__b2',
 			'Assigned',
 			'In__bProgress',
 			'Closed',
@@ -35,8 +36,8 @@ BEGIN
 			'Pending',
 			'Deployment'
 		)
-  	AND
-    		ISNULL(Payment__bServices, 'off') <> 'on'
+  	--AND
+      			--ISNULL(Payment__bServices, 'off') <> 'on' --Exclude Payment Services tickets
 	AND
 		(m.mrASSIGNEES LIKE 'Support%' OR m.mrASSIGNEES LIKE '% Support%')
 	AND --Empty scheduled call time or the scheduled call time is before now.
@@ -58,9 +59,10 @@ BEGIN
 			m.mrid=ma.mrID
 		WHERE 
 			m.mrSTATUS NOT IN (
-				'Escalated__b__u__bTier__b2',
-				'Escalated__b__u__bDevelopment',
 				'Escalated__b__u__bCBSW__bDevelopment',
+				'Escalated__b__u__bDevelopment',
+				'Escalated__b__u__bPayment__bServices',
+				'Escalated__b__u__bTier__b2',
 				'Assigned',
 				'In__bProgress',
 				'Closed',
@@ -72,8 +74,8 @@ BEGIN
 				'Pending',
 				'Deployment'
 			)
-    		AND
-      			ISNULL(Payment__bServices, 'off') <> 'on'
+    		--AND
+      			--ISNULL(Payment__bServices, 'off') <> 'on' --Exclude Payment Services tickets
 		AND
 			(m.mrASSIGNEES LIKE 'Support%' OR m.mrASSIGNEES LIKE '% Support%')
 		AND --Empty scheduled call time or the scheduled call time is before now.
