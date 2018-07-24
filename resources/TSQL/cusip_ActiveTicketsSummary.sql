@@ -1,4 +1,11 @@
-CREATE PROCEDURE [dbo].[cusip_ActiveTicketsSummary]
+USE [Footprints]
+GO
+/****** Object:  StoredProcedure [dbo].[cusip_ActiveTicketsSummary]    Script Date: 7/24/2018 10:28:25 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+ALTER PROCEDURE [dbo].[cusip_ActiveTicketsSummary]
 (
     @i_Dashboard BIT = 1
 )
@@ -26,12 +33,11 @@ BEGIN
             'Pending',
             'Escalated__b__u__bDevelopment',
             'Escalated__b__u__bCBSW__bDevelopment',
+			'Escalated__b__u__bIT',
             'Escalated__b__u__bMgmt',
             'Escalated__b__u__bPayment__bServices',
             'Escalated__b__u__bTier__b2'
         )
-    AND
-        ISNULL(Payment__bServices, 'off') <> 'on'
     AND
         (mrASSIGNEES LIKE 'Support%' OR mrASSIGNEES LIKE '% Support%')
     AND
