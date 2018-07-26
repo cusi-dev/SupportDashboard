@@ -1,11 +1,4 @@
-USE [Footprints]
-GO
-/****** Object:  StoredProcedure [dbo].[cusip_ActiveTicketsSummary]    Script Date: 7/24/2018 10:28:25 AM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-ALTER PROCEDURE [dbo].[cusip_ActiveTicketsSummary]
+CREATE PROCEDURE [dbo].[cusip_ActiveTicketsSummary]
 (
     @i_Dashboard BIT = 1
 )
