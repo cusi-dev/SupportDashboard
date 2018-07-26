@@ -26,12 +26,11 @@ BEGIN
             'Pending',
             'Escalated__b__u__bDevelopment',
             'Escalated__b__u__bCBSW__bDevelopment',
+            'Escalated__b__u__bIT',
             'Escalated__b__u__bMgmt',
             'Escalated__b__u__bPayment__bServices',
             'Escalated__b__u__bTier__b2'
         )
-    AND
-        ISNULL(Payment__bServices, 'off') <> 'on'
     AND
         (mrASSIGNEES LIKE 'Support%' OR mrASSIGNEES LIKE '% Support%')
     AND
