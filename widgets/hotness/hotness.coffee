@@ -12,9 +12,9 @@ class Dashing.Hotness extends Dashing.Widget
     warm = parseInt node.data "warm"
     level = switch
       when value <= cool then 0
-      when value >= warm then 4
+      when value >= warm then 2
       else
-        bucketSize = (warm - cool) / 4 # Total # of colours in middle
+        bucketSize = (warm - cool) / 2 # Total # of colours in middle
         Math.ceil (value - cool) / bucketSize
 
     backgroundClass = "hotness#{level}"
